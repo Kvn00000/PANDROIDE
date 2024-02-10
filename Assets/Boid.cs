@@ -21,8 +21,4 @@ public class Boid : MonoBehaviour
         //transform.position += new Vector3(0, 0, 0.001f);
         rb.AddForce(transform.forward * speed);
     }
-    private void OnTriggerEnter(Collider other)
-    {
-        
-    }
 }
