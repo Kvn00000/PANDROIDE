@@ -26,5 +26,9 @@ public class AnimatedHandOnInput : MonoBehaviour{
         //Gere l'animation
         handAnimator.SetFloat("Trigger",tvalue);
 
+        //get value grip boutton
+        float gValue = gripAnimationAction.action.ReadValue<float>();
+        handAnimator.SetFloat("Grip",gValue);
+
     }
 }

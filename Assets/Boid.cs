@@ -4,9 +4,12 @@ using UnityEngine;
 
 public class Boid : MonoBehaviour
 {
+
+    private Rigidbody rb;
     // Start is called before the first frame update
     void Start()
     {
+        rb = GetComponent<Rigidbody>();
         Invoke("ShowObject", 2);
     }
 
@@ -15,6 +18,11 @@ public class Boid : MonoBehaviour
     void Update()
     {
         // Moves the object forward one unit every frame.
-        transform.position += new Vector3(0, 0, 0.001f);
+        //transform.position += new Vector3(0, 0, 0.001f);
+        rb.AddForce(transform.forward * speed);
+    }
+    private void OnTriggerEnter(Collider other)
+    {
+        
     }
 }
