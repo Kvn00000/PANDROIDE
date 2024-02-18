@@ -17,7 +17,7 @@ public class Boid : MonoBehaviour
     }
 
     // Update is called once per frame
-    //public float speed = 2;
+    public float speed = 2;
     
 
 
@@ -26,7 +26,7 @@ public class Boid : MonoBehaviour
         // Moves the object forward one unit every frame.
         //transform.position += new Vector3(0, 0, 0.001f);
         //rb.GetComponent<Rigidbody>().AddForce(transform.forward * speed);
-        boid.GetComponent<Rigidbody>().AddForce(force,ForceMode.Impulse);
+        boid.GetComponent<Rigidbody>().AddForce(transform.forward * speed);
         
 
     }
