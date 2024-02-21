@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Boid : MonoBehaviour
 {
-    public GameObject boid;
 
     public Vector3 force = new Vector3(0.01f, 0f, 0f);
     //private Rigidbody rb;
@@ -26,7 +25,7 @@ public class Boid : MonoBehaviour
         // Moves the object forward one unit every frame.
         //transform.position += new Vector3(0, 0, 0.001f);
         //rb.GetComponent<Rigidbody>().AddForce(transform.forward * speed);
-        boid.GetComponent<Rigidbody>().AddForce(transform.forward * speed);
+        //boid.GetComponent<Rigidbody>().AddForce(transform.forward * speed);
         
 
     }
