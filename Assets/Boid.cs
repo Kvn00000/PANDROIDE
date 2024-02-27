@@ -6,12 +6,12 @@ public class Boid : MonoBehaviour
 {
 
     public Vector3 force = new Vector3(0.01f, 0f, 0f);
-    //private Rigidbody rb;
+    private Rigidbody rb;
     // Start is called before the first frame update
     void Start()
     {
 
-        //rb = GetComponent<Rigidbody>();
+        rb = GetComponent<Rigidbody>();
         //Invoke("ShowObject", 2);
     }
 
@@ -24,7 +24,7 @@ public class Boid : MonoBehaviour
     {
         // Moves the object forward one unit every frame.
         //transform.position += new Vector3(0, 0, 0.001f);
-        //rb.GetComponent<Rigidbody>().AddForce(transform.forward * speed);
+        rb.GetComponent<Rigidbody>().AddForce(transform.forward * speed);
         //boid.GetComponent<Rigidbody>().AddForce(transform.forward * speed);
         
 

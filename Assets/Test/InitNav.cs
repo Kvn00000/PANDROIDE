@@ -1,13 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.ProBuilder;
 using Unity.AI.Navigation;
-using Unity.VisualScripting;
 using UnityEngine.AI;
-using System;
 
-public class InitialSpawnScript : MonoBehaviour
+
+public class InitNav : MonoBehaviour
 {
     //Taille de l'arene
     private static int _dx = 10;
@@ -20,6 +18,7 @@ public class InitialSpawnScript : MonoBehaviour
 
     //Tableau de toutes les cases
     private GameObject[,] elements = new GameObject[_dx*_dx,_dz*_dz];
+    private GameObject Walls ;
 
     //Tableau de mur
     private GameObject[] allwalls = new GameObject[4];
@@ -42,47 +41,23 @@ public class InitialSpawnScript : MonoBehaviour
     private NavMeshSurface navSurface;
 
 
+    private BoxCollider bc;
+
+
     // Start is called before the first frame update
     void Start()
     {
+        
         //On créé un agent
         prout = Instantiate(agent, new Vector3(0,0,-4), init_transform.rotation);
         navAgent = prout.AddComponent<NavMeshAgent>();
         navAgent.speed = 1f;
-        
+
+
         //Coords d'une case
         float x_ref = -_dx/2;
         float y_ref = 0;
         float z_ref = -_dz/2;
-        int cptwall = 0;
-        
-        /* pleins de test pour le mur
-        for(float x = 0; x<360; x = x+90){
-            
-            if(x == 0 || x == 270){
-                Debug.Log(x);
-                Debug.Log(new Quaternion(0,x,0,1));
-                allwalls[cptwall] = Instantiate(wall, new Vector3(-_dx/2F,0F,-_dz/2F), init_transform.rotation);
-                allwalls[cptwall].transform.rotation = new Quaternion(0,x,0,1);
-            }else{
-                Debug.Log(x);
-                Debug.Log(new Quaternion(0,x,0,1));
-                allwalls[cptwall] = Instantiate(wall, new Vector3(_dx/2F,0F,_dz/2F),init_transform.rotation);
-                allwalls[cptwall].transform.rotation = new Quaternion(0,x,0,1);
-            }
-            cptwall = cptwall + 1;
-        }
-        */
-        /*
-        for(float x = -_dx/2F; x<=_dx/2F; x = x+_dx){
-            for(float y = -_dz/2F; y<=_dz/2F; x = x+_dz){
-                allwalls[cptwall] = Instantiate(wall, new Vector3(x,0F,y), init_transform.rotation);
-                cptwall = cptwall + 1;
-            }
-        }
-        */
-
-
 
         //Compteur de nombre de case (au cas ou la case est de taille <1)
         int cptx = 0;
@@ -118,7 +93,4 @@ public class InitialSpawnScript : MonoBehaviour
         navAgent.SetDestination(positionEnAvant);
     }
 
-    
-    
-    
 }

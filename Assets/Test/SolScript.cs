@@ -22,7 +22,7 @@ public class Sol2 : MonoBehaviour
         rb = gameObject.AddComponent<Rigidbody>();
         rb.useGravity = false;
         rb.isKinematic = true;
-        rb.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
+        rb.collisionDetectionMode = CollisionDetectionMode.ContinuousSpeculative;
         bc = gameObject.AddComponent<BoxCollider>();
         bc.center = new Vector3(_dx/2F,-0.05F,_dz/2F);
         bc.size = new Vector3(_dx,0.1F,_dz);
@@ -30,18 +30,19 @@ public class Sol2 : MonoBehaviour
         //Cube made of 2 triangles
         Vector3[] vertices = new Vector3[4]{
             new Vector3(0, 0, 0),
-            new Vector3(0, 0, _dz),           
-            new Vector3(_dx, 0, 0),           
+            new Vector3(0, 0, _dz),
+            new Vector3(_dx, 0, 0),
             new Vector3(_dx, 0, _dz), 
         };
-
+        //Je sais pas ca sert a quoi uv mdr
+        /*
         Vector2[] uv = new Vector2[4]{
             new Vector2(0,0),           
             new Vector2(0, _dz),
             new Vector2(_dx, 0),           
             new Vector2(_dx, _dz),
         };
- 
+        */
         int[] triangles = new int[6]{
             //Add the triangles clockwise
             1,3,2,
@@ -51,7 +52,7 @@ public class Sol2 : MonoBehaviour
 
         Mesh meshs = new Mesh();
         meshs.vertices = vertices;
-        meshs.uv = uv;
+        //meshs.uv = uv;
         meshs.triangles = triangles;
 
 
