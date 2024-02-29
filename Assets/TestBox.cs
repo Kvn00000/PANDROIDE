@@ -14,6 +14,8 @@ public class Testbox : MonoBehaviour
     private bool grounded = false;
     private bool noturn = true;
 
+    private bool frein = false;
+
 
 
 
@@ -31,9 +33,76 @@ public class Testbox : MonoBehaviour
 
     void Update()
     {
+        //If not on the ground apply gravity
+        if (!grounded)
+        {
+            rb.AddForce(Physics.gravity * Time.deltaTime, ForceMode.Acceleration);
+        }
+        else
+        {
+            float rotation = 0.0f;
+            rotation = AvoidWallRcast();
+            //transform.Rotate(transform.up, rotation*Time.deltaTime);
+            rb.AddTorque(transform.right * rotation*Time.deltaTime);
+            rb.AddRelativeTorque(transform.right * rotation * Time.deltaTime);
+            if (rotation == 0.0)
+            {
+                rb.AddForce(transform.forward * speed * Time.deltaTime, ForceMode.Force);
+            }
+            if (rotation != 0.0)
+            {
+                rb.AddForce(transform.forward * speed*0.001f * Time.deltaTime, ForceMode.Force);
+            }
+
+        }
+
+    }
+
+    private float AvoidWallRcast()
+    {
+        Vector3 myPos = transform.position;
+        Ray front = new Ray(myPos, transform.forward);
+        Ray right = new Ray(myPos, transform.right);
+        Ray left = new Ray(myPos, -transform.right);
+        float maxdistance = 0.58f;
+        int layerWall = 8;
+        LayerMask layermask = 1 << layerWall;
+        float rotation = 0.0f;
+        bool hit = false;
+        //hit left
+        if (Physics.Raycast(left, maxdistance, layermask) && (!Physics.Raycast(right, maxdistance, layermask)))
+        {
+            Debug.Log("HIT LEFT");
+            rotation = 10;
+            hit = true;
+        }
+        //hit right
+        if ((Physics.Raycast(right, maxdistance, layermask)) && (!Physics.Raycast(left, maxdistance, layermask)))
+        {
+            Debug.Log("HIT Right");
+            rotation = -20;
+            hit = true;
+        }
+        //hit front
+        if (Physics.Raycast(front, maxdistance, layermask))
+        {
+            Debug.Log("HIT FRONT");
+            rotation = 40;
+            hit = true;
+        }
+        if(hit==false)
+        {
+            Debug.Log("HIT FRONT");
+            rb.angularVelocity = Vector3.zero;
+        }
+
+        return rotation;
+    }
+    private void v1()
+    {
         // Moves the object forward one unit every frame.
         //Rotation Check
-        float rotate=0.0f;
+        float rotate = 0.0f;
         /*
         // boid detected in far sphere
         if (FarBoid())
@@ -52,8 +121,8 @@ public class Testbox : MonoBehaviour
         */
         if (IsWallNear())
         {
-             rotate= handleWallCollision();
-        }     
+            rotate = handleWallCollision();
+        }
         // Add Gravity if not grounded
         if (!grounded)
         {
@@ -61,16 +130,18 @@ public class Testbox : MonoBehaviour
         }
         else
         {
+
             Debug.Log("Rotate Value = " + rotate);
             // I don't have to turn
             if (rotate < 0.1f)
             {
+                Debug.Log("NO ROTATE");
                 //Finished a rotation
                 if (!noturn)
                 {
-                    rb.velocity = Vector3.zero;
+                    //rb.velocity = Vector3.zero;
                     rb.angularVelocity = Vector3.zero;
-                    wallCollider = new List<Collider>();
+                    //wallCollider = new List<Collider>();
                     Debug.Log("Finished rotation restarting");
                 }
                 rb.AddForce(transform.forward * speed * Time.deltaTime, ForceMode.Force);
@@ -79,21 +150,32 @@ public class Testbox : MonoBehaviour
             // I have to turn
             else
             {
-                if(noturn) 
+                Debug.Log("ROTATE");
+                if (noturn)
                 {
-                    rb.velocity = Vector3.zero;
-                    rb.angularVelocity = Vector3.zero;
+                    if (frein)
+                    {
+                        rb.velocity = Vector3.zero;
+                    }
                     noturn = false;
                 }
-                rb.AddRelativeTorque(Vector3.right * rotate * Time.deltaTime, ForceMode.Force);
-                rb.AddForce(transform.forward * speed *0.01f* Time.deltaTime, ForceMode.Impulse);
+                //rb.AddRelativeTorque(Vector3.right * rotate * Time.deltaTime, ForceMode.Force);
+                transform.Rotate(Vector3.up, 20 * rotate * Time.deltaTime);
+                if (frein)
+                {
+                    Debug.Log("FREIN ON");
+                    rb.AddForce(transform.forward * speed * 0.01f * Time.deltaTime, ForceMode.Force);
+                }
+                else
+                {
+                    Debug.Log("FREIN OFF");
+                    rb.AddForce(transform.forward * speed * Time.deltaTime, ForceMode.Force);
+                }
+
 
             }
         }
-
-
     }
-
     private float handleWallCollision()
     {
         float rotation = 0.0f;
@@ -109,15 +191,25 @@ public class Testbox : MonoBehaviour
             float dis = Vector3.Distance(this.transform.forward, tow);
             float angle = Vector3.Angle(this.transform.forward, clp);
             Debug.Log("ANGLE = " + angle);
-            if (angle<100)
+            Debug.Log("DISTANCE = " + dis);
+            if (angle<110)
             {
-                rotation = 0.9f;
+                rotation = 0.8f;
+                if (angle <90)
+                {
+                    frein = true;
+                }
+                else 
+                {
+                    frein = false;
+                }
+
             }
 
             //Debug.Log("Closest point = "+clp);
             //Debug.Log("on Bounds = " + clpb);
             //Debug.Log("TOWARDS = " + tow);
-            //Debug.Log("DISTANCE = " + dis);
+            
             
         }
         return rotation;

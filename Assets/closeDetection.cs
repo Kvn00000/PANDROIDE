@@ -24,7 +24,7 @@ public class closeDetection : MonoBehaviour
             Vector3 mypos = parent.transform.position;
             Vector3 clp = other.ClosestPoint(mypos);
             float angle = Vector3.Angle(this.transform.forward, clp);
-            Debug.Log("WALL ANGLE ENTER is " + angle);
+            //Debug.Log("WALL ANGLE ENTER is " + angle);
             if (angle < 90)
             {
                 parent.AddCollider(other);
@@ -41,7 +41,7 @@ public class closeDetection : MonoBehaviour
             Vector3 mypos = parent.transform.position;
             Vector3 clp = other.ClosestPoint(mypos);
             float angle = Vector3.Angle(this.transform.forward, clp);
-            Debug.Log("WALL ANGLE STAY is " + angle);
+            //Debug.Log("WALL ANGLE STAY is " + angle);
             parent.AddCollider(other);
         }
 
