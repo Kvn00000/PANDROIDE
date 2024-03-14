@@ -41,13 +41,15 @@ public class Testbox : MonoBehaviour
         else
         {
             float rotation = 0.0f;
-            rotation = AvoidWallRcast();
+            rotation = AvoidBoidRcast(rotation);
+            rotation = AvoidWallRcast(rotation);
             //transform.Rotate(transform.up, rotation*Time.deltaTime);
             rb.AddTorque(transform.right * rotation*Time.deltaTime);
-            rb.AddRelativeTorque(transform.right * rotation * Time.deltaTime);
+            //rb.AddRelativeTorque(transform.right * rotation * Time.deltaTime);
             if (rotation == 0.0)
             {
                 rb.AddForce(transform.forward * speed * Time.deltaTime, ForceMode.Force);
+                rb.angularVelocity = Vector3.zero;
             }
             if (rotation != 0.0)
             {
@@ -57,13 +59,35 @@ public class Testbox : MonoBehaviour
         }
 
     }
-
-    private float AvoidWallRcast()
+    // VERSION AVEC RAYCAST
+    private float AvoidWallRcast(float rotate)
     {
-        Vector3 myPos = transform.position;
+        //Init Ray
+        Vector3 myPos = rb.transform.position;
         Ray front = new Ray(myPos, transform.forward);
         Ray right = new Ray(myPos, transform.right);
         Ray left = new Ray(myPos, -transform.right);
+        // Build Other
+        Vector3 f = transform.forward;
+        Vector3 r = transform.right;
+        Vector3 fright = new Vector3(f.x + r.x,f.y,f.z+r.z) ;
+        Vector3 fleft= new Vector3(f.x - r.x, f.y+r.y, f.z - r.z);
+        Ray FrontRight = new Ray(myPos, fright);
+        Ray FrontLeft = new Ray(myPos, fleft);
+        // Init int
+        int fr = 0;
+        int ri = 0;
+        int le = 0;
+        int fri = 0;
+        int fle = 0;
+        // Draw Ray
+
+        Debug.DrawRay(myPos,transform.forward);
+        Debug.DrawRay(myPos, transform.right);
+        Debug.DrawRay(myPos, -transform.right);
+        Debug.DrawRay(myPos, fright);
+        Debug.DrawRay(myPos, fleft);
+        //
         float maxdistance = 0.58f;
         int layerWall = 8;
         LayerMask layermask = 1 << layerWall;
@@ -72,32 +96,117 @@ public class Testbox : MonoBehaviour
         //hit left
         if (Physics.Raycast(left, maxdistance, layermask) && (!Physics.Raycast(right, maxdistance, layermask)))
         {
-            Debug.Log("HIT LEFT");
+            //Debug.Log("HIT LEFT");
             rotation = 10;
+            le = 1;
             hit = true;
         }
         //hit right
         if ((Physics.Raycast(right, maxdistance, layermask)) && (!Physics.Raycast(left, maxdistance, layermask)))
         {
-            Debug.Log("HIT Right");
+            //Debug.Log("HIT Right");
             rotation = -20;
+            ri = 1;
             hit = true;
         }
         //hit front
         if (Physics.Raycast(front, maxdistance, layermask))
         {
-            Debug.Log("HIT FRONT");
-            rotation = 40;
+            //Debug.Log("HIT FRONT");
+            fr = 1;
             hit = true;
         }
         if(hit==false)
         {
-            Debug.Log("HIT FRONT");
-            rb.angularVelocity = Vector3.zero;
+            //Debug.Log("HIT FRONT");
+            //rb.angularVelocity = Vector3.zero;
         }
-
-        return rotation;
+        rotation = 40 * fr + 25 * le - 25 * ri;
+        if (rotation != 0.0)
+        {
+            return rotation;
+        }
+        else
+        {
+            return rotate;
+        }
     }
+
+    private float AvoidBoidRcast(float rotate)
+    {
+        //Init Ray
+        Vector3 myPos = rb.transform.position;
+        Ray front = new Ray(myPos, transform.forward);
+        Ray right = new Ray(myPos, transform.right);
+        Ray left = new Ray(myPos, -transform.right);
+        // Build Other
+        Vector3 f = transform.forward;
+        Vector3 r = transform.right;
+        Vector3 fright = new Vector3(f.x + r.x, f.y, f.z + r.z);
+        Vector3 fleft = new Vector3(f.x - r.x, f.y + r.y, f.z - r.z);
+        Ray FrontRight = new Ray(myPos, fright);
+        Ray FrontLeft = new Ray(myPos, fleft);
+        // Init int
+        int fr = 0;
+        int ri = 0;
+        int le = 0;
+        int fri = 0;
+        int fle = 0;
+        // Draw Ray
+
+        Debug.DrawRay(myPos, transform.forward);
+        Debug.DrawRay(myPos, transform.right);
+        Debug.DrawRay(myPos, -transform.right);
+        Debug.DrawRay(myPos, fright);
+        Debug.DrawRay(myPos, fleft);
+        //
+        float maxdistance = 0.2f;
+        int layerWall = 6;
+        LayerMask layermask = 1 << layerWall;
+        float rotation = 0.0f;
+        bool hit = false;
+        //hit left
+        RaycastHit[] leftHit = Physics.RaycastAll(left,maxdistance,layermask);
+        le=collidedRcastAll(leftHit, myPos);
+
+        //hit right
+        RaycastHit[] rightHit = Physics.RaycastAll(right,maxdistance, layermask);
+        ri = collidedRcastAll(rightHit, myPos);
+
+        //hit front
+        RaycastHit[] frontHit = Physics.RaycastAll(front, maxdistance, layermask);
+        fr = collidedRcastAll(frontHit, myPos);
+        //hit front Right
+        RaycastHit[] frontRightHit = Physics.RaycastAll(FrontRight, maxdistance, layermask);
+        fri = collidedRcastAll(frontRightHit, myPos);
+        //hit front Left
+        RaycastHit[] frontLeftHit = Physics.RaycastAll(FrontLeft, maxdistance, layermask);
+        fle = collidedRcastAll(frontLeftHit, myPos);
+        rotation = 20 * fr + 15 * fle - 15 * fri + 5 * le - 5 * le;
+
+        if (rotation != 0.0)
+        {
+            return rotation;
+        }
+        else
+        {
+            return rotate;
+        }
+    }
+
+    private int collidedRcastAll(RaycastHit[] tab, Vector3 myPos)
+    {
+        for(int i = 0; i<tab.Length; i++)
+        {
+            RaycastHit hitInfo = tab[i];
+            if (hitInfo.transform.position != myPos)
+            {
+                return 1;
+            }
+        }
+        return 0;
+    }
+    // BOOTLEG EN BAS --> MARCHE PAS
     private void v1()
     {
         // Moves the object forward one unit every frame.
@@ -233,7 +342,7 @@ public class Testbox : MonoBehaviour
         }
         else
         {
-            Debug.Log("is  NOT Grounded");
+            //Debug.Log("is  NOT Grounded");
             grounded = false;
         }
     }
@@ -315,4 +424,3 @@ public class Testbox : MonoBehaviour
 
 
 }
-

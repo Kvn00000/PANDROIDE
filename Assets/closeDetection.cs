@@ -19,7 +19,7 @@ public class closeDetection : MonoBehaviour
     {
         if (other.gameObject.layer == LayerMask.NameToLayer("MUR"))
         {
-            Debug.Log("Wall encoutered");
+            //Debug.Log("Wall encoutered");
             Testbox parent = (Testbox)transform.parent.GetComponent<Testbox>();
             Vector3 mypos = parent.transform.position;
             Vector3 clp = other.ClosestPoint(mypos);
