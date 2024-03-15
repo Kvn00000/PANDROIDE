@@ -41,6 +41,7 @@ public class Testbox : MonoBehaviour
         else
         {
             float rotation = 0.0f;
+            rotation = GoToBoidRcast(rotation);
             rotation = AvoidBoidRcast(rotation);
             rotation = AvoidWallRcast(rotation);
             //transform.Rotate(transform.up, rotation*Time.deltaTime);
@@ -153,12 +154,13 @@ public class Testbox : MonoBehaviour
         int fri = 0;
         int fle = 0;
         // Draw Ray
-
+        /*
         Debug.DrawRay(myPos, transform.forward);
         Debug.DrawRay(myPos, transform.right);
         Debug.DrawRay(myPos, -transform.right);
         Debug.DrawRay(myPos, fright);
         Debug.DrawRay(myPos, fleft);
+        */
         //
         float maxdistance = 0.2f;
         int layerWall = 6;
@@ -167,7 +169,7 @@ public class Testbox : MonoBehaviour
         bool hit = false;
         //hit left
         RaycastHit[] leftHit = Physics.RaycastAll(left,maxdistance,layermask);
-        le=collidedRcastAll(leftHit, myPos);
+        le=goToRcastAll(leftHit, myPos);
 
         //hit right
         RaycastHit[] rightHit = Physics.RaycastAll(right,maxdistance, layermask);
@@ -182,7 +184,7 @@ public class Testbox : MonoBehaviour
         //hit front Left
         RaycastHit[] frontLeftHit = Physics.RaycastAll(FrontLeft, maxdistance, layermask);
         fle = collidedRcastAll(frontLeftHit, myPos);
-        rotation = 20 * fr + 15 * fle - 15 * fri + 5 * le - 5 * le;
+        rotation = 15 * fr + 10 * fle - 10 * fri + 3 * le - 3 * ri;
 
         if (rotation != 0.0)
         {
@@ -194,6 +196,72 @@ public class Testbox : MonoBehaviour
         }
     }
 
+    private float GoToBoidRcast(float rotate)
+    {
+        //Init Ray
+        Vector3 myPos = rb.transform.position;
+        Ray front = new Ray(myPos, transform.forward);
+        Ray right = new Ray(myPos, transform.right);
+        Ray left = new Ray(myPos, -transform.right);
+        // Build Other
+        Vector3 f = transform.forward;
+        Vector3 r = transform.right;
+        Vector3 fright = new Vector3(f.x + r.x, f.y, f.z + r.z);
+        Vector3 fleft = new Vector3(f.x - r.x, f.y + r.y, f.z - r.z);
+        Ray FrontRight = new Ray(myPos, fright);
+        Ray FrontLeft = new Ray(myPos, fleft);
+        Ray downLeft = new Ray(myPos, -fright);
+        Ray downRight = new Ray(myPos, -fleft);
+        // Init int
+        int fr = 0;
+        int ri = 0;
+        int le = 0;
+        int fri = 0;
+        int fle = 0;
+        int dri =0;
+        int dle = 0;
+        // Draw Ray
+
+        Debug.DrawRay(myPos, transform.forward);
+        Debug.DrawRay(myPos, transform.right);
+        Debug.DrawRay(myPos, -transform.right);
+        Debug.DrawRay(myPos, fright);
+        Debug.DrawRay(myPos, fleft);
+        Debug.DrawRay(myPos, -fright, Color.red);
+        Debug.DrawRay(myPos, -fleft, Color.blue);
+        //
+        float maxdistance = 1.1f;
+        int layerWall = 6;
+        LayerMask layermask = 1 << layerWall;
+        float rotation = 0.0f;
+        bool hit = false;
+        //hit left
+        RaycastHit[] leftHit = Physics.RaycastAll(left, maxdistance, layermask);
+        le = goToRcastAll(leftHit, myPos);
+
+        //hit right
+        RaycastHit[] rightHit = Physics.RaycastAll(right, maxdistance, layermask);
+        ri = goToRcastAll(rightHit, myPos);
+
+        
+        //hit down Right
+        RaycastHit[] downRightHit = Physics.RaycastAll(downRight, maxdistance, layermask);
+        dri = goToRcastAll(downRightHit, myPos);
+        //hit down Left
+        RaycastHit[] downLeftHit = Physics.RaycastAll(downLeft, maxdistance, layermask);
+        dle = goToRcastAll(downLeftHit, myPos);
+
+        rotation = 0 * fr - 5 * fle + 5 * fri - 10 * le + 10 * ri - 20 * dle + 20 * dri;
+        //rotation = 0;
+        if (rotation != 0.0)
+        {
+            return rotation;
+        }
+        else
+        {
+            return rotate;
+        }
+    }
     private int collidedRcastAll(RaycastHit[] tab, Vector3 myPos)
     {
         for(int i = 0; i<tab.Length; i++)
@@ -202,6 +270,23 @@ public class Testbox : MonoBehaviour
             if (hitInfo.transform.position != myPos)
             {
                 return 1;
+            }
+        }
+        return 0;
+    }
+
+    private int goToRcastAll(RaycastHit[] tab, Vector3 myPos)
+    {
+        for (int i = 0; i < tab.Length; i++)
+        {
+            RaycastHit hitInfo = tab[i];
+            if (hitInfo.transform.position != myPos)
+            {
+                if (hitInfo.distance > 0.9)
+                {
+                    Debug.DrawLine(myPos, hitInfo.transform.position,Color.cyan);
+                    return 1;
+                } 
             }
         }
         return 0;
