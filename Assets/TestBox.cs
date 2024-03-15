@@ -243,7 +243,15 @@ public class Testbox : MonoBehaviour
         RaycastHit[] rightHit = Physics.RaycastAll(right, maxdistance, layermask);
         ri = goToRcastAll(rightHit, myPos);
 
-        
+        //hit front
+        RaycastHit[] frontHit = Physics.RaycastAll(front, maxdistance, layermask);
+        fr = goToRcastAll(frontHit, myPos);
+        //hit front Right
+        RaycastHit[] frontRightHit = Physics.RaycastAll(FrontRight, maxdistance, layermask);
+        fri = goToRcastAll(frontRightHit, myPos);
+        //hit front Left
+        RaycastHit[] frontLeftHit = Physics.RaycastAll(FrontLeft, maxdistance, layermask);
+        fle = goToRcastAll(frontLeftHit, myPos);
         //hit down Right
         RaycastHit[] downRightHit = Physics.RaycastAll(downRight, maxdistance, layermask);
         dri = goToRcastAll(downRightHit, myPos);
