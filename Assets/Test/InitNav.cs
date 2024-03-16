@@ -18,17 +18,16 @@ public class InitNav : MonoBehaviour
 
     //Tableau de toutes les cases
     private GameObject[,] elements = new GameObject[_dx*_dx,_dz*_dz];
-    private GameObject Walls ;
 
     //Tableau de mur
-    private GameObject[] allwalls = new GameObject[4];
+    private GameObject walls;
 
     //Je sais pas ca sert a quoi ca vient du prof
     public Transform init_transform;
 
     //Agent
     public GameObject agent;
-    private NavMeshAgent navAgent;
+
 
 
 
@@ -40,24 +39,26 @@ public class InitNav : MonoBehaviour
     public GameObject wall;
     private NavMeshSurface navSurface;
 
-
+    private GameObject prout2;
     private BoxCollider bc;
 
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        walls = Instantiate(wall, new Vector3(0,0,0), init_transform.rotation);
         //On créé un agent
         prout = Instantiate(agent, new Vector3(0,0,-4), init_transform.rotation);
-        navAgent = prout.AddComponent<NavMeshAgent>();
-        navAgent.speed = 1f;
-
+        //navAgent = prout.AddComponent<NavMeshAgent>();
+        //navAgent.speed = 1f;
+        prout2 = Instantiate(agent, new Vector3(0,0,4), init_transform.rotation);
 
         //Coords d'une case
         float x_ref = -_dx/2;
         float y_ref = 0;
         float z_ref = -_dz/2;
+
+
 
         //Compteur de nombre de case (au cas ou la case est de taille <1)
         int cptx = 0;
@@ -77,8 +78,6 @@ public class InitNav : MonoBehaviour
                 cptz = cptz +1;
             }
             cptx = cptx + 1;
-
-        
         }
          
     }
@@ -87,10 +86,16 @@ public class InitNav : MonoBehaviour
     void Update()
     {
         //On MAJ la surface
+        
+        
+        
         navSurface.BuildNavMesh();
 
-        Vector3 positionEnAvant = prout.transform.position + prout.transform.forward * 1f;
-        navAgent.SetDestination(positionEnAvant);
-    }
 
+
+
+
+        //Vector3 positionEnAvant = prout.transform.position + prout.transform.forward * 1f;
+        //navAgent.SetDestination(positionEnAvant);
+    }  
 }

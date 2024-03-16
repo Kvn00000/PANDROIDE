@@ -424,9 +424,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   init_transform: {fileID: 117034287}
-  agent: {fileID: 1417629899625614343, guid: 74759edc63b12b9478d3dd77a2340be2, type: 3}
   box: {fileID: 8594919657553773231, guid: a581b2c009b65c540854a574f9a4f148, type: 3}
-  wall: {fileID: 9205350583787820425, guid: 2495c7b954004e245842b563e1905695, type: 3}
+  wall: {fileID: 5870581809858590188, guid: de3b4c63667de074d919c0792a4fd05b, type: 3}
 --- !u!4 &117034287
 Transform:
   m_ObjectHideFlags: 0

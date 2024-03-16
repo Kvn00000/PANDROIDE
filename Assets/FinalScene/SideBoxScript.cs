@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MurScript : MonoBehaviour{
+public class SideBoxScript : MonoBehaviour{
     private MeshFilter _meshFilter;
-    protected float wallsize = 10F;
+    protected float wallsize = 1F;
 
     private Rigidbody rb;
     private BoxCollider bc1;
@@ -17,10 +17,11 @@ public class MurScript : MonoBehaviour{
         
         _meshFilter = gameObject.AddComponent<MeshFilter>();
 
+        /*
         rb = gameObject.AddComponent<Rigidbody>();
         rb.useGravity = false;
         rb.isKinematic = true;
-
+        */
 
         bc1 = gameObject.AddComponent<BoxCollider>();
         bc1.center = new Vector3(0,wallsize/2F,wallsize/2F);

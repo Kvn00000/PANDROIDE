@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 4554210076934455181}
   - component: {fileID: 4750118403646614445}
   - component: {fileID: 8906723386863915922}
-  m_Layer: 0
-  m_Name: Sol2
+  m_Layer: 7
+  m_Name: Sol
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
