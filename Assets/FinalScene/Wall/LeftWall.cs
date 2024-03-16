@@ -9,9 +9,8 @@ public class LeftWall : MonoBehaviour
     //private Rigidbody rb;
     private BoxCollider LeftCollider;
 
-    private float wallsize = 10F;
     // Start is called before the first frame update
-    void Start()
+    public void Init(float wallsize)
     {
         
 

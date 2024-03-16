@@ -9,9 +9,8 @@ public class FrontWall : MonoBehaviour
     //private Rigidbody rb;
     private BoxCollider FrontCollider;
 
-    private float wallsize = 10F;
     // Start is called before the first frame update
-    void Start()    {
+    public void Init(float wallsize)    {
         MeshFront = gameObject.AddComponent<MeshFilter>();
         /*
         rb = gameObject.AddComponent<Rigidbody>();

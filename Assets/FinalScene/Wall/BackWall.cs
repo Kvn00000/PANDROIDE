@@ -9,9 +9,8 @@ public class BackWall : MonoBehaviour
     //private Rigidbody rb;
     private BoxCollider BackCollider;
 
-    private float wallsize = 10F;
     // Start is called before the first frame update
-    public void Start()
+    public void Init(float wallsize)
     {
         MeshBack = gameObject.AddComponent<MeshFilter>();
 

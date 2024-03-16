@@ -9,10 +9,9 @@ public class RightWall : MonoBehaviour
     //private Rigidbody RightRb;
     private BoxCollider RightCollider;
 
-    private float wallsize = 10F;
 
     // Start is called before the first frame update
-    void Start()
+    public void Init(float wallsize)
     {
 
         MeshRight = gameObject.AddComponent<MeshFilter>();

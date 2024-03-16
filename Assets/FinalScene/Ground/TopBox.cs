@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -8,14 +9,14 @@ public class TopBox : MonoBehaviour
     private MeshFilter _meshFilter;
     private Rigidbody rb;
     private BoxCollider TopCollider;
-    protected static float size = 1F;
+    protected static float size;
 
     protected static Vector3[] vertices;
 
     // Start is called before the first frame update
-    public void Start()
+    public void Init(float boxsize)
     {
-
+        size = boxsize;
         _meshFilter = gameObject.AddComponent<MeshFilter>();
 
         /*
