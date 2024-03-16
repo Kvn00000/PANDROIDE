@@ -3,13 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class RightWall : MonoBehaviour
+public class RightBox : TopBox
 {
     private MeshFilter MeshRight;
     //private Rigidbody RightRb;
     private BoxCollider RightCollider;
 
-    private float size = 10F;
 
     // Start is called before the first frame update
     void Start()
@@ -29,15 +28,16 @@ public class RightWall : MonoBehaviour
         RightCollider.size = new Vector3(size,size,0F);
         
 
-    
+        
+        /*
         //Cube made of 2 triangles
         Vector3[] vertices = new Vector3[4]{
             new Vector3(0, 0, 0),
-            new Vector3(0, size/2F, 0),
+            new Vector3(0, size, 0),
             new Vector3(size, 0, 0),
-            new Vector3(size, size/2F, 0),
+            new Vector3(size, size, 0),
 
-        };
+        };*/
 
         //Je sais pas ca sert a quoi uv mdr
         /*
@@ -59,7 +59,6 @@ public class RightWall : MonoBehaviour
         meshs.vertices = vertices;
         //meshs.uv = uv;
         meshs.triangles = triangles;
-        transform.localScale = new Vector3((float)size,1f,(float)size);
         GetComponent<MeshFilter>().mesh = meshs;
     }
 }

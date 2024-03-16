@@ -9,7 +9,7 @@ public class LeftWall : MonoBehaviour
     //private Rigidbody rb;
     private BoxCollider LeftCollider;
 
-    private float size = 5F;
+    private float wallsize = 10F;
     // Start is called before the first frame update
     void Start()
     {
@@ -27,17 +27,17 @@ public class LeftWall : MonoBehaviour
 
 
         LeftCollider = gameObject.AddComponent<BoxCollider>();
-        LeftCollider.center = new Vector3(0/2F,2.5F,1);
-        LeftCollider.size = new Vector3(2,5,0);
+        LeftCollider.center = new Vector3(0,wallsize/4F,wallsize/2F);
+        LeftCollider.size = new Vector3(wallsize,wallsize/2F,0);
         
         
 
         //Cube made of 2 triangles
         Vector3[] vertices = new Vector3[4]{
-            new Vector3(0, 0, size),
-            new Vector3(0, size/2F, size),
-            new Vector3(size, 0, size), 
-            new Vector3(size, size/2F, size), 
+            new Vector3(-wallsize/2F, 0, wallsize/2F),           
+            new Vector3(-wallsize/2F, wallsize/2F,wallsize/2F),
+            new Vector3(wallsize/2F, 0,wallsize/2F), 
+            new Vector3(wallsize/2F, wallsize/2F,wallsize/2F), 
         };
 
         
@@ -53,15 +53,14 @@ public class LeftWall : MonoBehaviour
 
         int[] triangles = new int[6]{
             //Add the triangles clockwise
-            3,7,2,
-            7,6,2,
+            0,3,2,
+            1,3,0,
         };
 
         Mesh meshs = new Mesh();
         meshs.vertices = vertices;
         //meshs.uv = uv;
         meshs.triangles = triangles;
-        transform.localScale = new Vector3((float)size,1f,(float)size);
         GetComponent<MeshFilter>().mesh = meshs;
     }
 }

@@ -3,18 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class RightBox : TopBox
+public class BackWall : MonoBehaviour
 {
-    private MeshFilter MeshRight;
-    //private Rigidbody RightRb;
-    private BoxCollider RightCollider;
+    private MeshFilter MeshBack;
+    //private Rigidbody rb;
+    private BoxCollider BackCollider;
 
-
+    private float wallsize = 10F;
     // Start is called before the first frame update
-    void Start()
+    public void Start()
     {
-        MeshRight = gameObject.AddComponent<MeshFilter>();
-    
+        MeshBack = gameObject.AddComponent<MeshFilter>();
+
         /*
         rb = gameObject.AddComponent<Rigidbody>();
         rb.useGravity = false;
@@ -22,23 +22,23 @@ public class RightBox : TopBox
         rb.collisionDetectionMode = CollisionDetectionMode.ContinuousSpeculative;
         */
 
-
-        RightCollider = gameObject.AddComponent<BoxCollider>();
-        RightCollider.center = new Vector3(size/2F,size/2F,0F);
-        RightCollider.size = new Vector3(size,size,0F);
-        
+        BackCollider = gameObject.AddComponent<BoxCollider>();
+        BackCollider.center = new Vector3(wallsize/2F,wallsize/4F,0);
+        BackCollider.size = new Vector3(0F,wallsize/2F,wallsize);
 
         
-        /*
+
         //Cube made of 2 triangles
         Vector3[] vertices = new Vector3[4]{
-            new Vector3(0, 0, 0),
-            new Vector3(0, size, 0),
-            new Vector3(size, 0, 0),
-            new Vector3(size, size, 0),
+            new Vector3(wallsize/2F, 0,wallsize/2F), 
+            new Vector3(wallsize/2F, wallsize/2F,wallsize/2F), 
+            new Vector3(wallsize/2F, 0,-wallsize/2F), 
+            new Vector3(wallsize/2F,wallsize/2F,-wallsize/2F), 
+            
+        };
 
-        };*/
 
+        
         //Je sais pas ca sert a quoi uv mdr
         /*
         Vector2[] uv = new Vector2[4]{
@@ -48,18 +48,16 @@ public class RightBox : TopBox
             new Vector2(size, size),
         };
         */
-
         int[] triangles = new int[6]{
             //Add the triangles clockwise
-            5,1,0,
-            4,5,0,
+            0,3,2,
+            1,3,0,
         };
 
         Mesh meshs = new Mesh();
         meshs.vertices = vertices;
         //meshs.uv = uv;
         meshs.triangles = triangles;
-        transform.localScale = new Vector3((float)size,1f,(float)size);
         GetComponent<MeshFilter>().mesh = meshs;
     }
 }

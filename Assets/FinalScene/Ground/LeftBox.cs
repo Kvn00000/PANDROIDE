@@ -3,39 +3,40 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class BackBox : TopBox
+public class LeftBox : TopBox
 {
-    private MeshFilter MeshBack;
+    private MeshFilter MeshLeft;
     //private Rigidbody rb;
-    private BoxCollider BackCollider;
-
+    private BoxCollider LeftCollider;
 
     // Start is called before the first frame update
-    public void Start()
+    void Start()
     {
         
-        MeshBack = gameObject.AddComponent<MeshFilter>();
+
+        MeshLeft = gameObject.AddComponent<MeshFilter>();
+
 
         /*
-        rb = gameObject.AddComponent<Rigidbody>();
-        rb.useGravity = false;
-        rb.isKinematic = true;
-        rb.collisionDetectionMode = CollisionDetectionMode.ContinuousSpeculative;
+        RightRb = gameObject.AddComponent<Rigidbody>();
+        RightRb.useGravity = false;
+        RightRb.isKinematic = true;
+        RightRb.collisionDetectionMode = CollisionDetectionMode.ContinuousSpeculative;
         */
 
-        BackCollider = gameObject.AddComponent<BoxCollider>();
-        BackCollider.center = new Vector3(size,size/2F,size/2F);
-        BackCollider.size = new Vector3(0F,size,size);
 
+        LeftCollider = gameObject.AddComponent<BoxCollider>();
+        LeftCollider.center = new Vector3(size/2F,size/2F,size);
+        LeftCollider.size = new Vector3(size,size,0);
+        
         /*
 
         //Cube made of 2 triangles
         Vector3[] vertices = new Vector3[4]{
+            new Vector3(0, 0, size),
+            new Vector3(0, size, size),
             new Vector3(size, 0, size), 
             new Vector3(size, size, size), 
-            new Vector3(size, 0, 0),
-            new Vector3(size, size, 0),
-            
         };
 
         */
@@ -48,17 +49,17 @@ public class BackBox : TopBox
             new Vector2(size, size),
         };
         */
+
         int[] triangles = new int[6]{
             //Add the triangles clockwise
-            7,5,6,
-            5,4,6,
+            3,7,2,
+            7,6,2,
         };
 
         Mesh meshs = new Mesh();
         meshs.vertices = vertices;
         //meshs.uv = uv;
         meshs.triangles = triangles;
-        transform.localScale = new Vector3((float)size,1f,(float)size);
         GetComponent<MeshFilter>().mesh = meshs;
     }
 }

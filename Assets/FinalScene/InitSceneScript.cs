@@ -18,9 +18,8 @@ public class InitSceneScript : MonoBehaviour
 
     //Tableau de toutes les cases
     private GameObject[,] elements = new GameObject[_dx*_dx,_dz*_dz];
-    private SideBoxScript[,] all_comp = new SideBoxScript[_dx*_dx,_dz*_dz];
 
-    //Tableau de mur
+    //Murs
     private GameObject walls;
 
     //Je sais pas ca sert a quoi ca vient du prof
@@ -29,15 +28,7 @@ public class InitSceneScript : MonoBehaviour
     //Agent
     public GameObject agent;
 
-
-
-    //Agent qu'on a créé
-    private GameObject prout;
-    private GameObject prout2;
-
-
-
-    //Environnement
+    //Environnement Prefab
     public GameObject box;
     public GameObject wall;
 
@@ -47,14 +38,7 @@ public class InitSceneScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
         walls = Instantiate(wall, new Vector3(0,0,0), init_transform.rotation);
-        //On créé un agent
-        prout = Instantiate(agent, new Vector3(0,1,-4), init_transform.rotation);
-        //navAgent = prout.AddComponent<NavMeshAgent>();
-        //navAgent.speed = 1f;
-        prout2 = Instantiate(agent, new Vector3(0,1,4), init_transform.rotation);
-        
 
         //Coords d'une case
         float x_ref = -_dx/2;
