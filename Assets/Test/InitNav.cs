@@ -42,6 +42,8 @@ public class InitNav : MonoBehaviour
     private GameObject prout2;
     private BoxCollider bc;
 
+    private NavMeshAgent navAgent;
+
 
     // Start is called before the first frame update
     void Start()
@@ -49,9 +51,9 @@ public class InitNav : MonoBehaviour
         walls = Instantiate(wall, new Vector3(0,0,0), init_transform.rotation);
         //On créé un agent
         prout = Instantiate(agent, new Vector3(0,0,-4), init_transform.rotation);
-        //navAgent = prout.AddComponent<NavMeshAgent>();
+        navAgent = prout.AddComponent<NavMeshAgent>();
         //navAgent.speed = 1f;
-        prout2 = Instantiate(agent, new Vector3(0,0,4), init_transform.rotation);
+        //prout2 = Instantiate(agent, new Vector3(0,0,4), init_transform.rotation);
 
         //Coords d'une case
         float x_ref = -_dx/2;
@@ -95,7 +97,7 @@ public class InitNav : MonoBehaviour
 
 
 
-        //Vector3 positionEnAvant = prout.transform.position + prout.transform.forward * 1f;
-        //navAgent.SetDestination(positionEnAvant);
+        Vector3 positionEnAvant = prout.transform.position + prout.transform.forward * 1f;
+        navAgent.SetDestination(positionEnAvant);
     }  
 }

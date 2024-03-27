@@ -13,7 +13,7 @@ public class RightWall : MonoBehaviour
     // Start is called before the first frame update
     public void Init(float wallsize)
     {
-
+        var size = wallsize*0.5F;
         MeshRight = gameObject.AddComponent<MeshFilter>();
     
         /*
@@ -23,33 +23,20 @@ public class RightWall : MonoBehaviour
         rb.collisionDetectionMode = CollisionDetectionMode.ContinuousSpeculative;
         */
 
-
         RightCollider = gameObject.AddComponent<BoxCollider>();
-        RightCollider.center = new Vector3(0,wallsize/4F,-wallsize/2F);
-        RightCollider.size = new Vector3(wallsize,wallsize/2F,0F);
+        RightCollider.center = new Vector3(0,wallsize*0.25F,-size);
+        RightCollider.size = new Vector3(wallsize,size,0F);
         
 
     
         //Cube made of 2 triangles
         Vector3[] vertices = new Vector3[4]{
-            new Vector3(-wallsize/2F, 0, -wallsize/2F),
-            new Vector3(-wallsize/2F, wallsize/2F, -wallsize/2F),   
-            new Vector3(wallsize/2F, 0,-wallsize/2F), 
-            new Vector3(wallsize/2F,wallsize/2F,-wallsize/2F), 
+            new Vector3(-size, 0, -size),
+            new Vector3(-size, size, -size),   
+            new Vector3(size, 0,-size), 
+            new Vector3(size,size,-size), 
 
         };
-
-        
-
-        //Je sais pas ca sert a quoi uv mdr
-        /*
-        Vector2[] uv = new Vector2[4]{
-            new Vector2(0,0),           
-            new Vector2(0, size),
-            new Vector2(size, 0),           
-            new Vector2(size, size),
-        };
-        */
 
         int[] triangles = new int[6]{
             //Add the triangles clockwise
@@ -59,7 +46,6 @@ public class RightWall : MonoBehaviour
 
         Mesh meshs = new Mesh();
         meshs.vertices = vertices;
-        //meshs.uv = uv;
         meshs.triangles = triangles;
         GetComponent<MeshFilter>().mesh = meshs;
     }

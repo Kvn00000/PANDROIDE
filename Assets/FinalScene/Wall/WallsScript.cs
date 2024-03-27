@@ -12,7 +12,6 @@ public class WallsScript : MonoBehaviour
 
     private BackWall back;
 
-    protected float wallsize;
 
     //public float size = 10F;
     // Start is called before the first frame update
@@ -29,11 +28,5 @@ public class WallsScript : MonoBehaviour
 
         back = GetComponentInChildren<BackWall>();
         back.Init(size);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

@@ -13,40 +13,21 @@ public class BackWall : MonoBehaviour
     public void Init(float wallsize)
     {
         MeshBack = gameObject.AddComponent<MeshFilter>();
-
-        /*
-        rb = gameObject.AddComponent<Rigidbody>();
-        rb.useGravity = false;
-        rb.isKinematic = true;
-        rb.collisionDetectionMode = CollisionDetectionMode.ContinuousSpeculative;
-        */
+        var size = wallsize*0.5F;
 
         BackCollider = gameObject.AddComponent<BoxCollider>();
-        BackCollider.center = new Vector3(wallsize/2F,wallsize/4F,0);
-        BackCollider.size = new Vector3(0F,wallsize/2F,wallsize);
-
-        
+        BackCollider.center = new Vector3(size,wallsize*0.25F,0);
+        BackCollider.size = new Vector3(0F,size,wallsize);
 
         //Cube made of 2 triangles
         Vector3[] vertices = new Vector3[4]{
-            new Vector3(wallsize/2F, 0,wallsize/2F), 
-            new Vector3(wallsize/2F, wallsize/2F,wallsize/2F), 
-            new Vector3(wallsize/2F, 0,-wallsize/2F), 
-            new Vector3(wallsize/2F,wallsize/2F,-wallsize/2F), 
+            new Vector3(size, 0,size), 
+            new Vector3(size, size,size), 
+            new Vector3(size, 0,-size), 
+            new Vector3(size,size,-size), 
             
         };
 
-
-        
-        //Je sais pas ca sert a quoi uv mdr
-        /*
-        Vector2[] uv = new Vector2[4]{
-            new Vector2(0,0),           
-            new Vector2(0, size),
-            new Vector2(size, 0),           
-            new Vector2(size, size),
-        };
-        */
         int[] triangles = new int[6]{
             //Add the triangles clockwise
             0,3,2,
