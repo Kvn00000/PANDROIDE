@@ -29,7 +29,7 @@ public class LeftGround : MonoBehaviour
         meshsleft.triangles = mytriangles;
         MeshLeft.mesh = meshsleft;
     }
-    public void changeLeftHeight(Vector3[] uo){
-        meshsleft.vertices = uo;
+    public void changeLeftHeight(Vector3[] height){
+        meshsleft.vertices = height;
     }
 }

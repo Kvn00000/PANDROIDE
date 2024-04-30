@@ -11,20 +11,16 @@ using UnityEngine.XR.Interaction.Toolkit;
 
 public class Top : MonoBehaviour
 {
-    //Pour le hover on 
+    //Pour le hover on et interaction
     public Material mat;
     public Material originalMat;
-    RaycastHit ray;
-    private XRSimpleInteractable simpleInteract;
+    
 
-    // Test Grab
-    private XRGrabInteractable _grab;
-
-    //Component 
-    private Rigidbody rb;
+    //Components
     private MeshFilter _meshFilter;
     private BoxCollider _collider;
     private MeshRenderer _MeshRenderer ;
+    private Pull simpleInteract;
 
     //Cube
     Mesh meshs;
@@ -36,6 +32,7 @@ public class Top : MonoBehaviour
     private LeftGround left;
     private FrontGround front;
     private BackGround back;
+
 
     public void Start(){
         //Add Component
@@ -55,6 +52,7 @@ public class Top : MonoBehaviour
             new Vector3(size, -size, size),
             new Vector3(size, size, size)
         };
+
 
         int[] triangles = new int[36]{
             //Add the triangles clockwise
@@ -82,51 +80,38 @@ public class Top : MonoBehaviour
         meshs.vertices = vertices;
         meshs.triangles = triangles;
         _meshFilter.mesh = meshs;
-        meshs.RecalculateNormals();
+        // meshs.RecalculateNormals();
 
-
-        interact();
-        // UpperTranslate();
-
-
+        simpleInteract = gameObject.AddComponent<Pull>();
         StartChild();
     }
 
-    private void UpperTranslate(){
-        rb = gameObject.AddComponent<Rigidbody>();
-        rb.useGravity = false;
-        rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ | RigidbodyConstraints.FreezeRotationY |
-         RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionZ | RigidbodyConstraints.FreezePositionY;
-        rb.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
 
-        _grab = gameObject.AddComponent<XRGrabInteractable>();
-        _grab.throwOnDetach = false;
-        _grab.forceGravityOnDetach = false;
-        _grab.useDynamicAttach= true;
-        _grab.matchAttachRotation = false;
+    public void updateVertices(float height){
+
+        vertices = new Vector3[8]{
+            new Vector3(-size, -size, -size),
+            new Vector3(-size, size+height, -size),
+            new Vector3(size, -size, -size),
+            new Vector3(size, size+height, -size),
+            new Vector3(-size, -size, size),
+            new Vector3(-size, size+height, size),
+            new Vector3(size, -size, size),
+            new Vector3(size,size+height, size)
+        };
+
+        meshs.vertices = vertices;
+        _collider.size = new Vector3(size*2F,2*size+height,size*2F);
+        _collider.center = new Vector3(0,height*0.5F,0);
+
+        left.changeLeftHeight(vertices);
+        right.changeRightHeight(vertices);
+        back.changeBackHeight(vertices);
+        front.changeFrontHeight(vertices);
     }
 
-    private void interact(){
-        simpleInteract = gameObject.AddComponent<XRSimpleInteractable>();
-        simpleInteract.hoverEntered.AddListener(OnHoverEntered);
-        simpleInteract.hoverExited.AddListener(OnHovertExited);
-        simpleInteract.selectEntered.AddListener(OnSelectEntered);
-    }
-
-    public void OnHoverEntered(HoverEnterEventArgs interactor)
-    {
-        Debug.Log($"{interactor.interactorObject} hovered over {interactor.interactableObject}", this);
-        _MeshRenderer.material = mat;
-    }
-
-    public void OnHovertExited(HoverExitEventArgs interactor){
-        Debug.Log($"{interactor.interactorObject} exit over {interactor.interactableObject}", this);
-        _MeshRenderer.material = originalMat;
-    }
-
-    private void OnSelectEntered(SelectEnterEventArgs interactor)
-    {
-        Debug.Log($"position current 3D Rayhit{ray.point}");
+    public void setNewMesh(Material newMat){
+         _MeshRenderer.material = newMat;
     }
 
     private void StartChild(){
@@ -140,7 +125,4 @@ public class Top : MonoBehaviour
         back.Init(vertices);
     }
 
-    public Vector3[] getVerctices(){
-        return vertices;
-    }
 }

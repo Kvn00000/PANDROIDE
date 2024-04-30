@@ -29,7 +29,7 @@ public class FrontGround : MonoBehaviour
         meshsfront.RecalculateNormals();
         MeshFront.mesh = meshsfront;
     }
-    public void changeBackHeight(Vector3[] uo){
-        meshsfront.vertices = uo;
+    public void changeFrontHeight(Vector3[] height){
+        meshsfront.vertices = height;
     }
 }

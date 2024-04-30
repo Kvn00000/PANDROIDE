@@ -30,7 +30,7 @@ public class RightGround : MonoBehaviour
         meshsright.RecalculateNormals();
         MeshRight.mesh = meshsright;
     }
-    public void changeRightHeight(Vector3[] uo){
-        meshsright.vertices = uo;
+    public void changeRightHeight(Vector3[] height){
+        meshsright.vertices = height;
     }
 }

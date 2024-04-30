@@ -27,7 +27,7 @@ public class BackGround : MonoBehaviour
         meshsback.RecalculateNormals();
         MeshBack.mesh = meshsback;
     }
-    public void changeBackHeight(Vector3[] uo){
-        meshsback.vertices = uo;
+    public void changeBackHeight(Vector3[] height){
+        meshsback.vertices = height;
     }
 }
