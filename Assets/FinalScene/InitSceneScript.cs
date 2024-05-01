@@ -22,23 +22,19 @@ public class InitSceneScript : MonoBehaviour
 
     //Tableau de toutes les cases
     private GameObject[,] elements = new GameObject[_dx*_dx,_dz*_dz];
-    private Top[,] component_box = new Top[_dx*_dx,_dz*_dz];
 
     //Murs
     private GameObject walls;
-    private WallsScript component_wall;
+    private CircleWallScript component_wall;
 
     //Je sais pas ca sert a quoi ca vient du prof
     public Transform init_transform;
 
-    //Agent
-    public GameObject agent;
 
     //Environnement Prefab
     public GameObject box;
     public GameObject wall;
-
-    public float something;
+    public int side;
 
 
     private float x_ref;
@@ -57,10 +53,10 @@ public class InitSceneScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        // Instantiate(box, new Vector3(2,2,0), init_transform.rotation);
+
         walls = Instantiate(wall, new Vector3(0,0,0), init_transform.rotation);
-        component_wall = walls.GetComponent<WallsScript>();
-        component_wall.Init(_dx);
+        component_wall = walls.GetComponent<CircleWallScript>();
+        component_wall.DrawWall(side,_dx/2,_dx/2);
 
         //Compteur de nombre de case
         int cptx = 0;
@@ -69,8 +65,7 @@ public class InitSceneScript : MonoBehaviour
             for ( double z  = boxsize*0.5 ; z <= _dz ; z = z + boxsize ) {
                 Vector3 pos = new Vector3 ( (float)(x_ref+x) , (float)y_ref-boxsize*0.5F, (float)(z_ref+z) );
                 elements[cptx,cptz] = Instantiate(box, pos, init_transform.rotation);
-                // component_box[cptx,cptz] = elements[cptx,cptz].GetComponent<Top>();
-                // component_box[cptx,cptz].Init(boxsize);
+
                 cptz = cptz +1;
             }
             cptx = cptx + 1;
