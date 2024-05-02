@@ -25,6 +25,7 @@ public class Testbox : MonoBehaviour
     private List<Collider> attractionCollider = new List<Collider>();
     private List<Collider> cohesionCollider = new List<Collider>();
     private List<Collider> closeCollider = new List<Collider>();
+    private bool firstImpulse = false;
 
 
     // Start is called before the first frame update
@@ -261,7 +262,7 @@ public class Testbox : MonoBehaviour
             if ((withCohesion))
             {
                 oldrotate = rotation;
-                rotation = CohesionBoidRcastv2(rotation,avoidRay,cohesionRay);
+                rotation = CohesionBoidRcast(rotation,avoidRay,cohesionRay);
                 //permet de savoir si le comportement a remplace l'ancienne valeur
                 if ((rotation != oldrotate))
                 {
@@ -292,10 +293,12 @@ public class Testbox : MonoBehaviour
             // APPLY ROTATION
             if (rotation == 0.0)
             {    
-                rb.AddForce(transform.forward * speed  * Time.deltaTime, ForceMode.Force);
+                
                 //tentative reduire velocite rotation et inertie pour eviter drifting boid
                 rb.angularVelocity = Vector3.zero;
                 rb.inertiaTensor = Vector3.zero;
+                rb.velocity = Vector3.zero;
+                rb.AddForce(transform.forward * speed * Time.deltaTime, ForceMode.Force);
             }
             else
             {
@@ -306,10 +309,16 @@ public class Testbox : MonoBehaviour
                 transform.Rotate(Vector3.up, angle);
                 //tentative reduire velocite rotation et inertie pour eviter drifting boid
                 rb.angularVelocity = Vector3.zero;
+                rb.velocity = Vector3.zero;
                 rb.inertiaTensor = Vector3.zero;
+                rb.inertiaTensorRotation = Quaternion.identity;
+                //this.transform.Translate(this.transform.forward);
+                
                 if (frein) { rb.AddForce(transform.forward * speed*0.01f * Time.deltaTime, ForceMode.Force); }
                 else { rb.AddForce(transform.forward * speed * Time.deltaTime, ForceMode.Force); }
+                
             }
+               
             //Debug.Log("Inertie " + rb.inertiaTensor);
             //Debug.Log("Inertie " + rb.inertiaTensorRotation);
             //Debug.Log("ANGULAR VELOCITY " + rb.angularVelocity);
@@ -503,32 +512,40 @@ public class Testbox : MonoBehaviour
         List<Vector3> allPosCollide = new List<Vector3>();
         List<Transform> allTransformsCollide = new List<Transform>();
         Vector3 closestBuddy = Vector3.zero;
+        Transform closestTransform = rb.transform;
         //hit left
         RaycastHit[] leftHit = Physics.RaycastAll(left, maxdistance, layermask);
-        collidedCohesionRcastAllv2(leftHit, myPos, mindistance, maxdistance,closestBuddy);
+        closestTransform=collidedCohesionRcastAllv2(leftHit, myPos, mindistance, maxdistance,closestTransform.position,closestTransform);
+        if (closestTransform != rb.transform){ closestBuddy = closestTransform.position; }
         //hit right
         RaycastHit[] rightHit = Physics.RaycastAll(right, maxdistance, layermask);
-        collidedCohesionRcastAllv2(rightHit, myPos, mindistance, maxdistance, closestBuddy);
+        closestTransform = collidedCohesionRcastAllv2(rightHit, myPos, mindistance, maxdistance, closestTransform.position, closestTransform);
+        if (closestTransform != rb.transform) { closestBuddy = closestTransform.position; }
         //hit front
         RaycastHit[] frontHit = Physics.RaycastAll(front, maxdistance, layermask);
-        collidedCohesionRcastAllv2(frontHit, myPos, mindistance, maxdistance, closestBuddy);
+        closestTransform = collidedCohesionRcastAllv2(frontHit, myPos, mindistance, maxdistance, closestTransform.position, closestTransform);
+        if (closestTransform != rb.transform) { closestBuddy = closestTransform.position; }
         //hit front Right
         RaycastHit[] frontRightHit = Physics.RaycastAll(FrontRight, maxdistance, layermask);
-        collidedCohesionRcastAllv2(frontRightHit, myPos, mindistance, maxdistance, closestBuddy);
+        closestTransform = collidedCohesionRcastAllv2(frontRightHit, myPos, mindistance, maxdistance, closestTransform.position, closestTransform);
+        if (closestTransform != rb.transform) { closestBuddy = closestTransform.position; }
         //hit front Left
         RaycastHit[] frontLeftHit = Physics.RaycastAll(FrontLeft, maxdistance, layermask);
-        collidedCohesionRcastAllv2(frontLeftHit, myPos, mindistance, maxdistance, closestBuddy);
+        closestTransform = collidedCohesionRcastAllv2(frontLeftHit, myPos, mindistance, maxdistance, closestTransform.position, closestTransform);
+        if (closestTransform != rb.transform) { closestBuddy = closestTransform.position; }
         //hit down Right
         RaycastHit[] downRightHit = Physics.RaycastAll(downRight, maxdistance, layermask);
-        collidedCohesionRcastAllv2(downRightHit, myPos, mindistance, maxdistance, closestBuddy);
+        closestTransform = collidedCohesionRcastAllv2(downRightHit, myPos, mindistance, maxdistance, closestTransform.position, closestTransform);
+        if (closestTransform != rb.transform) { closestBuddy = closestTransform.position; }
         //hit down Left
         RaycastHit[] downLeftHit = Physics.RaycastAll(downLeft, maxdistance, layermask);
-        collidedCohesionRcastAllv2(downLeftHit, myPos, mindistance, maxdistance, closestBuddy);
+        closestTransform = collidedCohesionRcastAllv2(downLeftHit, myPos, mindistance, maxdistance, closestTransform.position, closestTransform);
+        if (closestTransform != rb.transform) { closestBuddy = closestTransform.position; }
 
-
+        Debug.Log("closest is "+ closestBuddy);
         //Getting rotation
         float rotation = 0.0f;
-        rotation = getCohesionRotationv2(myPos,closestBuddy);
+        rotation = getCohesionRotationv2(myPos,closestBuddy,closestTransform);
 
         if (rotation != 0.0) { return rotation; }
         else { return rotate; }
@@ -1407,7 +1424,7 @@ public class Testbox : MonoBehaviour
         return 0.0F;
     }
         // COHESION ROTATION
-    private float getCohesionRotationv2(Vector3 myPos, Vector3 closest)
+    private float getCohesionRotationv2(Vector3 myPos, Vector3 closest,Transform closestTransform)
     {
         if (closest == Vector3.zero)
         {
@@ -1415,6 +1432,16 @@ public class Testbox : MonoBehaviour
         }
         bool isRight = false;
         Vector3 loc = rb.transform.InverseTransformPoint(closest);
+        Debug.Log("Closest buddy is " + closest);
+        Debug.DrawLine(myPos,closest,Color.black);
+
+        Vector3 closestforward = closestTransform.forward;
+
+        if (withDEBUG) 
+        { 
+            Debug.DrawLine(myPos, myPos + closestforward, Color.blue);
+            Debug.DrawLine(myPos, myPos + rb.transform.forward, Color.blue);
+        }
         if (loc.x > 0) { isRight = true; }
 
         if (isRight) { return -10; }
@@ -1440,7 +1467,7 @@ public class Testbox : MonoBehaviour
         {
             Debug.DrawLine(myPos, mine, Color.blue);
         }
-        //theirForward.Add(mine);
+        theirForward.Add(transform.forward);
         Vector3 dest = getDestinationCluster(myPos, theirForward);
         if (withDEBUG) { 
             Debug.DrawLine(myPos, dest, Color.magenta);
@@ -1523,8 +1550,10 @@ public class Testbox : MonoBehaviour
         }
         return 0;
     }
-    private Vector3 collidedCohesionRcastAllv2(RaycastHit[] tab, Vector3 myPos,float mindistance, float maxdistance, Vector3 closest)
+    private Transform collidedCohesionRcastAllv2(RaycastHit[] tab, Vector3 myPos,float mindistance, float maxdistance, Vector3 closest, Transform closestTransform)
     {
+        Transform minBuddytransform = closestTransform;
+        float distanceMinBuddy= Vector3.Distance(myPos, closest);
         for (int i = 1; i < tab.Length; i++)
         {
             RaycastHit hitInfo = tab[i];
@@ -1533,19 +1562,19 @@ public class Testbox : MonoBehaviour
             {
                 if (closest == Vector3.zero)
                 {
-                    closest = hitInfo.transform.position;
+                    minBuddytransform = hitInfo.transform;
                 }
                 else
                 {
-                    float minD = Vector3.Distance(myPos, closest);
-                    if (minD > dist)
+                    if (distanceMinBuddy > dist)
                     {
-                        return hitInfo.transform.position;
+                        minBuddytransform = hitInfo.transform;
+                        distanceMinBuddy = dist;
                     }
                 }
             }
         }
-        return closest;
+        return minBuddytransform;
     }
     private void collidedCohesionRcastAll(RaycastHit[] tab, Vector3 myPos, List<Vector3> allCollide, List<Transform> allTransformsCollide,float mindistance, float maxdistance)
     {
