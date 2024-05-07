@@ -28,4 +28,5 @@ public class counterG : MonoBehaviour
         Testbox parent = (Testbox)transform.parent.GetComponent<Testbox>();
         parent.RemoveCollider(other, other.gameObject.layer);
     }
+    
 }

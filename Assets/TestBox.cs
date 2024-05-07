@@ -305,7 +305,12 @@ public class Testbox : MonoBehaviour
                 //multiplication par Time.deltaTime pour fluidifier la rotation
                 // valeur obtenue très faible
                 float angle = rotation * Time.deltaTime;
-                //Debug.Log(" FINAL VALUE OF ANGLE AFTER TIME "+angle);        
+                if (withDEBUG)
+                {
+                    Debug.Log(" FINAL VALUE OF ANGLE AFTER TIME "+angle);        
+                }
+                if(angle > 5){ angle = 5; }
+                if (angle < -5) { angle = -5; }
                 transform.Rotate(Vector3.up, angle);
                 //tentative reduire velocite rotation et inertie pour eviter drifting boid
                 rb.angularVelocity = Vector3.zero;
@@ -1171,7 +1176,7 @@ public class Testbox : MonoBehaviour
         float cx = x / allPosCollide.Count;
         float cy = y / allPosCollide.Count;
         float cz = z / allPosCollide.Count;
-        return new Vector3(cx, cy, cz);
+        return new Vector3(cx, 0, cz);
     }
     private Vector3 getOppositeDestination(Vector3 myPos, List<Vector3> allPosCollide)
     {
@@ -1285,7 +1290,7 @@ public class Testbox : MonoBehaviour
         bool isRight = false;
 
         if(loc.x > 0) { isRight = true; }
-        if (withDEBUG) { Debug.DrawLine(myPos, closest, Color.blue); }
+        if (withDEBUG) { Debug.DrawLine(myPos, closest, Color.yellow); }
         if (isRight) { return -20; }
         else { return 20; }
     }
@@ -1460,7 +1465,8 @@ public class Testbox : MonoBehaviour
             if (withDEBUG) { 
                 Debug.DrawLine(pos, forw, Color.blue); 
             }
-            theirForward.Add(forw);
+            Vector3 oforw = this.transform.InverseTransformPoint(forw);
+            theirForward.Add(oforw);
         }
         Vector3 mine = myPos + transform.forward;
         if (withDEBUG)
@@ -1469,13 +1475,30 @@ public class Testbox : MonoBehaviour
         }
         theirForward.Add(transform.forward);
         Vector3 dest = getDestinationCluster(myPos, theirForward);
-        if (withDEBUG) { 
-            Debug.DrawLine(myPos, dest, Color.magenta);
+        Vector3 otherdest = this.transform.InverseTransformPoint(dest);
+        otherdest.y = 0;
+        if (withDEBUG) {
+            Debug.Log("DESTINATION IS " + dest);
+            Debug.Log("OTHER DESTINATION IS " + otherdest);
+            Debug.DrawLine(myPos, myPos+dest, Color.magenta);
+            Debug.DrawLine(myPos, myPos + otherdest, Color.black);
         }
 
         //return 0.0f;
-        return getAngleTowards(myPos, dest);
+        bool isRight = false;
 
+        if(otherdest.x > 0)
+        {
+            isRight = true;
+        }
+        if (isRight)
+        {
+            return getAngleTowards(myPos, dest);
+        }
+        else
+        {
+            return - getAngleTowards(myPos, dest);
+        }
         
     }
 
