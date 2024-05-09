@@ -25,7 +25,6 @@ public class Testbox : MonoBehaviour
     private List<Collider> attractionCollider = new List<Collider>();
     private List<Collider> cohesionCollider = new List<Collider>();
     private List<Collider> closeCollider = new List<Collider>();
-    private bool firstImpulse = false;
 
 
     // Start is called before the first frame update
