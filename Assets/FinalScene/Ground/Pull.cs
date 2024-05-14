@@ -6,10 +6,6 @@ using UnityEngine.XR.Interaction.Toolkit;
 
 public class Pull : XRSimpleInteractable
 {
-
-
-    private float init_height;
-
     private Top topScript;
     // protected override void Awake()
     // {
@@ -18,7 +14,6 @@ public class Pull : XRSimpleInteractable
     // }
 
 
-    [System.Obsolete]
     protected override void Awake(){
         base.Awake();
         topScript = GetComponent<Top>();
