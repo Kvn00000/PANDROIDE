@@ -156,6 +156,139 @@ public class boidTuning : MonoBehaviour
     }
 
     // AVOID WALL BEHAVIOUR
+    private float AvoidWallRcastv4(float rotate, float wallRay)
+    {
+        /*
+        Comportement pour eviter les murs avec une distance max de wallRay
+        Rotation ==> premier détecté renvoie la valeur
+        */
+        //Init Ray
+        Vector3 myPos = rb.transform.position;
+        Ray front = new Ray(myPos, transform.forward);
+        Ray right = new Ray(myPos, transform.right);
+        Ray left = new Ray(myPos, -transform.right);
+        // Build Other
+        Vector3 f = transform.forward;
+        Vector3 r = transform.right;
+        Vector3 fright = new Vector3(f.x + r.x, f.y, f.z + r.z);
+        Vector3 fleft = new Vector3(f.x - r.x, f.y + r.y, f.z - r.z);
+        // Draw Ray
+        Ray fleftRay = new Ray(myPos, fleft);
+        Ray frightRay = new Ray(myPos, fright);
+        //Debug.DrawRay(myPos,transform.forward);
+        //Debug.DrawRay(myPos, transform.right);
+        //Debug.DrawRay(myPos, -transform.right);
+        //Debug.DrawRay(myPos, fright);
+        //Debug.DrawRay(myPos, fleft);
+        //
+        float maxdistance = wallRay;
+        int layerWall = 8;
+        LayerMask layermask = 1 << layerWall;
+        RaycastHit info;
+        // Init distance floats
+        List<float> distanceList = new List<float>();
+        float[] toRotate = { 50f, 45f, -45f, 25f, -25f };
+        //hit front
+        if (Physics.Raycast(front, out info, maxdistance, layermask))
+        {
+            //Debug.Log("HIT FRONT");
+            if (withDEBUG)
+            {
+                Debug.Log("Collision at " + info.transform.position);
+                Debug.DrawLine(myPos, myPos + f, Color.red);
+            }
+            //return 50;
+            float dis = Vector3.Distance(myPos + f, info.transform.position);
+            distanceList.Add(dis);
+        }
+        else
+        {
+            distanceList.Add(8000);
+        }
+        // Hit FL
+        if (Physics.Raycast(fleftRay,out info, maxdistance, layermask))
+        {
+            //Debug.Log("HIT FRONT");
+            if (withDEBUG)
+            {
+                Debug.DrawLine(myPos, myPos +fleft, Color.red);
+            }
+            //return 45;
+            float dis = Vector3.Distance(myPos+fleft, info.transform.position);
+            distanceList.Add(dis);
+        }
+        else
+        {
+            distanceList.Add(8000);
+        }
+        // Hit FR
+        if (Physics.Raycast(frightRay,out info, maxdistance, layermask))
+        {
+            if (withDEBUG)
+            {
+                Debug.DrawLine(myPos, myPos + fright, Color.red);
+            }
+            //return -45;
+            float dis = Vector3.Distance(myPos+fright, info.transform.position);
+            distanceList.Add(dis);
+        }
+        else
+        {
+            distanceList.Add(8000);
+        }
+        //hit left
+        if (Physics.Raycast(left,out info, maxdistance, layermask))
+        {
+            //Debug.Log("HIT LEFT");
+            if (withDEBUG) { Debug.DrawLine(myPos, myPos - r, Color.red); }
+            //return 25;
+            float dis = Vector3.Distance(myPos-r, info.transform.position);
+            distanceList.Add(dis);
+        }
+        else
+        {
+            distanceList.Add(8000);
+        }
+        //hit right
+        if ((Physics.Raycast(right,out info, maxdistance, layermask)))
+        {
+            //Debug.Log("HIT Right");
+            if (withDEBUG) { Debug.DrawLine(myPos, myPos + r, Color.red); }
+            //return -25;
+            float dis = Vector3.Distance(myPos+r, info.transform.position);
+            distanceList.Add(dis);
+        }
+        else
+        {
+            distanceList.Add(8000);
+        }
+        if (withDEBUG)
+        {
+            Debug.Log("COUNT " + distanceList.Count);
+            foreach(float distance in distanceList)
+            {
+                Debug.Log(" Value found in disList " + distance);
+            }
+        }
+        // TO-DO : Traitement distance
+        if (distanceList.Count > 0)
+        {
+            float min=300;
+            int minidx = -1;
+            for (int i =0;i<distanceList.Count;i++)
+            {
+                float distance = distanceList[i];
+                if (distance < min) {
+                    min = distance;
+                    minidx = i;
+                }
+            }
+            if (min == 300) { return rotate; }
+            return toRotate[minidx];
+        }
+        
+        return rotate;
+    }
     private float AvoidWallRcastv3(float rotate, float wallRay)
     {
         /*
