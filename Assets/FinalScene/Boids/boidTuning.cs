@@ -91,7 +91,7 @@ public class boidTuning : MonoBehaviour
             }
             //Highest Priority
             oldrotate = rotation;
-            rotation = AvoidWallRcastv3(rotation, wallRay);
+            rotation = AvoidWallRcastv4(rotation, wallRay);
 
             if ((rotation != oldrotate))
             {
