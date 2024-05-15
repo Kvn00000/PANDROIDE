@@ -4,18 +4,16 @@ using UnityEngine;
 
 public class BackGround : MonoBehaviour
 {
+    // Arriere du cube avec une layer Mur pour la detection du boid sur un mur
     private MeshFilter MeshBack;
-    private BoxCollider BackCollider;
+    private MeshCollider BackCollider;
     private Mesh meshsback;
 
     public void Init(Vector3[] vertices)
     {
         MeshBack = gameObject.AddComponent<MeshFilter>();
 
-        // BackCollider = gameObject.AddComponent<BoxCollider>();
-        // BackCollider.center = new Vector3(size,size/2F,size/2F);
-        // BackCollider.size = new Vector3(0F,size,size);
-
+        //Une seule face du cube (Back)
         int[] mytriangles = new int[6]{
             7,4,6,
             7,5,4,
@@ -24,9 +22,15 @@ public class BackGround : MonoBehaviour
         meshsback = new Mesh();
         meshsback.vertices = vertices;
         meshsback.triangles = mytriangles;
+
         meshsback.RecalculateNormals();
         MeshBack.mesh = meshsback;
+
+        //Pour la detection
+        BackCollider = gameObject.AddComponent<MeshCollider>();
+        BackCollider.sharedMesh = meshsback;
     }
+
     public void changeBackHeight(Vector3[] height){
         meshsback.vertices = height;
     }

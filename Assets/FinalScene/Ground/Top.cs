@@ -41,7 +41,7 @@ public class Top : MonoBehaviour
         _MeshRenderer = gameObject.GetComponent<MeshRenderer>();
 
 
-        //The cube
+        //Vertices du cube
         vertices = new Vector3[8]{
             new Vector3(-size, -size, -size),
             new Vector3(-size, size, -size),
@@ -53,7 +53,7 @@ public class Top : MonoBehaviour
             new Vector3(size, size, size)
         };
 
-
+        //Tout les triangles
         int[] triangles = new int[36]{
             //Add the triangles clockwise
             //Front
@@ -80,15 +80,18 @@ public class Top : MonoBehaviour
         meshs.vertices = vertices;
         meshs.triangles = triangles;
         _meshFilter.mesh = meshs;
-        // meshs.RecalculateNormals();
 
+        //Pour la reflection de la lumiere
+        // meshs.RecalculateNormals();
+        
+        //On ajoute l'interaction et on ajoute les autres faces de layer Mur
         simpleInteract = gameObject.AddComponent<Pull>();
         StartChild();
     }
 
 
     public void updateVertices(float height){
-
+        // On met a jour les vertices
         vertices = new Vector3[8]{
             new Vector3(-size, -size, -size),
             new Vector3(-size, size+height, -size),
@@ -104,6 +107,7 @@ public class Top : MonoBehaviour
         _collider.size = new Vector3(size*2F,2*size+height,size*2F);
         _collider.center = new Vector3(0,height*0.5F,0);
 
+        //On met a jour les autres faces Mur
         left.changeLeftHeight(vertices);
         right.changeRightHeight(vertices);
         back.changeBackHeight(vertices);

@@ -4,19 +4,16 @@ using UnityEngine;
 
 public class LeftGround : MonoBehaviour
 {
+    // Coté gauche du cube avec layer Mur
     private MeshFilter MeshLeft;
-    private BoxCollider LeftCollider;
-
+    private MeshCollider LeftCollider;
     private Mesh meshsleft;
 
     public void Init(Vector3[] vertices)
     {
         MeshLeft = gameObject.AddComponent<MeshFilter>();
 
-        // LeftCollider = gameObject.AddComponent<BoxCollider>();
-        // LeftCollider.center = new Vector3(size/2F,size/2F,size);
-        // LeftCollider.size = new Vector3(size,size,0);
-        
+        //Coté gauche
         int[] mytriangles = new int[6]{
             //Add the triangles clockwise
             5,0,4,
@@ -28,6 +25,10 @@ public class LeftGround : MonoBehaviour
         meshsleft.vertices = vertices;
         meshsleft.triangles = mytriangles;
         MeshLeft.mesh = meshsleft;
+
+        //Collision
+        LeftCollider = gameObject.AddComponent<MeshCollider>();
+        LeftCollider.sharedMesh = meshsleft;
     }
     public void changeLeftHeight(Vector3[] height){
         meshsleft.vertices = height;

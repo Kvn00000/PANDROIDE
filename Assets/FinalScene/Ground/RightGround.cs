@@ -4,20 +4,19 @@ using UnityEngine;
 
 public class RightGround : MonoBehaviour
 {
-    private MeshFilter MeshRight;
-    //private Rigidbody RightRb;
 
+    //Coté droit du cube sur la layer Mur
+    private MeshFilter MeshRight;
+    private MeshCollider rightCollider;
     private Mesh meshsright;
 
 
     public void Init(Vector3[] vertices)
     {
         MeshRight = gameObject.AddComponent<MeshFilter>();
- 
-        // RightCollider = gameObject.AddComponent<BoxCollider>();
-        // RightCollider.center = new Vector3(size/2F,size/2F,0F);
-        // RightCollider.size = new Vector3(size,size,0F);
 
+
+        // Droite
         int[] mytriangles = new int[6]{
             //Add the triangles clockwise
             3,6,2,
@@ -29,6 +28,11 @@ public class RightGround : MonoBehaviour
         meshsright.triangles = mytriangles;
         meshsright.RecalculateNormals();
         MeshRight.mesh = meshsright;
+
+
+        //Collider
+        rightCollider = gameObject.AddComponent<MeshCollider>();
+        rightCollider.sharedMesh = meshsright;
     }
     public void changeRightHeight(Vector3[] height){
         meshsright.vertices = height;

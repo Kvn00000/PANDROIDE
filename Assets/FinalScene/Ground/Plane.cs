@@ -15,10 +15,12 @@ public class Plane : MonoBehaviour
         //Add Component
         _meshFilter = gameObject.AddComponent<MeshFilter>();
         _collider = gameObject.AddComponent<BoxCollider>();
+
+
         _collider.center = new Vector3(0,size,0);
         _collider.size = new Vector3(size*2,0.001F,size*2);
 
-        //The cube
+        
         vertices = new Vector3[4]{
             new Vector3(-size, size, -size),
             new Vector3(size, size, -size),

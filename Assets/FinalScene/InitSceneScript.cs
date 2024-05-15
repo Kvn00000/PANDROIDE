@@ -18,16 +18,17 @@ public class InitSceneScript : MonoBehaviour
 
     //Boid Prefab
     public GameObject boid;
+
+    //Nombre de face pour le mur
     public int side;
 
     //Taille de l'arene
-    public int arenaSize = 0;
+    public int arenaSize = 1;
 
     public bool damier = false;
 
+    //Nombre de Boid
     public int BoidNumber;
-    //Tableau de boids
-    private GameObject[] Boids;
 
     //Taille d'une case
     private float boxsize = 1;
@@ -40,8 +41,6 @@ public class InitSceneScript : MonoBehaviour
     private CircleWallScript component_wall;
 
     private GameObject _plane;
-
-
 
 
     private float x_ref;
@@ -63,16 +62,15 @@ public class InitSceneScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
-        
-
+        //On ajoute le mur
         walls = Instantiate(wall, new Vector3(0,0,0), init_transform.rotation);
         component_wall = walls.GetComponent<CircleWallScript>();
         component_wall.DrawWall(side,arenaSize/2,arenaSize/2);
 
 
-
         if(damier){
+            //Ajout du damier
+
             //Compteur de nombre de case
             int cptx = 0;
             int cptz = 0;
@@ -86,45 +84,23 @@ public class InitSceneScript : MonoBehaviour
             }
 
         }else{
+            //Ajout du plane
             _plane = Instantiate(plane, new Vector3(0,-arenaSize*0.5F,0), init_transform.rotation);
             _plane.GetComponent<Plane>().Init(arenaSize*0.5F);
         }
 
 
         // Spawn des boids
-
-
-        // for (int i = 0; i < BoidNumber; i++){
-            
-
-
-        //     float angle = Random.Range(0, 2 * Mathf.PI);
-
-        //     // Calculer la position x et y à l'intérieur du cercle
-        //     float x = arenaSize*0.5F * Mathf.Cos(angle);
-        //     float y = arenaSize*0.5F * Mathf.Sin(angle);
-
-
-        //     Vector3 spawnPos = new Vector3(x,0.5f,y);
-
-        //     float randomAngleY = Random.Range(0f, 360f);
-        //     Quaternion spawnRotation = Quaternion.Euler(0f, randomAngleY, 0f);
-
-        //     Instantiate(boid, spawnPos,spawnRotation);
-        //     // Boids[i] = Instantiate(boid, spawnPos,init_transform.rotation);
-        // }
-
-
-        
         for (int i = 0; i < BoidNumber; i++){
+            //Coordonnées aléatoire
             Vector3 spawnPosition = new Vector3(
                 Random.Range(-arenaSize/4f, arenaSize/ 4f),
                 0.5F,
                 Random.Range(-arenaSize /4f,arenaSize/4f)
             );
+            //Angle aléatoire
             float randomAngleY = Random.Range(0f, 360f);
             Quaternion spawnRotation = Quaternion.Euler(0f, randomAngleY, 0f);
-
             Instantiate(boid, spawnPosition,spawnRotation);
         }
 
