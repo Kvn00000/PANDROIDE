@@ -24,7 +24,6 @@ public class InitSceneScript : MonoBehaviour
 
     //Taille de l'arene
     public int arenaSize = 1;
-
     public bool damier = false;
 
     //Nombre de Boid
@@ -39,7 +38,6 @@ public class InitSceneScript : MonoBehaviour
     //Murs
     private GameObject walls;
     private CircleWallScript component_wall;
-
     private GameObject _plane;
 
 
@@ -65,7 +63,7 @@ public class InitSceneScript : MonoBehaviour
         //On ajoute le mur
         walls = Instantiate(wall, new Vector3(0,0,0), init_transform.rotation);
         component_wall = walls.GetComponent<CircleWallScript>();
-        component_wall.DrawWall(side,arenaSize/2,arenaSize/2);
+        component_wall.DrawWall(side,arenaSize/2,arenaSize/4);
 
 
         if(damier){
@@ -101,7 +99,9 @@ public class InitSceneScript : MonoBehaviour
             //Angle aléatoire
             float randomAngleY = Random.Range(0f, 360f);
             Quaternion spawnRotation = Quaternion.Euler(0f, randomAngleY, 0f);
+
             Instantiate(boid, spawnPosition,spawnRotation);
+
         }
 
 

@@ -32,7 +32,7 @@ public class boidTuning : MonoBehaviour
     void Update()
     {
         /*
-       Boid avec Raycast --> le plus avancé meme si je comprend pas pourquoi ça marche pas 
+       Boid avec Raycast --> le plus avancï¿½ meme si je comprend pas pourquoi ï¿½a marche pas 
        */
         String modeUsed = "";
         //If not on the ground apply gravity
@@ -91,7 +91,7 @@ public class boidTuning : MonoBehaviour
             }
             //Highest Priority
             oldrotate = rotation;
-            rotation = AvoidWallRcastv4(rotation, wallRay);
+            rotation = AvoidWallRcastv3(rotation, wallRay);
 
             if ((rotation != oldrotate))
             {
@@ -113,7 +113,7 @@ public class boidTuning : MonoBehaviour
             else
             {
                 //multiplication par Time.deltaTime pour fluidifier la rotation
-                // valeur obtenue très faible
+                // valeur obtenue trï¿½s faible
                 float angle = rotation * Time.deltaTime;
                 if (withDEBUG)
                 {
@@ -160,7 +160,7 @@ public class boidTuning : MonoBehaviour
     {
         /*
         Comportement pour eviter les murs avec une distance max de wallRay
-        Rotation ==> premier détecté renvoie la valeur
+        Rotation ==> premier dï¿½tectï¿½ renvoie la valeur
         */
         //Init Ray
         Vector3 myPos = rb.transform.position;
@@ -293,7 +293,7 @@ public class boidTuning : MonoBehaviour
     {
         /*
         Comportement pour eviter les murs avec une distance max de wallRay
-        Rotation ==> premier détecté renvoie la valeur
+        Rotation ==> premier dï¿½tectï¿½ renvoie la valeur
         */
         //Init Ray
         Vector3 myPos = rb.transform.position;
@@ -367,7 +367,7 @@ public class boidTuning : MonoBehaviour
     private float CohesionBoidRcast(float rotate, float minRay, float maxRay)
     {
         /*
-        Comportement s'alligner avec tous les détectés
+        Comportement s'alligner avec tous les dï¿½tectï¿½s
         Rotation ==> angle entre la destination moyenne et le forward
         */
         //Init Ray
@@ -571,7 +571,7 @@ public class boidTuning : MonoBehaviour
         else { return rotate; }
     }
     // GET ANGLES
-    // Méthodes pour obtenir les angles de rotation
+    // Mï¿½thodes pour obtenir les angles de rotation
     private float getAngleTowards(Vector3 myPos, Vector3 myDest)
     {
         Vector3 centerPos = myDest;
@@ -709,7 +709,7 @@ public class boidTuning : MonoBehaviour
         return getAngleTowards(myPos, closestPoint);
     }
     // CHECK COLLISIONS 
-    //Méthodes de détection des collisions pour chaque comportement
+    //Mï¿½thodes de dï¿½tection des collisions pour chaque comportement
     private Vector3 collidedRcastAllv3(RaycastHit[] tab, Vector3 myPos, float maxDistance, Vector3 closest)
     {
         for (int i = 1; i < tab.Length; i++)
