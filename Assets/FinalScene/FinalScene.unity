@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.17338738, g: 0.2167395, b: 0.29880914, a: 1}
+  m_IndirectSpecularColor: {r: 0.17338715, g: 0.21673912, b: 0.2988084, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -425,7 +425,7 @@ MonoBehaviour:
   boid: {fileID: 1149238591}
   side: 50
   arenaSize: 20
-  damier: 0
+  damier: 1
   BoidNumber: 150
 --- !u!4 &329529617
 Transform:

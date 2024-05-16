@@ -135,10 +135,6 @@ public class boidTuning : MonoBehaviour
                 rb.AddForce(transform.forward * speed * Time.deltaTime, ForceMode.Force);
 
             }
-
-            //Debug.Log("Inertie " + rb.inertiaTensor);
-            //Debug.Log("Inertie " + rb.inertiaTensorRotation);
-            //Debug.Log("ANGULAR VELOCITY " + rb.angularVelocity);
             if (withDEBUG)
             {
                 //Debug.Log("VELOCITY IS " + rb.velocity);
@@ -324,7 +320,7 @@ public class boidTuning : MonoBehaviour
             //Debug.Log("HIT FRONT");
             if (withDEBUG) {
                 Debug.Log("Collision at " + info.transform.position);
-                Debug.DrawLine(myPos, myPos + (Vector3.forward), Color.red); 
+                Debug.DrawLine(myPos, myPos + f, Color.red); 
             }
             return 50;
         }
@@ -334,7 +330,7 @@ public class boidTuning : MonoBehaviour
             //Debug.Log("HIT FRONT");
             if (withDEBUG)
             {
-                Debug.DrawLine(myPos, myPos + (Vector3.forward), Color.red);
+                Debug.DrawLine(myPos, myPos + fleft, Color.red);
             }
             return 45;
         }
@@ -343,7 +339,7 @@ public class boidTuning : MonoBehaviour
         {
             if (withDEBUG)
             { 
-                Debug.DrawLine(myPos, myPos + (Vector3.forward), Color.red);
+                Debug.DrawLine(myPos, myPos +fright, Color.red);
             }
             return -45;
         }
@@ -351,14 +347,14 @@ public class boidTuning : MonoBehaviour
         if (Physics.Raycast(left, maxdistance, layermask))
         {
             //Debug.Log("HIT LEFT");
-            if (withDEBUG) { Debug.DrawLine(myPos, myPos - (Vector3.right), Color.red); }
+            if (withDEBUG) { Debug.DrawLine(myPos, myPos - r, Color.red); }
             return 25;
         }
         //hit right
         if ((Physics.Raycast(right, maxdistance, layermask)))
         {
             //Debug.Log("HIT Right");
-            if (withDEBUG) { Debug.DrawLine(myPos, myPos + (Vector3.right), Color.red); }
+            if (withDEBUG) { Debug.DrawLine(myPos, myPos + r, Color.red); }
             return -25;
         }
         return rotate;
