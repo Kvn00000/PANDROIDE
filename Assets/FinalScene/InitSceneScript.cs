@@ -27,7 +27,7 @@ public class InitSceneScript : MonoBehaviour
     public bool damier = false;
 
     //Nombre de Boid
-    public int BoidNumber;
+    public int BoidNumber; 
 
     //Taille d'une case
     private float boxsize = 1;
