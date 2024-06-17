@@ -27,7 +27,8 @@ public class InitSceneScript : MonoBehaviour
     public bool damier = false;
 
     //Nombre de Boid
-    public int BoidNumber; 
+    public int BoidNumber;
+    public List<GameObject> boidsList = new List<GameObject>();
 
     //Taille d'une case
     private float boxsize = 1;
@@ -100,8 +101,14 @@ public class InitSceneScript : MonoBehaviour
             float randomAngleY = Random.Range(0f, 360f);
             Quaternion spawnRotation = Quaternion.Euler(0f, randomAngleY, 0f);
 
-            Instantiate(boid, spawnPosition,spawnRotation);
+            GameObject obj=Instantiate(boid, spawnPosition,spawnRotation);
+            boidsList.Add(obj);
+            
 
+        }
+        foreach(GameObject b in boidsList) {
+            boidTuning boi = b.GetComponent<boidTuning>();
+            boi.speed = 500;
         }
 
 
