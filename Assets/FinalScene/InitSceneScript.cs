@@ -18,6 +18,7 @@ public class InitSceneScript : MonoBehaviour
 
     //Boid Prefab
     public GameObject boid;
+    public float BoidSpeed;
 
     //Nombre de face pour le mur
     public int side;
@@ -28,7 +29,7 @@ public class InitSceneScript : MonoBehaviour
 
     //Nombre de Boid
     public int BoidNumber;
-    public List<GameObject> boidsList = new List<GameObject>();
+    private List<boidTuning> boidsList = new List<boidTuning>();
 
     //Taille d'une case
     private float boxsize = 1;
@@ -101,16 +102,29 @@ public class InitSceneScript : MonoBehaviour
             float randomAngleY = Random.Range(0f, 360f);
             Quaternion spawnRotation = Quaternion.Euler(0f, randomAngleY, 0f);
 
-            GameObject obj=Instantiate(boid, spawnPosition,spawnRotation);
+            boidTuning obj=Instantiate(boid, spawnPosition,spawnRotation).GetComponent<boidTuning>();
             boidsList.Add(obj);
-            
-
-        }
-        foreach(GameObject b in boidsList) {
-            boidTuning boi = b.GetComponent<boidTuning>();
-            boi.speed = 500;
+        
         }
 
+        
 
+
+    }
+
+
+    private void updateSpeed(){
+
+        foreach(boidTuning b in boidsList){
+            b.speed = BoidSpeed;
+        }
+
+    }
+
+    void update(){
+        Debug.Log("test ???");
+        if(BoidSpeed != boidsList[0].speed){
+            updateSpeed();
+        }
     }
 }

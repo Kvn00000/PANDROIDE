@@ -26,8 +26,6 @@ public class Pull : XRSimpleInteractable
         topScript.setNewMesh(topScript.originalMat);
     }
 
-
-
     public override void ProcessInteractable(XRInteractionUpdateOrder.UpdatePhase updatePhase)
     {
         base.ProcessInteractable(updatePhase);
