@@ -18,7 +18,7 @@ public class InitSceneScript : MonoBehaviour
 
     //Boid Prefab
     public GameObject boid;
-    public float BoidSpeed;
+    
 
     //Nombre de face pour le mur
     public int side;
@@ -29,6 +29,15 @@ public class InitSceneScript : MonoBehaviour
 
     //Nombre de Boid
     public int BoidNumber;
+
+    public float BoidSpeed;
+    public float wallRay;
+    public float avoidRay;
+    public float cohesionRay;
+    public float attractionRay;
+    public float filter;
+    
+
     private List<boidTuning> boidsList = new List<boidTuning>();
 
     //Taille d'une case
@@ -106,10 +115,6 @@ public class InitSceneScript : MonoBehaviour
             boidsList.Add(obj);
         
         }
-
-        
-
-
     }
 
 
@@ -121,10 +126,57 @@ public class InitSceneScript : MonoBehaviour
 
     }
 
-    void update(){
-        Debug.Log("test ???");
+    private void updateWallRay(){
+        foreach(boidTuning b in boidsList){
+            b.wallRay = wallRay;
+        }
+    }
+
+    private void updateAvoidRay(){
+        foreach(boidTuning b in boidsList){
+            b.avoidRay = avoidRay;
+        }
+    }
+
+    private void updateCohesionRay(){
+        foreach(boidTuning b in boidsList){
+            b.cohesionRay = cohesionRay;
+        }
+    }
+
+    private void updateAttractionRay(){
+        foreach(boidTuning b in boidsList){
+            b.attractionRay = attractionRay;
+        }
+    }
+
+    private void updateFilter(){
+        foreach(boidTuning b in boidsList){
+            b.filter = filter;
+        }
+    }
+
+
+
+    void Update(){
+
         if(BoidSpeed != boidsList[0].speed){
             updateSpeed();
+        }
+        if(wallRay != boidsList[0].wallRay){
+            updateWallRay();
+        }
+        if(avoidRay != boidsList[0].avoidRay){
+            updateAvoidRay();
+        }
+        if(cohesionRay != boidsList[0].cohesionRay){
+            updateCohesionRay();
+        }
+        if(attractionRay != boidsList[0].attractionRay){
+            updateAttractionRay();
+        }
+        if(filter != boidsList[0].filter){
+            updateFilter();
         }
     }
 }
