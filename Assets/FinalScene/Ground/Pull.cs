@@ -30,6 +30,9 @@ public class Pull : XRSimpleInteractable
     {
         base.ProcessInteractable(updatePhase);
         XRBaseInteractor interactor = selectingInteractor;
+
+
+
         if(updatePhase == XRInteractionUpdateOrder.UpdatePhase.Fixed){
             //Quand la gachette est appuyé on grab + update le vertice du sol
             if(isSelected){
