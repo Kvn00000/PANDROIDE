@@ -14,8 +14,7 @@ public class SpawnBoidScript : MonoBehaviour
     void Update()
     {
         if(inputAction.action.WasPressedThisFrame()){
-            GameObject boid = Instantiate(BoidPrefab,transform.position, transform.rotation);
-            
+            GameObject boid = Instantiate(BoidPrefab,transform.position, Quaternion.identity);
         }
     }
 }
