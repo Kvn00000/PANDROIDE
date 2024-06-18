@@ -370,7 +370,7 @@ Transform:
   m_GameObject: {fileID: 329529615}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 4.29}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -962,7 +962,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1760703bbd54c04488a8d10600262ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_PlanePrefab: {fileID: 0}
+  m_PlanePrefab: {fileID: 1585201990951412, guid: a6b7ca1d53c75490595d1f0d5f43be38,
+    type: 3}
   m_DetectionMode: -1
 --- !u!114 &1581219215
 MonoBehaviour:
@@ -1017,8 +1018,8 @@ Camera:
   m_GameObject: {fileID: 1581219210}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_ClearFlags: 2
+  m_BackGroundColor: {r: 0, g: 0, b: 0, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
