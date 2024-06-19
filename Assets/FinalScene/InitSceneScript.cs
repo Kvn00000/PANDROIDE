@@ -161,7 +161,7 @@ public class InitSceneScript : MonoBehaviour
     }
 
 
-
+    /*
     void Update(){
 
         if(BoidSpeed != boidsList[0].speed){
@@ -183,4 +183,5 @@ public class InitSceneScript : MonoBehaviour
             updateFilter();
         }
     }
+    */
 }
