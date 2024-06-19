@@ -7,7 +7,7 @@ using UnityEngine.XR.ARFoundation;
 [RequireComponent(typeof(ARPlaneManager))]
 public class ScenePlaneDetectController : MonoBehaviour
 {
-    // Le SerializeField permet de le voir dans l'éditeur de unity
+    // Le SerializeField permet de le voir dans l'ï¿½diteur de unity
     [SerializeField]
     private InputActionReference togglePlanesDetectedAction;
     [SerializeField]
@@ -24,7 +24,7 @@ public class ScenePlaneDetectController : MonoBehaviour
         {
             Debug.LogError("ARPlaneManager not found");
         }
-        // On s'abonne aux évènements --> Ne pas oublier de se désabonner dans onDestroy()
+        // On s'abonne aux ï¿½vï¿½nements --> Ne pas oublier de se dï¿½sabonner dans onDestroy()
         togglePlanesDetectedAction.action.performed += OnTogglePlanesAction;
         _planeManager.planesChanged += OnPlanesChanged;
     }
@@ -116,5 +116,5 @@ public class ScenePlaneDetectController : MonoBehaviour
     // Update is called once per frame
     void Update()
     { }
-    }
 }
+
