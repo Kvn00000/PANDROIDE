@@ -24,7 +24,7 @@ public class InitSceneScript : MonoBehaviour
     public int side;
 
     //Taille de l'arene
-    public int arenaSize = 1;
+    public int arenaSize = 0;
     public bool damier = false;
 
     //Nombre de Boid
@@ -71,6 +71,9 @@ public class InitSceneScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        
+
+
         //On ajoute le mur
         walls = Instantiate(wall, new Vector3(0,0,0), init_transform.rotation);
         component_wall = walls.GetComponent<CircleWallScript>();
