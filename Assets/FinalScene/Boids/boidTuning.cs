@@ -11,22 +11,40 @@ public class boidTuning : MonoBehaviour
     private List<Collider> groundCollider = new List<Collider>();
     private bool grounded = false;
     //Attributs publics
-    public float speed = 200.0f;
+    // public float speed = 200.0f;
     public bool withGoto = false;
     public bool withCohesion = false;
     public bool withAvoid = false;
     public bool withDEBUG = false;
 
-    public float wallRay=0.6f;
-    public float avoidRay = 0.6f;
-    public float cohesionRay = 1.0f;
-    public float attractionRay = 1.1f;
-    public float filter = 5;
-    // Start is called before the first frame update
-    void Start()
-    {
+
+    // public float wallRay=0.6f;
+    // public float avoidRay = 0.6f;
+    // public float cohesionRay = 1.0f;
+    // public float attractionRay = 1.1f;
+    // public float filter = 5;
+
+
+    //Attributs private
+    public float speed;
+    public float wallRay;
+    public float avoidRay;
+    public float cohesionRay;
+    public float attractionRay;
+    public float filter;
+
+
+    public void Init(float _speed,float _wallRay, float _avoidRay, float _cohesionRay, float _attractionRay, float _filter){
+        speed =_speed;
+        wallRay = _wallRay;
+        avoidRay = _avoidRay;
+        cohesionRay = _cohesionRay;
+        attractionRay = _attractionRay;
+        filter = _filter;
+
         rb = GetComponent<Rigidbody>();
     }
+
 
     // Update is called once per frame
     void Update()

@@ -22,15 +22,24 @@ public class Selector : MonoBehaviour
     }
 
     public void SetSpawnerFromIndex(int index){
+        // if (index == 0){
+        //     BoidSpawner.enabled = false;
+        // }else if(index == 1 ){
+            
+        //     BoidSpawner.enabled = true;
+            
+        //     // BoidSpawner.inputAction = inputActionProperty;
+        //     // BoidSpawner.BoidPrefab = BoidPrefab;
+        // }
+
         if (index == 0){
-            BoidSpawner.enabled = false;
+            BoidSpawner.toInstantiate = 0;
         }else if(index == 1 ){
-            
-            BoidSpawner.enabled = true;
-            
-            // BoidSpawner.inputAction = inputActionProperty;
-            // BoidSpawner.BoidPrefab = BoidPrefab;
+            BoidSpawner.toInstantiate = 1;
+        }else if(index == 2 ){
+            BoidSpawner.toInstantiate = 2;
         }
+
     }
 
 }

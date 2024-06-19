@@ -18,21 +18,41 @@ public class Cube : MonoBehaviour
 
     //Components
     private MeshFilter _meshFilter;
-    private BoxCollider _collider;
+    private MeshCollider _collider;
     private MeshRenderer _MeshRenderer ;
-    private Pull simpleInteract;
-
+    private Rigidbody _rigidBody;
+    private XRGrabInteractable _grab;
+    
+    
     //Cube
     Mesh meshs;
-    private float size = 0.5F;
+    // public float size = 0.5F;
     protected Vector3[] vertices;
 
+    // public void Awake(){
+    //     //Add and get Component
+        
 
-    public void Start(){
-        //Add Component
-        _meshFilter = gameObject.AddComponent<MeshFilter>();
-        _collider = gameObject.AddComponent<BoxCollider>();
+
+    // }
+    public void Init(float size){
+        
         _MeshRenderer = gameObject.GetComponent<MeshRenderer>();
+        _meshFilter = gameObject.AddComponent<MeshFilter>();
+        _collider = gameObject.AddComponent<MeshCollider>();
+        _rigidBody = gameObject.AddComponent<Rigidbody>();
+        _grab = gameObject.AddComponent<XRGrabInteractable>();
+
+
+        _collider.convex = true;
+
+        //A enlever quand y'aura un sol
+        _rigidBody.useGravity = false;
+
+        // _rigidBody.isKinematic = true;
+
+        _grab.throwOnDetach = false;
+        _grab.useDynamicAttach = true;
 
 
         //Vertices du cube
@@ -74,6 +94,7 @@ public class Cube : MonoBehaviour
         meshs.vertices = vertices;
         meshs.triangles = triangles;
         _meshFilter.mesh = meshs;
+        _collider.sharedMesh = meshs;
 
     }
 

@@ -112,6 +112,7 @@ public class InitSceneScript : MonoBehaviour
             Quaternion spawnRotation = Quaternion.Euler(0f, randomAngleY, 0f);
 
             boidTuning obj=Instantiate(boid, spawnPosition,spawnRotation).GetComponent<boidTuning>();
+            obj.Init(BoidSpeed, wallRay, avoidRay, cohesionRay, attractionRay, filter);
             boidsList.Add(obj);
         
         }
