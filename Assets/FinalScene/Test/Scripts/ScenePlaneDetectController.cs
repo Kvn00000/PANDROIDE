@@ -7,8 +7,12 @@ using UnityEngine.XR.ARFoundation;
 [RequireComponent(typeof(ARPlaneManager))]
 public class ScenePlaneDetectController : MonoBehaviour
 {
+    // Le SerializeField permet de le voir dans l'éditeur de unity
     [SerializeField]
     private InputActionReference togglePlanesDetectedAction;
+    [SerializeField]
+    private GameObject grabableCube;
+
     private ARPlaneManager _planeManager;
     private bool isOn = false;
     private int numberOfAddedPlane = 0;
@@ -20,6 +24,7 @@ public class ScenePlaneDetectController : MonoBehaviour
         {
             Debug.LogError("ARPlaneManager not found");
         }
+        // On s'abonne aux évènements --> Ne pas oublier de se désabonner dans onDestroy()
         togglePlanesDetectedAction.action.performed += OnTogglePlanesAction;
         _planeManager.planesChanged += OnPlanesChanged;
     }
@@ -76,13 +81,22 @@ public class ScenePlaneDetectController : MonoBehaviour
     {
         if (arguments.added.Count > 0)
         {
-            numberOfAddedPlane++;
             foreach(var plane in _planeManager.trackables)
             {
+                numberOfAddedPlane++;
                 PrintPanelLabel(plane);
+                Vector3 spawnPosition;
+                if (plane.classification == UnityEngine.XR.ARSubsystems.PlaneClassification.Table)
+                {
+                    Debug.Log("Table Found");
+                    spawnPosition = plane.center;
+                    spawnPosition.y += 1.3f;
+                    Instantiate(grabableCube, spawnPosition, Quaternion.identity);
+                }
             }
             Debug.Log("Number of Planes " + _planeManager.trackables.count);
             Debug.Log("Number of planes found " + numberOfAddedPlane);
+
         }
     }
 
@@ -101,7 +115,6 @@ public class ScenePlaneDetectController : MonoBehaviour
     }
     // Update is called once per frame
     void Update()
-    {
-        
+    { }
     }
 }
