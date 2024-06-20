@@ -18,7 +18,8 @@ public class InitSceneScript : MonoBehaviour
 
     //Boid Prefab
     public GameObject boid;
-    
+    [SerializeField]
+    private GameObject controllerSpawner;
 
     //Nombre de face pour le mur
     public int side;
@@ -65,14 +66,21 @@ public class InitSceneScript : MonoBehaviour
     // Start is called before the first frame update
     public void Init(Vector3 _spawnPos,float _sizeTable,bool _damier)
     {
-        arenaSize = _sizeTable/1.2f;
+        arenaSize = _sizeTable;
         // Scaling Boids parameters
-        wallRay=arenaSize*0.10f;
+        wallRay=arenaSize*0.20f;
         avoidRay=wallRay;
-        cohesionRay=arenaSize*0.6f;
-        attractionRay=arenaSize*0.4f;
+        cohesionRay=arenaSize*0.5f;
+        attractionRay=arenaSize*0.7f;
         filter=20;
-
+        SpawnBoidScript tomodif = controllerSpawner.GetComponent<SpawnBoidScript>();
+        tomodif.speed =BoidSpeed;
+        tomodif.wallRay = wallRay;
+        tomodif.avoidRay = avoidRay;
+        tomodif.cohesionRay = cohesionRay;
+        tomodif.attractionRay = attractionRay;
+        tomodif.filter = filter;
+        Debug.Log("ARENA SIZE "+arenaSize);
     //Coords d'une case
     x_ref = -arenaSize * 0.5F;
         y_ref = 0;

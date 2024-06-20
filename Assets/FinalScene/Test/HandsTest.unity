@@ -3004,6 +3004,7 @@ MonoBehaviour:
   plane: {fileID: 7135396484593494977, guid: 29ee8fd483ea7514eae29202a3aca730, type: 3}
   wall: {fileID: 6565700377588836216, guid: ac7c61791594e7d4398f7545deeae05e, type: 3}
   boid: {fileID: 4222653350513549871, guid: 9a9c9af6a27587a48bfa7b6ed18d0d48, type: 3}
+  controllerSpawner: {fileID: 158410477}
   side: 40
   arenaSize: 0.8
   damier: 0

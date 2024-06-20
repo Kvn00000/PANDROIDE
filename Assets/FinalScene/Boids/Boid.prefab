@@ -398,7 +398,7 @@ MonoBehaviour:
   withGoto: 1
   withCohesion: 1
   withAvoid: 1
-  withDEBUG: 0
+  withDEBUG: 1
   speed: 300
   wallRay: 0.15
   avoidRay: 0.15
