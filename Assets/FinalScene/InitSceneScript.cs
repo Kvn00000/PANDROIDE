@@ -24,7 +24,7 @@ public class InitSceneScript : MonoBehaviour
     public int side;
 
     //Taille de l'arene
-    public int arenaSize = 0;
+    public float arenaSize = 0;
     public bool damier = false;
 
     //Nombre de Boid
@@ -50,7 +50,7 @@ public class InitSceneScript : MonoBehaviour
     private GameObject walls;
     private CircleWallScript component_wall;
     private GameObject _plane;
-
+    
 
     private float x_ref;
     private float y_ref;
@@ -59,25 +59,33 @@ public class InitSceneScript : MonoBehaviour
     
     void Awake()
     {
-        //Coords d'une case
-        x_ref = -arenaSize*0.5F;
-        y_ref = 0;
-        z_ref = -arenaSize*0.5F;
-        if(damier){
-            elements= new GameObject[arenaSize*arenaSize,arenaSize*arenaSize];
-        }
+        
     }
 
     // Start is called before the first frame update
-    void Start()
+    public void Init(Vector3 _spawnPos,float _sizeTable,bool _damier)
     {
-        
+        arenaSize = _sizeTable/1.2f;
+        // Scaling Boids parameters
+        wallRay=arenaSize*0.10f;
+        avoidRay=wallRay;
+        cohesionRay=arenaSize*0.6f;
+        attractionRay=arenaSize*0.4f;
+        filter=20;
 
-
+    //Coords d'une case
+    x_ref = -arenaSize * 0.5F;
+        y_ref = 0;
+        z_ref = -arenaSize * 0.5F;
+        //if (damier)
+        //{
+        //    elements = new GameObject[arenaSize * arenaSize, arenaSize * arenaSize];
+        //}
+        init_transform.position = _spawnPos;
         //On ajoute le mur
-        walls = Instantiate(wall, new Vector3(0,0,0), init_transform.rotation);
+        walls = Instantiate(wall, init_transform.position, init_transform.rotation);
         component_wall = walls.GetComponent<CircleWallScript>();
-        component_wall.DrawWall(side,arenaSize/2,arenaSize/4);
+        component_wall.DrawWall(side,arenaSize/2,arenaSize/4f);
 
 
         if(damier){
@@ -97,8 +105,11 @@ public class InitSceneScript : MonoBehaviour
 
         }else{
             //Ajout du plane
-            _plane = Instantiate(plane, new Vector3(0,-arenaSize*0.5F,0), init_transform.rotation);
+            //_plane = Instantiate(plane, new Vector3(0,-arenaSize*0.5F,0), init_transform.rotation);
+            _plane = Instantiate(plane, _spawnPos, init_transform.rotation);
             _plane.GetComponent<Plane>().Init(arenaSize*0.5F);
+            //Debug.Log("THE Plane LAYER IS " + _plane.layer);
+            _plane.layer = 7;
         }
 
 
@@ -114,7 +125,7 @@ public class InitSceneScript : MonoBehaviour
             float randomAngleY = Random.Range(0f, 360f);
             Quaternion spawnRotation = Quaternion.Euler(0f, randomAngleY, 0f);
 
-            boidTuning obj=Instantiate(boid, spawnPosition,spawnRotation).GetComponent<boidTuning>();
+            boidTuning obj=Instantiate(boid, init_transform.position,spawnRotation).GetComponent<boidTuning>();
             obj.Init(BoidSpeed, wallRay, avoidRay, cohesionRay, attractionRay, filter);
             boidsList.Add(obj);
         

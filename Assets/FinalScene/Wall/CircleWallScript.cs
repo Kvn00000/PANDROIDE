@@ -11,7 +11,7 @@ public class CircleWallScript : MonoBehaviour
     public Vector3[] points;
     public int[] _triangles;
  
-    public void DrawWall(int sides, float radius,int height)
+    public void DrawWall(int sides, float radius,float height)
     {
         mesh = new Mesh();
         _meshCollider = gameObject.AddComponent<MeshCollider>();
@@ -27,7 +27,7 @@ public class CircleWallScript : MonoBehaviour
  
 
     
-    List<Vector3> GetPoints(int sides, float radius,int height)   
+    List<Vector3> GetPoints(int sides, float radius,float height)   
     {
         List<Vector3> points = new List<Vector3>();
         float PointStep = (float)1/sides;

@@ -1492,6 +1492,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7938416194951924146, guid: 5eccbf4be2c00e94689ee8062e4e7276,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7990873189708867121, guid: 5eccbf4be2c00e94689ee8062e4e7276,
         type: 3}
       propertyPath: m_IsActive
@@ -1713,7 +1718,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   togglePlanesDetectedAction: {fileID: 6834502231330789683, guid: c348712bda248c246b8c49b3db54643f,
     type: 3}
-  grabableCube: {fileID: 1826128083}
+  toSpawn: {fileID: 1826128083}
+  damier: 0
 --- !u!114 &1104147869
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2998,16 +3004,16 @@ MonoBehaviour:
   plane: {fileID: 7135396484593494977, guid: 29ee8fd483ea7514eae29202a3aca730, type: 3}
   wall: {fileID: 6565700377588836216, guid: ac7c61791594e7d4398f7545deeae05e, type: 3}
   boid: {fileID: 4222653350513549871, guid: 9a9c9af6a27587a48bfa7b6ed18d0d48, type: 3}
-  side: 50
-  arenaSize: 6
+  side: 40
+  arenaSize: 0.8
   damier: 0
   BoidNumber: 0
-  BoidSpeed: 500
-  wallRay: 0.6
-  avoidRay: 0.6
-  cohesionRay: 1
-  attractionRay: 1.1
-  filter: 5
+  BoidSpeed: 400
+  wallRay: 0.16
+  avoidRay: 0.16
+  cohesionRay: 0.6
+  attractionRay: 0.8
+  filter: 20
 --- !u!4 &1826128085
 Transform:
   m_ObjectHideFlags: 0

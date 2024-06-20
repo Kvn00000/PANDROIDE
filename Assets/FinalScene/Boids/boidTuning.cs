@@ -33,7 +33,7 @@ public class boidTuning : MonoBehaviour
     public float attractionRay;
     public float filter;
 
-
+    
     public void Init(float _speed,float _wallRay, float _avoidRay, float _cohesionRay, float _attractionRay, float _filter){
         speed =_speed;
         wallRay = _wallRay;
@@ -41,12 +41,15 @@ public class boidTuning : MonoBehaviour
         cohesionRay = _cohesionRay;
         attractionRay = _attractionRay;
         filter = _filter;
-
+        Debug.Log("Wall R : " + wallRay + "  Cohesion R : " + cohesionRay + "  Attraction R : " + attractionRay);
         rb = GetComponent<Rigidbody>();
     }
-
-
-    // Update is called once per frame
+    /*
+    public void Start()
+    {
+        rb = GetComponent<Rigidbody>();
+    }*/
+    //Update is called once per frame
     void Update()
     {
         /*

@@ -6,7 +6,7 @@ public class Plane : MonoBehaviour
 
     //Components
     private MeshFilter _meshFilter;
-    private BoxCollider _collider;
+    private MeshCollider _collider;
 
     Mesh meshs;
     protected Vector3[] vertices;
@@ -14,18 +14,17 @@ public class Plane : MonoBehaviour
     public void Init(float size){
         //Add Component
         _meshFilter = gameObject.AddComponent<MeshFilter>();
-        _collider = gameObject.AddComponent<BoxCollider>();
+        _collider = gameObject.AddComponent<MeshCollider>();
 
 
-        _collider.center = new Vector3(0,size,0);
-        _collider.size = new Vector3(size*2,0.001F,size*2);
-
+        //_collider.center = new Vector3(0,size,0);
+        //_collider.size = new Vector3(size*2,0.001F,size*2);
         
         vertices = new Vector3[4]{
-            new Vector3(-size, size, -size),
-            new Vector3(size, size, -size),
-            new Vector3(-size, size, size),
-            new Vector3(size, size, size)
+            new Vector3(-size, 0, -size),
+            new Vector3(size, 0, -size),
+            new Vector3(-size, 0, size),
+            new Vector3(size, 0, size)
         };
 
 
@@ -39,5 +38,6 @@ public class Plane : MonoBehaviour
         meshs.vertices = vertices;
         meshs.triangles = triangles;
         _meshFilter.mesh = meshs;
+        _collider.sharedMesh = meshs; 
     }
 }

@@ -11,11 +11,12 @@ public class ScenePlaneDetectController : MonoBehaviour
     [SerializeField]
     private InputActionReference togglePlanesDetectedAction;
     [SerializeField]
-    private GameObject grabableCube;
+    private GameObject toSpawn;
 
     private ARPlaneManager _planeManager;
     private bool isOn = false;
     private int numberOfAddedPlane = 0;
+    public bool damier = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -88,10 +89,12 @@ public class ScenePlaneDetectController : MonoBehaviour
                 Vector3 spawnPosition;
                 if (plane.classification == UnityEngine.XR.ARSubsystems.PlaneClassification.Table)
                 {
-                    Debug.Log("Table Found");
+                    //Debug.Log("Table Found");
                     spawnPosition = plane.center;
-                    spawnPosition.y += 1.3f;
-                    Instantiate(grabableCube, spawnPosition, Quaternion.identity);
+                    spawnPosition.y +=0.0001f;
+                    float sizeTable = plane.extents.sqrMagnitude;
+                    GameObject scene=Instantiate(toSpawn, spawnPosition, Quaternion.identity);
+                    scene.GetComponent<InitSceneScript>().Init(spawnPosition, sizeTable,damier);
                 }
             }
             Debug.Log("Number of Planes " + _planeManager.trackables.count);
@@ -103,7 +106,9 @@ public class ScenePlaneDetectController : MonoBehaviour
     private void PrintPanelLabel(ARPlane plane)
     {
         string label= plane.classification.ToString();
-        string log = $"Plane ID : { plane.trackableId}, Label : {label}";
+        float meter = plane.size.sqrMagnitude;
+        Vector2 ex = plane.extents;
+        string log = $"Plane ID : { plane.trackableId}, Label : {label}, Size : {meter}, pos : {ex.sqrMagnitude}";
         Debug.Log(log);
     }
 
