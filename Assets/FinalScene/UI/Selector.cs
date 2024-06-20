@@ -10,6 +10,7 @@ public class Selector : MonoBehaviour
 
     public GameObject RightController;
     public GameObject BoidPrefab;
+    public GameObject BoidMenu;
 
     public InputActionProperty inputActionProperty;  
 
@@ -34,8 +35,10 @@ public class Selector : MonoBehaviour
 
         if (index == 0){
             BoidSpawner.toInstantiate = 0;
+            BoidMenu.SetActive(false);
         }else if(index == 1 ){
             BoidSpawner.toInstantiate = 1;
+            BoidMenu.SetActive(true);
         }else if(index == 2 ){
             BoidSpawner.toInstantiate = 2;
         }
