@@ -91,7 +91,7 @@ public class ScenePlaneDetectController : MonoBehaviour
                 {
                     //Debug.Log("Table Found");
                     spawnPosition = plane.center;
-                    spawnPosition.y +=0.0001f;
+                    spawnPosition.y +=0.001f;
                     float sizeTable = plane.extents.sqrMagnitude;
                     GameObject scene=Instantiate(toSpawn, spawnPosition, Quaternion.identity);
                     scene.GetComponent<InitSceneScript>().Init(spawnPosition, sizeTable,damier);

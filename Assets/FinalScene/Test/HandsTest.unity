@@ -3446,7 +3446,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   head: {fileID: 1104147857}
   distanceSpawn: 2.2
+  keyboard: {fileID: 0}
   menu: {fileID: 824842037}
+  BoidMenu: {fileID: 0}
   showButton:
     m_UseReference: 1
     m_Action:

@@ -343,7 +343,7 @@ public class boidTuning : MonoBehaviour
                 Debug.Log("Collision at " + info.transform.position);
                 Debug.DrawLine(myPos, myPos + f, Color.red); 
             }
-            return 50;
+            return 55;
         }
         // Hit FL
         if (Physics.Raycast(fleftRay, maxdistance, layermask))
@@ -353,7 +353,7 @@ public class boidTuning : MonoBehaviour
             {
                 Debug.DrawLine(myPos, myPos + fleft, Color.red);
             }
-            return 45;
+            return 50;
         }
         // Hit FR
         if (Physics.Raycast(frightRay, maxdistance, layermask))
@@ -362,21 +362,21 @@ public class boidTuning : MonoBehaviour
             { 
                 Debug.DrawLine(myPos, myPos +fright, Color.red);
             }
-            return -45;
+            return -50;
         }
         //hit left
         if (Physics.Raycast(left, maxdistance, layermask))
         {
             //Debug.Log("HIT LEFT");
             if (withDEBUG) { Debug.DrawLine(myPos, myPos - r, Color.red); }
-            return 25;
+            return 35;
         }
         //hit right
         if ((Physics.Raycast(right, maxdistance, layermask)))
         {
             //Debug.Log("HIT Right");
             if (withDEBUG) { Debug.DrawLine(myPos, myPos + r, Color.red); }
-            return -25;
+            return -35;
         }
         return rotate;
     }

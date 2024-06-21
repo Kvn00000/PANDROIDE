@@ -71,8 +71,8 @@ public class InitSceneScript : MonoBehaviour
         wallRay=arenaSize*0.20f;
         avoidRay=wallRay;
         cohesionRay=arenaSize*0.5f;
-        attractionRay=arenaSize*0.7f;
-        filter=20;
+        attractionRay=arenaSize*0.8f;
+        filter=30;
         SpawnBoidScript tomodif = controllerSpawner.GetComponent<SpawnBoidScript>();
         tomodif.speed =BoidSpeed;
         tomodif.wallRay = wallRay;

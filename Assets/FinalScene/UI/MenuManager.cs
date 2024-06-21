@@ -31,10 +31,11 @@ public class MenuManager : MonoBehaviour
         menu.transform.LookAt(new Vector3(head.position.x,menu.transform.position.y,head.position.z)) ;
         menu.transform.forward *= -1;
 
+        
         BoidMenu.transform.position = head.position + new Vector3(head.forward.x, 0, head.forward.z).normalized*distanceSpawn;   
         BoidMenu.transform.LookAt(new Vector3(head.position.x,BoidMenu.transform.position.y,head.position.z)) ;
         BoidMenu.transform.forward *= -1;
-
+        
 
         // keyboard.transform.position = head.position + new Vector3(head.forward.x, -0.5f, head.forward.z).normalized*distanceSpawn;   
         // keyboard.transform.LookAt(new Vector3(head.position.x,keyboard.transform.position.y,head.position.z)) ;
