@@ -57,7 +57,6 @@ public class boidTuning : MonoBehaviour
        */
         String modeUsed = "";
         //If not on the ground apply gravity
-
         if (!grounded)
         {
             rb.AddForce(Physics.gravity * Time.deltaTime, ForceMode.Acceleration);
@@ -389,6 +388,8 @@ public class boidTuning : MonoBehaviour
         */
         //Init Ray
         Vector3 myPos = rb.transform.position;
+        Vector3 mPos = this.GetComponent<BoxCollider>().center;
+        myPos = mPos;
         Ray front = new Ray(myPos, transform.forward);
         Ray right = new Ray(myPos, transform.right);
         Ray left = new Ray(myPos, -transform.right);
@@ -450,6 +451,7 @@ public class boidTuning : MonoBehaviour
        */
         //Init Ray
         Vector3 myPos = rb.transform.position;
+
         Ray front = new Ray(myPos, transform.forward);
         Ray right = new Ray(myPos, transform.right);
         Ray left = new Ray(myPos, -transform.right);
@@ -519,7 +521,6 @@ public class boidTuning : MonoBehaviour
        */
         //Init Ray
         Vector3 myPos = rb.transform.position;
-
         //Debug.Log("================>"+myPos);
         Ray front = new Ray(myPos, transform.forward);
         Ray right = new Ray(myPos, transform.right);

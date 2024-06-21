@@ -89,10 +89,13 @@ public class ScenePlaneDetectController : MonoBehaviour
                 Vector3 spawnPosition;
                 if (plane.classification == UnityEngine.XR.ARSubsystems.PlaneClassification.Table)
                 {
+                    
                     //Debug.Log("Table Found");
                     spawnPosition = plane.center;
-                    spawnPosition.y +=0.001f;
+                    spawnPosition.y -=0.01f;
+                    //float sizeTable = plane.size.sqrMagnitude;
                     float sizeTable = plane.extents.sqrMagnitude;
+                    plane.gameObject.layer = LayerMask.NameToLayer("SOL");
                     GameObject scene=Instantiate(toSpawn, spawnPosition, Quaternion.identity);
                     scene.GetComponent<InitSceneScript>().Init(spawnPosition, sizeTable,damier);
                 }
@@ -108,7 +111,7 @@ public class ScenePlaneDetectController : MonoBehaviour
         string label= plane.classification.ToString();
         float meter = plane.size.sqrMagnitude;
         Vector2 ex = plane.extents;
-        string log = $"Plane ID : { plane.trackableId}, Label : {label}, Size : {meter}, pos : {ex.sqrMagnitude}";
+        string log = $"Plane ID : { plane.trackableId}, Label : {label}, Size : {meter}, pos : {ex.sqrMagnitude} \n layer : {plane.gameObject.layer}";
         Debug.Log(log);
     }
 
