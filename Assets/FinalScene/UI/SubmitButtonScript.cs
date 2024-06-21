@@ -24,7 +24,7 @@ public class SubmitButtonScript : MonoBehaviour
         }
     }
     public void OnButtonClick(){
-        Debug.Log("j'ai changé les params normalement");
+        //Debug.Log("j'ai changé les params normalement");
         float SpeedText;
         float WallRayText;
         float AvoidRayText; 

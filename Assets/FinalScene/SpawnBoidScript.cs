@@ -38,9 +38,9 @@ public class SpawnBoidScript : MonoBehaviour
 
         if(inputAction.action.WasPressedThisFrame() && toInstantiate > 0){
             if(toInstantiate == 1){
-                Debug.Log("ici j'ai changé les params regarde :::: ");
+                //Debug.Log("ici j'ai changé les params regarde :::: ");
 
-                Debug.Log(speed+" "+ wallRay+ " " + avoidRay+ " " + cohesionRay+ " " + attractionRay +" " + filter);
+                //Debug.Log(speed+" "+ wallRay+ " " + avoidRay+ " " + cohesionRay+ " " + attractionRay +" " + filter);
                 GameObject boid = Instantiate(BoidPrefab,transform.position, Quaternion.identity);
                 boid.GetComponent<boidTuning>().Init(speed, wallRay, avoidRay,
                                                      cohesionRay, attractionRay, filter);

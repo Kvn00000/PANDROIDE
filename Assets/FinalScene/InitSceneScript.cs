@@ -66,8 +66,9 @@ public class InitSceneScript : MonoBehaviour
     // Start is called before the first frame update
     public void Init(Vector3 _spawnPos,float _sizeTable,bool _damier)
     {
-        arenaSize = _sizeTable;
+        arenaSize = _sizeTable*0.8f;
         // Scaling Boids parameters
+        BoidSpeed = 200;
         wallRay=arenaSize*0.20f;
         avoidRay=wallRay;
         cohesionRay=arenaSize*0.5f;
@@ -93,7 +94,7 @@ public class InitSceneScript : MonoBehaviour
         //On ajoute le mur
         walls = Instantiate(wall, init_transform.position, init_transform.rotation);
         component_wall = walls.GetComponent<CircleWallScript>();
-        component_wall.DrawWall(side,arenaSize/2,arenaSize/6f);
+        component_wall.DrawWall(side,arenaSize/2,arenaSize/10f);
 
 
         if(damier){

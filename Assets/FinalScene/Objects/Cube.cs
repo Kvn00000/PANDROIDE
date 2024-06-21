@@ -47,7 +47,9 @@ public class Cube : MonoBehaviour
         _collider.convex = true;
 
         //A enlever quand y'aura un sol
-        _rigidBody.useGravity = false;
+        _rigidBody.mass = 5;
+        _rigidBody.useGravity = true ;
+        _rigidBody.isKinematic = false;
 
         // _rigidBody.isKinematic = true;
 

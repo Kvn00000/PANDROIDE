@@ -41,7 +41,7 @@ public class boidTuning : MonoBehaviour
         cohesionRay = _cohesionRay;
         attractionRay = _attractionRay;
         filter = _filter;
-        Debug.Log("Wall R : " + wallRay + "  Cohesion R : " + cohesionRay + "  Attraction R : " + attractionRay);
+        //Debug.Log("Wall R : " + wallRay + "  Cohesion R : " + cohesionRay + "  Attraction R : " + attractionRay);
         rb = GetComponent<Rigidbody>();
     }
     /*
