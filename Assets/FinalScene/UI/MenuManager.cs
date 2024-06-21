@@ -33,7 +33,9 @@ public class MenuManager : MonoBehaviour
             }else{
                 BoidMenu.SetActive(false);
             }
-
+            if(_dropDown.value == 2){
+                BoidMenu.SetActive(false);
+            }
             menu.SetActive(!menu.activeSelf);
         }
         menu.transform.position = head.position + new Vector3(head.forward.x, 0, head.forward.z).normalized*distanceSpawn;

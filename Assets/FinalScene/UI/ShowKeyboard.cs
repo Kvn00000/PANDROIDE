@@ -31,8 +31,8 @@ public class ShowKeyboard : MonoBehaviour
 
         NonNativeKeyboard.Instance.RepositionKeyboard(targetPosition);
 
-        SetCaretColorAlpha(1);
-    
+
+        SetCaretColorAlpha(1);    
         NonNativeKeyboard.Instance.OnClosed += Instance_OnClosed;
     }
 
