@@ -92,7 +92,7 @@ public class ScenePlaneDetectController : MonoBehaviour
                     
                     //Debug.Log("Table Found");
                     spawnPosition = plane.center;
-                    spawnPosition.y -=0.01f;
+                    spawnPosition.y +=0.01f;
                     //float sizeTable = plane.size.sqrMagnitude;
                     float sizeTable = plane.extents.sqrMagnitude;
                     plane.gameObject.layer = LayerMask.NameToLayer("SOL");

@@ -32,6 +32,7 @@ public class boidTuning : MonoBehaviour
     public float cohesionRay;
     public float attractionRay;
     public float filter;
+    private int step;
 
     
     public void Init(float _speed,float _wallRay, float _avoidRay, float _cohesionRay, float _attractionRay, float _filter){
@@ -43,6 +44,7 @@ public class boidTuning : MonoBehaviour
         filter = _filter;
         //Debug.Log("Wall R : " + wallRay + "  Cohesion R : " + cohesionRay + "  Attraction R : " + attractionRay);
         rb = GetComponent<Rigidbody>();
+        step = 0;
     }
     /*
     public void Start()
@@ -66,6 +68,8 @@ public class boidTuning : MonoBehaviour
             if (withDEBUG)
             {
                 Debug.Log("//////////////////////////////////////////////////////////////////////////////////");
+                Debug.Log("STEP : " + step);
+                step++;
             }
             float rotation = 0.0f;
             float oldrotate;

@@ -9239,7 +9239,7 @@ MonoBehaviour:
   arenaSize: 0.8
   damier: 0
   BoidNumber: 0
-  BoidSpeed: 400
+  BoidSpeed: 200
   wallRay: 0.16
   avoidRay: 0.16
   cohesionRay: 0.6

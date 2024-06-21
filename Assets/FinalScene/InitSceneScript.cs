@@ -114,15 +114,16 @@ public class InitSceneScript : MonoBehaviour
 
         }else{
             //Ajout du plane
-            //_plane = Instantiate(plane, new Vector3(0,-arenaSize*0.5F,0), init_transform.rotation);
-            //_plane = Instantiate(plane, _spawnPos, init_transform.rotation);
-            //_plane.GetComponent<Plane>().Init(arenaSize*0.5F);
+            _plane = Instantiate(plane, new Vector3(0,-arenaSize*0.5F,0), init_transform.rotation);
+            _plane = Instantiate(plane, _spawnPos, init_transform.rotation);
+            _plane.GetComponent<Plane>().Init(arenaSize*0.5F);
             //Debug.Log("THE Plane LAYER IS " + _plane.layer);
-            //_plane.layer = 7;
+            _plane.layer = 7;
         }
 
 
         // Spawn des boids
+
         for (int i = 0; i < BoidNumber; i++){
             //Coordonnées aléatoire
             Vector3 spawnPosition = new Vector3(
@@ -133,9 +134,10 @@ public class InitSceneScript : MonoBehaviour
             //Angle aléatoire
             float randomAngleY = Random.Range(0f, 360f);
             Quaternion spawnRotation = Quaternion.Euler(0f, randomAngleY, 0f);
-
-            boidTuning obj=Instantiate(boid, init_transform.position,spawnRotation).GetComponent<boidTuning>();
+            Vector3 otherSpawn = new Vector3(_spawnPos.x, _spawnPos.y+1,_spawnPos.z) ;
+            boidTuning obj=Instantiate(boid, otherSpawn,spawnRotation).GetComponent<boidTuning>();
             obj.Init(BoidSpeed, wallRay, avoidRay, cohesionRay, attractionRay, filter);
+            obj.withDEBUG = false;
             boidsList.Add(obj);
         
         }

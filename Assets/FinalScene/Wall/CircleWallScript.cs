@@ -58,7 +58,16 @@ public class CircleWallScript : MonoBehaviour
             newTriangles.Add(i);
             newTriangles.Add((i+3)%triangleAmount);
             newTriangles.Add((i+2)%triangleAmount);
-            
+
+
+            newTriangles.Add(i);
+            newTriangles.Add((i + 3) % triangleAmount);
+            newTriangles.Add((i + 1) % triangleAmount);
+
+            newTriangles.Add(i);
+            newTriangles.Add((i + 2) % triangleAmount);
+            newTriangles.Add((i + 3) % triangleAmount);
+
         }
         return newTriangles.ToArray();
     }
