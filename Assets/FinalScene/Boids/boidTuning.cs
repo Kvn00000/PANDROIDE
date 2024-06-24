@@ -45,8 +45,7 @@ public class boidTuning : MonoBehaviour
         //Debug.Log("Wall R : " + wallRay + "  Cohesion R : " + cohesionRay + "  Attraction R : " + attractionRay);
         rb = GetComponent<Rigidbody>();
         step = 0;
-        _grab.throwOnDetach = false;
-        _grab.useDynamicAttach = true;
+        
     }
     /*
     public void Start()
@@ -61,6 +60,10 @@ public class boidTuning : MonoBehaviour
        */
         String modeUsed = "";
         //If not on the ground apply gravity
+        Quaternion old = this.transform.rotation;
+        Quaternion newRota= new Quaternion(0, old.y, 0, old.w);
+        this.transform.rotation = newRota;
+
         if (!grounded)
         {
             rb.AddForce(Physics.gravity * Time.deltaTime, ForceMode.Acceleration);
