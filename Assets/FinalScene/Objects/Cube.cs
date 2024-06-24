@@ -104,10 +104,124 @@ public class Cube : MonoBehaviour
         _collider.sharedMesh = meshs;
 
     }
+    
+    public void updateTopVertices(float height)
+    {
+        float size = 0.5f;
+        // On met a jour les vertices
+        vertices = new Vector3[8]{
+            new Vector3(-size, -size, -size),
+            new Vector3(-size, size+height, -size),
+            new Vector3(size, -size, -size),
+            new Vector3(size, size+height, -size),
+            new Vector3(-size, -size, size),
+            new Vector3(-size, size+height, size),
+            new Vector3(size, -size, size),
+            new Vector3(size,size+height, size)
+        };
 
-    public void setNewMesh(Material newMat){
-         _MeshRenderer.material = newMat;
+        meshs.vertices = vertices;
+        _Boxcollider.size = new Vector3(size * 2F, 2 * size + height, size * 2F);
+        _Boxcollider.center = new Vector3(0, height * 0.5F, 0);
     }
 
+    public void updateBottomVertices(float height)
+    {
+        float size = 0.5f;
+        // On met a jour les vertices
+        vertices = new Vector3[8]{
+            new Vector3(-size, -size-height, -size),
+            new Vector3(-size, size, -size),
+            new Vector3(size, -size-height, -size),
+            new Vector3(size, size, -size),
+            new Vector3(-size, -size-height, size),
+            new Vector3(-size, size, size),
+            new Vector3(size, -size-height, size),
+            new Vector3(size,size, size)
+        };
+
+        meshs.vertices = vertices;
+        _Boxcollider.size = new Vector3(size * 2F, 2 * size + height, size * 2F);
+        _Boxcollider.center = new Vector3(0, height * 0.5F, 0);
+    }
+    public void updateRightVertices(float height)
+    {
+        float size = 0.5f;
+        // On met a jour les vertices
+        vertices = new Vector3[8]{
+            new Vector3(-size, -size, -size),
+            new Vector3(-size, size, -size),
+            new Vector3(size+height, -size, -size),
+            new Vector3(size+height, size, -size),
+            new Vector3(-size, -size, size),
+            new Vector3(-size, size, size),
+            new Vector3(size+height, -size, size),
+            new Vector3(size+height,size, size)
+        };
+
+        meshs.vertices = vertices;
+        _Boxcollider.size = new Vector3(size * 2F, 2 * size + height, size * 2F);
+        _Boxcollider.center = new Vector3(0, height * 0.5F, 0);
+    }
+    public void updateLeftVertices(float height)
+    {
+        float size = 0.5f;
+        // On met a jour les vertices
+        vertices = new Vector3[8]{
+            new Vector3(-size, -size, -size),
+            new Vector3(-size, size+height, -size),
+            new Vector3(size, -size, -size),
+            new Vector3(size, size+height, -size),
+            new Vector3(-size, -size, size),
+            new Vector3(-size, size+height, size),
+            new Vector3(size, -size, size),
+            new Vector3(size,size+height, size)
+        };
+
+        meshs.vertices = vertices;
+        _Boxcollider.size = new Vector3(size * 2F, 2 * size + height, size * 2F);
+        _Boxcollider.center = new Vector3(0, height * 0.5F, 0);
+    }
+    public void updateFrontVertices(float height)
+    {
+        float size = 0.5f;
+        // On met a jour les vertices
+        vertices = new Vector3[8]{
+            new Vector3(-size, -size, -size),
+            new Vector3(-size, size+height, -size),
+            new Vector3(size, -size, -size),
+            new Vector3(size, size+height, -size),
+            new Vector3(-size, -size, size),
+            new Vector3(-size, size+height, size),
+            new Vector3(size, -size, size),
+            new Vector3(size,size+height, size)
+        };
+
+        meshs.vertices = vertices;
+        _Boxcollider.size = new Vector3(size * 2F, 2 * size + height, size * 2F);
+        _Boxcollider.center = new Vector3(0, height * 0.5F, 0);
+    }
+    public void updateBackVertices(float height)
+    {
+        float size = 0.5f;
+        // On met a jour les vertices
+        vertices = new Vector3[8]{
+            new Vector3(-size, -size, -size),
+            new Vector3(-size, size+height, -size),
+            new Vector3(size, -size, -size),
+            new Vector3(size, size+height, -size),
+            new Vector3(-size, -size, size),
+            new Vector3(-size, size+height, size),
+            new Vector3(size, -size, size),
+            new Vector3(size,size+height, size)
+        };
+
+        meshs.vertices = vertices;
+        _Boxcollider.size = new Vector3(size * 2F, 2 * size + height, size * 2F);
+        _Boxcollider.center = new Vector3(0, height * 0.5F, 0);
+    }
+    public void setNewMesh(Material newMat) {
+            _MeshRenderer.material = newMat;
+    }
 
 }
