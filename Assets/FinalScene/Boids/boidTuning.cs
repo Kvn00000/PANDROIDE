@@ -2,7 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.XR.Interaction.Toolkit;
 
 public class boidTuning : MonoBehaviour
 {
@@ -16,7 +16,7 @@ public class boidTuning : MonoBehaviour
     public bool withCohesion = false;
     public bool withAvoid = false;
     public bool withDEBUG = false;
-
+    private XRGrabInteractable _grab;
 
     // public float wallRay=0.6f;
     // public float avoidRay = 0.6f;
@@ -45,6 +45,8 @@ public class boidTuning : MonoBehaviour
         //Debug.Log("Wall R : " + wallRay + "  Cohesion R : " + cohesionRay + "  Attraction R : " + attractionRay);
         rb = GetComponent<Rigidbody>();
         step = 0;
+        _grab.throwOnDetach = false;
+        _grab.useDynamicAttach = true;
     }
     /*
     public void Start()
