@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.InputSystem;  
 using UnityEngine;
+using UnityEngine.XR.Interaction.Toolkit;
 
 public class SpawnBoidScript : MonoBehaviour
 {
@@ -14,6 +15,9 @@ public class SpawnBoidScript : MonoBehaviour
     public float spawnSpeed = 2;
     public InputActionProperty inputAction;
 
+
+    public XRRayInteractor leftRay;
+    public XRRayInteractor RightRay;
 
 
     // Boid Param
@@ -34,9 +38,10 @@ public class SpawnBoidScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        bool isLeftRayHovering = leftRay.TryGetHitInfo(out Vector3 leftPos, out Vector3 leftNormal, out int leftNumber, out bool leftValid);
+        bool isRightRayHovering = RightRay.TryGetHitInfo(out Vector3 rightPos, out Vector3 rightNormal, out int rightNumber, out bool rightValid);
 
-
-        if(inputAction.action.WasPressedThisFrame() && toInstantiate > 0){
+        if(inputAction.action.WasPressedThisFrame() && toInstantiate > 0 && !isLeftRayHovering && !isRightRayHovering ){
             if(toInstantiate == 1){
                 //Debug.Log("ici j'ai changé les params regarde :::: ");
 
