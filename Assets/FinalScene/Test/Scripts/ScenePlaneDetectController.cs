@@ -12,7 +12,6 @@ public class ScenePlaneDetectController : MonoBehaviour
     private InputActionReference togglePlanesDetectedAction;
     [SerializeField]
     private GameObject toSpawn;
-
     private ARPlaneManager _planeManager;
     private bool isOn = false;
     private int numberOfAddedPlane = 0;
@@ -25,7 +24,7 @@ public class ScenePlaneDetectController : MonoBehaviour
         {
             Debug.LogError("ARPlaneManager not found");
         }
-        // On s'abonne aux �v�nements --> Ne pas oublier de se d�sabonner dans onDestroy()
+        // On s'abonne aux evenements --> Ne pas oublier de se desabonner dans onDestroy()
         togglePlanesDetectedAction.action.performed += OnTogglePlanesAction;
         _planeManager.planesChanged += OnPlanesChanged;
     }
@@ -87,6 +86,7 @@ public class ScenePlaneDetectController : MonoBehaviour
                 numberOfAddedPlane++;
                 PrintPanelLabel(plane);
                 Vector3 spawnPosition;
+                //Check if plane is a table --> Spawn an arena on it
                 if (plane.classification == UnityEngine.XR.ARSubsystems.PlaneClassification.Table)
                 {
                     
@@ -98,6 +98,26 @@ public class ScenePlaneDetectController : MonoBehaviour
                     plane.gameObject.layer = LayerMask.NameToLayer("SOL");
                     GameObject scene=Instantiate(toSpawn, spawnPosition, Quaternion.identity);
                     scene.GetComponent<InitSceneScript>().Init(spawnPosition, sizeTable,damier);
+                }
+                //Check if plane is a ground --> Add a component that destro all other objects
+                if (plane.classification == UnityEngine.XR.ARSubsystems.PlaneClassification.Floor)
+                {
+                    /*
+                    Mesh planeMesh = new Mesh();
+                    ARPlaneMeshGenerators.GenerateMesh(planeMesh, Pose.identity, plane.boundary);
+                    MeshCollider planeMeshCollider=plane.gameObject.AddComponent<MeshCollider>();
+                    planeMeshCollider.sharedMesh = planeMesh;
+                    planeMeshCollider.isTrigger = true;
+                    */
+                    
+                    plane.gameObject.AddComponent<BoxCollider>();
+                    BoxCollider boxCollider = plane.GetComponent<BoxCollider>();
+                    boxCollider.size = plane.gameObject.transform.localScale;
+                    boxCollider.center = plane.center;
+                    boxCollider.isTrigger = true;
+                    
+                    plane.gameObject.AddComponent<DestroyGroundScript>();
+                    Debug.Log("Destroyer Added");
                 }
             }
             Debug.Log("Number of Planes " + _planeManager.trackables.count);

@@ -19,6 +19,7 @@ public class Cube : MonoBehaviour
     //Components
     private MeshFilter _meshFilter;
     private MeshCollider _collider;
+    private BoxCollider _Boxcollider;
     private MeshRenderer _MeshRenderer ;
     private Rigidbody _rigidBody;
     private XRGrabInteractable _grab;
@@ -43,14 +44,18 @@ public class Cube : MonoBehaviour
         _rigidBody = gameObject.AddComponent<Rigidbody>();
         _grab = gameObject.AddComponent<XRGrabInteractable>();
 
+        
 
         _collider.convex = true;
-
         //A enlever quand y'aura un sol
-        _rigidBody.mass = 5;
+        _rigidBody.mass = 100;
         _rigidBody.useGravity = true ;
         _rigidBody.isKinematic = false;
-
+        _Boxcollider = gameObject.AddComponent<BoxCollider>();
+        _Boxcollider.center = _rigidBody.centerOfMass;
+        _Boxcollider.size = this.transform.localScale;
+        _Boxcollider.isTrigger = true;
+        this.gameObject.layer = LayerMask.NameToLayer("MUR");
         // _rigidBody.isKinematic = true;
 
         _grab.throwOnDetach = false;
