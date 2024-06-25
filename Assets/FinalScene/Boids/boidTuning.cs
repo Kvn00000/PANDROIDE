@@ -212,7 +212,7 @@ public class boidTuning : MonoBehaviour
         RaycastHit info;
         // Init distance floats
         List<float> distanceList = new List<float>();
-        float[] toRotate = { 50f, 45f, -45f, 25f, -25f };
+        float[] toRotate = { 60f, 55f, -55f, 35f, -35f };
         //hit front
         if (Physics.Raycast(front, out info, maxdistance, layermask))
         {

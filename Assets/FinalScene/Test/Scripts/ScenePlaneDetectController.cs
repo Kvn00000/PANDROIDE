@@ -17,6 +17,8 @@ public class ScenePlaneDetectController : MonoBehaviour
     private int numberOfAddedPlane = 0;
     public bool damier = false;
     // Start is called before the first frame update
+    public GameObject _arena;
+    private bool _arenaSpawned=false;
     void Start()
     {
         _planeManager = GetComponent<ARPlaneManager>();
@@ -89,15 +91,20 @@ public class ScenePlaneDetectController : MonoBehaviour
                 //Check if plane is a table --> Spawn an arena on it
                 if (plane.classification == UnityEngine.XR.ARSubsystems.PlaneClassification.Table)
                 {
-                    
+
                     //Debug.Log("Table Found");
-                    spawnPosition = plane.center;
-                    spawnPosition.y +=0.01f;
-                    //float sizeTable = plane.size.sqrMagnitude;
-                    float sizeTable = plane.extents.sqrMagnitude;
-                    plane.gameObject.layer = LayerMask.NameToLayer("SOL");
-                    GameObject scene=Instantiate(toSpawn, spawnPosition, Quaternion.identity);
-                    scene.GetComponent<InitSceneScript>().Init(spawnPosition, sizeTable,damier);
+                    if (!_arenaSpawned)
+                    {
+                        spawnPosition = plane.center;
+                        spawnPosition.y -=0.01f;
+                        //float sizeTable = plane.size.sqrMagnitude;
+                        float sizeTable = plane.extents.sqrMagnitude;
+                        plane.gameObject.layer = LayerMask.NameToLayer("SOL");
+                        GameObject scene=Instantiate(toSpawn, spawnPosition, Quaternion.identity);
+                        scene.GetComponent<InitSceneScript>().Init(spawnPosition, sizeTable,damier);
+                        _arena = scene;
+                        _arenaSpawned = true;
+                    }
                 }
                 //Check if plane is a ground --> Add a component that destro all other objects
                 if (plane.classification == UnityEngine.XR.ARSubsystems.PlaneClassification.Floor)
@@ -144,5 +151,7 @@ public class ScenePlaneDetectController : MonoBehaviour
     // Update is called once per frame
     void Update()
     { }
+
+
 }
 
