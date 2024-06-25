@@ -72,10 +72,4 @@ public class CircleWallScript : MonoBehaviour
         return newTriangles.ToArray();
     }
 
-
-
-
-
-
-
 }

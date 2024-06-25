@@ -39,6 +39,7 @@ public class ScenePlaneDetectController : MonoBehaviour
         if (PlayerPrefs.HasKey("ArenaSize"))
         {
             _arenaSize = PlayerPrefs.GetFloat("ArenaSize");
+            Debug.Log("Found Value for ArenaSize " + _arenaSize);
         }
 
         // On s'abonne aux evenements --> Ne pas oublier de se desabonner dans onDestroy()
@@ -200,6 +201,17 @@ public class ScenePlaneDetectController : MonoBehaviour
     private void OnApplicationQuit()
     {
         PlayerPrefs.SetFloat("ArenaSize", _arenaSize);
+    }
+    public void ChangeMod()
+    {
+        if (_mode == 0)
+        {
+            _mode = 1;
+        }
+        else
+        {
+            _mode = 0;
+        }
     }
 }
 
