@@ -2053,6 +2053,7 @@ GameObject:
   - component: {fileID: 362078496}
   - component: {fileID: 362078495}
   - component: {fileID: 362078494}
+  - component: {fileID: 362078497}
   m_Layer: 5
   m_Name: Edit
   m_TagString: Untagged
@@ -2162,6 +2163,23 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 362078492}
   m_CullTransparentMesh: 1
+--- !u!114 &362078497
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 362078492}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5081fc65544654676ad9c58736107440, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  editButton: {fileID: 362078494}
+  RightController: {fileID: 158410477}
+  LeftController: {fileID: 713096078}
+  sprayMaterial: {fileID: 2100000, guid: d482272bb62f64a4eb12d0de5c1843d5, type: 2}
+  SprayBottle: {fileID: 1890769123}
 --- !u!1 &366021141
 GameObject:
   m_ObjectHideFlags: 0
@@ -6506,6 +6524,7 @@ MonoBehaviour:
     type: 3}
   toSpawn: {fileID: 0}
   damier: 0
+  _arena: {fileID: 0}
 --- !u!1001 &1116926652
 PrefabInstance:
   m_ObjectHideFlags: 0
