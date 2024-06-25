@@ -17,8 +17,13 @@ public class ScenePlaneDetectController : MonoBehaviour
     private int numberOfAddedPlane = 0;
     public bool damier = false;
     // Start is called before the first frame update
-    public GameObject _arena;
+    private GameObject _arena;
+    private float _arenaSize;
     private bool _arenaSpawned=false;
+    private Vector3 _arenaSpawnPos;
+    // Mode : 0 --> Automatique ; 1 --> Manuel 
+    private int _mode = 0;
+    //
     void Start()
     {
         _planeManager = GetComponent<ARPlaneManager>();
@@ -26,9 +31,20 @@ public class ScenePlaneDetectController : MonoBehaviour
         {
             Debug.LogError("ARPlaneManager not found");
         }
+        if (PlayerPrefs.HasKey("Mode"))
+        {
+            _mode = PlayerPrefs.GetInt("Mode");
+            
+        }
+        if (PlayerPrefs.HasKey("ArenaSize"))
+        {
+            _arenaSize = PlayerPrefs.GetFloat("ArenaSize");
+        }
+
         // On s'abonne aux evenements --> Ne pas oublier de se desabonner dans onDestroy()
         togglePlanesDetectedAction.action.performed += OnTogglePlanesAction;
         _planeManager.planesChanged += OnPlanesChanged;
+
     }
 
 
@@ -96,14 +112,22 @@ public class ScenePlaneDetectController : MonoBehaviour
                     if (!_arenaSpawned)
                     {
                         spawnPosition = plane.center;
-                        spawnPosition.y -=0.01f;
                         //float sizeTable = plane.size.sqrMagnitude;
                         float sizeTable = plane.extents.sqrMagnitude;
+                        spawnPosition.y -=0.01f;
                         plane.gameObject.layer = LayerMask.NameToLayer("SOL");
                         GameObject scene=Instantiate(toSpawn, spawnPosition, Quaternion.identity);
-                        scene.GetComponent<InitSceneScript>().Init(spawnPosition, sizeTable,damier);
+
                         _arena = scene;
+                        if (_mode == 0)
+                        {
+                            _arenaSize = sizeTable;
+                        }
+
+                        _arenaSpawnPos = spawnPosition;
+                        scene.GetComponent<InitSceneScript>().Init(_arenaSpawnPos, _arenaSize,damier);
                         _arenaSpawned = true;
+
                     }
                 }
                 //Check if plane is a ground --> Add a component that destro all other objects
@@ -151,7 +175,31 @@ public class ScenePlaneDetectController : MonoBehaviour
     // Update is called once per frame
     void Update()
     { }
-
-
+    public void ArenaChanges(float newSize)
+    {
+        GameObject oldArena = _arena;
+        GameObject newArena = Instantiate(toSpawn, _arenaSpawnPos, Quaternion.identity);
+        newArena.GetComponent<InitSceneScript>().Init(_arenaSpawnPos, newSize, damier);
+        Destroy(oldArena);
+        _arena = newArena;
+    }
+    private void OnApplicationFocus(bool focus)
+    {
+        if (!focus) {
+            PlayerPrefs.SetFloat("ArenaSize", _arenaSize);
+            PlayerPrefs.SetInt("ModeArene", _mode);
+        }
+    }
+    private void OnApplicationPause(bool pause)
+    {
+        if (pause)
+        {
+            PlayerPrefs.SetFloat("ArenaSize", _arenaSize);
+        }
+    }
+    private void OnApplicationQuit()
+    {
+        PlayerPrefs.SetFloat("ArenaSize", _arenaSize);
+    }
 }
 
