@@ -872,7 +872,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 99774579}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 2}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -880,8 +880,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -65.12, y: 15.7}
-  m_SizeDelta: {x: 12.42, y: 32.96}
+  m_AnchoredPosition: {x: -4.492, y: -7.942}
+  m_SizeDelta: {x: 3.437, y: 17.076}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &99774581
 MonoBehaviour:
@@ -1652,8 +1652,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 2
-  m_fontSizeBase: 2
+  m_fontSize: 1
+  m_fontSizeBase: 1
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -1739,8 +1739,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -64.54, y: 5.81}
-  m_SizeDelta: {x: 10, y: 6}
+  m_AnchoredPosition: {x: -1.8, y: -10.85}
+  m_SizeDelta: {x: 6, y: 5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &234117826
 MonoBehaviour:
@@ -1840,6 +1840,7 @@ MonoBehaviour:
   RightController: {fileID: 158410477}
   LeftController: {fileID: 713096078}
   sprayMaterial: {fileID: 2100000, guid: d482272bb62f64a4eb12d0de5c1843d5, type: 2}
+  SprayBottle: {fileID: 1890769123}
 --- !u!1 &266952398
 GameObject:
   m_ObjectHideFlags: 0
@@ -2008,7 +2009,7 @@ Transform:
   m_GameObject: {fileID: 275525175}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.002, y: -0.038, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2029,13 +2030,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   menuLeft: {fileID: 1665353383}
   left: {fileID: 1087040217}
-  positionOffsetLeft: {x: 0.52, y: -0.1, z: -0.24}
+  positionOffsetLeft: {x: -0.04, y: -0.02, z: 0}
   rotationOffsetLeft: {x: 90, y: 0, z: 0}
-  positionOffsetRight: {x: -0.52, y: -0.1, z: 0.06}
+  positionOffsetRight: {x: 0.04, y: 0.02, z: 0}
   rotationOffsetRight: {x: 90, y: 180, z: 0}
   bottleSpray: {fileID: 1890769123}
-  SprayPositionOffset: {x: -0.52, y: -0.1, z: 0.06}
-  SprayrotationOffset: {x: 90, y: 0, z: 0}
+  SprayPositionOffsetLeft: {x: 0, y: 0.05, z: 0.05}
+  SprayrotationOffsetLeft: {x: 0, y: 0, z: 0}
+  SprayPositionOffsetRight: {x: 0, y: -0.05, z: -0.05}
+  SprayrotationOffsetRight: {x: 0, y: 0, z: 0}
   LeftController: {fileID: 713096078}
   RightController: {fileID: 158410477}
 --- !u!1 &362078492
@@ -2074,8 +2077,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -59.75, y: 25.17}
-  m_SizeDelta: {x: 10, y: 6}
+  m_AnchoredPosition: {x: -6.8, y: -4}
+  m_SizeDelta: {x: 6, y: 5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &362078494
 MonoBehaviour:
@@ -3547,7 +3550,7 @@ Transform:
   m_GameObject: {fileID: 704253098}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -2.734, y: 0.723, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5291,8 +5294,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 2
-  m_fontSizeBase: 2
+  m_fontSize: 1
+  m_fontSizeBase: 1
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -5845,8 +5848,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 2
-  m_fontSizeBase: 2
+  m_fontSize: 1
+  m_fontSizeBase: 1
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -6067,8 +6070,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -71.4, y: 8.58}
-  m_SizeDelta: {x: 10, y: 6}
+  m_AnchoredPosition: {x: -6.8, y: -10.85}
+  m_SizeDelta: {x: 6, y: 5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1103019219
 MonoBehaviour:
@@ -7919,7 +7922,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1430785298
 RectTransform:
   m_ObjectHideFlags: 0
@@ -7936,8 +7939,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -59.8, y: 0.2}
-  m_SizeDelta: {x: 31.81, y: 14.26}
+  m_AnchoredPosition: {x: -3.21, y: 3.3325}
+  m_SizeDelta: {x: 10.614, y: 6.665}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1430785299
 MonoBehaviour:
@@ -9610,7 +9613,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: -1.573, y: -0.311}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 11.25, y: 2}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1665353385
@@ -9904,8 +9907,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 2
-  m_fontSizeBase: 2
+  m_fontSize: 1
+  m_fontSizeBase: 1
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -10038,8 +10041,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 2
-  m_fontSizeBase: 2
+  m_fontSize: 1
+  m_fontSizeBase: 1
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -11971,8 +11974,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -64.6, y: 15.2}
-  m_SizeDelta: {x: 10, y: 6}
+  m_AnchoredPosition: {x: -1.8, y: -4}
+  m_SizeDelta: {x: 6, y: 5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2126622423
 MonoBehaviour:
@@ -12072,6 +12075,7 @@ MonoBehaviour:
   RightController: {fileID: 158410477}
   LeftController: {fileID: 713096078}
   sprayMaterial: {fileID: 2100000, guid: d482272bb62f64a4eb12d0de5c1843d5, type: 2}
+  SprayBottle: {fileID: 1890769123}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
