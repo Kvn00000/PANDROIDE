@@ -15,6 +15,9 @@ public class TwoHandGrabDetector : MonoBehaviour
 
     public InputActionProperty grabAction;
 
+
+    private XRBaseInteractor interactor2;
+
     void Awake()
     {
         grabInteractable = GetComponent<XRGrabInteractable>();
@@ -38,71 +41,79 @@ public class TwoHandGrabDetector : MonoBehaviour
     {
         if (!interactors.Contains(args.interactor))
         {
-            interactors.Add(args.interactor);
-        }
 
-        
-    }
-
-    private void OnRelease(SelectExitEventArgs args)
-    {
-        if (interactors.Contains(args.interactor)){
-            interactors.Remove(args.interactor);
-        }
-
-        if (interactors.Count < 2){
-            // Debug.Log(mesh.mesh.vertices.Length);
-
-            // for (int i = 0; i < mesh.mesh.vertices.Length; i++){
-            //     Debug.Log($"Vertex {i}: {mesh.mesh.vertices[i]} et en global ::: {transform.TransformPoint(mesh.mesh.vertices[i])}");
-            // }
             
 
-            // Debug.Log(mesh.mesh.triangles.Length);
-            // for(int i = 0; i < mesh.mesh.triangles.Length; i++){
-            //     Debug.Log($"Trianggle {i}: {mesh.mesh.triangles[i]}");
-                
+
+
+            interactors.Add(args.interactor);
+            // // xrInteractor.TryGetHitInfo(out XRBaseInteractable interactable);
+            // Debug.Log("Collider touché : " + args.interactable.gameObject.name );
+
+
+            // Collider collider = args.collider;
+            // if (collider != null && collider.transform.IsChildOf(transform)){
+            //     Debug.Log("Collider enfant touché : " + collider.name);
+            //     // Faites quelque chose avec le collider enfant ici
             // }
+            
+            if (interactors.Count == 2){
+                interactor2 = args.interactor;
+                Debug.Log("Deuxième interactor grabbé : " + interactor2.transform.parent.name);
 
-            // Debug.Log("Object is no longer grabbed with both hands.");
+                xrInteractor.TryGetCurrent3DRaycastHit(out RaycastHit hit);
+                Debug.Log("Collider touché : " + hit.collider.name);
+                Debug.Log("Collider touché : " + hit.normal);
 
-            // Your logic when the object is no longer grabbed with both hands
+                float rayLength = 5f;
+
+                // Dessinez le rayon à partir du point de contact, dans la direction de la normale
+                Debug.DrawRay(hit.point, hit.normal * rayLength, Color.red);
+            }
+        }
+    }
+
+    private void OnRelease(SelectExitEventArgs args){
+        //Quand on relache l'objet on le supprime
+        if (interactors.Contains(args.interactor)){
+            interactors.Remove(args.interactor);
         }
     }
 
     void Update(){
         if (interactors.Count == 2){
-            if (xrInteractor.TryGetCurrent3DRaycastHit(out RaycastHit hit)){
-                Debug.Log("Collider touché : " + hit.collider.name);
+   
+                
+                // switch(hit.collider.name){
+                //     case "Top":
+                //         Vector3[] newTopVertice = childs.myVertices;
 
-                switch(hit.collider.name){
-                    case "Top":
-                        Vector3[] newTopVertice = childs.myVertices;
-
-                        // childs.updateVertices();
-                        break;
+                //         // childs.updateVertices();
+                //         break;
                     
-                    case "Front":
-                        break;
+                //     case "Front":
+                //         break;
                     
-                    case "Left":
-                        break;
+                //     case "Left":
+                //         break;
 
-                    case "Right":
-                        break;
+                //     case "Right":
+                //         break;
 
-                    case "Back":
-                        break;
+                //     case "Back":
+                //         break;
 
-                    case "Bottom":
-                        break;
-                }
-            }
+                //     case "Bottom":
+                //         break;
+                // }
+            
 
         }
         
 
     }
+
+
 
 
     
