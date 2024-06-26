@@ -73,7 +73,7 @@ public class InitSceneScript : MonoBehaviour
         avoidRay=wallRay;
         cohesionRay=arenaSize*0.5f;
         attractionRay=arenaSize*0.6f;
-        filter=30;
+        filter=3;
         SpawnBoidScript tomodif = controllerSpawner.GetComponent<SpawnBoidScript>();
         tomodif.speed =BoidSpeed;
         tomodif.wallRay = wallRay;
@@ -94,7 +94,7 @@ public class InitSceneScript : MonoBehaviour
         //On ajoute le mur
         walls = Instantiate(wall, init_transform.position, init_transform.rotation);
         component_wall = walls.GetComponent<CircleWallScript>();
-        component_wall.DrawWall(side,arenaSize/2,arenaSize/10f);
+        component_wall.DrawWall(side,arenaSize/2,arenaSize/12f);
 
 
         if(damier){

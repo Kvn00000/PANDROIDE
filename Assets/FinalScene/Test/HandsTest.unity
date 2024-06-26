@@ -5027,7 +5027,7 @@ MonoBehaviour:
   side: 40
   arenaSize: 0.8
   damier: 0
-  BoidNumber: 0
+  BoidNumber: 30
   BoidSpeed: 200
   wallRay: 0.16
   avoidRay: 0.16

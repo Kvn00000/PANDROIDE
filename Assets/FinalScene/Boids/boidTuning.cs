@@ -32,7 +32,7 @@ public class boidTuning : MonoBehaviour
     public float cohesionRay;
     public float attractionRay;
     public float filter;
-    private int step;
+    //private int step;
 
     
     public void Init(float _speed,float _wallRay, float _avoidRay, float _cohesionRay, float _attractionRay, float _filter){
@@ -44,7 +44,7 @@ public class boidTuning : MonoBehaviour
         filter = _filter;
         //Debug.Log("Wall R : " + wallRay + "  Cohesion R : " + cohesionRay + "  Attraction R : " + attractionRay);
         rb = GetComponent<Rigidbody>();
-        step = 0;
+        //step = 0;
         
     }
     
@@ -73,8 +73,8 @@ public class boidTuning : MonoBehaviour
             if (withDEBUG)
             {
                 Debug.Log("//////////////////////////////////////////////////////////////////////////////////");
-                Debug.Log("STEP : " + step);
-                step++;
+                //Debug.Log("STEP : " + step);
+                //step++;
             }
             float rotation = 0.0f;
             float oldrotate;
@@ -120,7 +120,7 @@ public class boidTuning : MonoBehaviour
             }
             //Highest Priority
             oldrotate = rotation;
-            rotation = AvoidWallRcastv3(rotation, wallRay);
+            rotation = AvoidWallRcastv4(rotation, wallRay);
 
             if ((rotation != oldrotate))
             {
@@ -217,13 +217,14 @@ public class boidTuning : MonoBehaviour
         if (Physics.Raycast(front, out info, maxdistance, layermask))
         {
             //Debug.Log("HIT FRONT");
+            //float dis = Vector3.Distance(myPos + f, info.transform.position);
+            float dis = Vector3.Distance(myPos, info.point);
             if (withDEBUG)
             {
-                Debug.Log("Collision at " + info.transform.position);
+                Debug.Log(" F Collision at " + info.point + " with distance of " +dis);
                 Debug.DrawLine(myPos, myPos + f, Color.red);
             }
             //return 50;
-            float dis = Vector3.Distance(myPos + f, info.transform.position);
             distanceList.Add(dis);
         }
         else
@@ -234,12 +235,14 @@ public class boidTuning : MonoBehaviour
         if (Physics.Raycast(fleftRay,out info, maxdistance, layermask))
         {
             //Debug.Log("HIT FRONT");
+            //float dis = Vector3.Distance(myPos+fleft, info.transform.position);
+            float dis = Vector3.Distance(myPos, info.point);
             if (withDEBUG)
             {
+                Debug.Log(" FL Collision at " + info.point + " with distance of " + dis);
                 Debug.DrawLine(myPos, myPos +fleft, Color.red);
             }
             //return 45;
-            float dis = Vector3.Distance(myPos+fleft, info.transform.position);
             distanceList.Add(dis);
         }
         else
@@ -249,12 +252,14 @@ public class boidTuning : MonoBehaviour
         // Hit FR
         if (Physics.Raycast(frightRay,out info, maxdistance, layermask))
         {
+            //float dis = Vector3.Distance(myPos+fright, info.transform.position);
+            float dis = Vector3.Distance(myPos, info.point);
             if (withDEBUG)
             {
+                Debug.Log("FR Collision at " + info.point + " with distance of " + dis);
                 Debug.DrawLine(myPos, myPos + fright, Color.red);
             }
             //return -45;
-            float dis = Vector3.Distance(myPos+fright, info.transform.position);
             distanceList.Add(dis);
         }
         else
@@ -265,9 +270,13 @@ public class boidTuning : MonoBehaviour
         if (Physics.Raycast(left,out info, maxdistance, layermask))
         {
             //Debug.Log("HIT LEFT");
-            if (withDEBUG) { Debug.DrawLine(myPos, myPos - r, Color.red); }
+            //float dis = Vector3.Distance(myPos-r, info.transform.position);
+            float dis = Vector3.Distance(myPos, info.point);
+            if (withDEBUG) {
+                Debug.Log("L Collision at " + info.point + " with distance of " + dis);
+                Debug.DrawLine(myPos, myPos - r, Color.red); 
+            }
             //return 25;
-            float dis = Vector3.Distance(myPos-r, info.transform.position);
             distanceList.Add(dis);
         }
         else
@@ -278,9 +287,13 @@ public class boidTuning : MonoBehaviour
         if ((Physics.Raycast(right,out info, maxdistance, layermask)))
         {
             //Debug.Log("HIT Right");
-            if (withDEBUG) { Debug.DrawLine(myPos, myPos + r, Color.red); }
+            //float dis = Vector3.Distance(myPos+r, info.transform.position);
+            float dis = Vector3.Distance(myPos, info.point);
+            if (withDEBUG) {
+                Debug.Log(" R Collision at " + info.point + " with distance of " + dis);
+                Debug.DrawLine(myPos, myPos + r, Color.red); 
+            }
             //return -25;
-            float dis = Vector3.Distance(myPos+r, info.transform.position);
             distanceList.Add(dis);
         }
         else
@@ -411,7 +424,7 @@ public class boidTuning : MonoBehaviour
         Ray downLeft = new Ray(myPos, -fright);
         Ray downRight = new Ray(myPos, -fleft);
         //
-
+        /*
         if (withDEBUG)
         {
             Debug.DrawRay(myPos, transform.forward,Color.cyan);
@@ -423,7 +436,7 @@ public class boidTuning : MonoBehaviour
             Debug.DrawRay(myPos, - fleft, Color.cyan);
 
         }
-
+        */
         // Init Collision detection parameters
         float maxdistance = maxRay;
         float mindistance = minRay;
@@ -436,58 +449,37 @@ public class boidTuning : MonoBehaviour
 
         //hit left
         RaycastHit[] leftHit = Physics.RaycastAll(left, maxdistance, layermask);
-        if (withDEBUG)
-        {
-            Debug.Log("Left tab : " + leftHit.Length);
-        }
+        //if (withDEBUG){ Debug.Log("Left tab : " + leftHit.Length); }
         collidedCohesionRcastAll(leftHit, myPos, allPosCollide, allTransformsCollide, mindistance, maxdistance);
         //hit right
         RaycastHit[] rightHit = Physics.RaycastAll(right, maxdistance, layermask);
-        if (withDEBUG)
-        {
-            Debug.Log("Right tab : " + rightHit.Length);
-        }
+        //if (withDEBUG){ Debug.Log("Right tab : " + rightHit.Length); }
         collidedCohesionRcastAll(rightHit, myPos, allPosCollide, allTransformsCollide, mindistance, maxdistance);
         //hit front
         RaycastHit[] frontHit = Physics.RaycastAll(front, maxdistance, layermask);
-        if (withDEBUG)
-        {
-            Debug.Log("Front tab : " + frontHit.Length);
-        }
+        //if (withDEBUG){ Debug.Log("Front tab : " + frontHit.Length); }
         collidedCohesionRcastAll(frontHit, myPos, allPosCollide, allTransformsCollide, mindistance, maxdistance);
         //hit front Right
         RaycastHit[] frontRightHit = Physics.RaycastAll(FrontRight, maxdistance, layermask);
-        if (withDEBUG)
-        {
-            Debug.Log("Front Right tab : " + frontRightHit.Length);
-        }
+        //if (withDEBUG){ Debug.Log("Front Right tab : " + frontRightHit.Length); }
         collidedCohesionRcastAll(frontRightHit, myPos, allPosCollide, allTransformsCollide, mindistance, maxdistance);
         //hit front Left
         RaycastHit[] frontLeftHit = Physics.RaycastAll(FrontLeft, maxdistance, layermask);
         collidedCohesionRcastAll(frontLeftHit, myPos, allPosCollide, allTransformsCollide, mindistance, maxdistance);
-        if (withDEBUG)
-        {
-            Debug.Log("Front Left tab : " + frontLeftHit.Length);
-        }
+        //if (withDEBUG){ Debug.Log("Front Left tab : " + frontLeftHit.Length); }
         //hit down Right
         RaycastHit[] downRightHit = Physics.RaycastAll(downRight, maxdistance, layermask);
-        if (withDEBUG)
-        {
-            Debug.Log("Down Right tab : " + downRightHit.Length);
-        }
+        //if (withDEBUG){ Debug.Log("Down Right tab : " + downRightHit.Length); }
         collidedCohesionRcastAll(downRightHit, myPos, allPosCollide, allTransformsCollide, mindistance, maxdistance);
         //hit down Left
         RaycastHit[] downLeftHit = Physics.RaycastAll(downLeft, maxdistance, layermask);
-        if (withDEBUG)
-        {
-            Debug.Log("Down Left tab : " + downLeftHit.Length);
-        }
+        //if (withDEBUG){ Debug.Log("Down Left tab : " + downLeftHit.Length); }
         collidedCohesionRcastAll(downLeftHit, myPos, allPosCollide, allTransformsCollide, mindistance, maxdistance);
 
 
         //Getting rotation
         float rotation = 0.0f;
-        if (withDEBUG) { Debug.Log("Cohesions cibles ="+allPosCollide.Count); }
+        //if (withDEBUG) { Debug.Log("Cohesions cibles ="+allPosCollide.Count); }
         rotation = getCohesionRotationV2(myPos, allPosCollide, allTransformsCollide);
 
         if (rotation != 0.0) { return rotation; }
