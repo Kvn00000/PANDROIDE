@@ -18,11 +18,12 @@ public class ScenePlaneDetectController : MonoBehaviour
     public bool damier = false;
     // Start is called before the first frame update
     private GameObject _arena;
+    private float _planeSize;
     private float _arenaSize;
     private bool _arenaSpawned=false;
     private Vector3 _arenaSpawnPos;
     // Mode : 0 --> Automatique ; 1 --> Manuel 
-    private int _mode = 0;
+    private int _mode = 1;
     //
     void Start()
     {
@@ -124,7 +125,7 @@ public class ScenePlaneDetectController : MonoBehaviour
                         {
                             _arenaSize = sizeTable;
                         }
-
+                        _planeSize = sizeTable;
                         _arenaSpawnPos = spawnPosition;
                         scene.GetComponent<InitSceneScript>().Init(_arenaSpawnPos, _arenaSize,damier);
                         _arenaSpawned = true;
@@ -187,6 +188,7 @@ public class ScenePlaneDetectController : MonoBehaviour
     private void OnApplicationFocus(bool focus)
     {
         if (!focus) {
+            Debug.Log("Focus Lost : saving parameters ... ");
             PlayerPrefs.SetFloat("ArenaSize", _arenaSize);
             PlayerPrefs.SetInt("ModeArene", _mode);
         }
@@ -195,22 +197,30 @@ public class ScenePlaneDetectController : MonoBehaviour
     {
         if (pause)
         {
+            Debug.Log("On Pause : saving parameters ... ");
             PlayerPrefs.SetFloat("ArenaSize", _arenaSize);
+            PlayerPrefs.SetInt("ModeArene", _mode);
+
         }
     }
     private void OnApplicationQuit()
     {
+        Debug.Log("On Quit : saving parameters ... ");
         PlayerPrefs.SetFloat("ArenaSize", _arenaSize);
+        PlayerPrefs.SetInt("ModeArene", _mode);
     }
     public void ChangeMod()
     {
         if (_mode == 0)
         {
+            Debug.Log("Switching from automatic to manual");
             _mode = 1;
         }
         else
         {
+            Debug.Log("Switching from manual to automatic");
             _mode = 0;
+            this.ArenaChanges(_planeSize);
         }
     }
 }

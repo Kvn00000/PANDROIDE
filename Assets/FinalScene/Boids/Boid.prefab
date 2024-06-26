@@ -34,7 +34,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0.7277728, z: 0, w: -0.6858184}
   m_LocalPosition: {x: 0, y: 0.619, z: 0}
-  m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
+  m_LocalScale: {x: 0.09, y: 0.09, z: 0.09}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 9190197796209344077}
@@ -611,7 +611,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.0661149, y: 0.0014, z: 0.1424628}
+  m_Size: {x: 0.0661149, y: 0.002, z: 0.1424628}
   m_Center: {x: -0.03305745, y: -0.001, z: 0.07123131}
 --- !u!65 &5494066635063510882
 BoxCollider:
@@ -657,8 +657,8 @@ GameObject:
   - component: {fileID: 5705729328275154420}
   - component: {fileID: 419173081837705017}
   - component: {fileID: 2627992544057179882}
-  - component: {fileID: 47217871042339093}
   - component: {fileID: 3320775079149742097}
+  - component: {fileID: 47217871042339093}
   m_Layer: 6
   m_Name: Distance sphere visualizer
   m_TagString: Untagged
@@ -712,28 +712,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 0.15
-  m_Center: {x: -0.03305745, y: 0.03642163, z: 0.07123131}
---- !u!135 &47217871042339093
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5679090020896670375}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 1
+  m_Radius: 0.1
   m_Center: {x: -0.03305745, y: 0.03642163, z: 0.07123131}
 --- !u!135 &3320775079149742097
 SphereCollider:
@@ -748,11 +727,32 @@ SphereCollider:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 0
   m_LayerOverridePriority: 0
   m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 0.8
+  m_Radius: 0.4
+  m_Center: {x: -0.03305745, y: 0.03642163, z: 0.07123131}
+--- !u!135 &47217871042339093
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5679090020896670375}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 64
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 0
+  serializedVersion: 3
+  m_Radius: 1
   m_Center: {x: -0.03305745, y: 0.03642163, z: 0.07123131}

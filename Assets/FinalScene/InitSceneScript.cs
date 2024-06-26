@@ -68,11 +68,11 @@ public class InitSceneScript : MonoBehaviour
     {
         arenaSize = _sizeTable;
         // Scaling Boids parameters
-        BoidSpeed = 200;
-        wallRay=arenaSize*0.20f;
+        BoidSpeed = 100;
+        wallRay = arenaSize * 0.09f;
         avoidRay=wallRay;
         cohesionRay=arenaSize*0.5f;
-        attractionRay=arenaSize*0.8f;
+        attractionRay=arenaSize*0.6f;
         filter=30;
         SpawnBoidScript tomodif = controllerSpawner.GetComponent<SpawnBoidScript>();
         tomodif.speed =BoidSpeed;

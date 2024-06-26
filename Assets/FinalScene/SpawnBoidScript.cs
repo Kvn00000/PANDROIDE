@@ -44,10 +44,10 @@ public class SpawnBoidScript : MonoBehaviour
         if(inputAction.action.WasPressedThisFrame() && toInstantiate > 0 && !isLeftRayHovering && !isRightRayHovering ){
             if(toInstantiate == 1){
                 //Debug.Log("ici j'ai changé les params regarde :::: ");
-                
+
                 //Debug.Log(speed+" "+ wallRay+ " " + avoidRay+ " " + cohesionRay+ " " + attractionRay +" " + filter);
-                
-                GameObject boid = Instantiate(BoidPrefab,transform.position, Quaternion.identity);
+                Quaternion rotation = new Quaternion(0, this.transform.rotation.y, 0,this.transform.rotation.w) ;
+                GameObject boid = Instantiate(BoidPrefab,transform.position, rotation);
                 boid.GetComponent<boidTuning>().Init(speed, wallRay, avoidRay,
                                                      cohesionRay, attractionRay, filter);
             }
