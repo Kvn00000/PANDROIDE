@@ -238,13 +238,88 @@ public class ChildComponent : MonoBehaviour{
 
     
     public void updateVertices(Vector3[] newVertice, Vector3[] colliderVertice, MeshFilter m, BoxCollider bc){
-        
-
         m.mesh.vertices = newVertice;
+        myVertices = newVertice;
         bc.size = CalculateMeshSize(colliderVertice);
         bc.center = CalculateMeshCenter(colliderVertice);
 
+        foreach (Transform child in transform){
+            child.GetComponent<MeshFilter>().mesh.vertices = newVertice;
+        }
+
     }
     
+    public void updateBoxCollider(BoxCollider bc, Vector3[] colliderVertice){
+        Debug.Log("et ded   nnnns");
+
+        Debug.Log(colliderVertice[0]);
+        Debug.Log(colliderVertice[1]);
+        Debug.Log(colliderVertice[2]);
+        Debug.Log(colliderVertice[3]);
+        bc.size = CalculateMeshSize(colliderVertice);
+        bc.center = CalculateMeshCenter(colliderVertice);
+    }
+
+
+
+
+
+    // private Vector3 RotatePointAroundPivot(Vector3 point, Vector3 pivot, Vector3 angles){
+    //     Vector3 dir = point - pivot; // get point direction relative to pivot
+    //     dir = Quaternion.Euler(angles)* dir; // rotate it
+    //     Vector3 nPoint = dir + pivot;
+    //     return nPoint; // return it
+    // }
+
+
+
+    public void resizeCube(float amount, string axis, bool inverse)
+    {
+        Debug.Log("Here");
+        switch (axis)
+        {
+            case "x":
+                if (!inverse)
+                {
+                    Debug.Log("ICI");
+                    this.transform.position = new Vector3(this.transform.position.x+(amount/2), this.transform.position.y, this.transform.position.z);
+                    this.transform.localScale = new Vector3(this.transform.localScale.x+amount, this.transform.localScale.y, this.transform.localScale.z);
+                }
+                else
+                {
+                    
+                    this.transform.position = new Vector3(this.transform.position.x-(amount/2), this.transform.position.y, this.transform.position.z);
+                    this.transform.localScale = new Vector3(this.transform.localScale.x-amount, this.transform.localScale.y, this.transform.localScale.z);
+                }
+                break;
+            case "y":
+                if (!inverse)
+                {
+                    this.transform.position = new Vector3(this.transform.position.x, this.transform.position.y + (amount / 2), this.transform.position.z);
+                    this.transform.localScale = new Vector3(this.transform.localScale.x, this.transform.localScale.y+amount, this.transform.localScale.z);
+                }
+                else
+                {
+                    this.transform.position = new Vector3(this.transform.position.x, this.transform.position.y-(amount / 2), this.transform.position.z);
+                    this.transform.localScale = new Vector3(this.transform.localScale.x, this.transform.localScale.y-amount, this.transform.localScale.z);
+                }
+                break;
+            case "z":
+                if (!inverse)
+                {
+                    this.transform.position = new Vector3(this.transform.position.x, this.transform.position.y, this.transform.position.z + (amount / 2));
+                    this.transform.localScale = new Vector3(this.transform.localScale.x, this.transform.localScale.y, this.transform.localScale.z + amount);
+                }
+                else
+                {
+                    this.transform.position = new Vector3(this.transform.position.x, this.transform.position.y, this.transform.position.z- (amount / 2));
+                    this.transform.localScale = new Vector3(this.transform.localScale.x, this.transform.localScale.y, this.transform.localScale.z- amount);
+                }
+                break;
+            default:
+                break;
+        
+        }
+   }
 
 }
