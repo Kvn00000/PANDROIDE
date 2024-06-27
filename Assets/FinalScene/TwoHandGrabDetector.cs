@@ -6,7 +6,7 @@ using UnityEngine.InputSystem;
 public class TwoHandGrabDetector : MonoBehaviour
 {
 
-    public XRRayInteractor xrInteractor;
+    public XRDirectInteractor xrInteractor;
 
     public GameObject Top;
     public GameObject Front;
@@ -72,9 +72,15 @@ public class TwoHandGrabDetector : MonoBehaviour
             if (interactors.Count == 2){
                 interactor2 = args.interactor;
                 StartControllerPos = interactor2.transform.position;
+
                 XRGrabInteractable gr = this.GetComponent<XRGrabInteractable>();
                 gr.trackRotation = false;
+
+                // Quaternion.Inverse(this.transform.rotation).eulerAngles)/// ????
                 // faceTouched = hit.collider.name;
+
+                // interactor2.transform.position 
+                // childs.RotatePointAroundPivot(interactor2.transform.position,)
 
 
 
@@ -104,51 +110,51 @@ public class TwoHandGrabDetector : MonoBehaviour
     void Update(){
         if (interactors.Count == 2){
                 //Ici je me base toujours sur le controller droit donc a changer
-                xrInteractor.TryGetCurrent3DRaycastHit(out RaycastHit hit);
-
+                // xrInteractor.TryGetCurrent3DRaycastHit(out RaycastHit hit);
+                // this.transform.rotation.eulerAngles;
 
                 float distance = Vector3.Distance(interactor2.transform.position ,StartControllerPos);
 
-                switch(hit.collider.name){
-                    case "Top":
+                // switch(){
+                //     case "Top":
                         
-                        break;
+                //         break;
                     
-                    case "Front":
-                        if( interactor2.transform.position.z - StartControllerPos.z > 0 ){
-                            childs.resizeCube(distance,"z", true );
-                        }else{
-                            childs.resizeCube(distance,"z", false );
-                        }
+                //     case "Front":
+                //         if( interactor2.transform.position.z - StartControllerPos.z > 0 ){
+                //             childs.resizeCube(distance,"z", true );
+                //         }else{
+                //             childs.resizeCube(distance,"z", false );
+                //         }
                         
-                        break;
+                //         break;
                     
-                    case "Left":
-                        break;
+                //     case "Left":
+                //         break;
 
-                    case "Right":
-                        if( interactor2.transform.position.x - StartControllerPos.x > 0 ){
-                            childs.resizeCube(distance,"x", true );
-                        }else{
-                            childs.resizeCube(distance,"x", false );
-                        }
+                //     case "Right":
+                //         if( interactor2.transform.position.x - StartControllerPos.x > 0 ){
+                //             childs.resizeCube(distance,"x", true );
+                //         }else{
+                //             childs.resizeCube(distance,"x", false );
+                //         }
                         
-                        break;
+                //         break;
 
-                    case "Back":
-                        break;
+                //     case "Back":
+                //         break;
 
-                    case "Bottom":
-                        break;
-                }
-
-
+                //     case "Bottom":
+                //         break;
+                // }
 
 
 
-                Debug.Log("Collider touché : " + hit.collider.name);
-                Debug.Log("Normale de la face : " + hit.normal);
-                Debug.Log("Direction du controller : " + interactor2.transform.forward);
+
+
+                // Debug.Log("Collider touché : " + hit.collider.name);
+                // Debug.Log("Normale de la face : " + hit.normal);
+                // Debug.Log("Direction du controller : " + interactor2.transform.forward);
 
 
 

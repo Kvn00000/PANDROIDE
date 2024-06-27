@@ -264,12 +264,12 @@ public class ChildComponent : MonoBehaviour{
 
 
 
-    // private Vector3 RotatePointAroundPivot(Vector3 point, Vector3 pivot, Vector3 angles){
-    //     Vector3 dir = point - pivot; // get point direction relative to pivot
-    //     dir = Quaternion.Euler(angles)* dir; // rotate it
-    //     Vector3 nPoint = dir + pivot;
-    //     return nPoint; // return it
-    // }
+    private Vector3 RotatePointAroundPivot(Vector3 point, Vector3 pivot, Vector3 angles){
+        Vector3 dir = point - pivot; // get point direction relative to pivot
+        dir = Quaternion.Euler(angles)* dir; // rotate it
+        Vector3 nPoint = dir + pivot;
+        return nPoint; // return it
+    }
 
 
 
