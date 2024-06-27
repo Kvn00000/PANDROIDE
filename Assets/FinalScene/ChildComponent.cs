@@ -276,6 +276,7 @@ public class ChildComponent : MonoBehaviour{
     public void resizeCube(float amount, string axis, bool inverse)
     {
         Debug.Log("Here");
+        amount = amount * 0.1;
         switch (axis)
         {
             case "x":
