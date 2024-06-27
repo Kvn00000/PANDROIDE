@@ -72,6 +72,8 @@ public class TwoHandGrabDetector : MonoBehaviour
             if (interactors.Count == 2){
                 interactor2 = args.interactor;
                 StartControllerPos = interactor2.transform.position;
+                XRGrabInteractable gr = this.GetComponent<XRGrabInteractable>();
+                gr.trackRotation = false;
                 // faceTouched = hit.collider.name;
 
 
@@ -91,6 +93,11 @@ public class TwoHandGrabDetector : MonoBehaviour
         //Quand on relache l'objet on le supprime
         if (interactors.Contains(args.interactor)){
             interactors.Remove(args.interactor);
+            if (interactors.Count < 2)
+            {
+                XRGrabInteractable gr = this.GetComponent<XRGrabInteractable>();
+                gr.trackRotation = true;
+            }
         }
     }
 
