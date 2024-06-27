@@ -142,6 +142,23 @@ public class TwoHandGrabDetector : MonoBehaviour
                 Debug.Log("Collider touché : " + hit.collider.name);
                 Debug.Log("Normale de la face : " + hit.normal);
                 Debug.Log("Direction du controller : " + interactor2.transform.forward);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                 // Vector3 controllerDelta = interactor2.transform.position - StartControllerPos;
                 // float projection = Vector3.Dot(controllerDelta, hit.normal);
                 // Debug.Log(projection);
