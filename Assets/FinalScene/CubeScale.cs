@@ -41,16 +41,20 @@ public class CubeScale : MonoBehaviour
     {
         if (!interactors.Contains(args.interactor)){
             interactors.Add(args.interactor);
-            Debug.Log("nfjgkdfls");
-            Debug.Log(args.interactor.transform.position);
+            // Debug.Log(args.interactor.transform.position);
+
+            // Debug.Log(this.transform.forward);
+            
+            
 
             if (interactors.Count == 2){
                 interactor2 = args.interactor;
                 StartControllerPos = interactor2.transform.position;
                 grabInteractable.trackRotation = false;
 
-                
                 Vector3 originalCoords = RotatePointAroundPivot(interactor2.transform.position,this.transform.position,Quaternion.Inverse(this.transform.rotation).eulerAngles);
+            
+                surfaceDetected = DetectGrabbedFace(args.interactor.transform.position);
             }
         }
     }
@@ -64,6 +68,8 @@ public class CubeScale : MonoBehaviour
             if (interactors.Count < 2){
                 XRGrabInteractable gr = this.GetComponent<XRGrabInteractable>();
                 gr.trackRotation = true;
+                surfaceDetected = "";
+
             }
         }
     }
@@ -101,9 +107,17 @@ public class CubeScale : MonoBehaviour
                         break;
 
                     case "Back":
+                    if( interactor2.transform.position.z - StartControllerPos.z <0 ){
+                            resizeCube(distance,"z", false );
+                        }else{
+                            resizeCube(distance,"z", true );
+                        }
                         break;
 
                     case "Bottom":
+                        break;
+                    
+                    case "":
                         break;
                 }
         
@@ -170,7 +184,39 @@ public class CubeScale : MonoBehaviour
         }
    }
 
+    private string DetectGrabbedFace(Vector3 contactPoint)
+    {
+        // Assuming the object is a cube, define the face normals
+        Dictionary<string, Vector3> faceNormals = new Dictionary<string, Vector3>
+        {
+            { "Top", Vector3.up },
+            { "Bottom", Vector3.down },
+            { "Front", Vector3.forward },
+            { "Back", Vector3.back },
+            { "Left", Vector3.left },
+            { "Right", Vector3.right }
+        };
 
+        // Find the closest face
+        string closestFace = "";
+        float maxDot = float.MinValue;
+
+        foreach (var face in faceNormals)
+        {
+            Vector3 faceNormal = this.transform.TransformDirection(face.Value);
+            float dot = Vector3.Dot((contactPoint - this.transform.position).normalized, faceNormal);
+
+            if (dot > maxDot)
+            {
+                maxDot = dot;
+                closestFace = face.Key;
+            }
+        }
+
+        Debug.Log("Grabbed face: " + closestFace);
+
+        return closestFace;
+    }
 
 
 }

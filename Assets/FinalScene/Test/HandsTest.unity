@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028352, g: 0.22571376, b: 0.3069224, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028326, g: 0.22571333, b: 0.30692202, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1158,7 +1158,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   menuLeft: {fileID: 56181717}
   left: {fileID: 151805715}
-  positionOffsetLeft: {x: -0.04, y: -0.02, z: 0}
+  positionOffsetLeft: {x: -0.02, y: -0.09, z: 0}
   rotationOffsetLeft: {x: 90, y: 0, z: 0}
   positionOffsetRight: {x: 0.04, y: 0.02, z: 0}
   rotationOffsetRight: {x: 90, y: 180, z: 0}
@@ -1830,6 +1830,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Spray Bottle Prefab
+      objectReference: {fileID: 0}
+    - target: {fileID: 1102858724500709005, guid: e992772989ca9114c930a9047f4adc41,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -3657,7 +3662,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1156881916
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5585,7 +5590,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1666738740
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6800,7 +6805,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1959103925
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7123,7 +7128,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1974517004
 MonoBehaviour:
   m_ObjectHideFlags: 0
