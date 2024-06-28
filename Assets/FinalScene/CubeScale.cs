@@ -14,6 +14,8 @@ public class CubeScale : MonoBehaviour
     private MeshFilter mesh;
     private XRBaseInteractor interactor2;
     private Vector3 StartControllerPos;
+    private Vector3 previousPos;
+
 
     private string surfaceDetected;
 
@@ -50,9 +52,11 @@ public class CubeScale : MonoBehaviour
             if (interactors.Count == 2){
                 interactor2 = args.interactor;
                 StartControllerPos = interactor2.transform.position;
+
+                previousPos = interactor2.transform.position;
                 //grabInteractable.trackRotation = false;
 
-                Vector3 originalCoords = RotatePointAroundPivot(interactor2.transform.position,this.transform.position,Quaternion.Inverse(this.transform.rotation).eulerAngles);
+                // Vector3 originalCoords = RotatePointAroundPivot(interactor2.transform.position,this.transform.position,Quaternion.Inverse(this.transform.rotation).eulerAngles);
             
                 surfaceDetected = DetectGrabbedFace(args.interactor.transform.position);
             }
@@ -78,55 +82,99 @@ public class CubeScale : MonoBehaviour
 
     // Update is called once per frame
     void Update(){
-        if (interactors.Count == 2){
-                // float distance = Vector3.Distance(interactor2.transform.position ,StartControllerPos);
-                float distance;
+        
+        if (interactors.Count == 2 && Vector3.Distance(interactor2.transform.position ,previousPos) > 0.001  ){
+                float distance = Vector3.Distance(interactor2.transform.position ,previousPos);
+                
+                // Vector3 distance = interactor2.transform.position - previousPos;
+                // Debug.Log(distance);
                 switch(surfaceDetected){
                     case "Top":
-                        
+                        if( Vector3.Distance(interactor2.transform.position ,StartControllerPos) > Vector3.Distance(previousPos ,StartControllerPos) ){
+                            // Debug.Log(" Diff positive");
+                            resizeCube(distance,"z", true );
+                        }else{
+                            // Debug.Log(" Diff neg");
+                            resizeCube(distance,"z", false );
+                        }
+                        previousPos = interactor2.transform.position;
                         break;
                     
                     case "Front":
-                        distance = interactor2.transform.position.z - StartControllerPos.z;
-                        if( interactor2.transform.position.z - StartControllerPos.z > 0 ){
+                        if( Vector3.Distance(interactor2.transform.position ,StartControllerPos) > Vector3.Distance(previousPos ,StartControllerPos) ){
+                            // Debug.Log(" Diff positive");
                             resizeCube(distance,"z", true );
                         }else{
+                            // Debug.Log(" Diff neg");
                             resizeCube(distance,"z", false );
                         }
+                        previousPos = interactor2.transform.position;
                         
                         break;
                     
                     case "Left":
+                        if( Vector3.Distance(interactor2.transform.position ,StartControllerPos) > Vector3.Distance(previousPos ,StartControllerPos) ){
+                            // Debug.Log(" Diff positive");
+                            resizeCube(distance,"z", true );
+                        }else{
+                            // Debug.Log(" Diff neg");
+                            resizeCube(distance,"z", false );
+                        }
+                        previousPos = interactor2.transform.position;
                         break;
 
                     case "Right":
-                        distance = interactor2.transform.position.x - StartControllerPos.x;
 
-                        if( interactor2.transform.position.x - StartControllerPos.x > 0 ){
+                        if( Vector3.Distance(interactor2.transform.position ,StartControllerPos) > Vector3.Distance(previousPos ,StartControllerPos) ){
+                            // Debug.Log(" Diff positive");
                             resizeCube(distance,"x", true );
                         }else{
+                            // Debug.Log(" Diff neg");
                             resizeCube(distance,"x", false );
                         }
+                        previousPos = interactor2.transform.position;
                         
                         break;
 
                     case "Back":
-                        distance = interactor2.transform.position.z - StartControllerPos.z;
-                    if( interactor2.transform.position.z - StartControllerPos.z <0 ){
-                            resizeCube(distance,"z", false );
-                        }else{
+                    // Debug.Log(interactor2.transform.position.z);
+                    // Debug.Log(previousPos.z);
+
+                    // Debug.Log("fjgklf");
+                    // Debug.Log(Vector3.Distance(interactor2.transform.position ,StartControllerPos) == Vector3.Distance(previousPos ,StartControllerPos));
+
+                    // Debug.Log(Vector3.Distance(interactor2.transform.position ,StartControllerPos));
+                    // Debug.Log(Vector3.Distance(previousPos ,StartControllerPos));
+
+
+                    if( Vector3.Distance(interactor2.transform.position ,StartControllerPos) > Vector3.Distance(previousPos ,StartControllerPos) ){
+                            // Debug.Log(" Diff positive");
                             resizeCube(distance,"z", true );
+                        }else{
+                            // Debug.Log(" Diff neg");
+                            resizeCube(distance,"z", false );
                         }
+                        previousPos = interactor2.transform.position;
                         break;
 
                     case "Bottom":
+                        if( Vector3.Distance(interactor2.transform.position ,StartControllerPos) > Vector3.Distance(previousPos ,StartControllerPos) ){
+                            // Debug.Log(" Diff positive");
+                            resizeCube(distance,"z", true );
+                        }else{
+                            // Debug.Log(" Diff neg");
+                            resizeCube(distance,"z", false );
+                        }
+                        previousPos = interactor2.transform.position;
                         break;
                     
                     case "":
                         break;
+                
+                
                 }
         
-    }
+        }
     }
 
 
@@ -142,7 +190,7 @@ public class CubeScale : MonoBehaviour
 
     public void resizeCube(float amount, string axis, bool inverse){
         Debug.Log("Here");
-        amount = amount * 0.05f;
+        // amount = amount * 0.05f;
         switch (axis)
         {
             case "x":
