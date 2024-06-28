@@ -84,13 +84,17 @@ public class CubeScale : MonoBehaviour
     void Update(){
         
         if (interactors.Count == 2 && Vector3.Distance(interactor2.transform.position ,previousPos) > 0.001  ){
-                float distance = Vector3.Distance(interactor2.transform.position ,previousPos);
-                
+            float distance = Vector3.Distance(interactor2.transform.position ,previousPos);
+            Vector3 current = interactor2.transform.position;
+
+            Vector3 test_prev=this.transform.InverseTransformPoint(previousPos);
+            Vector3 test_cur= this.transform.InverseTransformPoint(current);
+
                 // Vector3 distance = interactor2.transform.position - previousPos;
                 // Debug.Log(distance);
-                switch(surfaceDetected){
+            switch (surfaceDetected){
                     case "Top":
-                        if( interactor2.transform.position.y - previousPos.y < 0 ){
+                        if(test_cur.y - test_prev.y < 0 ){
 
                         // if( Vector3.Distance(interactor2.transform.position ,StartControllerPos) > Vector3.Distance(previousPos ,StartControllerPos) ){
                             // Debug.Log(" Diff positive");
@@ -99,11 +103,11 @@ public class CubeScale : MonoBehaviour
                             // Debug.Log(" Diff neg");
                             resizeCube(distance,"y", false );
                         }
-                        previousPos = interactor2.transform.position;
+                        previousPos = current;
                         break;
                     
                     case "Front":
-                        if( interactor2.transform.position.z - previousPos.z < 0 ){
+                        if(test_cur.z - test_prev.z < 0 ){
 
                         // if( Vector3.Distance(interactor2.transform.position ,StartControllerPos) > Vector3.Distance(previousPos ,StartControllerPos) ){
                             // Debug.Log(" Diff positive");
@@ -118,7 +122,7 @@ public class CubeScale : MonoBehaviour
                     
                     case "Left":
 
-                            if( interactor2.transform.position.x - previousPos.x > 0 ){
+                            if(test_cur.x - test_prev.x > 0 ){
 
                         // if( Vector3.Distance(interactor2.transform.position ,StartControllerPos) > Vector3.Distance(previousPos ,StartControllerPos) ){
                             // Debug.Log(" Diff positive");
@@ -131,7 +135,7 @@ public class CubeScale : MonoBehaviour
                         break;
 
                     case "Right":
-                        if( interactor2.transform.position.x - previousPos.x < 0 ){
+                        if(test_cur.x - test_prev.x < 0 ){
 
                         // if( Vector3.Distance(interactor2.transform.position ,StartControllerPos) > Vector3.Distance(previousPos ,StartControllerPos) ){
                             // Debug.Log(" Diff positive");
@@ -155,7 +159,7 @@ public class CubeScale : MonoBehaviour
                     // Debug.Log(Vector3.Distance(previousPos ,StartControllerPos));
 
                     // distance = interactor2.transform.position.z - StartControllerPos.z;
-                    if( interactor2.transform.position.z - previousPos.z > 0 ){
+                    if(test_cur.z - test_prev.z > 0 ){
 
                     // if( Vector3.Distance(interactor2.transform.position ,StartControllerPos) > Vector3.Distance(previousPos ,StartControllerPos) ){
                             // Debug.Log(" Diff positive");
@@ -164,11 +168,11 @@ public class CubeScale : MonoBehaviour
                             // Debug.Log(" Diff neg");
                             resizeCube(distance,"z", false );
                         }
-                        previousPos = interactor2.transform.position;
+                        previousPos = current;
                         break;
 
                     case "Bottom":
-                        if( interactor2.transform.position.y - previousPos.y > 0 ){
+                        if(test_cur.y - test_prev.y > 0 ){
 
                         // if( Vector3.Distance(interactor2.transform.position ,StartControllerPos) > Vector3.Distance(previousPos ,StartControllerPos) ){
                             // Debug.Log(" Diff positive");
@@ -177,7 +181,7 @@ public class CubeScale : MonoBehaviour
                             // Debug.Log(" Diff neg");
                             resizeCube(distance,"y", false );
                         }
-                        previousPos = interactor2.transform.position;
+                    previousPos = current;
                         break;
                     
                     case "":
