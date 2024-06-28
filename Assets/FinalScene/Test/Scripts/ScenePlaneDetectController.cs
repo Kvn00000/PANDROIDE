@@ -133,7 +133,7 @@ public class ScenePlaneDetectController : MonoBehaviour
                     }
                 }
                 //Check if plane is a ground --> Add a component that destro all other objects
-                if (plane.classification == UnityEngine.XR.ARSubsystems.PlaneClassification.Floor)
+                if ((plane.classification == UnityEngine.XR.ARSubsystems.PlaneClassification.Floor) || (plane.classification == UnityEngine.XR.ARSubsystems.PlaneClassification.Wall)) 
                 {
                     /*
                     Mesh planeMesh = new Mesh();
