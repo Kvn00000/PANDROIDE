@@ -13,7 +13,7 @@ public class ScenePlaneDetectController : MonoBehaviour
     [SerializeField]
     private GameObject toSpawn;
     private ARPlaneManager _planeManager;
-    private bool isOn = true;
+    private bool isOn = false;
     private int numberOfAddedPlane = 0;
     public bool damier = false;
     // Start is called before the first frame update
@@ -23,7 +23,7 @@ public class ScenePlaneDetectController : MonoBehaviour
     private bool _arenaSpawned=false;
     private Vector3 _arenaSpawnPos;
     // Mode : 0 --> Automatique ; 1 --> Manuel 
-    private int _mode = 1;
+    private int _mode = 0;
     //
     void Start()
     {
@@ -42,7 +42,10 @@ public class ScenePlaneDetectController : MonoBehaviour
             _arenaSize = PlayerPrefs.GetFloat("ArenaSize");
             Debug.Log("Found Value for ArenaSize " + _arenaSize);
         }
-
+        foreach (var plane in _planeManager.trackables)
+        {
+            SetPlaneAlpha(plane, 0.0f, 0.0f);
+        }
         // On s'abonne aux evenements --> Ne pas oublier de se desabonner dans onDestroy()
         togglePlanesDetectedAction.action.performed += OnTogglePlanesAction;
         _planeManager.planesChanged += OnPlanesChanged;
