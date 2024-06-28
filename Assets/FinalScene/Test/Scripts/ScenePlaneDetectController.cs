@@ -13,7 +13,7 @@ public class ScenePlaneDetectController : MonoBehaviour
     [SerializeField]
     private GameObject toSpawn;
     private ARPlaneManager _planeManager;
-    private bool isOn = false;
+    private bool isOn = true;
     private int numberOfAddedPlane = 0;
     public bool damier = false;
     // Start is called before the first frame update
