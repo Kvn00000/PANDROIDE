@@ -12,11 +12,11 @@ public class WatchManager : MonoBehaviour
     public GameObject menuLeft;
     public GameObject left;
 
-    public Vector3 positionOffsetLeft = new Vector3(-0.04f, -0.02f, 0f);
-    public Vector3 rotationOffsetLeft = new Vector3(90, 0, 0);
+    public Vector3 positionOffsetLeft ;
+    public Vector3 rotationOffsetLeft ;
 
-    public Vector3 positionOffsetRight = new Vector3(0.04f, 0.02f, 0f);
-    public Vector3 rotationOffsetRight = new Vector3(90, 180, 0);
+    public Vector3 positionOffsetRight ;
+    public Vector3 rotationOffsetRight ;
 
     [Header("Spray and Positions")]
     public GameObject bottleSpray;
