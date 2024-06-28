@@ -79,13 +79,15 @@ public class CubeScale : MonoBehaviour
     // Update is called once per frame
     void Update(){
         if (interactors.Count == 2){
-                float distance = Vector3.Distance(interactor2.transform.position ,StartControllerPos);
+                // float distance = Vector3.Distance(interactor2.transform.position ,StartControllerPos);
+                float distance;
                 switch(surfaceDetected){
                     case "Top":
                         
                         break;
                     
                     case "Front":
+                        distance = interactor2.transform.position.z - StartControllerPos.z;
                         if( interactor2.transform.position.z - StartControllerPos.z > 0 ){
                             resizeCube(distance,"z", true );
                         }else{
@@ -98,6 +100,8 @@ public class CubeScale : MonoBehaviour
                         break;
 
                     case "Right":
+                        distance = interactor2.transform.position.x - StartControllerPos.x;
+
                         if( interactor2.transform.position.x - StartControllerPos.x > 0 ){
                             resizeCube(distance,"x", true );
                         }else{
@@ -107,6 +111,7 @@ public class CubeScale : MonoBehaviour
                         break;
 
                     case "Back":
+                        distance = interactor2.transform.position.z - StartControllerPos.z;
                     if( interactor2.transform.position.z - StartControllerPos.z <0 ){
                             resizeCube(distance,"z", false );
                         }else{
