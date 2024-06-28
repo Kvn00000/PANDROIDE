@@ -90,18 +90,22 @@ public class CubeScale : MonoBehaviour
                 // Debug.Log(distance);
                 switch(surfaceDetected){
                     case "Top":
-                        if( Vector3.Distance(interactor2.transform.position ,StartControllerPos) > Vector3.Distance(previousPos ,StartControllerPos) ){
+                        if( interactor2.transform.position.y - previousPos.y < 0 ){
+
+                        // if( Vector3.Distance(interactor2.transform.position ,StartControllerPos) > Vector3.Distance(previousPos ,StartControllerPos) ){
                             // Debug.Log(" Diff positive");
-                            resizeCube(distance,"z", true );
+                            resizeCube(distance,"y", true );
                         }else{
                             // Debug.Log(" Diff neg");
-                            resizeCube(distance,"z", false );
+                            resizeCube(distance,"y", false );
                         }
                         previousPos = interactor2.transform.position;
                         break;
                     
                     case "Front":
-                        if( Vector3.Distance(interactor2.transform.position ,StartControllerPos) > Vector3.Distance(previousPos ,StartControllerPos) ){
+                        if( interactor2.transform.position.z - previousPos.z < 0 ){
+
+                        // if( Vector3.Distance(interactor2.transform.position ,StartControllerPos) > Vector3.Distance(previousPos ,StartControllerPos) ){
                             // Debug.Log(" Diff positive");
                             resizeCube(distance,"z", true );
                         }else{
@@ -113,19 +117,23 @@ public class CubeScale : MonoBehaviour
                         break;
                     
                     case "Left":
-                        if( Vector3.Distance(interactor2.transform.position ,StartControllerPos) > Vector3.Distance(previousPos ,StartControllerPos) ){
+
+                            if( interactor2.transform.position.x - previousPos.x > 0 ){
+
+                        // if( Vector3.Distance(interactor2.transform.position ,StartControllerPos) > Vector3.Distance(previousPos ,StartControllerPos) ){
                             // Debug.Log(" Diff positive");
-                            resizeCube(distance,"z", true );
+                            resizeCube(distance,"x", true );
                         }else{
                             // Debug.Log(" Diff neg");
-                            resizeCube(distance,"z", false );
+                            resizeCube(distance,"x", false );
                         }
                         previousPos = interactor2.transform.position;
                         break;
 
                     case "Right":
+                        if( interactor2.transform.position.x - previousPos.x < 0 ){
 
-                        if( Vector3.Distance(interactor2.transform.position ,StartControllerPos) > Vector3.Distance(previousPos ,StartControllerPos) ){
+                        // if( Vector3.Distance(interactor2.transform.position ,StartControllerPos) > Vector3.Distance(previousPos ,StartControllerPos) ){
                             // Debug.Log(" Diff positive");
                             resizeCube(distance,"x", true );
                         }else{
@@ -146,8 +154,10 @@ public class CubeScale : MonoBehaviour
                     // Debug.Log(Vector3.Distance(interactor2.transform.position ,StartControllerPos));
                     // Debug.Log(Vector3.Distance(previousPos ,StartControllerPos));
 
+                    // distance = interactor2.transform.position.z - StartControllerPos.z;
+                    if( interactor2.transform.position.z - previousPos.z > 0 ){
 
-                    if( Vector3.Distance(interactor2.transform.position ,StartControllerPos) > Vector3.Distance(previousPos ,StartControllerPos) ){
+                    // if( Vector3.Distance(interactor2.transform.position ,StartControllerPos) > Vector3.Distance(previousPos ,StartControllerPos) ){
                             // Debug.Log(" Diff positive");
                             resizeCube(distance,"z", true );
                         }else{
@@ -158,12 +168,14 @@ public class CubeScale : MonoBehaviour
                         break;
 
                     case "Bottom":
-                        if( Vector3.Distance(interactor2.transform.position ,StartControllerPos) > Vector3.Distance(previousPos ,StartControllerPos) ){
+                        if( interactor2.transform.position.y - previousPos.y > 0 ){
+
+                        // if( Vector3.Distance(interactor2.transform.position ,StartControllerPos) > Vector3.Distance(previousPos ,StartControllerPos) ){
                             // Debug.Log(" Diff positive");
-                            resizeCube(distance,"z", true );
+                            resizeCube(distance,"y", true );
                         }else{
                             // Debug.Log(" Diff neg");
-                            resizeCube(distance,"z", false );
+                            resizeCube(distance,"y", false );
                         }
                         previousPos = interactor2.transform.position;
                         break;
@@ -196,38 +208,37 @@ public class CubeScale : MonoBehaviour
             case "x":
                 if (!inverse)
                 {
-                    Debug.Log("Resize from right");
-                    //this.transform.position = new Vector3(this.transform.position.x+(amount/2), this.transform.position.y, this.transform.position.z);
+                    this.transform.position = new Vector3(this.transform.position.x+(amount/2), this.transform.position.y, this.transform.position.z);
                     this.transform.localScale = new Vector3(this.transform.localScale.x+amount, this.transform.localScale.y, this.transform.localScale.z);
                 }
                 else
                 {
                     
-                    //this.transform.position = new Vector3(this.transform.position.x-(amount/2), this.transform.position.y, this.transform.position.z);
+                    this.transform.position = new Vector3(this.transform.position.x-(amount/2), this.transform.position.y, this.transform.position.z);
                     this.transform.localScale = new Vector3(this.transform.localScale.x-amount, this.transform.localScale.y, this.transform.localScale.z);
                 }
                 break;
             case "y":
                 if (!inverse)
                 {
-                    //this.transform.position = new Vector3(this.transform.position.x, this.transform.position.y + (amount / 2), this.transform.position.z);
+                    this.transform.position = new Vector3(this.transform.position.x, this.transform.position.y + (amount / 2), this.transform.position.z);
                     this.transform.localScale = new Vector3(this.transform.localScale.x, this.transform.localScale.y+amount, this.transform.localScale.z);
                 }
                 else
                 {
-                    //this.transform.position = new Vector3(this.transform.position.x, this.transform.position.y-(amount / 2), this.transform.position.z);
+                    this.transform.position = new Vector3(this.transform.position.x, this.transform.position.y-(amount / 2), this.transform.position.z);
                     this.transform.localScale = new Vector3(this.transform.localScale.x, this.transform.localScale.y-amount, this.transform.localScale.z);
                 }
                 break;
             case "z":
                 if (!inverse)
                 {
-                    //this.transform.position = new Vector3(this.transform.position.x, this.transform.position.y, this.transform.position.z + (amount / 2));
+                    this.transform.position = new Vector3(this.transform.position.x, this.transform.position.y, this.transform.position.z + (amount / 2));
                     this.transform.localScale = new Vector3(this.transform.localScale.x, this.transform.localScale.y, this.transform.localScale.z + amount);
                 }
                 else
                 {
-                    //this.transform.position = new Vector3(this.transform.position.x, this.transform.position.y, this.transform.position.z- (amount / 2));
+                    this.transform.position = new Vector3(this.transform.position.x, this.transform.position.y, this.transform.position.z- (amount / 2));
                     this.transform.localScale = new Vector3(this.transform.localScale.x, this.transform.localScale.y, this.transform.localScale.z- amount);
                 }
                 break;
