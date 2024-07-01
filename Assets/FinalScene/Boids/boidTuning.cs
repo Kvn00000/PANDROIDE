@@ -66,7 +66,7 @@ public class boidTuning : MonoBehaviour
 
         if (!grounded)
         {
-            rb.AddForce(Physics.gravity * Time.deltaTime, ForceMode.Acceleration);
+            rb.AddForce(Physics.gravity, ForceMode.Acceleration);
         }
         else
         {

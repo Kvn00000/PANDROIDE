@@ -10,7 +10,7 @@ public class CircleWallScript : MonoBehaviour
 
     public Vector3[] points;
     public int[] _triangles;
- 
+    private float height;
     public void DrawWall(int sides, float radius,float height)
     {
         mesh = new Mesh();
@@ -23,8 +23,23 @@ public class CircleWallScript : MonoBehaviour
         mesh.vertices = points;
         mesh.triangles = _triangles;
         _meshCollider.sharedMesh = mesh;
+        setHeight(height);
     }
- 
+
+    public void DrawTop(List<Vector3> points)
+    {
+        mesh = new Mesh();
+        _meshCollider = gameObject.AddComponent<MeshCollider>();
+        this.GetComponent<MeshFilter>().mesh = mesh;
+
+        this.points = points.ToArray();
+        _triangles = DrawTriangles(this.points);
+
+        mesh.vertices = this.points;
+        mesh.triangles = _triangles;
+        _meshCollider.sharedMesh = mesh;
+        setHeight(this.points[0].y);
+    }
 
     
     List<Vector3> GetPoints(int sides, float radius,float height)   
@@ -70,6 +85,38 @@ public class CircleWallScript : MonoBehaviour
 
         }
         return newTriangles.ToArray();
+    }
+    private void setHeight(float height)
+    {
+        this.height = height;
+    }
+
+
+    public static List<Vector3> mergeTwoVerticesList(List<Vector3> pointsInt, List<Vector3> pointsExt)
+    {
+        List<Vector3> finalList = new List<Vector3>(); 
+        for (int i =0; i < pointsInt.Count; i++)
+        {
+            finalList.Add(pointsInt[i]);
+            finalList.Add(pointsExt[i]);
+        }
+        return finalList;
+    }
+    public List<Vector3> getTopPoints()
+    {
+        List<Vector3> topPoints = new List<Vector3>();
+        foreach(Vector3 v in points)
+        {
+            if (v.y == height)
+            {
+                topPoints.Add(v);
+            }
+        }
+        return topPoints;
+    }
+    public void setNewMesh(Material newMat)
+    {
+        this.GetComponent<MeshRenderer>().material = newMat;
     }
 
 }

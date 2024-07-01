@@ -49,10 +49,21 @@ public class InitSceneScript : MonoBehaviour
 
     //Murs
     private GameObject walls;
+    private GameObject walls2;
     private CircleWallScript component_wall;
+    private CircleWallScript component_wall2;
+    private GameObject topArenaWall;
+    private CircleWallScript component_topWall;
     private GameObject _plane;
-    
+    //
+    [SerializeField]
+    private Material MatWallInt;
+    [SerializeField]
+    private Material MatWallMed;
+    [SerializeField]
+    private Material MatWallExt;
 
+    //
     private float x_ref;
     private float y_ref;
     private float z_ref;
@@ -60,7 +71,7 @@ public class InitSceneScript : MonoBehaviour
     
     void Awake()
     {
-        
+        Physics.gravity = new Vector3(0, -0.3F, 0);
     }
 
     // Start is called before the first frame update
@@ -96,8 +107,28 @@ public class InitSceneScript : MonoBehaviour
         component_wall = walls.GetComponent<CircleWallScript>();
         component_wall.DrawWall(side,arenaSize/2,arenaSize/12f);
 
+        walls2 = Instantiate(wall, init_transform.position, init_transform.rotation);
+        walls2.layer = LayerMask.NameToLayer("MUR");
+        component_wall2 = walls2.GetComponent<CircleWallScript>();
+        component_wall2.DrawWall(side, (arenaSize / 2)+0.03f, arenaSize / 12f);
+        
+        topArenaWall=Instantiate(wall, init_transform.position, init_transform.rotation);
+        topArenaWall.layer = LayerMask.NameToLayer("MUR");
+        component_topWall = topArenaWall.GetComponent<CircleWallScript>();
+        List<Vector3> intTopWall = component_wall.getTopPoints();
+        List<Vector3> extTopWall = component_wall2.getTopPoints();
+        List<Vector3> mergedList = CircleWallScript.mergeTwoVerticesList(intTopWall, extTopWall);
+        component_topWall.DrawTop(mergedList);
 
-        if(damier){
+        walls.transform.parent = walls2.transform;
+        topArenaWall.transform.parent = walls2.transform;
+        // Setting Materials
+        component_wall.setNewMesh(MatWallInt);
+        component_topWall.setNewMesh(MatWallMed);
+        component_wall2.setNewMesh(MatWallExt);
+
+        //
+        if (damier){
             //Ajout du damier
 
             //Compteur de nombre de case

@@ -1310,7 +1310,7 @@ PrefabInstance:
     - target: {fileID: 224000010550048884, guid: bac85bcbcdc58924f840d203376147c2,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.77
+      value: -1.027
       objectReference: {fileID: 0}
     - target: {fileID: 224000010550048884, guid: bac85bcbcdc58924f840d203376147c2,
         type: 3}
@@ -5947,6 +5947,9 @@ MonoBehaviour:
   cohesionRay: 0.6
   attractionRay: 0.8
   filter: 2
+  MatWallInt: {fileID: 2100000, guid: 744b80bf8335ed546996b01a044ed88c, type: 2}
+  MatWallMed: {fileID: 2100000, guid: eb1e10abffe079b498998181272c3c11, type: 2}
+  MatWallExt: {fileID: 2100000, guid: ae0b6955983003d429c99618ad6b2385, type: 2}
 --- !u!4 &1826128085
 Transform:
   m_ObjectHideFlags: 0

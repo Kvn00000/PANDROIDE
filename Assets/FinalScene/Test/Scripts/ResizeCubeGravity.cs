@@ -18,7 +18,7 @@ public class ResizeCubeGravity : MonoBehaviour
        
         if (grav)
         {
-            parent.mass = 0.05f;
+            parent.mass = 0.00005f;
         }
         else
         {
