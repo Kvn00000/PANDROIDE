@@ -15,9 +15,9 @@ GameObject:
   - component: {fileID: 4727367578276442533}
   - component: {fileID: 7015819976650848112}
   - component: {fileID: 3629490825723668778}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Grabable Cube
-  m_TagString: Untagged
+  m_TagString: Destructible
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -124,7 +124,7 @@ Rigidbody:
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 320
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0

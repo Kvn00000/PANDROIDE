@@ -35,7 +35,14 @@ public class ScenePlaneDetectController : MonoBehaviour
         if (PlayerPrefs.HasKey("Mode"))
         {
             _mode = PlayerPrefs.GetInt("Mode");
-            
+            if (_mode == 0)
+            {
+                Debug.Log("Launch in auto mode");
+            }
+            else
+            {
+                Debug.Log("Launch in manual mode");
+            }
         }
         if (PlayerPrefs.HasKey("ArenaSize"))
         {

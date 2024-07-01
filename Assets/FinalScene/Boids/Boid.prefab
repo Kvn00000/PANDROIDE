@@ -19,7 +19,7 @@ GameObject:
   - component: {fileID: 5469303528419838762}
   m_Layer: 6
   m_Name: Boid
-  m_TagString: Untagged
+  m_TagString: Destructible
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

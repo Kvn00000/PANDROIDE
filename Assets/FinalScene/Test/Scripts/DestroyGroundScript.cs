@@ -40,10 +40,11 @@ public class DestroyGroundScript : MonoBehaviour
           
             else{ Debug.Log("IS AN AR PLANE"); }
         }
+        Debug.Log(" TAG " + other.gameObject.tag);
         //Check if collided is not a Plane and is on a good layer
-        if ( isWall || isBoid  ||isGround)
+        if ( isWall || isBoid  ||isGround || other.gameObject.CompareTag("Destructible"))
         {
-            if (isBoid)
+            if ((isBoid)|| (other.gameObject.CompareTag("Destructible")))
             {
                 Destroy(other.transform.parent.gameObject);
             }
@@ -57,37 +58,85 @@ public class DestroyGroundScript : MonoBehaviour
     /*
     private void OnTriggerStay  (Collider other)
     {
-        Debug.Log("Saw Something");
+        if (withDEBUG)
+        {
+            Debug.Log("#######################################");
+            Debug.Log("Saw Stay Something");
+        }
         int wallLayer = LayerMask.NameToLayer("MUR");
         int boidLayer = LayerMask.NameToLayer("BOID");
         int groundArenaLayer = LayerMask.NameToLayer("SOL");
         int collidedLayer = other.gameObject.layer;
-        //Check if collided is not a Plane and is on a good layer
-        if ((collidedLayer == wallLayer) || (collidedLayer == boidLayer) || (collidedLayer == groundArenaLayer))
+        bool isWall = (collidedLayer == wallLayer);
+        bool isBoid = (collidedLayer == boidLayer);
+        bool isGround = (collidedLayer == groundArenaLayer);
+        if (withDEBUG)
         {
-            foreach (var childTransform in GetComponentsInChildren<Transform>())
-            {
-                Destroy(childTransform.gameObject);
-            }
-            Destroy(other);
+            Debug.Log("Collided object is Wall : " + isWall + " Boid : " + isBoid + " Arene Sol : " + isGround);
+            if (other.GetComponent<ARPlane>() == null) { Debug.Log("NOT AR PLANE"); }
+
+            else { Debug.Log("IS AN AR PLANE"); }
         }
+        Debug.Log(" TAG " + other.gameObject.tag);
+        //Check if collided is not a Plane and is on a good layer
+        if (isWall || isBoid || isGround || other.gameObject.CompareTag("Destructible"))
+        {
+            if (isBoid)
+            {
+                Destroy(other.transform.parent.gameObject);
+            }
+            else
+            {
+                Destroy(other.gameObject);
+            }
+            GameObject parentPotentiel = this.GetComponentInParent<GameObject>();
+            if (parentPotentiel != null)
+            {
+                Destroy(parentPotentiel);
+            }
+        }
+        if (withDEBUG) { Debug.Log("#######################################"); }
     }
     private void OnTriggerExit(Collider other)
     {
-        Debug.Log("Saw Something");
+        if (withDEBUG)
+        {
+            Debug.Log("#######################################");
+            Debug.Log("Saw EXIT Something");
+        }
         int wallLayer = LayerMask.NameToLayer("MUR");
         int boidLayer = LayerMask.NameToLayer("BOID");
         int groundArenaLayer = LayerMask.NameToLayer("SOL");
         int collidedLayer = other.gameObject.layer;
-        //Check if collided is not a Plane and is on a good layer
-        if ((collidedLayer == wallLayer) || (collidedLayer == boidLayer) || (collidedLayer == groundArenaLayer))
+        bool isWall = (collidedLayer == wallLayer);
+        bool isBoid = (collidedLayer == boidLayer);
+        bool isGround = (collidedLayer == groundArenaLayer);
+        if (withDEBUG)
         {
-            foreach (var childTransform in GetComponentsInChildren<Transform>())
-            {
-                Destroy(childTransform.gameObject);
-            }
-            Destroy(other);
+            Debug.Log("Collided object is Wall : " + isWall + " Boid : " + isBoid + " Arene Sol : " + isGround);
+            if (other.GetComponent<ARPlane>() == null) { Debug.Log("NOT AR PLANE"); }
+
+            else { Debug.Log("IS AN AR PLANE"); }
         }
+        Debug.Log(" TAG " + other.gameObject.tag);
+        //Check if collided is not a Plane and is on a good layer
+        if (isWall || isBoid || isGround || other.gameObject.CompareTag("Destructible"))
+        {
+            if (isBoid)
+            {
+                Destroy(other.transform.parent.gameObject);
+            }
+            else
+            {
+                Destroy(other.gameObject);
+            }
+            GameObject parentPotentiel = this.GetComponentInParent<GameObject>();
+            if (parentPotentiel != null)
+            {
+                Destroy(parentPotentiel);
+            }
+        }
+        if (withDEBUG) { Debug.Log("#######################################"); }
     }
     */
 }

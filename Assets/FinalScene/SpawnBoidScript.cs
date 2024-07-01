@@ -53,7 +53,8 @@ public class SpawnBoidScript : MonoBehaviour
             }
             else if(toInstantiate == 2){
                 GameObject cube = Instantiate(CubePrefab,transform.position, Quaternion.identity);
-                cube.GetComponent<Cube>().Init(CubeSize);
+                cube.layer = LayerMask.NameToLayer("MUR");
+                //cube.GetComponent<Cube>().Init(CubeSize);
             }
         }
     }
