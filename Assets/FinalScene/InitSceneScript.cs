@@ -151,9 +151,96 @@ public class InitSceneScript : MonoBehaviour
         
         }
     }
+    /**/
+    private void Start()
+    {
+        float _sizeTable=2f;
+        Vector3 _spawnPos = new Vector3(0, 0, 0);
+        arenaSize = _sizeTable;
+        // Scaling Boids parameters
+        BoidSpeed = 100;
+        wallRay = arenaSize * 0.09f;
+        avoidRay = wallRay;
+        cohesionRay = arenaSize * 0.5f;
+        attractionRay = arenaSize * 0.6f;
+        filter = 3;
+        
+        //SpawnBoidScript tomodif = controllerSpawner.GetComponent<SpawnBoidScript>();
+        //tomodif.speed = BoidSpeed;
+        //tomodif.wallRay = wallRay;
+        //tomodif.avoidRay = avoidRay;
+        //tomodif.cohesionRay = cohesionRay;
+        //tomodif.attractionRay = attractionRay;
+        //tomodif.filter = filter;
+       
+        Debug.Log("ARENA SIZE " + arenaSize);
+        //Coords d'une case
+        x_ref = -arenaSize * 0.5F;
+        y_ref = 0;
+        z_ref = -arenaSize * 0.5F;
+        //if (damier)
+        //{
+        //    elements = new GameObject[arenaSize * arenaSize, arenaSize * arenaSize];
+        //}
+        init_transform.position = _spawnPos;
+        //On ajoute le mur
+        DrawCircularOrSidedArena();
+
+        //
+        if (damier)
+        {
+            //Ajout du damier
+
+            //Compteur de nombre de case
+            int cptx = 0;
+            int cptz = 0;
+            for (double x = boxsize * 0.5; x <= arenaSize; x = x + boxsize)
+            {
+                for (double z = boxsize * 0.5; z <= arenaSize; z = z + boxsize)
+                {
+                    Vector3 pos = new Vector3((float)(x_ref + x), (float)(y_ref - boxsize * 0.5F), (float)(z_ref + z));
+                    elements[cptx, cptz] = Instantiate(box, pos, init_transform.rotation);
+                    cptz = cptz + 1;
+                }
+                cptx = cptx + 1;
+            }
+
+        }
+        else
+        {
+            //Ajout du plane
+            _plane = Instantiate(plane, new Vector3(0,-arenaSize*0.5F,0), init_transform.rotation);
+            _plane = Instantiate(plane, _spawnPos, init_transform.rotation);
+            _plane.GetComponent<Plane>().Init(arenaSize*0.5F);
+            Debug.Log("THE Plane LAYER IS " + _plane.layer);
+            _plane.layer = 7;
+        }
 
 
-    private void updateSpeed(){
+        // Spawn des boids
+
+        for (int i = 0; i < BoidNumber; i++)
+        {
+            //Coordonnées aléatoire
+            Vector3 spawnPosition = new Vector3(
+                Random.Range(-arenaSize / 4f, arenaSize / 4f),
+                0.5F,
+                Random.Range(-arenaSize / 4f, arenaSize / 4f)
+            );
+            //Angle aléatoire
+            float randomAngleY = Random.Range(0f, 360f);
+            Quaternion spawnRotation = Quaternion.Euler(0f, randomAngleY, 0f);
+            Vector3 otherSpawn = new Vector3(_spawnPos.x, _spawnPos.y + 1, _spawnPos.z);
+            boidTuning obj = Instantiate(boid, otherSpawn, spawnRotation).GetComponent<boidTuning>();
+            obj.Init(BoidSpeed, wallRay, avoidRay, cohesionRay, attractionRay, filter);
+            obj.withDEBUG = false;
+            boidsList.Add(obj);
+
+        }
+    }
+        
+
+        private void updateSpeed(){
 
         foreach(boidTuning b in boidsList){
             b.speed = BoidSpeed;
@@ -195,7 +282,7 @@ public class InitSceneScript : MonoBehaviour
     {
         walls = Instantiate(wall, init_transform.position, init_transform.rotation);
         component_wall = walls.GetComponent<CircleWallScript>();
-        component_wall.DrawWall(side, arenaSize / 2, arenaSize / 12f);
+        component_wall.DrawWall(side, arenaSize / 2, arenaSize / 12f,true);
 
         walls2 = Instantiate(wall, init_transform.position, init_transform.rotation);
         walls2.layer = LayerMask.NameToLayer("MUR");
@@ -205,13 +292,13 @@ public class InitSceneScript : MonoBehaviour
         topArenaWall = Instantiate(wall, init_transform.position, init_transform.rotation);
         topArenaWall.layer = LayerMask.NameToLayer("MUR");
         component_topWall = topArenaWall.GetComponent<CircleWallScript>();
-        List<Vector3> intTopWall = component_wall.getTopPoints();
-        List<Vector3> extTopWall = component_wall2.getTopPoints();
+        List<Vector3> intTopWall = component_wall.getTopPoints(component_wall.points);
+        List<Vector3> extTopWall = component_wall2.getTopPoints(component_wall2.points);
         List<Vector3> mergedList = CircleWallScript.mergeTwoVerticesList(intTopWall, extTopWall);
         component_topWall.DrawTop(mergedList);
 
-        walls.transform.parent = walls2.transform;
-        topArenaWall.transform.parent = walls2.transform;
+        //walls.transform.parent = topArenaWall.transform;
+        //walls2.transform.parent = topArenaWall.transform;
         // Setting Materials
         component_wall.setNewMesh(MatWallInt);
         component_topWall.setNewMesh(MatWallMed);
