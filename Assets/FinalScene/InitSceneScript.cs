@@ -151,7 +151,7 @@ public class InitSceneScript : MonoBehaviour
         
         }
     }
-    /**/
+    /*
     private void Start()
     {
         float _sizeTable=2f;
@@ -238,7 +238,7 @@ public class InitSceneScript : MonoBehaviour
 
         }
     }
-        
+     */
 
         private void updateSpeed(){
 
@@ -282,7 +282,7 @@ public class InitSceneScript : MonoBehaviour
     {
         walls = Instantiate(wall, init_transform.position, init_transform.rotation);
         component_wall = walls.GetComponent<CircleWallScript>();
-        component_wall.DrawWall(side, arenaSize / 2, arenaSize / 12f,true);
+        component_wall.DrawWall(side, arenaSize / 2, arenaSize / 12f);
 
         walls2 = Instantiate(wall, init_transform.position, init_transform.rotation);
         walls2.layer = LayerMask.NameToLayer("MUR");
@@ -292,16 +292,16 @@ public class InitSceneScript : MonoBehaviour
         topArenaWall = Instantiate(wall, init_transform.position, init_transform.rotation);
         topArenaWall.layer = LayerMask.NameToLayer("MUR");
         component_topWall = topArenaWall.GetComponent<CircleWallScript>();
-        List<Vector3> intTopWall = component_wall.getTopPoints(component_wall.points);
-        List<Vector3> extTopWall = component_wall2.getTopPoints(component_wall2.points);
+        List<Vector3> intTopWall = component_wall.getTopPoints();
+        List<Vector3> extTopWall = component_wall2.getTopPoints();
         List<Vector3> mergedList = CircleWallScript.mergeTwoVerticesList(intTopWall, extTopWall);
         component_topWall.DrawTop(mergedList);
 
-        //walls.transform.parent = topArenaWall.transform;
-        //walls2.transform.parent = topArenaWall.transform;
+        walls.transform.parent = topArenaWall.transform;
+        walls2.transform.parent = topArenaWall.transform;
         // Setting Materials
         component_wall.setNewMesh(MatWallInt);
-        component_topWall.setNewMesh(MatWallMed);
+        //component_topWall.setNewMesh(MatWallMed);
         component_wall2.setNewMesh(MatWallExt);
     }
 
