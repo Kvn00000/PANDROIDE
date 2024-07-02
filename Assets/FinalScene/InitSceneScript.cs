@@ -71,7 +71,7 @@ public class InitSceneScript : MonoBehaviour
     
     void Awake()
     {
-        Physics.gravity = new Vector3(0, -0.3F, 0);
+        Physics.gravity = new Vector3(0, -0.4F, 0);
     }
 
     // Start is called before the first frame update
@@ -103,29 +103,7 @@ public class InitSceneScript : MonoBehaviour
         //}
         init_transform.position = _spawnPos;
         //On ajoute le mur
-        walls = Instantiate(wall, init_transform.position, init_transform.rotation);
-        component_wall = walls.GetComponent<CircleWallScript>();
-        component_wall.DrawWall(side,arenaSize/2,arenaSize/12f);
-
-        walls2 = Instantiate(wall, init_transform.position, init_transform.rotation);
-        walls2.layer = LayerMask.NameToLayer("MUR");
-        component_wall2 = walls2.GetComponent<CircleWallScript>();
-        component_wall2.DrawWall(side, (arenaSize / 2)+0.03f, arenaSize / 12f);
-        
-        topArenaWall=Instantiate(wall, init_transform.position, init_transform.rotation);
-        topArenaWall.layer = LayerMask.NameToLayer("MUR");
-        component_topWall = topArenaWall.GetComponent<CircleWallScript>();
-        List<Vector3> intTopWall = component_wall.getTopPoints();
-        List<Vector3> extTopWall = component_wall2.getTopPoints();
-        List<Vector3> mergedList = CircleWallScript.mergeTwoVerticesList(intTopWall, extTopWall);
-        component_topWall.DrawTop(mergedList);
-
-        walls.transform.parent = walls2.transform;
-        topArenaWall.transform.parent = walls2.transform;
-        // Setting Materials
-        component_wall.setNewMesh(MatWallInt);
-        component_topWall.setNewMesh(MatWallMed);
-        component_wall2.setNewMesh(MatWallExt);
+        DrawCircularOrSidedArena();
 
         //
         if (damier){
@@ -213,6 +191,32 @@ public class InitSceneScript : MonoBehaviour
         }
     }
 
+    private void DrawCircularOrSidedArena()
+    {
+        walls = Instantiate(wall, init_transform.position, init_transform.rotation);
+        component_wall = walls.GetComponent<CircleWallScript>();
+        component_wall.DrawWall(side, arenaSize / 2, arenaSize / 12f);
+
+        walls2 = Instantiate(wall, init_transform.position, init_transform.rotation);
+        walls2.layer = LayerMask.NameToLayer("MUR");
+        component_wall2 = walls2.GetComponent<CircleWallScript>();
+        component_wall2.DrawWall(side, (arenaSize / 2) + 0.03f, arenaSize / 12f);
+
+        topArenaWall = Instantiate(wall, init_transform.position, init_transform.rotation);
+        topArenaWall.layer = LayerMask.NameToLayer("MUR");
+        component_topWall = topArenaWall.GetComponent<CircleWallScript>();
+        List<Vector3> intTopWall = component_wall.getTopPoints();
+        List<Vector3> extTopWall = component_wall2.getTopPoints();
+        List<Vector3> mergedList = CircleWallScript.mergeTwoVerticesList(intTopWall, extTopWall);
+        component_topWall.DrawTop(mergedList);
+
+        walls.transform.parent = walls2.transform;
+        topArenaWall.transform.parent = walls2.transform;
+        // Setting Materials
+        component_wall.setNewMesh(MatWallInt);
+        component_topWall.setNewMesh(MatWallMed);
+        component_wall2.setNewMesh(MatWallExt);
+    }
 
     /*
     void Update(){

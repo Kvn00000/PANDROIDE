@@ -8,12 +8,13 @@ public class counterG2 : MonoBehaviour
     {
         //Debug.Log("Ground encoutered");
         //Debug.Log("FOUND A " + other.gameObject.layer);
-        //Debug.Log("LOOKING FOR A " + LayerMask.NameToLayer("SOL"));
+        //Debug.Log("LOOKING FOR A " + LayerMask.NameToLayer("SOL") + " OR A " + LayerMask.NameToLayer("MUR"));
         if ((other.gameObject.layer == LayerMask.NameToLayer("SOL"))||(other.gameObject.layer == LayerMask.NameToLayer("MUR")))
         {
             //Debug.Log("FOUND A SOL");
             boidTuning parent = (boidTuning)transform.parent.GetComponent<boidTuning>();
             parent.AddCollider(other);
+            //Debug.Log(other.gameObject.layer + " ADDED");
         }
     }
 

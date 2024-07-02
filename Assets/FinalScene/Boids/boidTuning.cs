@@ -864,7 +864,7 @@ public class boidTuning : MonoBehaviour
         {
             int test = toAdd.gameObject.layer;
             //Debug.Log("The layer is " + test);
-            if (test == LayerMask.NameToLayer("SOL"))
+            if ((test == LayerMask.NameToLayer("SOL"))||(test==LayerMask.NameToLayer("MUR")))
             {
                 //Debug.Log("GROUND ADDED");
                 groundCollider.Add(toAdd);
@@ -876,7 +876,7 @@ public class boidTuning : MonoBehaviour
     {
         if (CheckPresence(toRemove))
         {
-            if (layer == LayerMask.NameToLayer("SOL"))
+            if ((layer == LayerMask.NameToLayer("SOL"))||(layer==LayerMask.NameToLayer("MUR")))
             {
                 groundCollider.Remove(toRemove);
                 return;
