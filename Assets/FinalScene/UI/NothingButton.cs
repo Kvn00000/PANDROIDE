@@ -3,38 +3,39 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-
-
-public class BoidSpray : MonoBehaviour{
-    public Button BoidButton;
-    
+public class NothingButton : MonoBehaviour
+{
+    public Button nothingButton;
     public GameObject RightController;
     public GameObject LeftController;
     public Material sprayMaterial;
     public GameObject SprayBottle;
 
-
     private SpawnBoidScript BoidSpawnerRight;
     private SpawnBoidScript BoidSpawnerLeft;
-    private string boidColorHex = "#d55e00";
+    private string boidColorHex = "#FFFFFF";
 
     public void Awake(){
         BoidSpawnerRight = RightController.GetComponent<SpawnBoidScript>();
         BoidSpawnerLeft = LeftController.GetComponent<SpawnBoidScript>();
+        this.GetComponent<Image>().alphaHitTestMinimumThreshold = 0.1f;
+
 
     }
 
-    // Update is called once per frame
+
+    // Start is called before the first frame update
     void Start(){
-        if(BoidButton){
-            BoidButton.onClick.AddListener(OnButtonClick);
+        if(nothingButton){
+            nothingButton.onClick.AddListener(OnButtonClick);
         }
     }
 
+    // Update is called once per frame
     public void OnButtonClick(){
-        SprayBottle.SetActive(true);
-        BoidSpawnerRight.toInstantiate = 1;
-        BoidSpawnerLeft.toInstantiate = 1;
+        SprayBottle.SetActive(false);
+        BoidSpawnerRight.toInstantiate = 0;
+        BoidSpawnerLeft.toInstantiate = 0;
         Color color;
         ColorUtility.TryParseHtmlString(boidColorHex, out color);
         sprayMaterial.SetColor("_BaseColor", color);

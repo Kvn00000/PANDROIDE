@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 
 
-public class CubeSpray : MonoBehaviour{
+public class CubeSprayButton : MonoBehaviour{
     public Button CubeButton;
     
     public GameObject RightController;
@@ -21,6 +21,8 @@ public class CubeSpray : MonoBehaviour{
     public void Awake(){
         CubeSpawnerRight = RightController.GetComponent<SpawnBoidScript>();
         CubeSpawnerLeft = LeftController.GetComponent<SpawnBoidScript>();
+        this.GetComponent<Image>().alphaHitTestMinimumThreshold = 0.1f;
+
 
     }
 

@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using TMPro;
 
 
-public class LeftRightScript : MonoBehaviour
+public class LeftRightButton : MonoBehaviour
 {
     // Start is called before the first frame update
     public GameObject watchManager;
