@@ -46,14 +46,47 @@ public class DestroyGroundScript : MonoBehaviour
         {
             if ((isBoid)|| (other.gameObject.CompareTag("Destructible")))
             {
-                Destroy(other.transform.parent.gameObject);
+                // Destroy(other.transform.parent.gameObject);
+                StartCoroutine(FadeToZeroAlpha(other.transform.parent.gameObject, 5.0f));
             }
             else 
             { 
-                Destroy(other.gameObject); 
+                // Destroy(other.gameObject); 
+                StartCoroutine(FadeToZeroAlpha(other.gameObject,5.0f));
+
             }
         }
         if (withDEBUG){ Debug.Log("#######################################"); }
+    }
+
+
+    // public void StartFade(GameObject targetObject)
+    // {
+    //     StartCoroutine(FadeToZeroAlpha(targetObject));
+    // }
+
+    IEnumerator FadeToZeroAlpha(GameObject targetObject, float duration)
+    {
+        Renderer renderer = targetObject.GetComponent<Renderer>();
+        if (renderer != null)
+        {
+            Material material = renderer.material;
+            Color color = material.color;
+            float startAlpha = color.a;
+
+            for (float t = 0; t < duration; t += Time.deltaTime)
+            {
+                float blend = t / duration;
+                color.a = Mathf.Lerp(startAlpha, 0, blend);
+                material.color = color;
+                yield return null;
+            }
+
+            // Assurez-vous que l'alpha est exactement 0 après la fin de la boucle
+            Destroy(targetObject);
+            color.a = 0;
+            material.color = color;
+        }
     }
     /*
     private void OnTriggerStay  (Collider other)
