@@ -17,12 +17,14 @@ public class ScenePlaneDetectController : MonoBehaviour
     private int numberOfAddedPlane = 0;
     public bool damier = false;
     // Start is called before the first frame update
+    private ARPlane _planeArena;
     private GameObject _arena;
     private float _planeSize;
     private float _arenaSize;
     private bool _arenaSpawned=false;
     private Vector3 _arenaSpawnPos;
     private Quaternion _arenaSpawnRotation;
+    private Vector3 _arenaScale;
     // Mode : 0 --> Automatique ; 1 --> Manuel 
     private int _mode = 0;
     //
@@ -52,11 +54,18 @@ public class ScenePlaneDetectController : MonoBehaviour
         }
         if (PlayerPrefs.HasKey("ArenaSpawnRotationX"))
         {
-            float x=PlayerPrefs.GetFloat("ArenaSpawnRotationX", _arenaSpawnRotation.x);
-            float y= PlayerPrefs.GetFloat("ArenaSpawnRotationY", _arenaSpawnRotation.y);
-            float z=PlayerPrefs.GetFloat("ArenaSpawnRotationZ", _arenaSpawnRotation.z);
-            float w=PlayerPrefs.GetFloat("ArenaSpawnRotationW", _arenaSpawnRotation.w);
+            float x=PlayerPrefs.GetFloat("ArenaSpawnRotationX");
+            float y= PlayerPrefs.GetFloat("ArenaSpawnRotationY");
+            float z=PlayerPrefs.GetFloat("ArenaSpawnRotationZ");
+            float w=PlayerPrefs.GetFloat("ArenaSpawnRotationW");
             _arenaSpawnRotation = new Quaternion(x, y, z, w);
+        }
+        if (PlayerPrefs.HasKey("ArenaScaleX"))
+        {
+            float scX= PlayerPrefs.GetFloat("ArenaScaleX");
+            float scY= PlayerPrefs.GetFloat("ArenaScaleY");
+            float scZ= PlayerPrefs.GetFloat("ArenaScaleZ");
+            _arenaScale = new Vector3(scX, scY,scZ);
         }
         foreach (var plane in _planeManager.trackables)
         {
@@ -134,20 +143,27 @@ public class ScenePlaneDetectController : MonoBehaviour
                     {
                         spawnPosition = plane.center;
                         //float sizeTable = plane.size.sqrMagnitude;
-                        float sizeTable = plane.extents.sqrMagnitude;
+                        float sizeTable = plane.extents.sqrMagnitude; ;
                         spawnPosition.y -=0.01f;
                         plane.gameObject.layer = LayerMask.NameToLayer("SOL");
+                        plane.gameObject.AddComponent<ARAnchor>();
+
                         GameObject scene=Instantiate(toSpawn, spawnPosition, Quaternion.identity);
                         Quaternion spawnRotation =plane.transform.rotation;
-                        _arenaSpawnRotation=spawnRotation;
                         _arena = scene;
                         if (_mode == 0)
                         {
                             _arenaSize = sizeTable;
+                            _arenaSpawnRotation=spawnRotation;
                         }
+
                         _planeSize = sizeTable;
                         _arenaSpawnPos = spawnPosition;
                         scene.GetComponent<InitSceneScript>().Init(_arenaSpawnPos, _arenaSize,_arenaSpawnRotation,damier);
+                        if (_mode == 1)
+                        {
+                            scene.GetComponent<InitSceneScript>().GetParentArena().transform.localScale = _arenaScale;
+                        }
                         _arenaSpawned = true;
 
                     }
@@ -179,6 +195,57 @@ public class ScenePlaneDetectController : MonoBehaviour
         }
     }
 
+    private void rebuild()
+    {
+        foreach (var plane in _planeManager.trackables)
+        {
+            numberOfAddedPlane++;
+            Vector3 spawnPosition;
+            //Check if plane is a table --> Spawn an arena on it
+            if (plane.classification == UnityEngine.XR.ARSubsystems.PlaneClassification.Table)
+            {
+                //Debug.Log("Table Found");
+                if (!_arenaSpawned)
+                {
+                    spawnPosition = plane.center;
+                    //float sizeTable = plane.size.sqrMagnitude;
+                    float sizeTable = plane.extents.sqrMagnitude; ;
+                    spawnPosition.y -= 0.01f;
+                    plane.gameObject.layer = LayerMask.NameToLayer("SOL");
+                    plane.gameObject.AddComponent<ARAnchor>();
+                    GameObject scene = Instantiate(toSpawn, spawnPosition, Quaternion.identity);
+                    Quaternion spawnRotation = plane.transform.rotation;
+                    _arena = scene;
+                    if (_mode == 0)
+                    {
+                        _arenaSize = sizeTable;
+                        _arenaSpawnRotation = spawnRotation;
+                    }
+                    _planeSize = sizeTable;
+                    _arenaSpawnPos = spawnPosition;
+                    scene.GetComponent<InitSceneScript>().Init(_arenaSpawnPos, _arenaSize, _arenaSpawnRotation, damier);
+                    if (_mode == 1)
+                    {
+                        scene.GetComponent<InitSceneScript>().GetParentArena().transform.localScale = _arenaScale;
+                    }
+                    _arenaSpawned = true;
+                }
+            }
+            //Check if plane is a ground --> Add a component that destro all other objects
+            if ((plane.classification == UnityEngine.XR.ARSubsystems.PlaneClassification.Floor) || (plane.classification == UnityEngine.XR.ARSubsystems.PlaneClassification.Wall))
+            {
+                plane.gameObject.AddComponent<BoxCollider>();
+                BoxCollider boxCollider = plane.GetComponent<BoxCollider>();
+                boxCollider.size = plane.gameObject.transform.localScale;
+                boxCollider.center = plane.center;
+                boxCollider.isTrigger = true;
+                plane.gameObject.AddComponent<DestroyGroundScript>();
+                Debug.Log("Destroyer Added");
+            }
+        }
+        Debug.Log("Number of Planes " + _planeManager.trackables.count);
+        Debug.Log("Number of planes found " + numberOfAddedPlane);
+    }
     private void PrintPanelLabel(ARPlane plane)
     {
         string label= plane.classification.ToString();
@@ -199,22 +266,38 @@ public class ScenePlaneDetectController : MonoBehaviour
     { }
     public void ArenaChanges(float newSize)
     {
+        Debug.Log("ENTERING ARENA CHANGES");
         GameObject oldArena = _arena;
-        GameObject newArena = Instantiate(toSpawn, _arenaSpawnPos, Quaternion.identity);
-        newArena.GetComponent<InitSceneScript>().Init(_arenaSpawnPos, newSize, _arenaSpawnRotation, damier);
+        oldArena.GetComponent<InitSceneScript>().CleanArena();
         Destroy(oldArena);
-        _arena = newArena;
+        Debug.Log("Old Arena Destroyed");
+        rebuild();
+        /*GameObject newArena = Instantiate(toSpawn, _planeArena.center, Quaternion.identity);
+        newArena.GetComponent<InitSceneScript>().Init(_arenaSpawnPos, newSize, _arenaSpawnRotation, damier);
+        _arena = newArena;*/
+    }
+    public void clearSavedConfig()
+    {
+        PlayerPrefs.DeleteAll();
     }
     private void OnApplicationFocus(bool focus)
     {
         if (!focus) {
             Debug.Log("Focus Lost : saving parameters ... ");
+            _arenaScale= _arena.GetComponent<InitSceneScript>().GetParentArena().transform.localScale;
             PlayerPrefs.SetFloat("ArenaSize", _arenaSize);
             PlayerPrefs.SetInt("ModeArene", _mode);
             PlayerPrefs.SetFloat("ArenaSpawnRotationX", _arenaSpawnRotation.x);
             PlayerPrefs.SetFloat("ArenaSpawnRotationY", _arenaSpawnRotation.y);
             PlayerPrefs.SetFloat("ArenaSpawnRotationZ", _arenaSpawnRotation.z);
             PlayerPrefs.SetFloat("ArenaSpawnRotationW", _arenaSpawnRotation.w);
+            PlayerPrefs.SetFloat("ArenaScaleX",_arenaScale.x);
+            PlayerPrefs.SetFloat("ArenaScaleY", _arenaScale.y);
+            PlayerPrefs.SetFloat("ArenaScaleZ", _arenaScale.z);
+        }
+        else
+        {
+            ArenaChanges(_arenaSize);
         }
     }
     private void OnApplicationPause(bool pause)

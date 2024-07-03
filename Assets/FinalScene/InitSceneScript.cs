@@ -58,7 +58,6 @@ public class InitSceneScript : MonoBehaviour
     private CircleWallScript component_wall2;
     private GameObject topArenaWall;
     private CircleWallScript component_topWall;
-    private GameObject _plane;
     //
     [SerializeField]
     private Material MatWallInt;
@@ -324,7 +323,14 @@ public class InitSceneScript : MonoBehaviour
         component_wall2.setNewMesh(MatWallExt);
 
     }
-
+    private void DestroySidedArena()
+    {
+        Destroy(parentArena);
+    }
+    public GameObject GetParentArena()
+    {
+        return parentArena;
+    }
     /*
     void Update(){
 
@@ -348,4 +354,15 @@ public class InitSceneScript : MonoBehaviour
         }
     }
     */
+    public void CleanArena()
+    {
+        // Destruction de l'arène
+        DestroySidedArena();
+        // Destruction des boids
+        foreach(var boid in boidsList)
+        {
+            Destroy(boid);
+        }
+        boidsList.Clear(); 
+    }
 }
