@@ -121,4 +121,8 @@ public class CircleWallScript : MonoBehaviour
         this.GetComponent<MeshRenderer>().material = newMat;
     }
 
+    public void updateTop() {
+        
+    }
+
 }

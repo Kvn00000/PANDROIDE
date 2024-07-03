@@ -48,6 +48,10 @@ public class InitSceneScript : MonoBehaviour
     private GameObject[,] elements;
 
     //Murs
+    [SerializeField]
+    private GameObject parentArenaPrefab;
+
+    private GameObject parentArena;
     private GameObject walls;
     private GameObject walls2;
     private CircleWallScript component_wall;
@@ -238,7 +242,7 @@ public class InitSceneScript : MonoBehaviour
 
         }
     }
-     */
+    /**/
 
         private void updateSpeed(){
 
@@ -280,6 +284,9 @@ public class InitSceneScript : MonoBehaviour
 
     private void DrawCircularOrSidedArena()
     {
+        parentArena = Instantiate(parentArenaPrefab, init_transform.position, init_transform.rotation);
+        BoxCollider box =parentArena.GetComponent<BoxCollider>();
+
         walls = Instantiate(wall, init_transform.position, init_transform.rotation);
         component_wall = walls.GetComponent<CircleWallScript>();
         component_wall.DrawWall(side, arenaSize / 2, arenaSize / 12f);
@@ -289,6 +296,10 @@ public class InitSceneScript : MonoBehaviour
         component_wall2 = walls2.GetComponent<CircleWallScript>();
         component_wall2.DrawWall(side, (arenaSize / 2) + 0.03f, arenaSize / 12f);
 
+        box.center = component_wall2.GetComponent<MeshCollider>().bounds.center;
+        box.size = component_wall2.GetComponent<MeshCollider>().bounds.size;
+
+
         topArenaWall = Instantiate(wall, init_transform.position, init_transform.rotation);
         topArenaWall.layer = LayerMask.NameToLayer("MUR");
         component_topWall = topArenaWall.GetComponent<CircleWallScript>();
@@ -296,13 +307,20 @@ public class InitSceneScript : MonoBehaviour
         List<Vector3> extTopWall = component_wall2.getTopPoints();
         List<Vector3> mergedList = CircleWallScript.mergeTwoVerticesList(intTopWall, extTopWall);
         component_topWall.DrawTop(mergedList);
-
+        
+        GameObject child= box.transform.GetChild(0).gameObject;
+        child.transform.position = box.center;
+        child.transform.localScale = new Vector3(box.size.x,box.size.y,box.size.z);
+        
+        // Setting parents
         walls.transform.parent = topArenaWall.transform;
         walls2.transform.parent = topArenaWall.transform;
+        topArenaWall.transform.parent = parentArena.transform;
         // Setting Materials
         component_wall.setNewMesh(MatWallInt);
         //component_topWall.setNewMesh(MatWallMed);
         component_wall2.setNewMesh(MatWallExt);
+
     }
 
     /*
