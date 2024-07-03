@@ -5,7 +5,7 @@ using UnityEngine;
 public class testModifyAlpha : MonoBehaviour
 {
     // Start is called before the first frame update
-    private void alphaA;
+    private float alphaA;
     void Start()
     {
         
@@ -14,7 +14,7 @@ public class testModifyAlpha : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        changeAlpha(this,alphaA)
+        //changeAlpha(this, alphaA);
     }
 
     private void changeAlpha(GameObject obj, float alpha){

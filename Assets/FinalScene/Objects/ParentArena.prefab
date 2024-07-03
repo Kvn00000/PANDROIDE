@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 7771507869326552865}
   - component: {fileID: 1533536960770945651}
   - component: {fileID: 25719726705204601}
-  - component: {fileID: 5898281355908447046}
+  - component: {fileID: 4143970380087063327}
   m_Layer: 0
   m_Name: ParentArena
   m_TagString: Untagged
@@ -195,16 +195,16 @@ MonoBehaviour:
   m_SnapToColliderVolume: 1
   m_ReinitializeDynamicAttachEverySingleGrab: 1
   m_AttachEaseInTime: 0.15
-  m_MovementType: 2
+  m_MovementType: 0
   m_VelocityDamping: 1
   m_VelocityScale: 1
   m_AngularVelocityDamping: 1
   m_AngularVelocityScale: 1
-  m_TrackPosition: 1
+  m_TrackPosition: 0
   m_SmoothPosition: 0
   m_SmoothPositionAmount: 8
   m_TightenPosition: 0.1
-  m_TrackRotation: 1
+  m_TrackRotation: 0
   m_SmoothRotation: 0
   m_SmoothRotationAmount: 8
   m_TightenRotation: 0.1
@@ -212,7 +212,7 @@ MonoBehaviour:
   m_SmoothScale: 0
   m_SmoothScaleAmount: 8
   m_TightenScale: 0.1
-  m_ThrowOnDetach: 1
+  m_ThrowOnDetach: 0
   m_ThrowSmoothingDuration: 0.25
   m_ThrowSmoothingCurve:
     serializedVersion: 2
@@ -244,32 +244,32 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 244016204592863716}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d0a1302d0d134fa8a2a5b3bf4aec3c20, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_PermittedDisplacementAxes: -1
-  m_ConstrainedAxisDisplacementMode: 1
-  m_TwoHandedRotationMode: 1
+  m_PermittedDisplacementAxes: 5
+  m_ConstrainedAxisDisplacementMode: 2
+  m_TwoHandedRotationMode: 2
   m_AllowOneHandedScaling: 0
-  m_AllowTwoHandedScaling: 1
-  m_OneHandedScaleSpeed: 0.5
+  m_AllowTwoHandedScaling: 0
+  m_OneHandedScaleSpeed: 2.3
   m_ThresholdMoveRatioForScale: 0.05
-  m_ClampScaling: 1
+  m_ClampScaling: 0
   m_MinimumScaleRatio: 0.25
   m_MaximumScaleRatio: 2
   m_ScaleMultiplier: 0.25
---- !u!114 &5898281355908447046
+--- !u!114 &4143970380087063327
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 244016204592863716}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6d60b7db9dfb341daa8463653b6bced6, type: 3}
+  m_Script: {fileID: 11500000, guid: 27268e9bfc226dd4b91a355bf2104ebd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &6216429604527029870

@@ -79,7 +79,7 @@ public class InitSceneScript : MonoBehaviour
     }
 
     // Start is called before the first frame update
-    public void Init(Vector3 _spawnPos,float _sizeTable,bool _damier)
+    public void Init(Vector3 _spawnPos,float _sizeTable,Quaternion _spawnRotation,bool _damier=false)
     {
         arenaSize = _sizeTable;
         // Scaling Boids parameters
@@ -286,6 +286,8 @@ public class InitSceneScript : MonoBehaviour
     {
         parentArena = Instantiate(parentArenaPrefab, init_transform.position, init_transform.rotation);
         BoxCollider box =parentArena.GetComponent<BoxCollider>();
+        parentArena.GetComponent<ResizableWallScript>().SetCenterInit(init_transform.position);
+        parentArena.GetComponent<ResizableWallScript>().SetTableRotation(init_transform.rotation);
 
         walls = Instantiate(wall, init_transform.position, init_transform.rotation);
         component_wall = walls.GetComponent<CircleWallScript>();

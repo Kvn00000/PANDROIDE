@@ -22,6 +22,7 @@ public class ScenePlaneDetectController : MonoBehaviour
     private float _arenaSize;
     private bool _arenaSpawned=false;
     private Vector3 _arenaSpawnPos;
+    private Quaternion _arenaSpawnRotation;
     // Mode : 0 --> Automatique ; 1 --> Manuel 
     private int _mode = 0;
     //
@@ -48,6 +49,14 @@ public class ScenePlaneDetectController : MonoBehaviour
         {
             _arenaSize = PlayerPrefs.GetFloat("ArenaSize");
             Debug.Log("Found Value for ArenaSize " + _arenaSize);
+        }
+        if (PlayerPrefs.HasKey("ArenaSpawnRotationX"))
+        {
+            float x=PlayerPrefs.GetFloat("ArenaSpawnRotationX", _arenaSpawnRotation.x);
+            float y= PlayerPrefs.GetFloat("ArenaSpawnRotationY", _arenaSpawnRotation.y);
+            float z=PlayerPrefs.GetFloat("ArenaSpawnRotationZ", _arenaSpawnRotation.z);
+            float w=PlayerPrefs.GetFloat("ArenaSpawnRotationW", _arenaSpawnRotation.w);
+            _arenaSpawnRotation = new Quaternion(x, y, z, w);
         }
         foreach (var plane in _planeManager.trackables)
         {
@@ -129,7 +138,8 @@ public class ScenePlaneDetectController : MonoBehaviour
                         spawnPosition.y -=0.01f;
                         plane.gameObject.layer = LayerMask.NameToLayer("SOL");
                         GameObject scene=Instantiate(toSpawn, spawnPosition, Quaternion.identity);
-
+                        Quaternion spawnRotation =plane.transform.rotation;
+                        _arenaSpawnRotation=spawnRotation;
                         _arena = scene;
                         if (_mode == 0)
                         {
@@ -137,7 +147,7 @@ public class ScenePlaneDetectController : MonoBehaviour
                         }
                         _planeSize = sizeTable;
                         _arenaSpawnPos = spawnPosition;
-                        scene.GetComponent<InitSceneScript>().Init(_arenaSpawnPos, _arenaSize,damier);
+                        scene.GetComponent<InitSceneScript>().Init(_arenaSpawnPos, _arenaSize,_arenaSpawnRotation,damier);
                         _arenaSpawned = true;
 
                     }
@@ -191,7 +201,7 @@ public class ScenePlaneDetectController : MonoBehaviour
     {
         GameObject oldArena = _arena;
         GameObject newArena = Instantiate(toSpawn, _arenaSpawnPos, Quaternion.identity);
-        newArena.GetComponent<InitSceneScript>().Init(_arenaSpawnPos, newSize, damier);
+        newArena.GetComponent<InitSceneScript>().Init(_arenaSpawnPos, newSize, _arenaSpawnRotation, damier);
         Destroy(oldArena);
         _arena = newArena;
     }
@@ -201,6 +211,10 @@ public class ScenePlaneDetectController : MonoBehaviour
             Debug.Log("Focus Lost : saving parameters ... ");
             PlayerPrefs.SetFloat("ArenaSize", _arenaSize);
             PlayerPrefs.SetInt("ModeArene", _mode);
+            PlayerPrefs.SetFloat("ArenaSpawnRotationX", _arenaSpawnRotation.x);
+            PlayerPrefs.SetFloat("ArenaSpawnRotationY", _arenaSpawnRotation.y);
+            PlayerPrefs.SetFloat("ArenaSpawnRotationZ", _arenaSpawnRotation.z);
+            PlayerPrefs.SetFloat("ArenaSpawnRotationW", _arenaSpawnRotation.w);
         }
     }
     private void OnApplicationPause(bool pause)
@@ -210,6 +224,10 @@ public class ScenePlaneDetectController : MonoBehaviour
             Debug.Log("On Pause : saving parameters ... ");
             PlayerPrefs.SetFloat("ArenaSize", _arenaSize);
             PlayerPrefs.SetInt("ModeArene", _mode);
+            PlayerPrefs.SetFloat("ArenaSpawnRotationX", _arenaSpawnRotation.x);
+            PlayerPrefs.SetFloat("ArenaSpawnRotationY", _arenaSpawnRotation.y);
+            PlayerPrefs.SetFloat("ArenaSpawnRotationZ", _arenaSpawnRotation.z);
+            PlayerPrefs.SetFloat("ArenaSpawnRotationW", _arenaSpawnRotation.w);
 
         }
     }
@@ -218,6 +236,10 @@ public class ScenePlaneDetectController : MonoBehaviour
         Debug.Log("On Quit : saving parameters ... ");
         PlayerPrefs.SetFloat("ArenaSize", _arenaSize);
         PlayerPrefs.SetInt("ModeArene", _mode);
+        PlayerPrefs.SetFloat("ArenaSpawnRotationX", _arenaSpawnRotation.x);
+        PlayerPrefs.SetFloat("ArenaSpawnRotationY", _arenaSpawnRotation.y);
+        PlayerPrefs.SetFloat("ArenaSpawnRotationZ", _arenaSpawnRotation.z);
+        PlayerPrefs.SetFloat("ArenaSpawnRotationW", _arenaSpawnRotation.w);
     }
     public void ChangeMod()
     {

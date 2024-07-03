@@ -4,10 +4,12 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.XR.Interaction.Toolkit;
 
+
 public class ResizableWallScript : MonoBehaviour
 {
- 
     // Start is called before the first frame update
+    private Vector3 _centerInit;
+    private Quaternion _tablerotation;
     private XRGrabInteractable grabInteractable;
     private List<XRBaseInteractor> interactors = new List<XRBaseInteractor>();
     private MeshFilter mesh;
@@ -176,6 +178,7 @@ public class ResizableWallScript : MonoBehaviour
                     }
                     previousPos = current;
                     break;
+
                 case "":
                     break;
 
@@ -199,20 +202,20 @@ public class ResizableWallScript : MonoBehaviour
 
     public void resizeCube(float amount, string axis, bool inverse)
     {
-        //Debug.Log("Here");
+        Debug.Log("Here");
         // amount = amount * 0.05f;
         switch (axis)
         {
             case "x":
                 if (!inverse)
                 {
-                    //this.transform.position = new Vector3(this.transform.position.x + (amount / 2), this.transform.position.y, this.transform.position.z);
+                    //this.transform.position = new Vector3(this.transform.position.x+(amount/2), this.transform.position.y, this.transform.position.z);
                     this.transform.localScale = new Vector3(this.transform.localScale.x + amount, this.transform.localScale.y, this.transform.localScale.z);
                 }
                 else
                 {
 
-                    //this.transform.position = new Vector3(this.transform.position.x - (amount / 2), this.transform.position.y, this.transform.position.z);
+                    //this.transform.position = new Vector3(this.transform.position.x-(amount/2), this.transform.position.y, this.transform.position.z);
                     this.transform.localScale = new Vector3(this.transform.localScale.x - amount, this.transform.localScale.y, this.transform.localScale.z);
                 }
                 break;
@@ -224,7 +227,7 @@ public class ResizableWallScript : MonoBehaviour
                 }
                 else
                 {
-                    //this.transform.position = new Vector3(this.transform.position.x, this.transform.position.y, this.transform.position.z - (amount / 2));
+                    //this.transform.position = new Vector3(this.transform.position.x, this.transform.position.y, this.transform.position.z- (amount / 2));
                     this.transform.localScale = new Vector3(this.transform.localScale.x, this.transform.localScale.y, this.transform.localScale.z - amount);
                 }
                 break;
@@ -232,7 +235,9 @@ public class ResizableWallScript : MonoBehaviour
                 break;
 
         }
-        //this.transform.parent.gameObject.GetComponent<CircleWallScript>().UpdateTopArenaWall();
+        Debug.Log(" DONE");
+        this.transform.position = _centerInit;
+        this.transform.rotation = _tablerotation;
 
     }
 
@@ -268,5 +273,13 @@ public class ResizableWallScript : MonoBehaviour
         Debug.Log("Grabbed face: " + closestFace);
 
         return closestFace;
+    }
+
+    public void SetCenterInit(Vector3 pos) {
+        this._centerInit = pos;
+    }
+    public void SetTableRotation(Quaternion rotation)
+    {
+        this._tablerotation = rotation;
     }
 }

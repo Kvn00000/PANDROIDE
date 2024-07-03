@@ -355,13 +355,15 @@ MonoBehaviour:
   side: 50
   arenaSize: 6
   damier: 0
-  BoidNumber: 100
+  BoidNumber: 30
   BoidSpeed: 500
   wallRay: 0.6
   avoidRay: 0.6
   cohesionRay: 1
   attractionRay: 1.1
   filter: 5
+  parentArenaPrefab: {fileID: 244016204592863716, guid: 478a7243bea84ab44af7d1a896663308,
+    type: 3}
   MatWallInt: {fileID: 2100000, guid: 744b80bf8335ed546996b01a044ed88c, type: 2}
   MatWallMed: {fileID: 2100000, guid: eb1e10abffe079b498998181272c3c11, type: 2}
   MatWallExt: {fileID: 2100000, guid: ae0b6955983003d429c99618ad6b2385, type: 2}
