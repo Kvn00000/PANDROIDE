@@ -6,28 +6,35 @@ public class testModifyAlpha : MonoBehaviour
 {
     // Start is called before the first frame update
     private float alphaA;
+    public GameObject cube;
     void Start()
     {
+        StartCoroutine(FadeToZeroAlpha(cube, 5.0f));
         
     }
 
-    // Update is called once per frame
-    void Update()
+    
+    IEnumerator FadeToZeroAlpha(GameObject targetObject, float duration)
     {
-        //changeAlpha(this, alphaA);
-    }
-
-    private void changeAlpha(GameObject obj, float alpha){
-        if (obj != null)
+        Renderer renderer = targetObject.GetComponent<Renderer>();
+        if (renderer != null)
         {
-            Renderer renderer = obj.GetComponent<Renderer>();
-            if (renderer != null)
+            Material material = renderer.material;
+            Color color = material.color;
+            float startAlpha = color.a;
+
+            for (float t = 0; t < duration; t += Time.deltaTime)
             {
-                Material material = renderer.material;
-                Color color = material.color;
-                color.a = alpha;
+                float blend = t / duration;
+                color.a = Mathf.Lerp(startAlpha, 0, blend);
                 material.color = color;
+                yield return null;
             }
+
+            // Assurez-vous que l'alpha est exactement 0 après la fin de la boucle
+            Destroy(targetObject);
+            color.a = 0;
+            material.color = color;
         }
     }
 }
