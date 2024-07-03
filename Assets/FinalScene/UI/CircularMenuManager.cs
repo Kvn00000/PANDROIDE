@@ -10,6 +10,9 @@ public class CircularMenuManager : MonoBehaviour
     public GameObject LeftController;
     public GameObject RightController;
 
+    public GameObject MenuLeft;
+    public GameObject MenuRight;
+
     //Spawner Left and Right
     private SpawnBoidScript SpawnerRight;
     private SpawnBoidScript SpawnerLeft;
@@ -176,7 +179,8 @@ public class CircularMenuManager : MonoBehaviour
     //Settings Menu Event
 
     public void OnLeftRightButtonClick(){
-
+        MenuLeft.SetActive(!MenuLeft.activeSelf);
+        MenuRight.SetActive(!MenuRight.activeSelf);
     }
 
     public void OnBackSettingsButtonClick(){
