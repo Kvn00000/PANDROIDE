@@ -15,7 +15,7 @@ public class StopCoroutine : MonoBehaviour
 
     void OnEnable(){
         grabInteractable.selectEntered.AddListener(OnGrab);
-        }
+    }
 
     // Start is called before the first frame update
     private void OnGrab(SelectEnterEventArgs args){
@@ -28,7 +28,6 @@ public class StopCoroutine : MonoBehaviour
 
                 Renderer renderer = gameObject.GetComponent<Renderer>();
                 if (renderer != null){
-                    Debug
                     Material material = renderer.material;
                     Color color = material.color;
                     color.a = 1;
@@ -42,4 +41,8 @@ public class StopCoroutine : MonoBehaviour
         fadeCoroutine = c;
     }
 
+    public void printCoroutine()
+    {
+        Debug.Log(fadeCoroutine);
+    }
 }

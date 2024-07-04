@@ -46,12 +46,15 @@ public class DestroyGroundScript : MonoBehaviour
             if ((isBoid)|| (other.gameObject.CompareTag("Destructible")))
             {
                 other.transform.parent.gameObject.GetComponent<StopCoroutine>().SetCoroutine(StartCoroutine(FadeToZeroAlpha(other.transform.parent.gameObject, 5.0f)));
+                other.transform.parent.gameObject.GetComponent<StopCoroutine>().printCoroutine()
                 // Destroy(other.transform.parent.gameObject);
             }
             else 
             { 
                 // Destroy(other.gameObject); 
                 other.gameObject.GetComponent<StopCoroutine>().SetCoroutine(StartCoroutine(FadeToZeroAlpha(other.gameObject,5.0f)));
+                other.gameObject.GetComponent<StopCoroutine>().printCoroutine()
+
             }
         }
         if (withDEBUG){ Debug.Log("#######################################"); }

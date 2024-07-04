@@ -81,6 +81,7 @@ GameObject:
   - component: {fileID: 8229165546946638450}
   - component: {fileID: 4665166746659305782}
   - component: {fileID: 917348069913497714}
+  - component: {fileID: -2488142989972953629}
   - component: {fileID: 2456924498945637548}
   m_Layer: 8
   m_Name: ResizeCube
@@ -378,6 +379,18 @@ MonoBehaviour:
   m_MinimumScaleRatio: 0.25
   m_MaximumScaleRatio: 2
   m_ScaleMultiplier: 0.25
+--- !u!114 &-2488142989972953629
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6405620610664063678}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee9607f08055a47689e3c8b338cc9ed7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &2456924498945637548
 MonoBehaviour:
   m_ObjectHideFlags: 0
