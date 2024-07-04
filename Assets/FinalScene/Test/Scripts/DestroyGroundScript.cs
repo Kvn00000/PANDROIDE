@@ -48,6 +48,7 @@ public class DestroyGroundScript : MonoBehaviour
                 // Destroy(other.transform.parent.gameObject);
                 Debug.Log("Je fade OUT");
                 other.transform.parent.gameObject.GetComponent<StopFadeOut>().isFadingOut = true;
+                Debug.Log(other.transform.parent.gameObject.GetComponent<StopFadeOut>().isFadingOut);
                 other.transform.parent.gameObject.GetComponent<StopFadeOut>().elapsedTime = 0f;
 
             }else{ 

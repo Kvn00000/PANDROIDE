@@ -21,11 +21,12 @@ public class StopFadeOut : MonoBehaviour
         grabInteractable = GetComponent<XRGrabInteractable>();
         renderer = gameObject.GetComponent<Renderer>();
         color = renderer.material.color;
+        isFadingOut = false;
     }
 
     void update(){
 
-        if(isFadingOut){
+        if(isFadingOut == true){
             Debug.Log("diminue le alpha");    
             elapsedTime += Time.deltaTime;
             color.a = Mathf.Lerp(color.a, 0f, elapsedTime / fadeDuration);
