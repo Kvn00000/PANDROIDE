@@ -58,6 +58,8 @@ public class InitSceneScript : MonoBehaviour
     private CircleWallScript component_wall2;
     private GameObject topArenaWall;
     private CircleWallScript component_topWall;
+    private float wallThickness= 0.03f;
+    private GameObject _plane;
     //
     [SerializeField]
     private Material MatWallInt;
@@ -78,6 +80,7 @@ public class InitSceneScript : MonoBehaviour
     }
 
     // Start is called before the first frame update
+    
     public void Init(Vector3 _spawnPos,float _sizeTable,Quaternion _spawnRotation,bool _damier=false)
     {
         arenaSize = _sizeTable;
@@ -290,12 +293,13 @@ public class InitSceneScript : MonoBehaviour
 
         walls = Instantiate(wall, init_transform.position, init_transform.rotation);
         component_wall = walls.GetComponent<CircleWallScript>();
+        component_wall.inter = true;
         component_wall.DrawWall(side, arenaSize / 2, arenaSize / 12f);
 
         walls2 = Instantiate(wall, init_transform.position, init_transform.rotation);
         walls2.layer = LayerMask.NameToLayer("MUR");
         component_wall2 = walls2.GetComponent<CircleWallScript>();
-        component_wall2.DrawWall(side, (arenaSize / 2) + 0.03f, arenaSize / 12f);
+        component_wall2.DrawWall(side, (arenaSize / 2) + wallThickness, arenaSize / 12f);
 
         box.center = component_wall2.GetComponent<MeshCollider>().bounds.center;
         box.size = component_wall2.GetComponent<MeshCollider>().bounds.size;
@@ -308,6 +312,7 @@ public class InitSceneScript : MonoBehaviour
         List<Vector3> extTopWall = component_wall2.getTopPoints();
         List<Vector3> mergedList = CircleWallScript.mergeTwoVerticesList(intTopWall, extTopWall);
         component_topWall.DrawTop(mergedList);
+        component_topWall.setThickness(wallThickness);
         
         GameObject child= box.transform.GetChild(0).gameObject;
         child.transform.position = box.center;
@@ -319,12 +324,17 @@ public class InitSceneScript : MonoBehaviour
         topArenaWall.transform.parent = parentArena.transform;
         // Setting Materials
         component_wall.setNewMesh(MatWallInt);
-        //component_topWall.setNewMesh(MatWallMed);
+        component_topWall.setNewMesh(MatWallMed);
         component_wall2.setNewMesh(MatWallExt);
 
     }
     private void DestroySidedArena()
     {
+        for (int i =0; i< parentArena.transform.childCount; i++)
+        {
+            GameObject child = parentArena.transform.GetChild(i).gameObject;
+            Destroy(child);
+        }
         Destroy(parentArena);
     }
     public GameObject GetParentArena()

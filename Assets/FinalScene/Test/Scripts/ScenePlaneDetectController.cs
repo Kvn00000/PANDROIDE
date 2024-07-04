@@ -26,7 +26,7 @@ public class ScenePlaneDetectController : MonoBehaviour
     private Quaternion _arenaSpawnRotation;
     private Vector3 _arenaScale;
     // Mode : 0 --> Automatique ; 1 --> Manuel 
-    private int _mode = 0;
+    private int _mode = 1;
     //
     void Start()
     {
@@ -129,10 +129,11 @@ public class ScenePlaneDetectController : MonoBehaviour
     {
         if (arguments.added.Count > 0)
         {
-            foreach(var plane in _planeManager.trackables)
+            numberOfAddedPlane = 0;
+            foreach (var plane in _planeManager.trackables)
             {
                 numberOfAddedPlane++;
-                PrintPanelLabel(plane);
+                //PrintPanelLabel(plane);
                 Vector3 spawnPosition;
                 //Check if plane is a table --> Spawn an arena on it
                 if (plane.classification == UnityEngine.XR.ARSubsystems.PlaneClassification.Table)
@@ -151,7 +152,10 @@ public class ScenePlaneDetectController : MonoBehaviour
                         GameObject scene=Instantiate(toSpawn, spawnPosition, Quaternion.identity);
                         Quaternion spawnRotation =plane.transform.rotation;
                         _arena = scene;
-                        if (_mode == 0)
+                        _arena.AddComponent<ARAnchor>();
+                        //if (_arena != null){ Debug.Log("Arena Init"); }
+                        //else { Debug.Log("_ARena Null"); }
+                        if ((_mode == 0) || (float.IsNaN(_arenaSize)))
                         {
                             _arenaSize = sizeTable;
                             _arenaSpawnRotation=spawnRotation;
@@ -186,17 +190,18 @@ public class ScenePlaneDetectController : MonoBehaviour
                     boxCollider.isTrigger = true;
                     
                     plane.gameObject.AddComponent<DestroyGroundScript>();
-                    Debug.Log("Destroyer Added");
+                    //Debug.Log("Destroyer Added");
                 }
             }
-            Debug.Log("Number of Planes " + _planeManager.trackables.count);
-            Debug.Log("Number of planes found " + numberOfAddedPlane);
+            //Debug.Log("Number of Planes " + _planeManager.trackables.count);
+            //Debug.Log("Number of planes found " + numberOfAddedPlane);
 
         }
     }
 
     private void rebuild()
     {
+        numberOfAddedPlane = 0;
         foreach (var plane in _planeManager.trackables)
         {
             numberOfAddedPlane++;
@@ -216,7 +221,11 @@ public class ScenePlaneDetectController : MonoBehaviour
                     GameObject scene = Instantiate(toSpawn, spawnPosition, Quaternion.identity);
                     Quaternion spawnRotation = plane.transform.rotation;
                     _arena = scene;
-                    if (_mode == 0)
+                    _arena.AddComponent<ARAnchor>();
+                    //if (_arena != null){ Debug.Log("Arena Init"); }
+                    //else{ Debug.Log("_ARena Null"); }
+
+                    if ((_mode == 0) || (float.IsNaN(_arenaSize)))
                     {
                         _arenaSize = sizeTable;
                         _arenaSpawnRotation = spawnRotation;
@@ -224,7 +233,7 @@ public class ScenePlaneDetectController : MonoBehaviour
                     _planeSize = sizeTable;
                     _arenaSpawnPos = spawnPosition;
                     scene.GetComponent<InitSceneScript>().Init(_arenaSpawnPos, _arenaSize, _arenaSpawnRotation, damier);
-                    if (_mode == 1)
+                    if ((_mode == 1)||(_arenaScale!=null))
                     {
                         scene.GetComponent<InitSceneScript>().GetParentArena().transform.localScale = _arenaScale;
                     }
@@ -240,11 +249,11 @@ public class ScenePlaneDetectController : MonoBehaviour
                 boxCollider.center = plane.center;
                 boxCollider.isTrigger = true;
                 plane.gameObject.AddComponent<DestroyGroundScript>();
-                Debug.Log("Destroyer Added");
+                //Debug.Log("Destroyer Added");
             }
         }
-        Debug.Log("Number of Planes " + _planeManager.trackables.count);
-        Debug.Log("Number of planes found " + numberOfAddedPlane);
+        //Debug.Log("Number of Planes " + _planeManager.trackables.count);
+        //Debug.Log("Number of planes found " + numberOfAddedPlane);
     }
     private void PrintPanelLabel(ARPlane plane)
     {
@@ -257,18 +266,26 @@ public class ScenePlaneDetectController : MonoBehaviour
 
     private void OnDestroy()
     {
-        Debug.Log("Calling Destructor for ScenePlaneDetectController");
+        //Debug.Log("Calling Destructor for ScenePlaneDetectController");
         togglePlanesDetectedAction.action.performed -= OnTogglePlanesAction;
         _planeManager.planesChanged -= OnPlanesChanged;
     }
     // Update is called once per frame
     void Update()
-    { }
+    {  }
     public void ArenaChanges(float newSize)
     {
         Debug.Log("ENTERING ARENA CHANGES");
         GameObject oldArena = _arena;
+        if(_arena== null)
+        {
+            Debug.Log("                  IS NULL 1");
+        }
         oldArena.GetComponent<InitSceneScript>().CleanArena();
+        if (_arena == null)
+        {
+            Debug.Log("                  IS NULL  after Clean");
+        }
         Destroy(oldArena);
         Debug.Log("Old Arena Destroyed");
         rebuild();
@@ -297,9 +314,11 @@ public class ScenePlaneDetectController : MonoBehaviour
         }
         else
         {
+            _arenaSpawned = false;
             ArenaChanges(_arenaSize);
         }
     }
+    
     private void OnApplicationPause(bool pause)
     {
         if (pause)
@@ -311,7 +330,16 @@ public class ScenePlaneDetectController : MonoBehaviour
             PlayerPrefs.SetFloat("ArenaSpawnRotationY", _arenaSpawnRotation.y);
             PlayerPrefs.SetFloat("ArenaSpawnRotationZ", _arenaSpawnRotation.z);
             PlayerPrefs.SetFloat("ArenaSpawnRotationW", _arenaSpawnRotation.w);
+            PlayerPrefs.SetFloat("ArenaScaleX", _arenaScale.x);
+            PlayerPrefs.SetFloat("ArenaScaleY", _arenaScale.y);
+            PlayerPrefs.SetFloat("ArenaScaleZ", _arenaScale.z);
 
+
+        }
+        else
+        {
+            //_arenaSpawned = false;
+            //ArenaChanges(_arenaSize);
         }
     }
     private void OnApplicationQuit()
@@ -323,7 +351,12 @@ public class ScenePlaneDetectController : MonoBehaviour
         PlayerPrefs.SetFloat("ArenaSpawnRotationY", _arenaSpawnRotation.y);
         PlayerPrefs.SetFloat("ArenaSpawnRotationZ", _arenaSpawnRotation.z);
         PlayerPrefs.SetFloat("ArenaSpawnRotationW", _arenaSpawnRotation.w);
+        PlayerPrefs.SetFloat("ArenaScaleX", _arenaScale.x);
+        PlayerPrefs.SetFloat("ArenaScaleY", _arenaScale.y);
+        PlayerPrefs.SetFloat("ArenaScaleZ", _arenaScale.z);
+
     }
+    /**/
     public void ChangeMod()
     {
         if (_mode == 0)

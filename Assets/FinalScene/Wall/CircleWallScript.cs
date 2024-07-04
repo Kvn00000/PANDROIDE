@@ -11,7 +11,10 @@ public class CircleWallScript : MonoBehaviour
     public Vector3[] points;
     public int[] _triangles;
 
+    private float thickness;
     private float height;
+    public bool inter = false;
+    private float radius;
     public void DrawWall(int sides, float radius, float height)
     {
         mesh = new Mesh();
@@ -24,12 +27,17 @@ public class CircleWallScript : MonoBehaviour
         mesh.vertices = points;
         mesh.triangles = _triangles;
         _meshCollider.sharedMesh = mesh;
+        this.radius = radius;
         setHeight(height);
     }
 
     public void DrawTop(List<Vector3> points)
     {
         mesh = new Mesh();
+        if (gameObject.GetComponent<MeshCollider>() != null)
+        {
+            Destroy(gameObject.GetComponent<MeshCollider>());
+        }
         _meshCollider = gameObject.AddComponent<MeshCollider>();
         this.GetComponent<MeshFilter>().mesh = mesh;
 
@@ -93,7 +101,15 @@ public class CircleWallScript : MonoBehaviour
         this.height = height;
     }
 
-
+    private void Update()
+    {
+        if (inter)
+        {
+            //updateTop();
+            //Debug.Log(" INNER " + _meshCollider.sharedMesh.vertices[0]);
+            //
+        }
+    }
     public static List<Vector3> mergeTwoVerticesList(List<Vector3> pointsInt, List<Vector3> pointsExt)
     {
         List<Vector3> finalList = new List<Vector3>();
@@ -122,7 +138,36 @@ public class CircleWallScript : MonoBehaviour
     }
 
     public void updateTop() {
-        
-    }
+        GameObject parent = this.transform.parent.gameObject;
+        //Debug.Log("Entering update top");
+        CircleWallScript topWall = parent.GetComponent<CircleWallScript>();
+        List<Vector3> circleInt = getTopPoints();
+        List<Vector3> circleIntNpos = new List<Vector3>();
+        Vector3 sc=this.transform.localScale;
+        //Debug.Log("Scale = " + sc);
+        foreach (Vector3 p in circleInt)
+        {
+            Vector3 newPoint = new Vector3(p.x*sc.x,p.y*sc.y,p.z*sc.z);
+            Debug.DrawLine(p, newPoint, Color.magenta);
+            circleIntNpos.Add(newPoint);
+        }
+        List<Vector3> circleExt = parent.transform.GetChild(1).GetComponent<CircleWallScript>().getTopPoints();
+        List<Vector3> mergedList = CircleWallScript.mergeTwoVerticesList(circleIntNpos, circleExt);
+        float newThickness = Vector3.Distance(circleInt[0], circleExt[0]);
 
+        topWall.DrawTop(mergedList);
+        topWall.setThickness(newThickness);
+    }
+    public void setThickness(float value)
+    {
+        this.thickness = value;
+    }
+    public float getThickness()
+    {
+        return thickness;
+    }
+    public float getRadius()
+    {
+        return this.radius;
+    }
 }

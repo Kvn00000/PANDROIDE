@@ -89,7 +89,7 @@ public class ResizableWallScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        //Debug.Log(isInnerResize(new Vector3(0, 0.15f, 0)));
         if (interactors.Count == 2 && Vector3.Distance(interactor2.transform.position, previousPos) > 0.001)
         {
             float distance = Vector3.Distance(interactor2.transform.position, previousPos);
@@ -108,52 +108,97 @@ public class ResizableWallScript : MonoBehaviour
 
                         // if( Vector3.Distance(interactor2.transform.position ,StartControllerPos) > Vector3.Distance(previousPos ,StartControllerPos) ){
                         // Debug.Log(" Diff positive");
-                        resizeCube(distance, "z", true);
+                        if (isInnerResize(current))
+                        {
+                            //resizeCircleInt(distance, "z", true);
+                        }
+                        else
+                        {
+                            resizeCube(distance, "z", true);
+                        }
                     }
                     else
                     {
                         // Debug.Log(" Diff neg");
-                        resizeCube(distance, "z", false);
+
+                        if (isInnerResize(current))
+                        {
+                            //resizeCircleInt(distance, "z", false);
+                        }
+                        else
+                        {
+                            resizeCube(distance, "z", false);
+                        }
                     }
                     previousPos = interactor2.transform.position;
 
                     break;
 
                 case "Left":
-
+                    //Debug.Log("IS inner ? : " + isInnerResize(current));
                     if (test_cur.x - test_prev.x > 0)
                     {
 
                         // if( Vector3.Distance(interactor2.transform.position ,StartControllerPos) > Vector3.Distance(previousPos ,StartControllerPos) ){
                         // Debug.Log(" Diff positive");
-                        resizeCube(distance, "x", true);
+                        if (isInnerResize(current))
+                        {
+                            //resizeCircleInt(distance, "x", true);
+                        }
+                        else
+                        {
+                            resizeCube(distance, "x", true);
+                        }
                     }
                     else
                     {
                         // Debug.Log(" Diff neg");
-                        resizeCube(distance, "x", false);
+                        if (isInnerResize(current))
+                        {
+                            //resizeCircleInt(distance, "x", false);
+                        }
+                        else
+                        {
+                            resizeCube(distance, "x", false);
+                        }
                     }
                     previousPos = interactor2.transform.position;
                     break;
 
                 case "Right":
+                    //Debug.Log("IS inner ? : " + isInnerResize(current));
                     if (test_cur.x - test_prev.x < 0)
                     {
 
                         // if( Vector3.Distance(interactor2.transform.position ,StartControllerPos) > Vector3.Distance(previousPos ,StartControllerPos) ){
                         // Debug.Log(" Diff positive");
-                        resizeCube(distance, "x", true);
+                        if (isInnerResize(current))
+                        {
+                            //resizeCircleInt(distance, "x", true);
+                        }
+                        else
+                        {
+                            resizeCube(distance, "x", true);
+                        }
                     }
                     else
                     {
                         // Debug.Log(" Diff neg");
-                        resizeCube(distance, "x", false);
+                        if (isInnerResize(current))
+                        {
+                            //resizeCircleInt(distance, "x", false);
+                        }
+                        else
+                        {
+                            resizeCube(distance, "x", false);
+                        }
                     }
                     previousPos = interactor2.transform.position;
 
                     break;
 
                 case "Back":
+                    //Debug.Log("IS inner ? : " + isInnerResize(current));
                     // Debug.Log(interactor2.transform.position.z);
                     // Debug.Log(previousPos.z);
 
@@ -169,12 +214,26 @@ public class ResizableWallScript : MonoBehaviour
 
                         // if( Vector3.Distance(interactor2.transform.position ,StartControllerPos) > Vector3.Distance(previousPos ,StartControllerPos) ){
                         // Debug.Log(" Diff positive");
-                        resizeCube(distance, "z", true);
+                        if (isInnerResize(current))
+                        {
+                            //resizeCircleInt(distance, "z", true);
+                        }
+                        else
+                        {
+                            resizeCube(distance, "z", true);
+                        }
                     }
                     else
                     {
                         // Debug.Log(" Diff neg");
-                        resizeCube(distance, "z", false);
+                        if (isInnerResize(current))
+                        {
+                            //resizeCircleInt(distance, "z", false);
+                        }
+                        else
+                        {
+                            resizeCube(distance, "z", false);
+                        }
                     }
                     previousPos = current;
                     break;
@@ -197,12 +256,45 @@ public class ResizableWallScript : MonoBehaviour
         Vector3 nPoint = dir + centre;
         return nPoint; // return it
     }
+    private bool isInnerResize(Vector3 posGrab) {
+
+        // Parent Arene
+        //           --> collider permettant le grab
+        //           --> Top Arene
+        //                   --> mur interieur
+        //                   --> mur exterieur
+        GameObject childInt = this.transform.GetChild(1).GetChild(0).gameObject;
+        GameObject childExt = this.transform.GetChild(1).GetChild(1).gameObject;
 
 
+        //Debug.DrawLine(posGrab, pointInt,Color.green);
+        //Debug.DrawLine(posGrab, pointExt,Color.red) ;
 
+        //Debug.DrawLine(posGrab, pointTest, Color.cyan);
+        //Debug.DrawLine(posGrab, pointTest2, Color.yellow);
+        //Debug.Log("/////////////////////////");
+        //Debug.Log("POS Grab : "+ posGrab+",  point Int : "+ pointInt+ ", point Ext : "+ pointExt);
+        //Debug.Log("Dist Int : "+distInt+" Dist Ext : "+distExt);
+        //Debug.Log("/////////////////////////");
+        float radiusInt = childInt.GetComponent<CircleWallScript>().getRadius();
+        float distance = Vector3.Distance(posGrab,this.transform.position);
+        float thickness = this.transform.GetChild(1).GetComponent<CircleWallScript>().getThickness() ;
+        //Debug.DrawLine(posGrab, this.transform.position, Color.green);
+        float toComp = radiusInt+(thickness*0.5f);
+        //Debug.Log("Distance : " + distance+ "  toComp :"+toComp+" radiusInt : "+radiusInt);
+        if (distance <toComp ) {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+
+
+    }
     public void resizeCube(float amount, string axis, bool inverse)
     {
-        Debug.Log("Here");
+        //Debug.Log("Here");
         // amount = amount * 0.05f;
         switch (axis)
         {
@@ -235,12 +327,53 @@ public class ResizableWallScript : MonoBehaviour
                 break;
 
         }
-        Debug.Log(" DONE");
+        //Debug.Log(" DONE");
         this.transform.position = _centerInit;
         this.transform.rotation = _tablerotation;
 
     }
+    public void resizeCircleInt(float amount, string axis, bool inverse)
+    {
+        //Debug.Log("Here");
+        // amount = amount * 0.05f;
+        GameObject child = this.transform.GetChild(1).GetChild(0).gameObject;
+        switch (axis)
+        {
+            case "x":
+                if (!inverse)
+                {
+                    //this.transform.position = new Vector3(this.transform.position.x+(amount/2), this.transform.position.y, this.transform.position.z);
+                    child.transform.localScale = new Vector3(this.transform.localScale.x + amount, this.transform.localScale.y, this.transform.localScale.z+amount);
+                }
+                else
+                {
 
+                    //this.transform.position = new Vector3(this.transform.position.x-(amount/2), this.transform.position.y, this.transform.position.z);
+                    child.transform.localScale = new Vector3(this.transform.localScale.x - amount, this.transform.localScale.y, this.transform.localScale.z-amount);
+                }
+                break;
+            case "z":
+                if (!inverse)
+                {
+                    //this.transform.position = new Vector3(this.transform.position.x, this.transform.position.y, this.transform.position.z + (amount / 2));
+                    child.transform.localScale = new Vector3(this.transform.localScale.x+ amount, this.transform.localScale.y, this.transform.localScale.z + amount);
+                }
+                else
+                {
+                    //this.transform.position = new Vector3(this.transform.position.x, this.transform.position.y, this.transform.position.z- (amount / 2));
+                    child.transform.localScale = new Vector3(this.transform.localScale.x- amount, this.transform.localScale.y, this.transform.localScale.z - amount);
+                }
+                break;
+            default:
+                break;
+
+        }
+
+        //Debug.Log(" DONE");
+        this.transform.position = _centerInit;
+        this.transform.rotation = _tablerotation;
+        //child.GetComponent<CircleWallScript>().updateTop();
+    }
     private string DetectGrabbedFace(Vector3 contactPoint)
     {
         // Assuming the object is a cube, define the face normals
