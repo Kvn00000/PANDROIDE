@@ -30,7 +30,7 @@ public class StopFadeOut : MonoBehaviour
             Debug.Log("diminue le alpha");    
             elapsedTime += Time.deltaTime;
             color.a = Mathf.Lerp(initialAlpha, 0f, elapsedTime / fadeDuration);
-
+            renderer.material.color = color;
             if (elapsedTime >= fadeDuration){
                 Debug.Log("destroyed normalement");
 
