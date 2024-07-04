@@ -51,7 +51,7 @@ public class DestroyGroundScript : MonoBehaviour
             else 
             { 
                 // Destroy(other.gameObject); 
-                StartCoroutine(FadeToZeroAlpha(other.gameObject,5.0f));
+                other.gameObject.GetComponent<StopCoroutine>().SetCoroutine(StartCoroutine(FadeToZeroAlpha(other.gameObject,5.0f)));
             }
         }
         if (withDEBUG){ Debug.Log("#######################################"); }

@@ -11,7 +11,6 @@ public class StopCoroutine : MonoBehaviour
 
     void Awake(){
         grabInteractable = GetComponent<XRGrabInteractable>();
-
     }
 
     void OnEnable(){
@@ -21,12 +20,15 @@ public class StopCoroutine : MonoBehaviour
     // Start is called before the first frame update
     private void OnGrab(SelectEnterEventArgs args){
             // When object grabbed we stop the fade out and set the alpha to 1
+            Debug.Log("j'ai grab")
             if(fadeCoroutine != null){
                 StopCoroutine(fadeCoroutine);
+                Debug.Log("je cancel la coroutine");
                 fadeCoroutine = null;
 
                 Renderer renderer = gameObject.GetComponent<Renderer>();
                 if (renderer != null){
+                    Debug
                     Material material = renderer.material;
                     Color color = material.color;
                     color.a = 1;
