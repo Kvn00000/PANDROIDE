@@ -12,11 +12,7 @@ public class DestroyGroundScript : MonoBehaviour
     }
 
     public bool withDEBUG = false;
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+
 
     private void OnTriggerEnter(Collider other)
     {
@@ -44,18 +40,12 @@ public class DestroyGroundScript : MonoBehaviour
         if ( isWall || isBoid  ||isGround || other.gameObject.CompareTag("Destructible"))
         {
             if ((isBoid)|| (other.gameObject.CompareTag("Destructible"))){
-                // other.transform.parent.gameObject.GetComponent<StopFadeOut>().SetCoroutine(StartCoroutine(FadeToZeroAlpha(other.transform.parent.gameObject, 5.0f)));
-                // Destroy(other.transform.parent.gameObject);
-                Debug.Log("Je fade OUT");
-                other.transform.parent.gameObject.GetComponent<StopFadeOut>().isFadingOut = true;
-                Debug.Log(other.transform.parent.gameObject.GetComponent<StopFadeOut>().isFadingOut);
-                other.transform.parent.gameObject.GetComponent<StopFadeOut>().elapsedTime = 0f;
+                other.transform.parent.gameObject.GetComponent<FadeOut>().isFadingOut = true;
+                other.transform.parent.gameObject.GetComponent<FadeOut>().elapsedTime = 0f;
 
             }else{ 
-                // Destroy(other.gameObject); 
-                // other.gameObject.GetComponent<StopFadeOut>().SetCoroutine(StartCoroutine(FadeToZeroAlpha(other.gameObject,5.0f)));
-                other.gameObject.GetComponent<StopFadeOut>().isFadingOut = true;
-                other.gameObject.GetComponent<StopFadeOut>().elapsedTime = 0f;
+                other.gameObject.GetComponent<FadeOut>().isFadingOut = true;
+                other.gameObject.GetComponent<FadeOut>().elapsedTime = 0f;
 
             }
         }

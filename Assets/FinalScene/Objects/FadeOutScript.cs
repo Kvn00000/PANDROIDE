@@ -4,36 +4,32 @@ using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 
 
-public class StopFadeOut : MonoBehaviour
+public class FadeOut : MonoBehaviour
 {
-    private Coroutine fadeCoroutine;
     private XRGrabInteractable grabInteractable;
     private Renderer renderer;
     private Color color;
 
-    public float elapsedTime;
+    public float elapsedTime; // Temps passé pendant le fade out
     public bool isFadingOut;
 
     public float initialAlpha = 1f;
-    public float fadeDuration = 5f;
+    public float fadeDuration = 5f; // 5 secondes pour fade out
 
     void Awake(){
         grabInteractable = GetComponent<XRGrabInteractable>();
         renderer = gameObject.GetComponent<Renderer>();
         color = renderer.material.color;
-        // isFadingOut = false;
     }
 
     void Update(){
 
         if(isFadingOut == true){
-            Debug.Log("diminue le alpha");    
             elapsedTime += Time.deltaTime;
             color.a = Mathf.Lerp(initialAlpha, 0f, elapsedTime / fadeDuration);
             renderer.material.color = color;
-            if (elapsedTime >= fadeDuration){
-                Debug.Log("destroyed normalement");
 
+            if (elapsedTime >= fadeDuration){
                 isFadingOut = false;
                 elapsedTime = 0f;
                 Destroy(gameObject);
@@ -49,41 +45,10 @@ public class StopFadeOut : MonoBehaviour
 
     // Start is called before the first frame update
     private void OnGrab(SelectEnterEventArgs args){
-        Debug.Log("grab");
-
         if(isFadingOut == true){
-                Debug.Log("cancel le fade out");
-
             isFadingOut = false;
             elapsedTime = 0f;
-            color.a = 1;
+            renderer.material.color.a = 1f;
         }
-        // When object grabbed we stop the fade out and set the alpha to 1
-        // Debug.Log("j'ai grab");
-        // if(fadeCoroutine != null){
-        //     StopCoroutine(fadeCoroutine);
-        //     fadeCoroutine = null;
-        //     Debug.Log("j'ai stop la coroutine");
-        //     Material material = renderer.material;
-        //     Color color = material.color;
-        //     color.a = 1;
-        //     material.color = color;
-
-        //     Debug.Log("je reset le alpha");
-
-        // }
-
-
-        
     }
-
-    private void decreaseAlpha(){
-        
-    }
-
-    public void SetCoroutine(Coroutine c){
-        fadeCoroutine = c;
-    }
-
-
 }
