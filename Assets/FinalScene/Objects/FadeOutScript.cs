@@ -48,7 +48,8 @@ public class FadeOut : MonoBehaviour
         if(isFadingOut == true){
             isFadingOut = false;
             elapsedTime = 0f;
-            renderer.material.color.a = 1f;
+            color.a = 1f;
+            renderer.material.color = color;
         }
     }
 }
