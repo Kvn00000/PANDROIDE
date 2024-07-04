@@ -14,7 +14,7 @@ public class StopFadeOut : MonoBehaviour
     public float elapsedTime;
     public bool isFadingOut;
 
-
+    public float initialAlpha = 1f;
     public float fadeDuration = 5f;
 
     void Awake(){
@@ -29,7 +29,7 @@ public class StopFadeOut : MonoBehaviour
         if(isFadingOut == true){
             Debug.Log("diminue le alpha");    
             elapsedTime += Time.deltaTime;
-            color.a = Mathf.Lerp(color.a, 0f, elapsedTime / fadeDuration);
+            color.a = Mathf.Lerp(initialAlpha, 0f, elapsedTime / fadeDuration);
 
             if (elapsedTime >= fadeDuration){
                 Debug.Log("destroyed normalement");
