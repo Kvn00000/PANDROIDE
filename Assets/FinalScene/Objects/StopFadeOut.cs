@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 
 
-public class StopCoroutine : MonoBehaviour
+public class StopFadeOut : MonoBehaviour
 {
     private Coroutine fadeCoroutine;
     private XRGrabInteractable grabInteractable;
