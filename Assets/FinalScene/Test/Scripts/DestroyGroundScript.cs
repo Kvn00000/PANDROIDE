@@ -53,7 +53,7 @@ public class DestroyGroundScript : MonoBehaviour
                 // Destroy(other.gameObject); 
                 // other.gameObject.GetComponent<StopFadeOut>().SetCoroutine(StartCoroutine(FadeToZeroAlpha(other.gameObject,5.0f)));
                 other.gameObject.GetComponent<StopFadeOut>().isFadingOut = true;
-                other.gameObject.GetComponent<StopFadeOut>().elapsedTime = true;
+                other.gameObject.GetComponent<StopFadeOut>().elapsedTime = 0f;
 
             }
         }
