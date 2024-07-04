@@ -8,11 +8,18 @@ public class StopFadeOut : MonoBehaviour
 {
     private Coroutine fadeCoroutine;
     private XRGrabInteractable grabInteractable;
+    private Renderer renderer;
 
     void Awake(){
         grabInteractable = GetComponent<XRGrabInteractable>();
+        renderer = gameObject.GetComponent<Renderer>();
     }
 
+    void update(){
+        if(renderer.material.color.a <= 0.1){
+            Destroy(gameObject);
+        }
+    }
     void OnEnable(){
         grabInteractable.selectEntered.AddListener(OnGrab);
     }
@@ -23,16 +30,15 @@ public class StopFadeOut : MonoBehaviour
             Debug.Log("j'ai grab");
             if(fadeCoroutine != null){
                 StopCoroutine(fadeCoroutine);
-                Debug.Log("je cancel la coroutine");
                 fadeCoroutine = null;
+                Debug.Log("j'ai stop la coroutine");
+                Material material = renderer.material;
+                Color color = material.color;
+                color.a = 1;
+                material.color = color;
 
-                Renderer renderer = gameObject.GetComponent<Renderer>();
-                if (renderer != null){
-                    Material material = renderer.material;
-                    Color color = material.color;
-                    color.a = 1;
-                    material.color = color;
-                }
+                Debug.Log("je reset le alpha");
+
             }
         
     }
@@ -41,8 +47,5 @@ public class StopFadeOut : MonoBehaviour
         fadeCoroutine = c;
     }
 
-    public void printCoroutine()
-    {
-        Debug.Log(fadeCoroutine);
-    }
+
 }

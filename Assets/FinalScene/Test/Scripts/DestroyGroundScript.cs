@@ -43,17 +43,12 @@ public class DestroyGroundScript : MonoBehaviour
         //Check if collided is not a Plane and is on a good layer
         if ( isWall || isBoid  ||isGround || other.gameObject.CompareTag("Destructible"))
         {
-            if ((isBoid)|| (other.gameObject.CompareTag("Destructible")))
-            {
+            if ((isBoid)|| (other.gameObject.CompareTag("Destructible"))){
                 other.transform.parent.gameObject.GetComponent<StopFadeOut>().SetCoroutine(StartCoroutine(FadeToZeroAlpha(other.transform.parent.gameObject, 5.0f)));
-                other.transform.parent.gameObject.GetComponent<StopFadeOut>().printCoroutine();
                 // Destroy(other.transform.parent.gameObject);
-            }
-            else 
-            { 
+            }else{ 
                 // Destroy(other.gameObject); 
                 other.gameObject.GetComponent<StopFadeOut>().SetCoroutine(StartCoroutine(FadeToZeroAlpha(other.gameObject,5.0f)));
-                other.gameObject.GetComponent<StopFadeOut>().printCoroutine();
 
             }
         }
@@ -80,11 +75,14 @@ public class DestroyGroundScript : MonoBehaviour
                 float blend = t / duration;
                 color.a = Mathf.Lerp(startAlpha, 0, blend);
                 material.color = color;
+                
                 yield return null;
             }
             color.a = 0;
             material.color = color;
-            Destroy(targetObject);
+
+            // Destroy(targetObject);
+
         }
     }
     /*
