@@ -1,18 +1,69 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.XR.Interaction.Toolkit;
+
 
 public class testModifyAlpha : MonoBehaviour
 {
     // Start is called before the first frame update
     private float alphaA;
+    private XRGrabInteractable grabInteractable;
+
     public GameObject cube;
-    void Start()
-    {
-        StartCoroutine(FadeToZeroAlpha(cube, 5.0f));
-        
+    private Coroutine fadeCoroutine;
+
+    void Awake(){
+        grabInteractable = GetComponent<XRGrabInteractable>();
     }
 
+    void Start(){
+        fadeCoroutine = StartCoroutine(FadeToZeroAlpha(cube, 5.0f));
+    }
+    // void update(){
+    //     if (Input.GetMouseButtonDown(0)){
+    //         if (fadeCoroutine != null)
+    //         {
+    //             Debug.Log("nejfgknlfd");
+    //             StopCoroutine(fadeCoroutine);
+    //             fadeCoroutine = null;
+
+
+    //             Renderer renderer = gameObject.GetComponent<Renderer>();
+    //             if (renderer != null){
+    //                 Material material = renderer.material;
+    //                 Color color = material.color;
+    //                 color.a = 1;
+    //                 material.color = color;
+    //             }
+    //         }
+    //     }
+    // }
+
+    void OnEnable()
+    {
+        grabInteractable.selectEntered.AddListener(OnGrab);
+    }
+
+    private void OnGrab(SelectEnterEventArgs args){
+            // When object grabbed we stop the fade out and set the alpha to 1
+            Debug.Log("jgfghygne");
+
+            if(fadeCoroutine != null){
+                Debug.Log("je cancel la coroutine");
+                StopCoroutine(fadeCoroutine);
+                fadeCoroutine = null;
+
+                Renderer renderer = gameObject.GetComponent<Renderer>();
+                if (renderer != null){
+                    Material material = renderer.material;
+                    Color color = material.color;
+                    color.a = 1;
+                    material.color = color;
+                }
+            }
+        
+    }
     
     IEnumerator FadeToZeroAlpha(GameObject targetObject, float duration)
     {

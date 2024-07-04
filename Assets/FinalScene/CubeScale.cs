@@ -43,13 +43,10 @@ public class CubeScale : MonoBehaviour
     {
         if (!interactors.Contains(args.interactor)){
             interactors.Add(args.interactor);
-            // Debug.Log(args.interactor.transform.position);
-
-            // Debug.Log(this.transform.forward);
+        
             
-            
-
             if (interactors.Count == 2){
+
                 interactor2 = args.interactor;
                 StartControllerPos = interactor2.transform.position;
 
@@ -202,8 +199,6 @@ public class CubeScale : MonoBehaviour
         return nPoint; // return it
     }
 
-
-
     public void resizeCube(float amount, string axis, bool inverse){
         Debug.Log("Here");
         // amount = amount * 0.05f;
@@ -280,11 +275,10 @@ public class CubeScale : MonoBehaviour
                 closestFace = face.Key;
             }
         }
-
         Debug.Log("Grabbed face: " + closestFace);
-
         return closestFace;
     }
 
 
+    
 }

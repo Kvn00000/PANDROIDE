@@ -33,8 +33,7 @@ public class DestroyGroundScript : MonoBehaviour
         bool isWall = (collidedLayer == wallLayer);
         bool isBoid = (collidedLayer == boidLayer);
         bool isGround = (collidedLayer == groundArenaLayer);
-        if (withDEBUG)
-        {
+        if (withDEBUG){
             Debug.Log("Collided object is Wall : " + isWall + " Boid : " + isBoid + " Arene Sol : " + isGround);
             if (other.GetComponent<ARPlane>() == null){ Debug.Log("NOT AR PLANE"); }
           
@@ -46,14 +45,13 @@ public class DestroyGroundScript : MonoBehaviour
         {
             if ((isBoid)|| (other.gameObject.CompareTag("Destructible")))
             {
+                other.transform.parent.gameObject.GetComponent<StopCoroutine>().SetCoroutine(StartCoroutine(FadeToZeroAlpha(other.transform.parent.gameObject, 5.0f)));
                 // Destroy(other.transform.parent.gameObject);
-                StartCoroutine(FadeToZeroAlpha(other.transform.parent.gameObject, 5.0f));
             }
             else 
             { 
                 // Destroy(other.gameObject); 
                 StartCoroutine(FadeToZeroAlpha(other.gameObject,5.0f));
-
             }
         }
         if (withDEBUG){ Debug.Log("#######################################"); }
@@ -81,11 +79,9 @@ public class DestroyGroundScript : MonoBehaviour
                 material.color = color;
                 yield return null;
             }
-
-            // Assurez-vous que l'alpha est exactement 0 après la fin de la boucle
-            Destroy(targetObject);
             color.a = 0;
             material.color = color;
+            Destroy(targetObject);
         }
     }
     /*
