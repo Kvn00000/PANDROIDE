@@ -8,7 +8,7 @@ public class DestroyGroundScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Debug.Log("Destroyer Initialized");
+        // Debug.Log("Destroyer Initialized");
     }
 
     public bool withDEBUG = false;
@@ -44,11 +44,16 @@ public class DestroyGroundScript : MonoBehaviour
         if ( isWall || isBoid  ||isGround || other.gameObject.CompareTag("Destructible"))
         {
             if ((isBoid)|| (other.gameObject.CompareTag("Destructible"))){
-                other.transform.parent.gameObject.GetComponent<StopFadeOut>().SetCoroutine(StartCoroutine(FadeToZeroAlpha(other.transform.parent.gameObject, 5.0f)));
+                // other.transform.parent.gameObject.GetComponent<StopFadeOut>().SetCoroutine(StartCoroutine(FadeToZeroAlpha(other.transform.parent.gameObject, 5.0f)));
                 // Destroy(other.transform.parent.gameObject);
+                other.transform.parent.gameObject.GetComponent<StopFadeOut>().isFadingOut = true;
+                other.transform.parent.gameObject.GetComponent<StopFadeOut>().elapsedTime = 0f;
+
             }else{ 
                 // Destroy(other.gameObject); 
-                other.gameObject.GetComponent<StopFadeOut>().SetCoroutine(StartCoroutine(FadeToZeroAlpha(other.gameObject,5.0f)));
+                // other.gameObject.GetComponent<StopFadeOut>().SetCoroutine(StartCoroutine(FadeToZeroAlpha(other.gameObject,5.0f)));
+                other.gameObject.GetComponent<StopFadeOut>().isFadingOut = true;
+                other.gameObject.GetComponent<StopFadeOut>().elapsedTime = true;
 
             }
         }
