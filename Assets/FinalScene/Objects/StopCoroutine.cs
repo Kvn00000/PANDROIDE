@@ -20,7 +20,7 @@ public class StopCoroutine : MonoBehaviour
     // Start is called before the first frame update
     private void OnGrab(SelectEnterEventArgs args){
             // When object grabbed we stop the fade out and set the alpha to 1
-            Debug.Log("j'ai grab")
+            Debug.Log("j'ai grab");
             if(fadeCoroutine != null){
                 StopCoroutine(fadeCoroutine);
                 Debug.Log("je cancel la coroutine");
