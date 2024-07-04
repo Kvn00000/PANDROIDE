@@ -26,10 +26,13 @@ public class StopFadeOut : MonoBehaviour
     void update(){
 
         if(isFadingOut){
+            Debug.Log("diminue le alpha");    
             elapsedTime += Time.deltaTime;
             color.a = Mathf.Lerp(color.a, 0f, elapsedTime / fadeDuration);
 
             if (elapsedTime >= fadeDuration){
+                Debug.Log("destroyed normalement");
+
                 isFadingOut = false;
                 elapsedTime = 0f;
                 Destroy(gameObject);
@@ -45,7 +48,11 @@ public class StopFadeOut : MonoBehaviour
 
     // Start is called before the first frame update
     private void OnGrab(SelectEnterEventArgs args){
+        Debug.Log("grab");
+
         if(isFadingOut == true){
+                Debug.Log("cancel le fade out");
+
             isFadingOut = false;
             elapsedTime = 0f;
             color.a = 1;

@@ -46,6 +46,7 @@ public class DestroyGroundScript : MonoBehaviour
             if ((isBoid)|| (other.gameObject.CompareTag("Destructible"))){
                 // other.transform.parent.gameObject.GetComponent<StopFadeOut>().SetCoroutine(StartCoroutine(FadeToZeroAlpha(other.transform.parent.gameObject, 5.0f)));
                 // Destroy(other.transform.parent.gameObject);
+                Debug.Log("Je fade OUT");
                 other.transform.parent.gameObject.GetComponent<StopFadeOut>().isFadingOut = true;
                 other.transform.parent.gameObject.GetComponent<StopFadeOut>().elapsedTime = 0f;
 
