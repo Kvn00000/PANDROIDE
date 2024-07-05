@@ -47,6 +47,6 @@ Material:
     - _DstBlendAlpha: 10
     - _ZWrite: 0
     m_Colors:
-    - _BaseColor: {r: 0.003921569, g: 0.4509804, b: 0.69803923, a: 1}
-    - _Color: {r: 0.003921569, g: 0.45098037, b: 0.69803923, a: 1}
+    - _BaseColor: {r: 0.003921569, g: 0.45098037, b: 0.69803923, a: 0}
+    - _Color: {r: 0.003921569, g: 0.45098037, b: 0.69803923, a: 0}
   m_BuildTextureStacks: []

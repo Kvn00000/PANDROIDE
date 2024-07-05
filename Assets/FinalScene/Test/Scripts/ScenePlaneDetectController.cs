@@ -301,7 +301,7 @@ public class ScenePlaneDetectController : MonoBehaviour
                     _planeSize = sizeTable2;
                     _arenaSpawnPos = spawnPosition;
                     _arenaSpawnRotation = spawnRotation;
-                    scene.GetComponent<InitSceneScript>().Init(_arenaSpawnPos, _arenaSize, _arenaSpawnRotation, true, damier);
+                    scene.GetComponent<InitSceneScript>().Init(_arenaSpawnPos, _arenaSize, _arenaSpawnRotation,false, damier);
 
                     // Si manuel appliquer la valeur d'echelle precedemment enregistre
                     if (_mode == 1)
