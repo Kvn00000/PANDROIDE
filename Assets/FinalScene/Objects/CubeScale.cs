@@ -63,10 +63,15 @@ public class CubeScale : MonoBehaviour
                 //grabInteractable.trackRotation = false;
 
                 // Vector3 originalCoords = RotatePointAroundPivot(interactor2.transform.position,this.transform.position,Quaternion.Inverse(this.transform.rotation).eulerAngles);
-            
                 surfaceDetected = DetectGrabbedFace(args.interactor.transform.position);
+                Debug.Log("get type");
+
                 Type type = Type.GetType(surfaceDetected+"Color");
+                Debug.Log("component");
+
                 component = transform.Find(surfaceDetected).GetComponent(Type.GetType(surfaceDetected+"Color"));
+                Debug.Log("set new mesh");
+
                 type.GetMethod("setNewMesh").Invoke(component, new object[]{GrabbedMat});
         
             }
@@ -217,7 +222,6 @@ public class CubeScale : MonoBehaviour
     }
 
     public void resizeCube(float amount, string axis, bool inverse){
-        Debug.Log("Here");
         // amount = amount * 0.05f;
         switch (axis)
         {
