@@ -10,6 +10,9 @@ public class CircularMenuManager : MonoBehaviour
     public GameObject LeftController;
     public GameObject RightController;
 
+    public GameObject pokeInteractor;
+
+
     public GameObject MenuLeft;
     public GameObject MenuRight;
 
@@ -138,9 +141,20 @@ public class CircularMenuManager : MonoBehaviour
     //Main Menu Event
     public void OnSettingsButtonClick(){
         SettingsMenu.SetActive(true);
-        MainMenu.SetActive(false);
         
-        SprayBottle.SetActive(false);
+        
+        if(MainMenu.activeSelf == true){
+            MainMenu.SetActive(false);
+        }
+
+
+        if(SprayBottle.activeSelf == true){
+            SprayBottle.SetActive(false);
+        }
+
+        if(pokeInteractor.activeSelf == false){
+            pokeInteractor.SetActive(true);
+        }
         SpawnerRight.toInstantiate = 0;
         SpawnerLeft.toInstantiate = 0;
         Color color;
@@ -150,7 +164,15 @@ public class CircularMenuManager : MonoBehaviour
     }
 
     public void OnBoidButtonClick(){
-        SprayBottle.SetActive(true);
+        if(SprayBottle.activeSelf == false){
+            SprayBottle.SetActive(true);
+        }
+
+
+        if(pokeInteractor.activeSelf == true){
+            pokeInteractor.SetActive(false);
+        }
+
         SpawnerRight.toInstantiate = 1;
         SpawnerLeft.toInstantiate = 1;
         Color color;
@@ -159,7 +181,14 @@ public class CircularMenuManager : MonoBehaviour
     }
 
     public void OnCubeButtonClick(){
-        SprayBottle.SetActive(true);
+        if(SprayBottle.activeSelf == false){
+            SprayBottle.SetActive(true);
+        }
+
+
+        if(pokeInteractor.activeSelf == true){
+            pokeInteractor.SetActive(false);
+        }
         SpawnerRight.toInstantiate = 2;
         SpawnerLeft.toInstantiate = 2;
         Color color;
@@ -168,7 +197,13 @@ public class CircularMenuManager : MonoBehaviour
     }
 
     public void OnNothingButtonClick(){
-        SprayBottle.SetActive(false);
+        if(SprayBottle.activeSelf == true){
+            SprayBottle.SetActive(false);
+        }
+
+        if(pokeInteractor.activeSelf == false){
+            pokeInteractor.SetActive(true);
+        }
         SpawnerRight.toInstantiate = 0;
         SpawnerLeft.toInstantiate = 0;
         Color color;
