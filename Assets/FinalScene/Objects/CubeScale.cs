@@ -80,6 +80,9 @@ public class CubeScale : MonoBehaviour
                 Debug.Log("component est null");
                 }
 
+                if(type.GetMethod("setNewMesh") == null){
+                    Debug.Log("methode null");
+                }
                 type.GetMethod("setNewMesh").Invoke(component, new object[]{GrabbedMat});
                 Debug.Log("end");
             }
