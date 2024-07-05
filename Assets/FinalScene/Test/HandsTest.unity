@@ -904,7 +904,7 @@ MonoBehaviour:
   SprayBottle: {fileID: 775395094}
   LeftController: {fileID: 791662219}
   RightController: {fileID: 158410477}
-  pokeInteractor: {fileID: 1525409028}
+  pokeInteractor: {fileID: 1525409027}
   MenuLeft: {fileID: 1730706481}
   MenuRight: {fileID: 108576045}
   MainMenu: {fileID: 1547346247}
@@ -12248,7 +12248,7 @@ MonoBehaviour:
   SprayBottle: {fileID: 88046875}
   LeftController: {fileID: 791662219}
   RightController: {fileID: 158410477}
-  pokeInteractor: {fileID: 1525409027}
+  pokeInteractor: {fileID: 1525409028}
   MenuLeft: {fileID: 1730706481}
   MenuRight: {fileID: 108576045}
   MainMenu: {fileID: 1440149197}
