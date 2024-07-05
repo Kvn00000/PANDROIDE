@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.XR.Interaction.Toolkit;
+using System;
 
 
 public class CubeScale : MonoBehaviour
@@ -17,7 +18,15 @@ public class CubeScale : MonoBehaviour
     private Vector3 previousPos;
 
 
+    public Material GrabbedMat;
+    public Material OldMat;
+            
+    private Component component;
+
     private string surfaceDetected;
+
+
+
 
 
     void Awake()
@@ -56,6 +65,10 @@ public class CubeScale : MonoBehaviour
                 // Vector3 originalCoords = RotatePointAroundPivot(interactor2.transform.position,this.transform.position,Quaternion.Inverse(this.transform.rotation).eulerAngles);
             
                 surfaceDetected = DetectGrabbedFace(args.interactor.transform.position);
+                Type type = Type.GetType(surfaceDetected+"Color");
+                component = transform.Find(surfaceDetected).GetComponent(Type.GetType(surfaceDetected+"Color"));
+                type.GetMethod("setNewMesh").Invoke(component, new object[]{GrabbedMat});
+        
             }
         }
     }
@@ -69,6 +82,10 @@ public class CubeScale : MonoBehaviour
             if (interactors.Count < 2){
                 XRGrabInteractable gr = this.GetComponent<XRGrabInteractable>();
                 gr.trackRotation = true;
+
+                Type type = Type.GetType(surfaceDetected+"Color");
+                component = transform.Find(surfaceDetected).GetComponent(Type.GetType(surfaceDetected+"Color"));
+                type.GetMethod("setNewMesh").Invoke(component, new object[]{OldMat});
                 surfaceDetected = "";
 
             }
