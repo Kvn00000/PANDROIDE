@@ -904,6 +904,7 @@ MonoBehaviour:
   SprayBottle: {fileID: 775395094}
   LeftController: {fileID: 791662219}
   RightController: {fileID: 158410477}
+  initScene: {fileID: 1826128083}
   pokeInteractor: {fileID: 1525409027}
   MenuLeft: {fileID: 1730706481}
   MenuRight: {fileID: 108576045}
@@ -5068,7 +5069,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BoidPrefab: {fileID: 4222653350513549871, guid: 9a9c9af6a27587a48bfa7b6ed18d0d48,
     type: 3}
-  CubePrefab: {fileID: 0}
+  CubePrefab: {fileID: 6405620610664063678, guid: da8153cba6d3e49da844a4a7869de469,
+    type: 3}
   toInstantiate: 0
   spawnSpeed: 2
   inputAction:
@@ -12248,6 +12250,7 @@ MonoBehaviour:
   SprayBottle: {fileID: 88046875}
   LeftController: {fileID: 791662219}
   RightController: {fileID: 158410477}
+  initScene: {fileID: 1826128083}
   pokeInteractor: {fileID: 1525409028}
   MenuLeft: {fileID: 1730706481}
   MenuRight: {fileID: 108576045}

@@ -229,7 +229,8 @@ public class CircularMenuManager : MonoBehaviour
         SettingsMenu.SetActive(false);
 
         //Activation ou desac de la modifiaction de l'arene
-        initScene.GetParentArena().GetComponent<ResizableWallScript>().enableModif();
+        initScene.GetComponent<InitSceneScript>().GetParentArena().GetComponent<ResizableWallScript>().enableModif();
+
 
     }
 
@@ -246,7 +247,7 @@ public class CircularMenuManager : MonoBehaviour
         SettingsMenu.SetActive(true);
         WallMenu.SetActive(false);
 
-        initScene.GetParentArena().GetComponent<ResizableWallScript>().enableModif();
+        initScene.GetComponent<InitSceneScript>().GetParentArena().GetComponent<ResizableWallScript>().enableModif();
 
     }
 }
