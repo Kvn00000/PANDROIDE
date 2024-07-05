@@ -17,8 +17,8 @@ public class FrontColor : MonoBehaviour
         //Face Avant du cube
         int[] mytriangles = new int[6]{
             //Add the triangles clockwise
-            1,2,0,
-            1,3,2,
+            7,4,6,
+            7,5,4,
         };
 
 

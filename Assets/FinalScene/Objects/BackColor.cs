@@ -17,8 +17,8 @@ public class BackColor : MonoBehaviour
 
         //Une seule face du cube (Back)
         int[] mytriangles = new int[6]{
-            7,4,6,
-            7,5,4,
+            1,2,0,
+            1,3,2,
         };
 
         Vector3[] vertices = new Vector3[8]{
