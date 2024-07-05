@@ -72,6 +72,14 @@ public class CubeScale : MonoBehaviour
                 component = transform.Find(surfaceDetected).GetComponent(Type.GetType(surfaceDetected+"Color"));
                 Debug.Log("set new mesh");
 
+                if(type == null){
+                Debug.Log("type est null");
+                }
+
+                if(component == null){
+                Debug.Log("component est null");
+                }
+
                 type.GetMethod("setNewMesh").Invoke(component, new object[]{GrabbedMat});
                 Debug.Log("end");
             }
