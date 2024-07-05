@@ -148,7 +148,7 @@ public class ScenePlaneDetectController : MonoBehaviour
                         spawnPosition = plane.center;
                         //float sizeTable = plane.size.sqrMagnitude;
                         float sizeTable = plane.extents.sqrMagnitude; ;
-                        spawnPosition.y -=0.01f;
+                        spawnPosition.y +=0.01f;
                         plane.gameObject.layer = LayerMask.NameToLayer("SOL");
                         plane.gameObject.AddComponent<ARAnchor>();
                         Vector3 underplane = new Vector3(plane.transform.position.x, plane.transform.position.y-0.25f, plane.transform.position.z);

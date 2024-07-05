@@ -53,7 +53,8 @@ public class SpawnBoidScript : MonoBehaviour
                                                      cohesionRay, attractionRay, filter);
             }
             else if(toInstantiate == 2){
-                GameObject cube = Instantiate(CubePrefab, child.position, Quaternion.identity);
+                Vector3 cubePos = new Vector3(child.position.x, child.position.y, child.position.z+0.02f);
+                GameObject cube = Instantiate(CubePrefab, cubePos, Quaternion.identity);
                 cube.layer = LayerMask.NameToLayer("MUR");
                 //cube.GetComponent<Cube>().Init(CubeSize);
             }

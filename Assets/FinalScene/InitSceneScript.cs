@@ -129,11 +129,11 @@ public class InitSceneScript : MonoBehaviour
 
         }else{
             //Ajout du plane
-            //_plane = Instantiate(plane, new Vector3(0,-arenaSize*0.5F,0), init_transform.rotation);
-            //_plane = Instantiate(plane, _spawnPos, init_transform.rotation);
-            //_plane.GetComponent<Plane>().Init(arenaSize*0.5F);
-            //Debug.Log("THE Plane LAYER IS " + _plane.layer);
-            //_plane.layer = 7;
+            _plane = Instantiate(plane, new Vector3(0,-arenaSize*0.5F,0), init_transform.rotation);
+            _plane = Instantiate(plane, _spawnPos, init_transform.rotation);
+            _plane.GetComponent<Plane>().Init(arenaSize*0.5F);
+            Debug.Log("THE Plane LAYER IS " + _plane.layer);
+            _plane.layer = 7;
         }
 
 

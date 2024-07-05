@@ -16,7 +16,7 @@ public class ResizableWallScript : MonoBehaviour
     private XRBaseInteractor interactor2;
     private Vector3 StartControllerPos;
     private Vector3 previousPos;
-
+    private bool isOn=true;
 
     private string surfaceDetected;
 
@@ -414,5 +414,21 @@ public class ResizableWallScript : MonoBehaviour
     public void SetTableRotation(Quaternion rotation)
     {
         this._tablerotation = rotation;
+    }
+    public void enableModif() {
+        if (isOn)
+        {
+
+            XRGrabInteractable grab= this.GetComponent<XRGrabInteractable>();
+            int defaultLayer = InteractionLayerMask.NameToLayer("Default");
+            grab.interactionLayers = InteractionLayerMask.GetMask(InteractionLayerMask.LayerToName(defaultLayer)) ;
+
+        }
+        else
+        {
+            XRGrabInteractable grab = this.GetComponent<XRGrabInteractable>();
+            int nothingL = InteractionLayerMask.NameToLayer("Nothing");
+            grab.interactionLayers = InteractionLayerMask.GetMask(InteractionLayerMask.LayerToName(nothingL));
+        }
     }
 }
