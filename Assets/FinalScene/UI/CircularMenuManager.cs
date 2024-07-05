@@ -10,6 +10,7 @@ public class CircularMenuManager : MonoBehaviour
     public GameObject LeftController;
     public GameObject RightController;
 
+    public GameObject initScene;
     public GameObject pokeInteractor;
 
 
@@ -226,6 +227,10 @@ public class CircularMenuManager : MonoBehaviour
     public void OnWallButtonClick(){
         WallMenu.SetActive(true);
         SettingsMenu.SetActive(false);
+
+        //Activation ou desac de la modifiaction de l'arene
+        initScene.GetParentArena().GetComponent<ResizableWallScript>().enableModif();
+
     }
 
 
@@ -240,5 +245,8 @@ public class CircularMenuManager : MonoBehaviour
     public void OnBackWallButtonClick(){
         SettingsMenu.SetActive(true);
         WallMenu.SetActive(false);
+
+        initScene.GetParentArena().GetComponent<ResizableWallScript>().enableModif();
+
     }
 }
