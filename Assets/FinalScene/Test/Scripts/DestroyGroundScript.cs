@@ -35,7 +35,7 @@ public class DestroyGroundScript : MonoBehaviour
           
             else{ Debug.Log("IS AN AR PLANE"); }
         }
-        Debug.Log(" TAG " + other.gameObject.tag);
+        //Debug.Log(" TAG " + other.gameObject.tag);
         //Check if collided is not a Plane and is on a good layer
         if ( isWall || isBoid  ||isGround || other.gameObject.CompareTag("Destructible"))
         {
@@ -72,13 +72,13 @@ public class DestroyGroundScript : MonoBehaviour
                 float blend = t / duration;
                 color.a = Mathf.Lerp(startAlpha, 0, blend);
                 material.color = color;
-                Debug.Log("dans la coroutine");
+                //Debug.Log("dans la coroutine");
                 yield return null;
             }
             color.a = 0;
             material.color = color;
 
-            Debug.Log("le  alphaa : " + color.a);
+            //Debug.Log("le  alphaa : " + color.a);
 
             // Destroy(targetObject);
 

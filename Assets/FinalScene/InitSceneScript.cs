@@ -58,7 +58,7 @@ public class InitSceneScript : MonoBehaviour
     private CircleWallScript component_wall2;
     private GameObject topArenaWall;
     private CircleWallScript component_topWall;
-    private float wallThickness= 0.03f;
+    private float wallThickness= 0.025f;
     private GameObject _plane;
     //
     [SerializeField]
@@ -76,12 +76,12 @@ public class InitSceneScript : MonoBehaviour
     
     void Awake()
     {
-        Physics.gravity = new Vector3(0, -0.4F, 0);
+        Physics.gravity = new Vector3(0, -1F, 0);
     }
 
     // Start is called before the first frame update
     
-    public void Init(Vector3 _spawnPos,float _sizeTable,Quaternion _spawnRotation,bool _damier=false)
+    public void Init(Vector3 _spawnPos,float _sizeTable,Quaternion _spawnRotation,bool boidSpawn=false,bool _damier=false)
     {
         arenaSize = _sizeTable;
         // Scaling Boids parameters
@@ -138,8 +138,9 @@ public class InitSceneScript : MonoBehaviour
 
 
         // Spawn des boids
-
-        for (int i = 0; i < BoidNumber; i++){
+        if (boidSpawn)
+        {
+            for (int i = 0; i < BoidNumber; i++){
             //Coordonnées aléatoire
             Vector3 spawnPosition = new Vector3(
                 Random.Range(-arenaSize/4f, arenaSize/ 4f),
@@ -154,7 +155,7 @@ public class InitSceneScript : MonoBehaviour
             obj.Init(BoidSpeed, wallRay, avoidRay, cohesionRay, attractionRay, filter);
             obj.withDEBUG = false;
             boidsList.Add(obj);
-        
+            }
         }
     }
     /*
@@ -286,16 +287,17 @@ public class InitSceneScript : MonoBehaviour
 
     private void DrawCircularOrSidedArena()
     {
+        //Instanciation parent
         parentArena = Instantiate(parentArenaPrefab, init_transform.position, init_transform.rotation);
         BoxCollider box =parentArena.GetComponent<BoxCollider>();
         parentArena.GetComponent<ResizableWallScript>().SetCenterInit(init_transform.position);
         parentArena.GetComponent<ResizableWallScript>().SetTableRotation(init_transform.rotation);
-
+        //Instanciation mur interieur
         walls = Instantiate(wall, init_transform.position, init_transform.rotation);
         component_wall = walls.GetComponent<CircleWallScript>();
         component_wall.inter = true;
         component_wall.DrawWall(side, arenaSize / 2, arenaSize / 12f);
-
+        //Instanciation mur exterieur
         walls2 = Instantiate(wall, init_transform.position, init_transform.rotation);
         walls2.layer = LayerMask.NameToLayer("MUR");
         component_wall2 = walls2.GetComponent<CircleWallScript>();
@@ -304,7 +306,7 @@ public class InitSceneScript : MonoBehaviour
         box.center = component_wall2.GetComponent<MeshCollider>().bounds.center;
         box.size = component_wall2.GetComponent<MeshCollider>().bounds.size;
 
-
+        //Instanciation top mur
         topArenaWall = Instantiate(wall, init_transform.position, init_transform.rotation);
         topArenaWall.layer = LayerMask.NameToLayer("MUR");
         component_topWall = topArenaWall.GetComponent<CircleWallScript>();

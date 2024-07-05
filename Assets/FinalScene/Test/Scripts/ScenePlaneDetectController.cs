@@ -28,7 +28,7 @@ public class ScenePlaneDetectController : MonoBehaviour
     private Quaternion _arenaSpawnRotation;
     private Vector3 _arenaScale;
     // Mode : 0 --> Automatique ; 1 --> Manuel 
-    private int _mode = 1;
+    private int _mode = 0;
     //
     
     void Start()
@@ -145,30 +145,57 @@ public class ScenePlaneDetectController : MonoBehaviour
                     //Debug.Log("Table Found");
                     if (!_arenaSpawned)
                     {
+                        // Recup infos plan
                         spawnPosition = plane.center;
-                        //float sizeTable = plane.size.sqrMagnitude;
-                        float sizeTable = plane.extents.sqrMagnitude; ;
+                        float sizeTable = plane.extents.sqrMagnitude;
+
+                        
+                        float sizeX = plane.size.x;
+                        float sizeZ = plane.size.y;
+                        
+                        float sizeTable2;
+                        if (sizeX < sizeZ)
+                        {
+                            sizeTable2 = sizeX;
+                        }
+                        else
+                        {
+                            sizeTable2 = sizeZ;
+                        }
+
                         spawnPosition.y +=0.01f;
+
+                        // Setting layer
                         plane.gameObject.layer = LayerMask.NameToLayer("SOL");
                         plane.gameObject.AddComponent<ARAnchor>();
+                        
+                        //Ajout sous plan
                         Vector3 underplane = new Vector3(plane.transform.position.x, plane.transform.position.y-0.25f, plane.transform.position.z);
                         GameObject dense=Instantiate(planDense, underplane, plane.transform.rotation);
-                        dense.transform.localScale = new Vector3(plane.size.x, dense.transform.localScale.y*0.5f, plane.size.y);
+                        dense.transform.localScale = new Vector3(plane.size.x, dense.transform.localScale.y*0.40f, plane.size.y);
+                        // Instanciation scene
                         GameObject scene=Instantiate(toSpawn, spawnPosition, Quaternion.identity);
-                        Quaternion spawnRotation =plane.transform.rotation;
+                        // Récup infos pour l'arene
+                        Quaternion spawnRotation = plane.transform.rotation;
                         _arena = scene;
                         _arena.AddComponent<ARAnchor>();
                         //if (_arena != null){ Debug.Log("Arena Init"); }
                         //else { Debug.Log("_ARena Null"); }
+
+
+                        //  Arene mode automatique
                         if ((_mode == 0) || (float.IsNaN(_arenaSize)))
                         {
-                            _arenaSize = sizeTable;
+                            _arenaSize = sizeTable2;
                             _arenaSpawnRotation=spawnRotation;
                         }
 
-                        _planeSize = sizeTable;
+                        _planeSize = sizeTable2;
                         _arenaSpawnPos = spawnPosition;
-                        scene.GetComponent<InitSceneScript>().Init(_arenaSpawnPos, _arenaSize,_arenaSpawnRotation,damier);
+                        _arenaSpawnRotation = spawnRotation;
+                        scene.GetComponent<InitSceneScript>().Init(_arenaSpawnPos, _arenaSize,_arenaSpawnRotation,true,damier);
+
+                        // Si manuel appliquer la valeur d'echelle precedemment enregistre
                         if (_mode == 1)
                         {
                             scene.GetComponent<InitSceneScript>().GetParentArena().transform.localScale = _arenaScale;
@@ -189,12 +216,19 @@ public class ScenePlaneDetectController : MonoBehaviour
                     */
                     
                     plane.gameObject.AddComponent<BoxCollider>();
+
+                    //Ajout sous plan
+                    Vector3 underplane = new Vector3(plane.transform.position.x, plane.transform.position.y - 4f, plane.transform.position.z);
+                    GameObject dense = Instantiate(planDense, underplane, plane.transform.rotation);
+                    dense.transform.localScale = new Vector3(plane.size.x, dense.transform.localScale.y * 0.40f, plane.size.y);
+                    //Ajout Destructeur
                     BoxCollider boxCollider = plane.GetComponent<BoxCollider>();
                     boxCollider.size = plane.gameObject.transform.localScale;
                     boxCollider.center = plane.center;
                     boxCollider.isTrigger = true;
                     
                     plane.gameObject.AddComponent<DestroyGroundScript>();
+                    
                     //Debug.Log("Destroyer Added");
                 }
             }
@@ -210,50 +244,99 @@ public class ScenePlaneDetectController : MonoBehaviour
         foreach (var plane in _planeManager.trackables)
         {
             numberOfAddedPlane++;
+            //PrintPanelLabel(plane);
             Vector3 spawnPosition;
             //Check if plane is a table --> Spawn an arena on it
             if (plane.classification == UnityEngine.XR.ARSubsystems.PlaneClassification.Table)
             {
+
                 //Debug.Log("Table Found");
                 if (!_arenaSpawned)
                 {
+                    // Recup infos plan
                     spawnPosition = plane.center;
-                    //float sizeTable = plane.size.sqrMagnitude;
-                    float sizeTable = plane.extents.sqrMagnitude; ;
-                    spawnPosition.y -= 0.01f;
+                    float sizeTable = plane.extents.sqrMagnitude;
+
+
+                    float sizeX = plane.size.x;
+                    float sizeZ = plane.size.y;
+
+                    float sizeTable2;
+                    if (sizeX < sizeZ)
+                    {
+                        sizeTable2 = sizeX;
+                    }
+                    else
+                    {
+                        sizeTable2 = sizeZ;
+                    }
+
+                    spawnPosition.y += 0.01f;
+
+                    // Setting layer
                     plane.gameObject.layer = LayerMask.NameToLayer("SOL");
                     plane.gameObject.AddComponent<ARAnchor>();
+
+                    //Ajout sous plan
+                    Vector3 underplane = new Vector3(plane.transform.position.x, plane.transform.position.y - 0.25f, plane.transform.position.z);
+                    GameObject dense = Instantiate(planDense, underplane, plane.transform.rotation);
+                    dense.transform.localScale = new Vector3(plane.size.x, dense.transform.localScale.y * 0.40f, plane.size.y);
+                    // Instanciation scene
                     GameObject scene = Instantiate(toSpawn, spawnPosition, Quaternion.identity);
+                    // Récup infos pour l'arene
                     Quaternion spawnRotation = plane.transform.rotation;
                     _arena = scene;
                     _arena.AddComponent<ARAnchor>();
                     //if (_arena != null){ Debug.Log("Arena Init"); }
-                    //else{ Debug.Log("_ARena Null"); }
+                    //else { Debug.Log("_ARena Null"); }
 
+
+                    //  Arene mode automatique
                     if ((_mode == 0) || (float.IsNaN(_arenaSize)))
                     {
-                        _arenaSize = sizeTable;
+                        _arenaSize = sizeTable2;
                         _arenaSpawnRotation = spawnRotation;
                     }
-                    _planeSize = sizeTable;
+
+                    _planeSize = sizeTable2;
                     _arenaSpawnPos = spawnPosition;
-                    scene.GetComponent<InitSceneScript>().Init(_arenaSpawnPos, _arenaSize, _arenaSpawnRotation, damier);
-                    if ((_mode == 1)||(_arenaScale!=null))
+                    _arenaSpawnRotation = spawnRotation;
+                    scene.GetComponent<InitSceneScript>().Init(_arenaSpawnPos, _arenaSize, _arenaSpawnRotation, true, damier);
+
+                    // Si manuel appliquer la valeur d'echelle precedemment enregistre
+                    if (_mode == 1)
                     {
                         scene.GetComponent<InitSceneScript>().GetParentArena().transform.localScale = _arenaScale;
                     }
                     _arenaSpawned = true;
+
                 }
             }
             //Check if plane is a ground --> Add a component that destro all other objects
             if ((plane.classification == UnityEngine.XR.ARSubsystems.PlaneClassification.Floor) || (plane.classification == UnityEngine.XR.ARSubsystems.PlaneClassification.Wall))
             {
+                /*
+                Mesh planeMesh = new Mesh();
+                ARPlaneMeshGenerators.GenerateMesh(planeMesh, Pose.identity, plane.boundary);
+                MeshCollider planeMeshCollider=plane.gameObject.AddComponent<MeshCollider>();
+                planeMeshCollider.sharedMesh = planeMesh;
+                planeMeshCollider.isTrigger = true;
+                */
+
                 plane.gameObject.AddComponent<BoxCollider>();
+
+                //Ajout sous plan
+                Vector3 underplane = new Vector3(plane.transform.position.x, plane.transform.position.y - 4f, plane.transform.position.z);
+                GameObject dense = Instantiate(planDense, underplane, plane.transform.rotation);
+                dense.transform.localScale = new Vector3(plane.size.x, dense.transform.localScale.y * 0.40f, plane.size.y);
+                //Ajout Destructeur
                 BoxCollider boxCollider = plane.GetComponent<BoxCollider>();
                 boxCollider.size = plane.gameObject.transform.localScale;
                 boxCollider.center = plane.center;
                 boxCollider.isTrigger = true;
+
                 plane.gameObject.AddComponent<DestroyGroundScript>();
+
                 //Debug.Log("Destroyer Added");
             }
         }
@@ -368,12 +451,15 @@ public class ScenePlaneDetectController : MonoBehaviour
         {
             Debug.Log("Switching from automatic to manual");
             _mode = 1;
+            _arenaSpawned = false;
+            rebuild();
         }
         else
         {
             Debug.Log("Switching from manual to automatic");
             _mode = 0;
-            this.ArenaChanges(_planeSize);
+            _arenaSpawned = false;
+            rebuild();
         }
     }
 }

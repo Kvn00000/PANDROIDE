@@ -16,7 +16,7 @@ public class ResizableWallScript : MonoBehaviour
     private XRBaseInteractor interactor2;
     private Vector3 StartControllerPos;
     private Vector3 previousPos;
-    private bool isOn=true;
+    private bool isOn=false;
 
     private string surfaceDetected;
 
