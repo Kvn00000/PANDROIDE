@@ -12,6 +12,8 @@ public class ScenePlaneDetectController : MonoBehaviour
     private InputActionReference togglePlanesDetectedAction;
     [SerializeField]
     private GameObject toSpawn;
+    [SerializeField]
+    private GameObject planDense;
     private ARPlaneManager _planeManager;
     private bool isOn = false;
     private int numberOfAddedPlane = 0;
@@ -28,6 +30,7 @@ public class ScenePlaneDetectController : MonoBehaviour
     // Mode : 0 --> Automatique ; 1 --> Manuel 
     private int _mode = 1;
     //
+    
     void Start()
     {
         _planeManager = GetComponent<ARPlaneManager>();
@@ -148,7 +151,9 @@ public class ScenePlaneDetectController : MonoBehaviour
                         spawnPosition.y -=0.01f;
                         plane.gameObject.layer = LayerMask.NameToLayer("SOL");
                         plane.gameObject.AddComponent<ARAnchor>();
-
+                        Vector3 underplane = new Vector3(plane.transform.position.x, plane.transform.position.y-0.25f, plane.transform.position.z);
+                        GameObject dense=Instantiate(planDense, underplane, plane.transform.rotation);
+                        dense.transform.localScale = new Vector3(plane.size.x, dense.transform.localScale.y*0.5f, plane.size.y);
                         GameObject scene=Instantiate(toSpawn, spawnPosition, Quaternion.identity);
                         Quaternion spawnRotation =plane.transform.rotation;
                         _arena = scene;

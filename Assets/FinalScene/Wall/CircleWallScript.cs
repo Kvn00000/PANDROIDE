@@ -23,9 +23,10 @@ public class CircleWallScript : MonoBehaviour
 
         points = GetPoints(sides, radius, height).ToArray();
         _triangles = DrawTriangles(points);
-
+       
         mesh.vertices = points;
         mesh.triangles = _triangles;
+       
         _meshCollider.sharedMesh = mesh;
         this.radius = radius;
         setHeight(height);

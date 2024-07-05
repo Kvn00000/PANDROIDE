@@ -41,18 +41,19 @@ public class SpawnBoidScript : MonoBehaviour
         bool isLeftRayHovering = leftRay.TryGetHitInfo(out Vector3 leftPos, out Vector3 leftNormal, out int leftNumber, out bool leftValid);
         bool isRightRayHovering = RightRay.TryGetHitInfo(out Vector3 rightPos, out Vector3 rightNormal, out int rightNumber, out bool rightValid);
 
+        Transform child = this.transform.GetChild(1);
         if(inputAction.action.WasPressedThisFrame() && toInstantiate > 0 && !isLeftRayHovering && !isRightRayHovering ){
             if(toInstantiate == 1){
                 //Debug.Log("ici j'ai changé les params regarde :::: ");
 
                 //Debug.Log(speed+" "+ wallRay+ " " + avoidRay+ " " + cohesionRay+ " " + attractionRay +" " + filter);
                 Quaternion rotation = new Quaternion(0, this.transform.rotation.y, 0,this.transform.rotation.w) ;
-                GameObject boid = Instantiate(BoidPrefab,transform.position, rotation);
+                GameObject boid = Instantiate(BoidPrefab,child.position, rotation);
                 boid.GetComponent<boidTuning>().Init(speed, wallRay, avoidRay,
                                                      cohesionRay, attractionRay, filter);
             }
             else if(toInstantiate == 2){
-                GameObject cube = Instantiate(CubePrefab,transform.position, Quaternion.identity);
+                GameObject cube = Instantiate(CubePrefab, child.position, Quaternion.identity);
                 cube.layer = LayerMask.NameToLayer("MUR");
                 //cube.GetComponent<Cube>().Init(CubeSize);
             }

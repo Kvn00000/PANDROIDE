@@ -83,7 +83,40 @@ public class CubeScale : MonoBehaviour
                 if(type.GetMethod("setNewMesh") == null){
                     Debug.Log("methode null");
                 }
-                type.GetMethod("setNewMesh").Invoke(component, new object[]{GrabbedMat});
+                //type.GetMethod("setNewMesh").Invoke(component, new object[]{GrabbedMat});
+                switch (surfaceDetected) {
+                    case "Top":
+                        GameObject child = this.transform.GetChild(1).gameObject;
+                        TopColor childTop = child.GetComponent<TopColor>();
+                        childTop.setNewMesh(GrabbedMat);
+                        break;
+
+                    case "Front":
+                        GameObject childF = this.transform.GetChild(2).gameObject;
+                        FrontColor childFront = childF.GetComponent<FrontColor>();
+                        childFront.setNewMesh(GrabbedMat);
+                        break;
+
+                    case "Left":
+                        break;
+
+                    case "Right":
+                        break;
+
+                    case "Back":
+                        break;
+
+                    case "Bottom":
+                        break;
+
+                    case "":
+                        break;
+
+
+                }
+
+
+
                 Debug.Log("end");
             }
         }
