@@ -73,7 +73,7 @@ public class CubeScale : MonoBehaviour
                 Debug.Log("set new mesh");
 
                 type.GetMethod("setNewMesh").Invoke(component, new object[]{GrabbedMat});
-        
+                Debug.Log("end");
             }
         }
     }
@@ -88,9 +88,14 @@ public class CubeScale : MonoBehaviour
                 XRGrabInteractable gr = this.GetComponent<XRGrabInteractable>();
                 gr.trackRotation = true;
 
+                Debug.Log("release");
                 Type type = Type.GetType(surfaceDetected+"Color");
                 component = transform.Find(surfaceDetected).GetComponent(Type.GetType(surfaceDetected+"Color"));
+                Debug.Log("set new mesh");
+
                 type.GetMethod("setNewMesh").Invoke(component, new object[]{OldMat});
+                Debug.Log("end");
+
                 surfaceDetected = "";
 
             }
