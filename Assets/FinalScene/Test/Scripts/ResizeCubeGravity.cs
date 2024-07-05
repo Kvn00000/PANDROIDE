@@ -6,6 +6,7 @@ public class ResizeCubeGravity : MonoBehaviour
 {
     Rigidbody parent;
     private bool grav = true;
+    List<Collider> listcollider= new List<Collider>();
     // Start is called before the first frame update
     void Start()
     {
@@ -16,9 +17,9 @@ public class ResizeCubeGravity : MonoBehaviour
     void Update()
     {
        
-        if (grav)
+        if (listcollider.Count < 0)
         {
-            parent.mass = 0.00005f;
+            parent.mass = 1000f;
         }
         else
         {
