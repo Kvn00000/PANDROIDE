@@ -704,7 +704,7 @@ public class boidTuning : MonoBehaviour
     {
         for (int i = 1; i < tab.Length; i++)
         {
-            if (allCollide.Count > 10)
+            if (allCollide.Count < 10)
             {
                 RaycastHit hitInfo = tab[i];
                 float dist = Vector3.Distance(myPos, hitInfo.transform.position);
@@ -713,6 +713,10 @@ public class boidTuning : MonoBehaviour
                     allCollide.Add(hitInfo.transform.position);
                     allTransformsCollide.Add(hitInfo.transform);
                 }
+            }
+            else
+            {
+                break;
             }
         }
     }
