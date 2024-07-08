@@ -399,7 +399,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   elapsedTime: 0
   isFadingOut: 0
-  mat: {fileID: 2100000, guid: d3061e99fa68c444bbef335ab3958de1, type: 2}
+  OpaqueMat: {fileID: 2100000, guid: d3061e99fa68c444bbef335ab3958de1, type: 2}
+  TranparentMat: {fileID: 2100000, guid: 39ffa4687464949449c84bc6b0263c12, type: 2}
 --- !u!114 &5266565861969637496
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -422,6 +423,7 @@ MonoBehaviour:
   cohesionRay: 0.7
   attractionRay: 1
   filter: 3
+  _myTransform: {fileID: 0}
 --- !u!114 &5469303528419838762
 MonoBehaviour:
   m_ObjectHideFlags: 0

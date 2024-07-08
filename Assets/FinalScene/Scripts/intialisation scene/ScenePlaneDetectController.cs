@@ -326,9 +326,13 @@ public class ScenePlaneDetectController : MonoBehaviour
                 plane.gameObject.AddComponent<BoxCollider>();
 
                 //Ajout sous plan
-                Vector3 underplane = new Vector3(plane.transform.position.x, plane.transform.position.y - 4f, plane.transform.position.z);
-                GameObject dense = Instantiate(planDense, underplane, plane.transform.rotation);
-                dense.transform.localScale = new Vector3(plane.size.x, dense.transform.localScale.y * 0.40f, plane.size.y);
+                if(plane.classification== UnityEngine.XR.ARSubsystems.PlaneClassification.Floor)
+                {
+                    Vector3 underplane = new Vector3(plane.transform.position.x, plane.transform.position.y - 6f, plane.transform.position.z);
+                    GameObject dense = Instantiate(planDense, underplane, plane.transform.rotation);
+                    dense.transform.localScale = new Vector3(plane.size.x, dense.transform.localScale.y * 0.40f, plane.size.y);
+
+                }
                 //Ajout Destructeur
                 BoxCollider boxCollider = plane.GetComponent<BoxCollider>();
                 boxCollider.size = plane.gameObject.transform.localScale;

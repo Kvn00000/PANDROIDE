@@ -47,6 +47,7 @@ public class FadeOut : MonoBehaviour
             if (elapsedTime >= fadeDuration){
                 isFadingOut = false;
                 elapsedTime = 0f;
+                this.transform.position = new Vector3(0,200,0);
                 Destroy(gameObject);
             }
         }

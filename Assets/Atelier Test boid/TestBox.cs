@@ -1,4 +1,4 @@
-using System;
+ï»¿using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -41,7 +41,7 @@ public class Testbox : MonoBehaviour
 
     void Update()
     {
-        // Sélection comportement utilise
+        // SÃ©lection comportement utilise
         v2();
     }
 
@@ -57,7 +57,7 @@ public class Testbox : MonoBehaviour
     {
         /*
         Tentative de boid avec utilisation de sphereCollider --> Pas fou car aucun angle mort 
-        ai implé que le avoid et abandonne car pas assez concluant
+        ai implÃ© que le avoid et abandonne car pas assez concluant
         */
         //If not on the ground apply gravity
         if (!grounded)
@@ -223,7 +223,7 @@ public class Testbox : MonoBehaviour
     private void v2()
     {
         /*
-        Boid avec Raycast --> le plus avancé meme si je comprend pas pourquoi ça marche pas 
+        Boid avec Raycast --> le plus avancÃ© meme si je comprend pas pourquoi Ã§a marche pas 
         */
         String modeUsed = "";
         //If not on the ground apply gravity
@@ -302,7 +302,7 @@ public class Testbox : MonoBehaviour
             else
             {
                 //multiplication par Time.deltaTime pour fluidifier la rotation
-                // valeur obtenue très faible
+                // valeur obtenue trÃ¨s faible
                 float angle = rotation * Time.deltaTime;
                 if (withDEBUG)
                 {
@@ -342,7 +342,7 @@ public class Testbox : MonoBehaviour
     {
         /*
         Comportement pour eviter les murs avec une distance max de wallRay
-        Rotation ==> Combinaison des valeurs détectées
+        Rotation ==> Combinaison des valeurs dÃ©tectÃ©es
         */
         //Init Ray
         Vector3 myPos = rb.transform.position;
@@ -417,7 +417,7 @@ public class Testbox : MonoBehaviour
     {
         /*
         Comportement pour eviter les murs avec une distance max de wallRay
-        Rotation ==> premier détecté renvoie la valeur
+        Rotation ==> premier dÃ©tectÃ© renvoie la valeur
         */
         //Init Ray
         Vector3 myPos = rb.transform.position;
@@ -551,7 +551,7 @@ public class Testbox : MonoBehaviour
     private float CohesionBoidRcast(float rotate,float minRay,float maxRay) 
     {
         /*
-        Comportement s'alligner avec tous les détectés
+        Comportement s'alligner avec tous les dÃ©tectÃ©s
         Rotation ==> angle entre la destination moyenne et le forward
         */
         //Init Ray
@@ -680,8 +680,8 @@ public class Testbox : MonoBehaviour
     private float AvoidBoidRcastv2(float rotate,float avoidRay)
     {
         /*
-       Comportement pour eviter les boids détectés
-       Rotation ==> opposé de l'angle entre la position du centre du groupe et le forward 
+       Comportement pour eviter les boids dÃ©tectÃ©s
+       Rotation ==> opposÃ© de l'angle entre la position du centre du groupe et le forward 
        */
         //Init Ray
         Vector3 myPos = rb.transform.position;
@@ -740,7 +740,7 @@ public class Testbox : MonoBehaviour
     private float AvoidBoidRcast(float rotate,float avoidRay)
     {
         /*
-       Comportement pour eviter le boid pas de détection plus proche
+       Comportement pour eviter le boid pas de dÃ©tection plus proche
        Rotation ==> renvoi valeur directe
        */
         //Init Ray
@@ -885,7 +885,7 @@ public class Testbox : MonoBehaviour
     private float GoToBoidRcastv2(float rotate,float minRay,float maxRay)
     {
         /*
-       Comportement pour approcher le centre du groupe de boid détecté
+       Comportement pour approcher le centre du groupe de boid dÃ©tectÃ©
        Rotation ==> valeur fixe donne par la fonction
        */
         //Init Ray
@@ -953,8 +953,8 @@ public class Testbox : MonoBehaviour
     private float GoToBoidRcastv1(float rotate)
     {
         /*
-       Comportement pour approcher les boids détectés
-       Rotation ==> combinaison des directions où les boids sont détectés
+       Comportement pour approcher les boids dÃ©tectÃ©s
+       Rotation ==> combinaison des directions oÃ¹ les boids sont dÃ©tectÃ©s
        */
         //Init Ray
         Vector3 myPos = rb.transform.position;
@@ -1084,7 +1084,7 @@ public class Testbox : MonoBehaviour
         }
     }
     // GET DESTINATION
-    // Méthodes pour obtenir le centre des groupes
+    // MÃ©thodes pour obtenir le centre des groupes
     private Vector3 getDestinationCluster(Vector3 myPos, List<Vector3> allPosCollide)
     {
         if (allPosCollide.Count < 4)
@@ -1196,7 +1196,7 @@ public class Testbox : MonoBehaviour
         return new Vector3(cx, cy, cz);
     }
     // GET ANGLES
-    // Méthodes pour obtenir les angles de rotation
+    // MÃ©thodes pour obtenir les angles de rotation
     private float getAngleTowards(Vector3 myPos, Vector3 myDest)
     {
         Vector3 centerPos = myDest;
@@ -1496,7 +1496,7 @@ public class Testbox : MonoBehaviour
     }
 
     // CHECK COLLISIONS 
-    //Méthodes de détection des collisions pour chaque comportement
+    //MÃ©thodes de dÃ©tection des collisions pour chaque comportement
     private int collidedRcastAll(RaycastHit[] tab, Vector3 myPos, float maxDistance)
     {
         // Start to 1 to ignore self collision
@@ -1876,6 +1876,78 @@ public class Testbox : MonoBehaviour
         }
         return false;
     }
-
-
+    /*
+     private float AvoidWallRcastv3(float rotate, float wallRay)
+     {
+        /*
+        Comportement pour eviter les murs avec une distance max de wallRay
+        Rotation ==> premier dï¿½tectï¿½ renvoie la valeur
+        //Init Ray
+        Vector3 myPos = rb.transform.position;Ray front = new Ray(myPos, transform.forward);
+        Ray right = new Ray(myPos, transform.right);
+        Ray left = new Ray(myPos, -transform.right);
+        // Build Other
+        Vector3 f = transform.forward; 
+        Vector3 r = transform.right;
+        Vector3 fright = new Vector3(f.x + r.x, f.y, f.z + r.z);
+        Vector3 fleft = new Vector3(f.x - r.x, f.y + r.y, f.z - r.z);
+        // Draw Ray
+        Ray fleftRay = new Ray(myPos, fleft);
+        Ray frightRay = new Ray(myPos, fright);
+        //Debug.DrawRay(myPos,transform.forward);
+        //Debug.DrawRay(myPos, transform.right);
+        //Debug.DrawRay(myPos, -transform.right);
+        //Debug.DrawRay(myPos, fright);
+        //Debug.DrawRay(myPos, fleft);
+        //
+        float maxdistance = wallRay;
+        int layerWall = 8;
+        LayerMask layermask = 1 << layerWall;
+        RaycastHit info;
+        //hit front
+        if (Physics.Raycast(front,out info, maxdistance, layermask))
+        {
+            //Debug.Log("HIT FRONT");
+            if (withDEBUG) {
+                Debug.Log("Collision at " + info.transform.position);
+                Debug.DrawLine(myPos, myPos + f, Color.red); 
+            }
+            return 55;
+        }
+        // Hit FL
+        if (Physics.Raycast(fleftRay, maxdistance, layermask))
+        {
+            //Debug.Log("HIT FRONT");
+            if (withDEBUG)
+            {
+                Debug.DrawLine(myPos, myPos + fleft, Color.red);
+            }
+            return 50;
+        }
+        // Hit FR
+        if (Physics.Raycast(frightRay, maxdistance, layermask))
+        {
+            if (withDEBUG)
+            {
+                Debug.DrawLine(myPos, myPos + fright, Color.red);
+            }
+            return -50;
+        }
+        //hit left
+        if (Physics.Raycast(left, maxdistance, layermask))
+        {
+            //Debug.Log("HIT LEFT");
+            if (withDEBUG) { Debug.DrawLine(myPos, myPos - r, Color.red); }
+            return 35;
+        }
+        //hit right
+        if ((Physics.Raycast(right, maxdistance, layermask))){
+            //Debug.Log("HIT Right");
+            if (withDEBUG) { Debug.DrawLine(myPos, myPos + r, Color.red); }
+            return -35;
+        }
+        return rotate;
+    }
+    */
+    
 }

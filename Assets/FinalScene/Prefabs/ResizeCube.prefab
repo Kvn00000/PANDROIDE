@@ -747,7 +747,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   elapsedTime: 0
   isFadingOut: 0
-  mat: {fileID: 2100000, guid: d1efb2eac31f68648993734e73e3f0df, type: 2}
+  OpaqueMat: {fileID: 2100000, guid: d1efb2eac31f68648993734e73e3f0df, type: 2}
+  TranparentMat: {fileID: 2100000, guid: c4e5a46e1197c48259d178dc79910937, type: 2}
 --- !u!114 &2456924498945637548
 MonoBehaviour:
   m_ObjectHideFlags: 0

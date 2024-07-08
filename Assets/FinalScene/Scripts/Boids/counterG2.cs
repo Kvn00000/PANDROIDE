@@ -38,5 +38,8 @@ public class counterG2 : MonoBehaviour
     {
         parent.RemoveCollider(other, other.gameObject.layer);
     }
-
+    private void OnDestroy()
+    {
+        //Debug.Log("POOOOOOOOOOOOOOOOOKKKKKKKKKIIIIIIIIIIIIIIIIIIIIIIIIIMMMMMMMMMMMMOOOOOOOOOOOOOOOOONNNNNNNNN");
+    }
 }

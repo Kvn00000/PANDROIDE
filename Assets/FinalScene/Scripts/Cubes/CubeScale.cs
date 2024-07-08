@@ -334,6 +334,4 @@ public class CubeScale : MonoBehaviour
         return closestFace;
     }
 
-
-
 }
