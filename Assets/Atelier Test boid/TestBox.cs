@@ -357,11 +357,9 @@ public class Testbox : MonoBehaviour
         Ray FrontRight = new Ray(myPos, fright);
         Ray FrontLeft = new Ray(myPos, fleft);
         // Init int
-        int fr = 0;
+        int fr=0;
         int ri = 0;
         int le = 0;
-        int fri = 0;
-        int fle = 0;
         // Draw Ray
 
         //Debug.DrawRay(myPos,transform.forward);
@@ -434,11 +432,12 @@ public class Testbox : MonoBehaviour
         Ray FrontRight = new Ray(myPos, fright);
         Ray FrontLeft = new Ray(myPos, fleft);
         // Init int
-        int fr = 0;
-        int ri = 0;
-        int le = 0;
-        int fri = 0;
-        int fle = 0;
+
+        //int fr = 0;
+        //int ri = 0;
+        //int le = 0;
+        //int fri = 0;
+        //int fle = 0;
         // Draw Ray
 
         //Debug.DrawRay(myPos,transform.forward);
@@ -450,13 +449,10 @@ public class Testbox : MonoBehaviour
         float maxdistance = wallRay;
         int layerWall = 8;
         LayerMask layermask = 1 << layerWall;
-        float rotation = 0.0f;
-        bool hit = false;
         //hit front
         if (Physics.Raycast(front, maxdistance, layermask))
         {
             //Debug.Log("HIT FRONT");
-            hit = true;
             //setGoto(false);
             //setFrein(true);
             if (withDEBUG) { Debug.DrawLine(myPos, myPos + (Vector3.forward),Color.red); }
@@ -466,7 +462,6 @@ public class Testbox : MonoBehaviour
         if (Physics.Raycast(left, maxdistance, layermask))
         {
             //Debug.Log("HIT LEFT");
-            hit = true;
             //setGoto(false);
             //setFrein(true);
             if (withDEBUG) { Debug.DrawLine(myPos, myPos - (Vector3.right), Color.red); }
@@ -476,7 +471,6 @@ public class Testbox : MonoBehaviour
         if ((Physics.Raycast(right, maxdistance, layermask)))
         {
             //Debug.Log("HIT Right");
-            hit = true;
             //setGoto(false);
             //setFrein(true);
             if (withDEBUG) { Debug.DrawLine(myPos, myPos + (Vector3.right), Color.red); }
@@ -1180,7 +1174,7 @@ public class Testbox : MonoBehaviour
     private Vector3 getOppositeDestination(Vector3 myPos, List<Vector3> allPosCollide)
     {
         float x = 0.0f;
-        float y = 0.0f;
+        //float y = 0.0f;
         float z = 0.0f;
 
         foreach (Vector3 v in allPosCollide)

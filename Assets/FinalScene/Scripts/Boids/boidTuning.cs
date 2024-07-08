@@ -729,11 +729,6 @@ public class boidTuning : MonoBehaviour
             {
                 Debug.Log("Proposed correction is " + correction);
             }
-            bool isRight = false;
-            if (newPos.x > 0)
-            {
-                isRight = true;
-            }
             overAllCorrection += correction;
             //overAllCorrection = Math.Max(overAllCorrection, correction);
 

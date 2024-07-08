@@ -363,7 +363,7 @@ public class ScenePlaneDetectController : MonoBehaviour
     {  }
     public void ArenaChanges(float newSize)
     {
-        Debug.Log("ENTERING ARENA CHANGES");
+        //Debug.Log("ENTERING ARENA CHANGES");
         GameObject oldArena = _arena;
         if(_arena== null)
         {
