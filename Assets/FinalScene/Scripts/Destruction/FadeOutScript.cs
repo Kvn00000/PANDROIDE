@@ -7,12 +7,14 @@ using UnityEngine.XR.Interaction.Toolkit;
 public class FadeOut : MonoBehaviour
 {
     private XRGrabInteractable grabInteractable;
+
     private Renderer renderer;
     private Color color;
 
     public float elapsedTime; // Temps passé pendant le fade out
     public bool isFadingOut;
 
+    public Material mat;
     private float initialAlpha = 1f;
     private float fadeDuration = 5f; // 5 secondes pour fade out
 
@@ -25,6 +27,8 @@ public class FadeOut : MonoBehaviour
     void Update(){
 
         if(isFadingOut == true){
+
+            mat.SetFloat("_Mode", 1);
             elapsedTime += Time.deltaTime;
             color.a = Mathf.Lerp(initialAlpha, 0f, elapsedTime / fadeDuration);
             renderer.material.color = color;
@@ -44,6 +48,7 @@ public class FadeOut : MonoBehaviour
     // Start is called before the first frame update
     private void OnGrab(SelectEnterEventArgs args){
         if(isFadingOut == true){
+            mat.SetFloat("_Mode", 0);
             isFadingOut = false;
             elapsedTime = 0f;
             color.a = 1f;
