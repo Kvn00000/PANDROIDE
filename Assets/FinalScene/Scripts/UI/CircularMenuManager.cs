@@ -20,6 +20,16 @@ public class CircularMenuManager : MonoBehaviour{
     public GameObject pokeInteractor;
 
 
+    [Header("Debug button param")]
+
+    public GameObject DebugPanel;
+    public GameObject onTextLeft;
+    public GameObject offTextLeft;
+    public GameObject onTextRight;
+    public GameObject offTextRight;
+
+
+
     [Header("Spray")]
     public Material sprayMaterial;
     public GameObject SprayBottle;
@@ -52,7 +62,7 @@ public class CircularMenuManager : MonoBehaviour{
     public Button LeftRightButton;
     public Button BackSettingsButton;
     public Button WallButton;
-    public Button IDKButton;
+    public Button DebugButton;
 
 
     [Header("WallMenu Button")]
@@ -102,7 +112,7 @@ public class CircularMenuManager : MonoBehaviour{
         LeftRightButton.GetComponent<Image>().alphaHitTestMinimumThreshold = 0.1f;
         BackSettingsButton.GetComponent<Image>().alphaHitTestMinimumThreshold = 0.1f;
         WallButton.GetComponent<Image>().alphaHitTestMinimumThreshold = 0.1f;
-        IDKButton.GetComponent<Image>().alphaHitTestMinimumThreshold = 0.1f;
+        DebugButton.GetComponent<Image>().alphaHitTestMinimumThreshold = 0.1f;
 
 
         if(LeftRightButton){
@@ -114,12 +124,9 @@ public class CircularMenuManager : MonoBehaviour{
         if(WallButton){
             WallButton.onClick.AddListener(OnWallButtonClick);
         }
-
-        //Useless for now
-
-        // if(IDKButton){
-        //     IDKButton.onClick.AddListener();
-        // }
+        if(DebugButton){
+            DebugButton.onClick.AddListener(OnDebugButtonClick);
+        }
     }
 
     private void InitWallMenu(){
@@ -225,6 +232,16 @@ public class CircularMenuManager : MonoBehaviour{
         //Switch the menu on the left or right hand
         MenuLeft.SetActive(!MenuLeft.activeSelf);
         MenuRight.SetActive(!MenuRight.activeSelf);
+    }
+
+    public void OnDebugButtonClick(){
+        DebugPanel.SetActive(!DebugPanel.activeSelf);
+
+        onTextLeft.SetActive(!onTextLeft.activeSelf);
+        offTextLeft.SetActive(!offTextLeft.activeSelf);
+
+        onTextRight.SetActive(!onTextRight.activeSelf);
+        offTextRight.SetActive(!offTextRight.activeSelf);
     }
 
     public void OnBackSettingsButtonClick(){

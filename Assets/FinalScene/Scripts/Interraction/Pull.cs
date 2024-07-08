@@ -16,13 +16,11 @@ public class Pull : XRSimpleInteractable
     //On change la couleur quand la main est en contact avec le sol
     protected override void OnHoverEntered(HoverEnterEventArgs interactor)
     {
-        // Debug.Log($"{interactor.interactorObject} hovered over {interactor.interactableObject}", this);
         topScript.setNewMesh(topScript.mat);
     }
 
     //On remet la couleur initiale quand la main n'est plus en contact
     protected override void OnHoverExited(HoverExitEventArgs interactor){
-        // Debug.Log($"{interactor.interactorObject} exit over {interactor.interactableObject}", this);
         topScript.setNewMesh(topScript.originalMat);
     }
 
