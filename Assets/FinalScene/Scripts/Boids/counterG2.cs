@@ -5,12 +5,14 @@ using UnityEngine;
 public class counterG2 : MonoBehaviour
 {
 
-    private int _layerSol = LayerMask.NameToLayer("SOL");
-    private int _layerMur = LayerMask.NameToLayer("MUR");
+    private int _layerSol;
+    private int _layerMur;
     private boidTuning parent;
     private void Start()
     {
-       parent= transform.parent.GetComponent<boidTuning>();
+        _layerSol = LayerMask.NameToLayer("SOL");
+        _layerMur = LayerMask.NameToLayer("MUR");
+       parent = transform.parent.GetComponent<boidTuning>();
     }
     private void OnTriggerEnter(Collider other)
     {
