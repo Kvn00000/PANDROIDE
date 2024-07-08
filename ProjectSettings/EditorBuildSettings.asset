@@ -6,10 +6,10 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/FinalScene/Test/HandsTest.unity
+    path: Assets/FinalScene/FinalSceneMR.unity
     guid: ef8aca4ef44a64481be8c3097c761680
   - enabled: 0
-    path: Assets/FinalScene/FinalScene.unity
+    path: Assets/FinalScene/VRScene.unity
     guid: 9a55ffb46a525d14caafd18201cfa71c
   - enabled: 0
     path: Assets/FinalScene/Test/WorkingOnItScene.unity
