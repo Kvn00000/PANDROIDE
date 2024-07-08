@@ -154,7 +154,7 @@ public class InitSceneScript : MonoBehaviour
             boidTuning obj=Instantiate(boid, otherSpawn,spawnRotation).GetComponent<boidTuning>();
             obj.Init(BoidSpeed, wallRay, avoidRay, cohesionRay, attractionRay, filter);
             obj.withDEBUG = false;
-            boidsList.Add(obj);
+          
             }
         }
     }
@@ -371,10 +371,10 @@ public class InitSceneScript : MonoBehaviour
         // Destruction de l'arène
         DestroySidedArena();
         // Destruction des boids
-        foreach(var boid in boidsList)
-        {
-            Destroy(boid);
-        }
-        boidsList.Clear(); 
+        //foreach(var boid in boidsList)
+        //{
+        //    Destroy(boid);
+        //}
+        //boidsList.Clear(); 
     }
 }

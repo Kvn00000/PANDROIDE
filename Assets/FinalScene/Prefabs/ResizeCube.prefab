@@ -747,8 +747,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   elapsedTime: 0
   isFadingOut: 0
-  initialAlpha: 1
-  fadeDuration: 5
+  mat: {fileID: 2100000, guid: d1efb2eac31f68648993734e73e3f0df, type: 2}
 --- !u!114 &2456924498945637548
 MonoBehaviour:
   m_ObjectHideFlags: 0

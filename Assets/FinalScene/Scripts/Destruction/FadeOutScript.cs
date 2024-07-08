@@ -27,8 +27,12 @@ public class FadeOut : MonoBehaviour
     void Update(){
 
         if(isFadingOut == true){
-
-            mat.SetFloat("_Mode", 1);
+           
+            Debug.Log("_______________________");
+            Debug.Log("BEFORE "+mat.GetFloat("_Mode"));
+            mat.SetFloat("_Mode", 3);
+            Debug.Log("AFTER "+ mat.GetFloat("_Mode"));
+            Debug.Log("_______________________");
             elapsedTime += Time.deltaTime;
             color.a = Mathf.Lerp(initialAlpha, 0f, elapsedTime / fadeDuration);
             renderer.material.color = color;

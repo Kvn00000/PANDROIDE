@@ -397,6 +397,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee9607f08055a47689e3c8b338cc9ed7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  elapsedTime: 0
+  isFadingOut: 0
+  mat: {fileID: 2100000, guid: d3061e99fa68c444bbef335ab3958de1, type: 2}
 --- !u!114 &5266565861969637496
 MonoBehaviour:
   m_ObjectHideFlags: 0
