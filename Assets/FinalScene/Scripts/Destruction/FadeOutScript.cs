@@ -31,13 +31,7 @@ public class FadeOut : MonoBehaviour
     void Update(){
 
         if(isFadingOut == true){
-           
-            // Debug.Log("_______________________");
-            // Debug.Log("BEFORE "+mat.GetFloat("_Mode"));
-            // mat.SetFloat("_Mode", 3);
-            // Debug.Log("AFTER "+ mat.GetFloat("_Mode"));
-            // Debug.Log("_______________________");
-
+            //On reduit le Alpha selon le temps fadeDuration
             meshR.material = TranparentMat;
             elapsedTime += Time.deltaTime;
             color.a = Mathf.Lerp(initialAlpha, 0f, elapsedTime / fadeDuration);
@@ -59,8 +53,7 @@ public class FadeOut : MonoBehaviour
     // Start is called before the first frame update
     private void OnGrab(SelectEnterEventArgs args){
         if(isFadingOut == true){
-            // mat.SetFloat("_Mode", 0);
-
+            //On remet le Material Opaque et on remet le Alpha a 1
             meshR.material = OpaqueMat;
             isFadingOut = false;
             elapsedTime = 0f;
