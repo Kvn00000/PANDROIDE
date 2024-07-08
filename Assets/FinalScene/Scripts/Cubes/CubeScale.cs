@@ -8,18 +8,15 @@ using System;
 
 public class CubeScale : MonoBehaviour
 {
-    // Start is called before the first frame update
 
     private XRGrabInteractable grabInteractable;
     private List<XRBaseInteractor> interactors = new List<XRBaseInteractor>();
-    private MeshFilter mesh;
     private XRBaseInteractor interactor2;
-    private Vector3 StartControllerPos;
     private Vector3 previousPos;
 
 
-    public Material GrabbedMat;
-    public Material OldMat;
+    // public Material GrabbedMat;
+    // public Material OldMat;
 
     private Transform childGrabbed;
 
@@ -32,7 +29,6 @@ public class CubeScale : MonoBehaviour
     void Awake()
     {
         grabInteractable = GetComponent<XRGrabInteractable>();
-        mesh = GetComponent<MeshFilter>();
     }
 
     void OnEnable()
@@ -52,55 +48,12 @@ public class CubeScale : MonoBehaviour
     {
         if (!interactors.Contains(args.interactor)){
             interactors.Add(args.interactor);
-
-
             if (interactors.Count == 2){
-
                 interactor2 = args.interactor;
-                StartControllerPos = interactor2.transform.position;
-
                 previousPos = interactor2.transform.position;
-                //grabInteractable.trackRotation = false;
-
-                // Vector3 originalCoords = RotatePointAroundPivot(interactor2.transform.position,this.transform.position,Quaternion.Inverse(this.transform.rotation).eulerAngles);
                 surfaceDetected = DetectGrabbedFace(args.interactor.transform.position);
-
-
                 childGrabbed = transform.Find(surfaceDetected);
                 childGrabbed.gameObject.SetActive(true);
-                //type.GetMethod("setNewMesh").Invoke(component, new object[]{GrabbedMat});
-                // switch (surfaceDetected) {
-                //     case "Top":
-                //         GameObject child = this.transform.GetChild(1).gameObject;
-                //         TopColor childTop = child.GetComponent<TopColor>();
-                //         childTop.setNewMesh(GrabbedMat);
-                //         break;
-
-                //     case "Front":
-                //         GameObject childF = this.transform.GetChild(2).gameObject;
-                //         FrontColor childFront = childF.GetComponent<FrontColor>();
-                //         childFront.setNewMesh(GrabbedMat);
-                //         break;
-
-                //     case "Left":
-                //         break;
-
-                //     case "Right":
-                //         break;
-
-                //     case "Back":
-                //         break;
-
-                //     case "Bottom":
-                //         break;
-
-                //     case "":
-                //         break;
-                // }
-
-
-
-                Debug.Log("end");
             }
         }
     }
@@ -114,17 +67,6 @@ public class CubeScale : MonoBehaviour
             if (interactors.Count < 2){
                 XRGrabInteractable gr = this.GetComponent<XRGrabInteractable>();
                 gr.trackRotation = true;
-
-                // Debug.Log("release");
-                // Type type = Type.GetType(surfaceDetected+"Color");
-                // component = transform.Find(surfaceDetected).GetComponent(Type.GetType(surfaceDetected+"Color"));
-                // Debug.Log("set new mesh");
-
-                // type.GetMethod("setNewMesh").Invoke(component, new object[]{OldMat});
-                // Debug.Log("end");
-
-                // surfaceDetected = "";
-
                 childGrabbed.gameObject.SetActive(false);
 
             }
@@ -143,14 +85,9 @@ public class CubeScale : MonoBehaviour
             Vector3 test_prev=this.transform.InverseTransformPoint(previousPos);
             Vector3 test_cur= this.transform.InverseTransformPoint(current);
 
-                // Vector3 distance = interactor2.transform.position - previousPos;
-                // Debug.Log(distance);
             switch (surfaceDetected){
                     case "Top":
                         if(test_cur.y - test_prev.y < 0 ){
-
-                        // if( Vector3.Distance(interactor2.transform.position ,StartControllerPos) > Vector3.Distance(previousPos ,StartControllerPos) ){
-                            // Debug.Log(" Diff positive");
                             resizeCube(distance,"y", true );
                         }else{
                             // Debug.Log(" Diff neg");
@@ -161,12 +98,8 @@ public class CubeScale : MonoBehaviour
 
                     case "Front":
                         if(test_cur.z - test_prev.z < 0 ){
-
-                        // if( Vector3.Distance(interactor2.transform.position ,StartControllerPos) > Vector3.Distance(previousPos ,StartControllerPos) ){
-                            // Debug.Log(" Diff positive");
                             resizeCube(distance,"z", true );
                         }else{
-                            // Debug.Log(" Diff neg");
                             resizeCube(distance,"z", false );
                         }
                         previousPos = interactor2.transform.position;
@@ -176,9 +109,6 @@ public class CubeScale : MonoBehaviour
                     case "Left":
 
                             if(test_cur.x - test_prev.x > 0 ){
-
-                        // if( Vector3.Distance(interactor2.transform.position ,StartControllerPos) > Vector3.Distance(previousPos ,StartControllerPos) ){
-                            // Debug.Log(" Diff positive");
                             resizeCube(distance,"x", true );
                         }else{
                             // Debug.Log(" Diff neg");

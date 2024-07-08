@@ -642,7 +642,7 @@ MonoBehaviour:
   LeftRightButton: {fileID: 1826836416}
   BackSettingsButton: {fileID: 1971549392}
   WallButton: {fileID: 1570935587}
-  DebugButton: {fileID: 0}
+  DebugButton: {fileID: 641786467}
   InformationButton: {fileID: 978982480}
   MinusButton: {fileID: 19561711}
   PlusButton: {fileID: 459999600}
@@ -8238,7 +8238,7 @@ MonoBehaviour:
   LeftRightButton: {fileID: 1421530664}
   BackSettingsButton: {fileID: 987661793}
   WallButton: {fileID: 416753621}
-  DebugButton: {fileID: 0}
+  DebugButton: {fileID: 715744390}
   InformationButton: {fileID: 323954063}
   MinusButton: {fileID: 855342614}
   PlusButton: {fileID: 1936796757}
