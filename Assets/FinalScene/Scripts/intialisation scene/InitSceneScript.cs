@@ -131,7 +131,7 @@ public class InitSceneScript : MonoBehaviour
             //Ajout du plane
             _plane = Instantiate(plane, new Vector3(0,-arenaSize*0.5F,0), init_transform.rotation);
             _plane = Instantiate(plane, _spawnPos, init_transform.rotation);
-            _plane.GetComponent<Plane>().Init(arenaSize*0.5F);
+            _plane.GetComponent<Plane>().Init(side, arenaSize * 0.5f);
             Debug.Log("THE Plane LAYER IS " + _plane.layer);
             _plane.layer = 7;
         }
@@ -296,12 +296,12 @@ public class InitSceneScript : MonoBehaviour
         walls = Instantiate(wall, init_transform.position, init_transform.rotation);
         component_wall = walls.GetComponent<CircleWallScript>();
         component_wall.inter = true;
-        component_wall.DrawWall(side, arenaSize / 2, arenaSize / 12f);
+        component_wall.DrawWall(side, arenaSize * 0.5f, arenaSize * 0.0833f);
         //Instanciation mur exterieur
         walls2 = Instantiate(wall, init_transform.position, init_transform.rotation);
         walls2.layer = LayerMask.NameToLayer("MUR");
         component_wall2 = walls2.GetComponent<CircleWallScript>();
-        component_wall2.DrawWall(side, (arenaSize / 2) + wallThickness, arenaSize / 12f);
+        component_wall2.DrawWall(side, (arenaSize * 0.5f) + wallThickness, arenaSize * 0.0833f);
 
         box.center = component_wall2.GetComponent<MeshCollider>().bounds.center;
         box.size = component_wall2.GetComponent<MeshCollider>().bounds.size;

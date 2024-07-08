@@ -1,5 +1,6 @@
 using UnityEngine;
-
+using System.Collections;
+using System.Collections.Generic;
 
 public class Plane : MonoBehaviour
 {
@@ -11,25 +12,14 @@ public class Plane : MonoBehaviour
     Mesh meshs;
     protected Vector3[] vertices;
 
-    public void Init(float size){
+    public void Init(int sides,float radius){
         //Add Component
         _meshFilter = gameObject.AddComponent<MeshFilter>();
         _collider = gameObject.AddComponent<MeshCollider>();
 
-        
-        vertices = new Vector3[4]{
-            new Vector3(-size, 0, -size),
-            new Vector3(size, 0, -size),
-            new Vector3(-size, 0, size),
-            new Vector3(size, 0, size)
-        };
+        vertices = GetPoints(sides,radius);
 
-
-        int[] triangles = new int[6]{
-            //Add the triangles clockwise
-            0,2,3,
-            0,3,1
-        };
+        int[] triangles = DrawTriangles(vertices);
 
         meshs = new Mesh();
         meshs.vertices = vertices;
@@ -38,5 +28,33 @@ public class Plane : MonoBehaviour
 
         //Collider prend la forme du mesh
         _collider.sharedMesh = meshs; 
+    }
+
+
+
+    Vector3[] GetPoints(int sides, float radius)
+    {
+        List<Vector3> points = new List<Vector3>();
+        float PointStep = (float)1 / sides;
+        float TAU = 2 * Mathf.PI;
+        //Ecart entre deux points
+        float radianStep = PointStep * TAU;
+
+        for (int i = 0; i < sides; i++){
+            float currentRadian = radianStep * i;
+            points.Add(new Vector3(Mathf.Cos(currentRadian) * radius, 0, Mathf.Sin(currentRadian) * radius));
+        }
+        return points.ToArray();
+    }
+
+    int[] DrawTriangles(Vector3[] points){
+        int triangleAmount = points.Length - 2;
+        List<int> newTriangles = new List<int>();
+        for(int i = 0; i < triangleAmount; i++){
+            newTriangles.Add(0);
+            newTriangles.Add(i + 2);
+            newTriangles.Add(i + 1);
+        }
+        return newTriangles.ToArray();
     }
 }
