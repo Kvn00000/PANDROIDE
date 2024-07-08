@@ -151,7 +151,6 @@ public class CubeScale : MonoBehaviour
 
 
     public void resizeCube(float amount, string axis, bool inverse){
-        // amount = amount * 0.05f;
         switch (axis)
         {
             case "x":
@@ -193,7 +192,6 @@ public class CubeScale : MonoBehaviour
 
     private string DetectGrabbedFace(Vector3 contactPoint)
     {
-        // Assuming the object is a cube, define the face normals
         Dictionary<string, Vector3> faceNormals = new Dictionary<string, Vector3>
         {
             { "Top", Vector3.up },
