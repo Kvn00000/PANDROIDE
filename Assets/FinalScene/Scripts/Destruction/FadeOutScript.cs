@@ -13,8 +13,8 @@ public class FadeOut : MonoBehaviour
     public float elapsedTime; // Temps passé pendant le fade out
     public bool isFadingOut;
 
-    public float initialAlpha = 1f;
-    public float fadeDuration = 5f; // 5 secondes pour fade out
+    private float initialAlpha = 1f;
+    private float fadeDuration = 5f; // 5 secondes pour fade out
 
     void Awake(){
         grabInteractable = GetComponent<XRGrabInteractable>();
@@ -29,6 +29,7 @@ public class FadeOut : MonoBehaviour
             color.a = Mathf.Lerp(initialAlpha, 0f, elapsedTime / fadeDuration);
             renderer.material.color = color;
 
+            //On detruit l'objet au bout de fadeDuration secondes
             if (elapsedTime >= fadeDuration){
                 isFadingOut = false;
                 elapsedTime = 0f;

@@ -6,21 +6,17 @@ using UnityEngine.XR.Interaction.Toolkit;
 
 public class SpawnBoidScript : MonoBehaviour
 {
-
-    public GameObject BoidPrefab;
-
-    public GameObject CubePrefab;
+    public InputActionProperty inputAction;
 
     public int toInstantiate; // 0 pour Nothing, 1 pour Boid, 2 pour Cube
     public float spawnSpeed = 2;
-    public InputActionProperty inputAction;
+
+    [Header("Prefab")]
+    public GameObject BoidPrefab;
+    public GameObject CubePrefab;
 
 
-    public XRRayInteractor leftRay;
-    public XRRayInteractor RightRay;
-
-
-    // Boid Param
+    [Header("Boid Settings")]
     public float speed = 200.0f;
     public bool withGoto = false;
     public bool withCohesion = false;
@@ -32,31 +28,25 @@ public class SpawnBoidScript : MonoBehaviour
     public float filter = 5;
 
 
-    //Cube Param
+    [Header("Cube Settings Button")]
     public float CubeSize = 0.01f;
 
     // Update is called once per frame
-    void Update()
-    {
-        bool isLeftRayHovering = leftRay.TryGetHitInfo(out Vector3 leftPos, out Vector3 leftNormal, out int leftNumber, out bool leftValid);
-        bool isRightRayHovering = RightRay.TryGetHitInfo(out Vector3 rightPos, out Vector3 rightNormal, out int rightNumber, out bool rightValid);
-
+    void Update(){
+        //To set the right position
         Transform child = this.transform.GetChild(1);
-        if(inputAction.action.WasPressedThisFrame() && toInstantiate > 0 && !isLeftRayHovering && !isRightRayHovering ){
-            if(toInstantiate == 1){
-                //Debug.Log("ici j'ai changé les params regarde :::: ");
-
-                //Debug.Log(speed+" "+ wallRay+ " " + avoidRay+ " " + cohesionRay+ " " + attractionRay +" " + filter);
+        if(inputAction.action.WasPressedThisFrame() && toInstantiate > 0){
+            if(toInstantiate == 1){ // Instanciate Boid
+                //Give the controller rotation
                 Quaternion rotation = new Quaternion(0, this.transform.rotation.y, 0,this.transform.rotation.w) ;
                 GameObject boid = Instantiate(BoidPrefab,child.position, rotation);
                 boid.GetComponent<boidTuning>().Init(speed, wallRay, avoidRay,
                                                      cohesionRay, attractionRay, filter);
             }
-            else if(toInstantiate == 2){
+            else if(toInstantiate == 2){//Instanciate Cube
                 Vector3 cubePos = new Vector3(child.position.x, child.position.y, child.position.z+0.02f);
                 GameObject cube = Instantiate(CubePrefab, cubePos, Quaternion.identity);
                 cube.layer = LayerMask.NameToLayer("MUR");
-                //cube.GetComponent<Cube>().Init(CubeSize);
             }
         }
     }

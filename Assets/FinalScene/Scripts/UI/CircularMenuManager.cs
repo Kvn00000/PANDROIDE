@@ -3,23 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class CircularMenuManager : MonoBehaviour
-{
-    public Material sprayMaterial;
-    public GameObject SprayBottle;
-    public GameObject LeftController;
-    public GameObject RightController;
-
-    public GameObject initScene;
-    public GameObject pokeInteractor;
-
-
-    public GameObject MenuLeft;
-    public GameObject MenuRight;
-
+public class CircularMenuManager : MonoBehaviour{
     //Spawner Left and Right
     private SpawnBoidScript SpawnerRight;
     private SpawnBoidScript SpawnerLeft;
+
 
     //ObjectColor
     private string boidColorHex = "#d55e00";
@@ -27,12 +15,31 @@ public class CircularMenuManager : MonoBehaviour
     private string NothingColorHex = "#FFFFFF";
 
 
-    
+    public GameObject initScene;
+    //RightPoke on the left hand and LeftPoke on the Right hand
+    public GameObject pokeInteractor;
 
-    [Header("Menus")]
+
+    [Header("Spray")]
+    public Material sprayMaterial;
+    public GameObject SprayBottle;
+
+
+    [Header("Controllers")]
+    public GameObject LeftController;
+    public GameObject RightController;
+
+
+    [Header("Left Right Menus")]
+    public GameObject MenuLeft;
+    public GameObject MenuRight;
+
+
+    [Header("Menus Page")]
     public GameObject MainMenu;
     public GameObject SettingsMenu;
     public GameObject WallMenu;
+
     
     [Header("Main Menu Button")]
     public Button SettingsButton;
@@ -40,8 +47,8 @@ public class CircularMenuManager : MonoBehaviour
     public Button CubeButton;
     public Button NothingButton;
 
-    [Header("Settings Button")]
 
+    [Header("Settings Button")]
     public Button LeftRightButton;
     public Button BackSettingsButton;
     public Button WallButton;
@@ -141,9 +148,9 @@ public class CircularMenuManager : MonoBehaviour
 
     //Main Menu Event
     public void OnSettingsButtonClick(){
+
+        //Switch to the Settings Menu
         SettingsMenu.SetActive(true);
-        
-        
         if(MainMenu.activeSelf == true){
             MainMenu.SetActive(false);
         }
@@ -165,10 +172,10 @@ public class CircularMenuManager : MonoBehaviour
     }
 
     public void OnBoidButtonClick(){
+        
         if(SprayBottle.activeSelf == false){
             SprayBottle.SetActive(true);
         }
-
 
         if(pokeInteractor.activeSelf == true){
             pokeInteractor.SetActive(false);
@@ -215,6 +222,7 @@ public class CircularMenuManager : MonoBehaviour
     //Settings Menu Event
 
     public void OnLeftRightButtonClick(){
+        //Switch the menu on the left or right hand
         MenuLeft.SetActive(!MenuLeft.activeSelf);
         MenuRight.SetActive(!MenuRight.activeSelf);
     }
@@ -228,7 +236,7 @@ public class CircularMenuManager : MonoBehaviour
         WallMenu.SetActive(true);
         SettingsMenu.SetActive(false);
 
-        //Activation ou desac de la modifiaction de l'arene
+        //Activation de la modification de l'arene
         initScene.GetComponent<InitSceneScript>().GetParentArena().GetComponent<ResizableWallScript>().enableModif();
 
 
@@ -247,6 +255,7 @@ public class CircularMenuManager : MonoBehaviour
         SettingsMenu.SetActive(true);
         WallMenu.SetActive(false);
 
+        //Desactivation de la modification de l'arene
         initScene.GetComponent<InitSceneScript>().GetParentArena().GetComponent<ResizableWallScript>().enableModif();
 
     }

@@ -53,37 +53,6 @@ public class DestroyGroundScript : MonoBehaviour
     }
 
 
-    // public void StartFade(GameObject targetObject)
-    // {
-    //     StartCoroutine(FadeToZeroAlpha(targetObject));
-    // }
-
-    IEnumerator FadeToZeroAlpha(GameObject targetObject, float duration)
-    {
-        Renderer renderer = targetObject.GetComponent<Renderer>();
-        if (renderer != null)
-        {
-            Material material = renderer.material;
-            Color color = material.color;
-            float startAlpha = color.a;
-
-            for (float t = 0; t < duration; t += Time.deltaTime)
-            {
-                float blend = t / duration;
-                color.a = Mathf.Lerp(startAlpha, 0, blend);
-                material.color = color;
-                //Debug.Log("dans la coroutine");
-                yield return null;
-            }
-            color.a = 0;
-            material.color = color;
-
-            //Debug.Log("le  alphaa : " + color.a);
-
-            // Destroy(targetObject);
-
-        }
-    }
     /*
     private void OnTriggerStay  (Collider other)
     {
