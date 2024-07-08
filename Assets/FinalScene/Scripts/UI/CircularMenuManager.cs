@@ -77,7 +77,7 @@ public class CircularMenuManager : MonoBehaviour{
 
 
     void Start(){
-        //Delete all the invisible part of the buttons and add the listener for each button
+        //Delete all the invisible part of the buttons and add listener only for the MainMenu
         InitMainMenu();
         InitSettingsMenu();
         InitWallMenu();
@@ -94,6 +94,7 @@ public class CircularMenuManager : MonoBehaviour{
         CubeButton.transform.GetComponent<Image>().alphaHitTestMinimumThreshold = 0.1f;
         NothingButton.transform.GetComponent<Image>().alphaHitTestMinimumThreshold = 0.1f;
 
+        //Add Listener
         if(SettingsButton){
             SettingsButton.onClick.AddListener(OnSettingsButtonClick);
         }
@@ -113,20 +114,6 @@ public class CircularMenuManager : MonoBehaviour{
         BackSettingsButton.GetComponent<Image>().alphaHitTestMinimumThreshold = 0.1f;
         WallButton.GetComponent<Image>().alphaHitTestMinimumThreshold = 0.1f;
         DebugButton.GetComponent<Image>().alphaHitTestMinimumThreshold = 0.1f;
-
-
-        if(LeftRightButton){
-            LeftRightButton.onClick.AddListener(OnLeftRightButtonClick);
-        }
-        if(BackSettingsButton){
-            BackSettingsButton.onClick.AddListener(OnBackSettingsButtonClick);
-        }
-        if(WallButton){
-            WallButton.onClick.AddListener(OnWallButtonClick);
-        }
-        if(DebugButton){
-            DebugButton.onClick.AddListener(OnDebugButtonClick);
-        }
     }
 
     private void InitWallMenu(){
@@ -135,21 +122,7 @@ public class CircularMenuManager : MonoBehaviour{
         PlusButton.GetComponent<Image>().alphaHitTestMinimumThreshold = 0.1f;
         BackWallButton.GetComponent<Image>().alphaHitTestMinimumThreshold = 0.1f;
 
-        //Useless Maybe
-        // if(InformationButton){
-        //     InformationButton.onClick.AddListener();
-        // }
-
-
-        if(MinusButton){
-            MinusButton.onClick.AddListener(OnMinusButtonClick);
-        }
-        if(PlusButton){
-            PlusButton.onClick.AddListener(OnPlusButtonClick);
-        }
-        if(BackWallButton){
-            BackWallButton.onClick.AddListener(OnBackWallButtonClick);
-        }
+        
     }
 
 
@@ -158,8 +131,39 @@ public class CircularMenuManager : MonoBehaviour{
 
         //Switch to the Settings Menu
         SettingsMenu.SetActive(true);
+
         if(MainMenu.activeSelf == true){
             MainMenu.SetActive(false);
+
+            //Add SettingsMenu Listener
+            if(LeftRightButton){
+                LeftRightButton.onClick.AddListener(OnLeftRightButtonClick);
+            }
+            if(BackSettingsButton){
+                BackSettingsButton.onClick.AddListener(OnBackSettingsButtonClick);
+            }
+            if(WallButton){
+                WallButton.onClick.AddListener(OnWallButtonClick);
+            }
+            if(DebugButton){
+                DebugButton.onClick.AddListener(OnDebugButtonClick);
+            }
+
+            //Remove MainMenu Listener
+            if(SettingsButton){
+                SettingsButton.onClick.RemoveListener(OnSettingsButtonClick);
+            }
+            if(BoidButton){
+                BoidButton.onClick.RemoveListener(OnBoidButtonClick);
+            }
+            if(CubeButton){
+                CubeButton.onClick.RemoveListener(OnCubeButtonClick);
+            }
+            if(NothingButton){
+                NothingButton.onClick.RemoveListener(OnNothingButtonClick);
+            }
+            
+
         }
 
 
@@ -170,6 +174,8 @@ public class CircularMenuManager : MonoBehaviour{
         if(pokeInteractor.activeSelf == false){
             pokeInteractor.SetActive(true);
         }
+
+        //Les spray ne spawn rien + Couleur du spray = blanc
         SpawnerRight.toInstantiate = 0;
         SpawnerLeft.toInstantiate = 0;
         Color color;
@@ -187,7 +193,7 @@ public class CircularMenuManager : MonoBehaviour{
         if(pokeInteractor.activeSelf == true){
             pokeInteractor.SetActive(false);
         }
-
+        // Le spray fait spawn des boids + changement de couleur du spray
         SpawnerRight.toInstantiate = 1;
         SpawnerLeft.toInstantiate = 1;
         Color color;
@@ -200,10 +206,11 @@ public class CircularMenuManager : MonoBehaviour{
             SprayBottle.SetActive(true);
         }
 
-
         if(pokeInteractor.activeSelf == true){
             pokeInteractor.SetActive(false);
         }
+
+        //Le spray fait spawn des Cube + changemenr de couleur du spray
         SpawnerRight.toInstantiate = 2;
         SpawnerLeft.toInstantiate = 2;
         Color color;
@@ -235,6 +242,7 @@ public class CircularMenuManager : MonoBehaviour{
     }
 
     public void OnDebugButtonClick(){
+        //Turn on or off the debug panel
         DebugPanel.SetActive(!DebugPanel.activeSelf);
 
         onTextLeft.SetActive(!onTextLeft.activeSelf);
@@ -247,16 +255,71 @@ public class CircularMenuManager : MonoBehaviour{
     public void OnBackSettingsButtonClick(){
         MainMenu.SetActive(true);
         SettingsMenu.SetActive(false);
+
+        //Add MainMenu Listener
+        if(SettingsButton){
+            SettingsButton.onClick.AddListener(OnSettingsButtonClick);
+        }
+        if(BoidButton){
+            BoidButton.onClick.AddListener(OnBoidButtonClick);
+        }
+        if(CubeButton){
+            CubeButton.onClick.AddListener(OnCubeButtonClick);
+        }
+        if(NothingButton){
+            NothingButton.onClick.AddListener(OnNothingButtonClick);
+        }
+
+        //Remove Settings Menu Listener
+        if(LeftRightButton){
+            LeftRightButton.onClick.RemoveListener(OnLeftRightButtonClick);
+        }
+        if(BackSettingsButton){
+            BackSettingsButton.onClick.RemoveListener(OnBackSettingsButtonClick);
+        }
+        if(WallButton){
+            WallButton.onClick.RemoveListener(OnWallButtonClick);
+        }
+        if(DebugButton){
+            DebugButton.onClick.RemoveListener(OnDebugButtonClick);
+        }
+
     }
 
     public void OnWallButtonClick(){
         WallMenu.SetActive(true);
         SettingsMenu.SetActive(false);
 
-        //Activation de la modification de l'arene
-        initScene.GetComponent<InitSceneScript>().GetParentArena().GetComponent<ResizableWallScript>().enableModif();
+        //Add WallMenu Listener
+
+        //Useless Maybe
+        // if(InformationButton){
+        //     InformationButton.onClick.AddListener();
+        // }
+        if(MinusButton){
+            MinusButton.onClick.AddListener(OnMinusButtonClick);
+        }
+        if(PlusButton){
+            PlusButton.onClick.AddListener(OnPlusButtonClick);
+        }
+        if(BackWallButton){
+            BackWallButton.onClick.AddListener(OnBackWallButtonClick);
+        }
 
 
+        //Remove SettingsMenu Listener
+        if(LeftRightButton){
+            LeftRightButton.onClick.RemoveListener(OnLeftRightButtonClick);
+        }
+        if(BackSettingsButton){
+            BackSettingsButton.onClick.RemoveListener(OnBackSettingsButtonClick);
+        }
+        if(WallButton){
+            WallButton.onClick.RemoveListener(OnWallButtonClick);
+        }
+        if(DebugButton){
+            DebugButton.onClick.RemoveListener(OnDebugButtonClick);
+        }
     }
 
 
@@ -272,8 +335,37 @@ public class CircularMenuManager : MonoBehaviour{
         SettingsMenu.SetActive(true);
         WallMenu.SetActive(false);
 
-        //Desactivation de la modification de l'arene
-        initScene.GetComponent<InitSceneScript>().GetParentArena().GetComponent<ResizableWallScript>().enableModif();
 
+
+        //Add SettingsMenu Listener
+        if(LeftRightButton){
+            LeftRightButton.onClick.AddListener(OnLeftRightButtonClick);
+        }
+        if(BackSettingsButton){
+            BackSettingsButton.onClick.AddListener(OnBackSettingsButtonClick);
+        }
+        if(WallButton){
+            WallButton.onClick.AddListener(OnWallButtonClick);
+        }
+        if(DebugButton){
+            DebugButton.onClick.AddListener(OnDebugButtonClick);
+        }
+
+
+        //Remove WallMenu Listener
+
+        //Useless Maybe
+        // if(InformationButton){
+        //     InformationButton.onClick.RemoveListener();
+        // }
+        if(MinusButton){
+            MinusButton.onClick.RemoveListener(OnMinusButtonClick);
+        }
+        if(PlusButton){
+            PlusButton.onClick.RemoveListener(OnPlusButtonClick);
+        }
+        if(BackWallButton){
+            BackWallButton.onClick.RemoveListener(OnBackWallButtonClick);
+        }
     }
 }

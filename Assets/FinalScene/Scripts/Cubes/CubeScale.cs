@@ -13,13 +13,7 @@ public class CubeScale : MonoBehaviour
     private List<XRBaseInteractor> interactors = new List<XRBaseInteractor>();
     private XRBaseInteractor interactor2;
     private Vector3 previousPos;
-
-
-    // public Material GrabbedMat;
-    // public Material OldMat;
-
     private Transform childGrabbed;
-
     private string surfaceDetected;
 
 
@@ -90,7 +84,6 @@ public class CubeScale : MonoBehaviour
                         if(test_cur.y - test_prev.y < 0 ){
                             resizeCube(distance,"y", true );
                         }else{
-                            // Debug.Log(" Diff neg");
                             resizeCube(distance,"y", false );
                         }
                         previousPos = current;
@@ -111,7 +104,6 @@ public class CubeScale : MonoBehaviour
                             if(test_cur.x - test_prev.x > 0 ){
                             resizeCube(distance,"x", true );
                         }else{
-                            // Debug.Log(" Diff neg");
                             resizeCube(distance,"x", false );
                         }
                         previousPos = interactor2.transform.position;
@@ -120,11 +112,8 @@ public class CubeScale : MonoBehaviour
                     case "Right":
                         if(test_cur.x - test_prev.x < 0 ){
 
-                        // if( Vector3.Distance(interactor2.transform.position ,StartControllerPos) > Vector3.Distance(previousPos ,StartControllerPos) ){
-                            // Debug.Log(" Diff positive");
                             resizeCube(distance,"x", true );
                         }else{
-                            // Debug.Log(" Diff neg");
                             resizeCube(distance,"x", false );
                         }
                         previousPos = interactor2.transform.position;
@@ -132,23 +121,9 @@ public class CubeScale : MonoBehaviour
                         break;
 
                     case "Back":
-                    // Debug.Log(interactor2.transform.position.z);
-                    // Debug.Log(previousPos.z);
-
-                    // Debug.Log("fjgklf");
-                    // Debug.Log(Vector3.Distance(interactor2.transform.position ,StartControllerPos) == Vector3.Distance(previousPos ,StartControllerPos));
-
-                    // Debug.Log(Vector3.Distance(interactor2.transform.position ,StartControllerPos));
-                    // Debug.Log(Vector3.Distance(previousPos ,StartControllerPos));
-
-                    // distance = interactor2.transform.position.z - StartControllerPos.z;
                     if(test_cur.z - test_prev.z > 0 ){
-
-                    // if( Vector3.Distance(interactor2.transform.position ,StartControllerPos) > Vector3.Distance(previousPos ,StartControllerPos) ){
-                            // Debug.Log(" Diff positive");
                             resizeCube(distance,"z", true );
                         }else{
-                            // Debug.Log(" Diff neg");
                             resizeCube(distance,"z", false );
                         }
                         previousPos = current;
@@ -156,12 +131,8 @@ public class CubeScale : MonoBehaviour
 
                     case "Bottom":
                         if(test_cur.y - test_prev.y > 0 ){
-
-                        // if( Vector3.Distance(interactor2.transform.position ,StartControllerPos) > Vector3.Distance(previousPos ,StartControllerPos) ){
-                            // Debug.Log(" Diff positive");
                             resizeCube(distance,"y", true );
                         }else{
-                            // Debug.Log(" Diff neg");
                             resizeCube(distance,"y", false );
                         }
                     previousPos = current;
@@ -178,12 +149,6 @@ public class CubeScale : MonoBehaviour
 
 
 
-    public Vector3 RotatePointAroundPivot(Vector3 point, Vector3 centre, Vector3 angles){
-        Vector3 dir = point - centre; // get point direction relative to pivot
-        dir = Quaternion.Euler(angles)* dir; // rotate it
-        Vector3 nPoint = dir + centre;
-        return nPoint; // return it
-    }
 
     public void resizeCube(float amount, string axis, bool inverse){
         // amount = amount * 0.05f;
@@ -192,37 +157,31 @@ public class CubeScale : MonoBehaviour
             case "x":
                 if (!inverse)
                 {
-                    //this.transform.position = new Vector3(this.transform.position.x+(amount/2), this.transform.position.y, this.transform.position.z);
                     this.transform.localScale = new Vector3(this.transform.localScale.x+amount, this.transform.localScale.y, this.transform.localScale.z);
                 }
                 else
                 {
 
-                    //this.transform.position = new Vector3(this.transform.position.x-(amount/2), this.transform.position.y, this.transform.position.z);
                     this.transform.localScale = new Vector3(this.transform.localScale.x-amount, this.transform.localScale.y, this.transform.localScale.z);
                 }
                 break;
             case "y":
                 if (!inverse)
                 {
-                    //this.transform.position = new Vector3(this.transform.position.x, this.transform.position.y + (amount / 2), this.transform.position.z);
                     this.transform.localScale = new Vector3(this.transform.localScale.x, this.transform.localScale.y+amount, this.transform.localScale.z);
                 }
                 else
                 {
-                    //this.transform.position = new Vector3(this.transform.position.x, this.transform.position.y-(amount / 2), this.transform.position.z);
                     this.transform.localScale = new Vector3(this.transform.localScale.x, this.transform.localScale.y-amount, this.transform.localScale.z);
                 }
                 break;
             case "z":
                 if (!inverse)
                 {
-                    //this.transform.position = new Vector3(this.transform.position.x, this.transform.position.y, this.transform.position.z + (amount / 2));
                     this.transform.localScale = new Vector3(this.transform.localScale.x, this.transform.localScale.y, this.transform.localScale.z + amount);
                 }
                 else
                 {
-                    //this.transform.position = new Vector3(this.transform.position.x, this.transform.position.y, this.transform.position.z- (amount / 2));
                     this.transform.localScale = new Vector3(this.transform.localScale.x, this.transform.localScale.y, this.transform.localScale.z- amount);
                 }
                 break;
@@ -260,7 +219,6 @@ public class CubeScale : MonoBehaviour
                 closestFace = face.Key;
             }
         }
-        Debug.Log("Grabbed face: " + closestFace);
         return closestFace;
     }
 
