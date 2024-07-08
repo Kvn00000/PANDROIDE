@@ -9,12 +9,11 @@ using UnityEngine.Tilemaps;
 using UnityEngine.UIElements;
 using UnityEngine.XR.Interaction.Toolkit;
 
-public class Top : MonoBehaviour
-{
+public class Top : MonoBehaviour{
+
     //Pour le hover on et interaction
     public Material mat;
     public Material originalMat;
-    
 
     //Components
     private MeshFilter _meshFilter;
