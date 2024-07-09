@@ -42,10 +42,14 @@ public class CubeScale : MonoBehaviour
     {
         if (!interactors.Contains(args.interactor)){
             interactors.Add(args.interactor);
+
+            //Si un objet est grab des deux mains
             if (interactors.Count == 2){
                 interactor2 = args.interactor;
                 previousPos = interactor2.transform.position;
                 surfaceDetected = DetectGrabbedFace(args.interactor.transform.position);
+
+                //Pour avoir une couleur differente sur la face que l'on grab
                 childGrabbed = transform.Find(surfaceDetected);
                 childGrabbed.gameObject.SetActive(true);
             }
@@ -54,13 +58,12 @@ public class CubeScale : MonoBehaviour
 
 
     private void OnRelease(SelectExitEventArgs args){
-        //Quand on relache l'objet on le supprime
+        //Quand on relache l'objet on le supprime de la liste
         if (interactors.Contains(args.interactor)){
             interactors.Remove(args.interactor);
 
             if (interactors.Count < 2){
-                XRGrabInteractable gr = this.GetComponent<XRGrabInteractable>();
-                gr.trackRotation = true;
+                grabInteractable.trackRotation = true;// ?????
                 childGrabbed.gameObject.SetActive(false);
 
             }
@@ -72,6 +75,7 @@ public class CubeScale : MonoBehaviour
     // Update is called once per frame
     void Update(){
 
+        //Si on grab des deux mains et que la deuxieme main bouge on change la scale
         if (interactors.Count == 2 && Vector3.Distance(interactor2.transform.position ,previousPos) > 0.001  ){
             float distance = Vector3.Distance(interactor2.transform.position ,previousPos);
             Vector3 current = interactor2.transform.position;
@@ -121,7 +125,7 @@ public class CubeScale : MonoBehaviour
                         break;
 
                     case "Back":
-                    if(test_cur.z - test_prev.z > 0 ){
+                        if(test_cur.z - test_prev.z > 0 ){
                             resizeCube(distance,"z", true );
                         }else{
                             resizeCube(distance,"z", false );
@@ -135,7 +139,7 @@ public class CubeScale : MonoBehaviour
                         }else{
                             resizeCube(distance,"y", false );
                         }
-                    previousPos = current;
+                        previousPos = current;
                         break;
 
                     case "":
@@ -151,36 +155,26 @@ public class CubeScale : MonoBehaviour
 
 
     public void resizeCube(float amount, string axis, bool inverse){
-        switch (axis)
-        {
+        //Inverse pour savoir si on agrandit le cube ou on le retrecit
+        switch (axis){
             case "x":
-                if (!inverse)
-                {
+                if (!inverse){
                     this.transform.localScale = new Vector3(this.transform.localScale.x+amount, this.transform.localScale.y, this.transform.localScale.z);
-                }
-                else
-                {
-
+                }else{
                     this.transform.localScale = new Vector3(this.transform.localScale.x-amount, this.transform.localScale.y, this.transform.localScale.z);
                 }
                 break;
             case "y":
-                if (!inverse)
-                {
+                if (!inverse){
                     this.transform.localScale = new Vector3(this.transform.localScale.x, this.transform.localScale.y+amount, this.transform.localScale.z);
-                }
-                else
-                {
+                }else{
                     this.transform.localScale = new Vector3(this.transform.localScale.x, this.transform.localScale.y-amount, this.transform.localScale.z);
                 }
                 break;
             case "z":
-                if (!inverse)
-                {
+                if (!inverse){
                     this.transform.localScale = new Vector3(this.transform.localScale.x, this.transform.localScale.y, this.transform.localScale.z + amount);
-                }
-                else
-                {
+                }else{
                     this.transform.localScale = new Vector3(this.transform.localScale.x, this.transform.localScale.y, this.transform.localScale.z- amount);
                 }
                 break;
@@ -202,7 +196,7 @@ public class CubeScale : MonoBehaviour
             { "Right", Vector3.right }
         };
 
-        // Find the closest face
+        // Find the closest face 
         string closestFace = "";
         float maxDot = float.MinValue;
 

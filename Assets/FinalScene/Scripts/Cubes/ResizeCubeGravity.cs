@@ -12,10 +12,6 @@ public class ResizeCubeGravity : MonoBehaviour
         parent = this.GetComponentInParent<Rigidbody>();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-    }
 
     private void OnTriggerEnter(Collider other)
     {
@@ -29,10 +25,7 @@ public class ResizeCubeGravity : MonoBehaviour
             parent.mass = 1000000;
         }
     }
-    private void OnTriggerStay(Collider other)
-    {
 
-    }
     private void OnTriggerExit(Collider other)
     {
         listcollider.Remove(other);
