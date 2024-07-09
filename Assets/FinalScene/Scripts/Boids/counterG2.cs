@@ -7,12 +7,12 @@ public class counterG2 : MonoBehaviour
 
     private int _layerSol;
     private int _layerMur;
-    private boidTuning parent;
+    private b parent;
     private void Start()
     {
         _layerSol = LayerMask.NameToLayer("SOL");
         _layerMur = LayerMask.NameToLayer("MUR");
-       parent = transform.parent.GetComponent<boidTuning>();
+       parent = transform.parent.GetComponent<b>();
     }
     private void OnTriggerEnter(Collider other)
     {

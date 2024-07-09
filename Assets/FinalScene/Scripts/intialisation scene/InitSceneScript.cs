@@ -158,7 +158,7 @@ public class InitSceneScript : MonoBehaviour
             }
         }
     }
-    /*
+    
     private void Start()
     {
         float _sizeTable=2f;
@@ -218,7 +218,7 @@ public class InitSceneScript : MonoBehaviour
             //Ajout du plane
             _plane = Instantiate(plane, new Vector3(0,-arenaSize*0.5F,0), init_transform.rotation);
             _plane = Instantiate(plane, _spawnPos, init_transform.rotation);
-            _plane.GetComponent<Plane>().Init(arenaSize*0.5F);
+            _plane.GetComponent<Plane>().Init(side,arenaSize*0.5F);
             Debug.Log("THE Plane LAYER IS " + _plane.layer);
             _plane.layer = 7;
         }
@@ -245,7 +245,7 @@ public class InitSceneScript : MonoBehaviour
 
         }
     }
-    /**/
+    
 
         private void updateSpeed(){
 
