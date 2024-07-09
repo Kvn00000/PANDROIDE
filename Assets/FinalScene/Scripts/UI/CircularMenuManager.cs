@@ -88,6 +88,38 @@ public class CircularMenuManager : MonoBehaviour{
     }
 
 
+    void OnEnable(){
+        if(LeftRightButton){
+            LeftRightButton.onClick.AddListener(OnLeftRightButtonClick);
+        }
+        if(BackSettingsButton){
+            BackSettingsButton.onClick.AddListener(OnBackSettingsButtonClick);
+        }
+        if(WallButton){
+            WallButton.onClick.AddListener(OnWallButtonClick);
+        }
+        if(DebugButton){
+            DebugButton.onClick.AddListener(OnDebugButtonClick);
+        }
+    }
+
+    void OnDisable(){
+        if(LeftRightButton){
+            LeftRightButton.onClick.RemoveListener(OnLeftRightButtonClick);
+        }
+        if(BackSettingsButton){
+            BackSettingsButton.onClick.RemoveListener(OnBackSettingsButtonClick);
+        }
+        if(WallButton){
+            WallButton.onClick.RemoveListener(OnWallButtonClick);
+        }
+        if(DebugButton){
+            DebugButton.onClick.RemoveListener(OnDebugButtonClick);
+        }
+    
+    }
+
+
     private void InitMainMenu(){
         SettingsButton.transform.GetComponent<Image>().alphaHitTestMinimumThreshold = 0.1f;
         BoidButton.transform.GetComponent<Image>().alphaHitTestMinimumThreshold = 0.1f;
