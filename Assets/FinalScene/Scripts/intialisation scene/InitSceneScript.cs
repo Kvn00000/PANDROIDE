@@ -162,7 +162,7 @@ public class InitSceneScript : MonoBehaviour
             }
         }
     }
-    
+    /*
     private void Start()
     {
         float _sizeTable=2f;
@@ -249,7 +249,7 @@ public class InitSceneScript : MonoBehaviour
 
         }
     }
-    
+    /**/
 
         private void updateSpeed(){
 

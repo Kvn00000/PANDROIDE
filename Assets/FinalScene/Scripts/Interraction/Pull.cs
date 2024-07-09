@@ -28,8 +28,8 @@ public class Pull : XRSimpleInteractable
     {
         base.ProcessInteractable(updatePhase);
 
-        //XRBaseInteractor interactor = selectingInteractor; 
-        IXRSelectInteractable interactor = interactorsSelecting; // Si ca marche pas remettre la ligne en haut
+        XRBaseInteractor interactor = selectingInteractor; 
+        //IXRSelectInteractable interactor = (IXRSelectInteractable)interactorsSelecting; // Si ca marche pas remettre la ligne en haut
 
 
 

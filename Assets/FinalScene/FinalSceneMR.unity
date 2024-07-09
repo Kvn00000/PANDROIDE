@@ -8644,16 +8644,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 603a750dfb04fcb498db41f0be9a95b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  boid: {fileID: 4222653350513549871, guid: 9a9c9af6a27587a48bfa7b6ed18d0d48, type: 3}
+  controllerSpawner: {fileID: 158410477}
+  side: 20
   init_transform: {fileID: 1826128085}
   box: {fileID: 1218913827498164039, guid: 9090f37e875a75c40a5986154366407f, type: 3}
   plane: {fileID: 7135396484593494977, guid: 29ee8fd483ea7514eae29202a3aca730, type: 3}
   wall: {fileID: 6565700377588836216, guid: ac7c61791594e7d4398f7545deeae05e, type: 3}
-  boid: {fileID: 4222653350513549871, guid: 9a9c9af6a27587a48bfa7b6ed18d0d48, type: 3}
-  controllerSpawner: {fileID: 158410477}
-  side: 20
   arenaSize: 0.8
   damier: 0
-  BoidNumber: 15
+  BoidNumber: 50
   BoidSpeed: 200
   wallRay: 0.16
   avoidRay: 0.16
