@@ -11,9 +11,9 @@ public class ResizableWallScript : MonoBehaviour
     private Vector3 _centerInit;
     private Quaternion _tablerotation;
     private XRGrabInteractable grabInteractable;
-    private List<XRBaseInteractor> interactors = new List<XRBaseInteractor>();
+    private List<IXRSelectInteractable> interactors = new List<IXRSelectInteractable>();
     private MeshFilter mesh;
-    private XRBaseInteractor interactor2;
+    private IXRSelectInteractable interactor2;
     private Vector3 StartControllerPos;
     private Vector3 previousPos;
     private bool isOn=false;
@@ -42,9 +42,9 @@ public class ResizableWallScript : MonoBehaviour
 
     private void OnGrab(SelectEnterEventArgs args)
     {
-        if (!interactors.Contains(args.interactor))
+        if (!interactors.Contains(args.interactableObject))
         {
-            interactors.Add(args.interactor);
+            interactors.Add(args.interactableObject);
             // Debug.Log(args.interactor.transform.position);
 
             // Debug.Log(this.transform.forward);
@@ -53,7 +53,7 @@ public class ResizableWallScript : MonoBehaviour
 
             if (interactors.Count == 2)
             {
-                interactor2 = args.interactor;
+                interactor2 = args.interactableObject;
                 StartControllerPos = interactor2.transform.position;
 
                 previousPos = interactor2.transform.position;
@@ -61,7 +61,7 @@ public class ResizableWallScript : MonoBehaviour
 
                 // Vector3 originalCoords = RotatePointAroundPivot(interactor2.transform.position,this.transform.position,Quaternion.Inverse(this.transform.rotation).eulerAngles);
 
-                surfaceDetected = DetectGrabbedFace(args.interactor.transform.position);
+                surfaceDetected = DetectGrabbedFace(args.interactableObject.transform.position);
             }
         }
     }
@@ -70,9 +70,9 @@ public class ResizableWallScript : MonoBehaviour
     private void OnRelease(SelectExitEventArgs args)
     {
         //Quand on relache l'objet on le supprime
-        if (interactors.Contains(args.interactor))
+        if (interactors.Contains(args.interactableObject))
         {
-            interactors.Remove(args.interactor);
+            interactors.Remove(args.interactableObject);
 
             if (interactors.Count < 2)
             {

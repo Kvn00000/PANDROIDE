@@ -27,7 +27,7 @@ public class Pull : XRSimpleInteractable
     public override void ProcessInteractable(XRInteractionUpdateOrder.UpdatePhase updatePhase)
     {
         base.ProcessInteractable(updatePhase);
-        XRBaseInteractor interactor = selectingInteractor;
+        IXRSelectInteractable interactor = interactorsSelecting;
 
 
 
