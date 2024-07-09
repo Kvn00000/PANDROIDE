@@ -8,8 +8,8 @@ using System;
 
 public class CubeScale : MonoBehaviour{
     private XRGrabInteractable grabInteractable;
-    private List<IXRSelectInteractable> interactors = new List<IXRSelectInteractable>();
-    private IXRSelectInteractable interactor2;
+    private List<XRBaseInteractor> interactors = new List<XRBaseInteractor>();
+    private XRBaseInteractor interactor2;
     private Vector3 previousPos;
     private Transform childGrabbed;
     private string surfaceDetected;
@@ -34,14 +34,14 @@ public class CubeScale : MonoBehaviour{
 
     private void OnGrab(SelectEnterEventArgs args)
     {
-        if (!interactors.Contains(args.interactableObject)){
-            interactors.Add(args.interactableObject);
+        if (!interactors.Contains(args.interactor)){
+            interactors.Add(args.interactor);
 
             //Si un objet est grab des deux mains
             if (interactors.Count == 2){
-                interactor2 = args.interactableObject;
+                interactor2 = args.interactor;
                 previousPos = interactor2.transform.position;
-                surfaceDetected = DetectGrabbedFace(args.interactableObject.transform.position);
+                surfaceDetected = DetectGrabbedFace(args.interactor.transform.position);
 
                 //Pour avoir une couleur differente sur la face que l'on grab
                 childGrabbed = transform.Find(surfaceDetected);
@@ -53,8 +53,8 @@ public class CubeScale : MonoBehaviour{
 
     private void OnRelease(SelectExitEventArgs args){
         //Quand on relache l'objet on le supprime de la liste
-        if (interactors.Contains(args.interactableObject)){
-            interactors.Remove(args.interactableObject);
+        if (interactors.Contains(args.interactor)){
+            interactors.Remove(args.interactor);
 
             if (interactors.Count < 2){
                 grabInteractable.trackRotation = true;// ?????
@@ -205,7 +205,9 @@ public class CubeScale : MonoBehaviour{
                 closestFace = face.Key;
             }
         }
+        Debug.Log("Grabbed face: " + closestFace);
         return closestFace;
+
     }
 
 }
