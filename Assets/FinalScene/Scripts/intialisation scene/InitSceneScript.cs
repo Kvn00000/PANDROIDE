@@ -62,7 +62,7 @@ public class InitSceneScript : MonoBehaviour
     private CircleWallScript component_wall2;
     private GameObject topArenaWall;
     private CircleWallScript component_topWall;
-    private float wallThickness= 0.025f;
+    private float wallThickness= 0.0012f;
     private GameObject _plane;
     //
     [SerializeField]
@@ -300,12 +300,12 @@ public class InitSceneScript : MonoBehaviour
         walls = Instantiate(wall, init_transform.position, init_transform.rotation);
         component_wall = walls.GetComponent<CircleWallScript>();
         component_wall.inter = true;
-        component_wall.DrawWall(side, arenaSize * 0.5f, arenaSize * 0.0833f);
+        component_wall.DrawWall(side, arenaSize * 0.5f, arenaSize * 0.08f);
         //Instanciation mur exterieur
         walls2 = Instantiate(wall, init_transform.position, init_transform.rotation);
         walls2.layer = LayerMask.NameToLayer("MUR");
         component_wall2 = walls2.GetComponent<CircleWallScript>();
-        component_wall2.DrawWall(side, (arenaSize * 0.5f) + wallThickness, arenaSize * 0.0833f);
+        component_wall2.DrawWall(side, (arenaSize * 0.5f) + wallThickness, arenaSize * 0.08f);
 
         box.center = component_wall2.GetComponent<MeshCollider>().bounds.center;
         box.size = component_wall2.GetComponent<MeshCollider>().bounds.size;

@@ -65,11 +65,6 @@ public class CircularMenuManager : MonoBehaviour{
     public Button DebugButton;
 
 
-    [Header("WallMenu Button")]
-    public Button InformationButton;
-    public Button MinusButton;
-    public Button PlusButton;
-    public Button BackWallButton;
 
 
 
@@ -80,7 +75,6 @@ public class CircularMenuManager : MonoBehaviour{
         //Delete all the invisible part of the buttons and add listener only for the MainMenu
         InitMainMenu();
         InitSettingsMenu();
-        InitWallMenu();
 
         SpawnerRight = RightController.GetComponent<SpawnBoidScript>();
         SpawnerLeft = LeftController.GetComponent<SpawnBoidScript>();
@@ -98,9 +92,7 @@ public class CircularMenuManager : MonoBehaviour{
         if(WallButton){
             WallButton.onClick.AddListener(OnWallButtonClick);
         }
-        if(DebugButton){
-            DebugButton.onClick.AddListener(OnDebugButtonClick);
-        }
+
     }
 
     void OnDisable(){
@@ -148,14 +140,7 @@ public class CircularMenuManager : MonoBehaviour{
         DebugButton.GetComponent<Image>().alphaHitTestMinimumThreshold = 0.1f;
     }
 
-    private void InitWallMenu(){
-        InformationButton.GetComponent<Image>().alphaHitTestMinimumThreshold = 0.1f;
-        MinusButton.GetComponent<Image>().alphaHitTestMinimumThreshold = 0.1f;
-        PlusButton.GetComponent<Image>().alphaHitTestMinimumThreshold = 0.1f;
-        BackWallButton.GetComponent<Image>().alphaHitTestMinimumThreshold = 0.1f;
 
-        
-    }
 
 
     //Main Menu Event
@@ -319,85 +304,5 @@ public class CircularMenuManager : MonoBehaviour{
     }
 
     public void OnWallButtonClick(){
-        WallMenu.SetActive(true);
-        SettingsMenu.SetActive(false);
-
-        //Add WallMenu Listener
-
-        //Useless Maybe
-        // if(InformationButton){
-        //     InformationButton.onClick.AddListener();
-        // }
-        if(MinusButton){
-            MinusButton.onClick.AddListener(OnMinusButtonClick);
         }
-        if(PlusButton){
-            PlusButton.onClick.AddListener(OnPlusButtonClick);
-        }
-        if(BackWallButton){
-            BackWallButton.onClick.AddListener(OnBackWallButtonClick);
-        }
-
-
-        //Remove SettingsMenu Listener
-        if(LeftRightButton){
-            LeftRightButton.onClick.RemoveListener(OnLeftRightButtonClick);
-        }
-        if(BackSettingsButton){
-            BackSettingsButton.onClick.RemoveListener(OnBackSettingsButtonClick);
-        }
-        if(WallButton){
-            WallButton.onClick.RemoveListener(OnWallButtonClick);
-        }
-        if(DebugButton){
-            DebugButton.onClick.RemoveListener(OnDebugButtonClick);
-        }
-    }
-
-
-    //Wall Menu Event
-
-    public void OnMinusButtonClick(){
-
-    }
-    public void OnPlusButtonClick(){
-
-    }
-    public void OnBackWallButtonClick(){
-        SettingsMenu.SetActive(true);
-        WallMenu.SetActive(false);
-
-
-
-        //Add SettingsMenu Listener
-        if(LeftRightButton){
-            LeftRightButton.onClick.AddListener(OnLeftRightButtonClick);
-        }
-        if(BackSettingsButton){
-            BackSettingsButton.onClick.AddListener(OnBackSettingsButtonClick);
-        }
-        if(WallButton){
-            WallButton.onClick.AddListener(OnWallButtonClick);
-        }
-        if(DebugButton){
-            DebugButton.onClick.AddListener(OnDebugButtonClick);
-        }
-
-
-        //Remove WallMenu Listener
-
-        //Useless Maybe
-        // if(InformationButton){
-        //     InformationButton.onClick.RemoveListener();
-        // }
-        if(MinusButton){
-            MinusButton.onClick.RemoveListener(OnMinusButtonClick);
-        }
-        if(PlusButton){
-            PlusButton.onClick.RemoveListener(OnPlusButtonClick);
-        }
-        if(BackWallButton){
-            BackWallButton.onClick.RemoveListener(OnBackWallButtonClick);
-        }
-    }
 }
