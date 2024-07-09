@@ -6,19 +6,13 @@ using UnityEngine.XR.Interaction.Toolkit;
 using System;
 
 
-public class CubeScale : MonoBehaviour
-{
-
+public class CubeScale : MonoBehaviour{
     private XRGrabInteractable grabInteractable;
     private List<IXRSelectInteractable> interactors = new List<IXRSelectInteractable>();
     private IXRSelectInteractable interactor2;
     private Vector3 previousPos;
     private Transform childGrabbed;
     private string surfaceDetected;
-
-
-
-
 
     void Awake()
     {

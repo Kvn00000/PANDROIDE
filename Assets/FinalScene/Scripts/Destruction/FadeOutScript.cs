@@ -25,7 +25,6 @@ public class FadeOut : MonoBehaviour
         grabInteractable = GetComponent<XRGrabInteractable>();
         meshR = GetComponent<MeshRenderer>();
         renderer = gameObject.GetComponent<Renderer>();
-        color = renderer.material.color;
     }
 
     void Update(){
@@ -34,6 +33,7 @@ public class FadeOut : MonoBehaviour
             //On reduit le Alpha selon le temps fadeDuration
             meshR.material = TranparentMat;
             elapsedTime += Time.deltaTime;
+            color = renderer.material.color;
             color.a = Mathf.Lerp(initialAlpha, 0f, elapsedTime / fadeDuration);
             renderer.material.color = color;
 

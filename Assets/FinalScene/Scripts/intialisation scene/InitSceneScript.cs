@@ -10,12 +10,6 @@ using System.Runtime.InteropServices;
 
 public class InitSceneScript : MonoBehaviour
 {
-    //Environnement Prefab
-    public Transform init_transform;
-    public GameObject box;
-    public GameObject plane;
-    public GameObject wall;
-
     //Boid Prefab
     public GameObject boid;
     [SerializeField]
@@ -24,13 +18,23 @@ public class InitSceneScript : MonoBehaviour
     //Nombre de face pour le mur
     public int side;
 
-    //Taille de l'arene
+
+    [Header("Environnement prefab")]
+
+    public Transform init_transform;
+    public GameObject box;
+    public GameObject plane;
+    public GameObject wall;
+
+
+    [Header("Arena Size")]
+
     public float arenaSize = 0;
     public bool damier = false;
 
-    //Nombre de Boid
+    [Header("Boid Parametres")]
+    
     public int BoidNumber;
-
     public float BoidSpeed;
     public float wallRay;
     public float avoidRay;
@@ -100,7 +104,7 @@ public class InitSceneScript : MonoBehaviour
         tomodif.filter = filter;
         Debug.Log("ARENA SIZE "+arenaSize);
     //Coords d'une case
-    x_ref = -arenaSize * 0.5F;
+        x_ref = -arenaSize * 0.5F;
         y_ref = 0;
         z_ref = -arenaSize * 0.5F;
         //if (damier)
