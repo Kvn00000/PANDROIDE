@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028326, g: 0.22571333, b: 0.30692202, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028352, g: 0.22571376, b: 0.3069224, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1897,6 +1897,21 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6930425809846865696, guid: 9a9c9af6a27587a48bfa7b6ed18d0d48,
         type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 6930425809846865696, guid: 9a9c9af6a27587a48bfa7b6ed18d0d48,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 6930425809846865696, guid: 9a9c9af6a27587a48bfa7b6ed18d0d48,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 6930425809846865696, guid: 9a9c9af6a27587a48bfa7b6ed18d0d48,
+        type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -1944,6 +1959,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7263801432171488947, guid: 9a9c9af6a27587a48bfa7b6ed18d0d48,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8031531748922889225, guid: 9a9c9af6a27587a48bfa7b6ed18d0d48,
         type: 3}
@@ -2791,6 +2811,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: paper plane asset
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 44265bacee2e6495e9e8dc791f7acd41,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -6913,14 +6938,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   boid: {fileID: 4222653350513549871, guid: 9a9c9af6a27587a48bfa7b6ed18d0d48, type: 3}
   controllerSpawner: {fileID: 158410477}
-  side: 20
+  side: 40
   init_transform: {fileID: 1826128085}
   box: {fileID: 1218913827498164039, guid: 9090f37e875a75c40a5986154366407f, type: 3}
   plane: {fileID: 7135396484593494977, guid: 29ee8fd483ea7514eae29202a3aca730, type: 3}
   wall: {fileID: 6565700377588836216, guid: ac7c61791594e7d4398f7545deeae05e, type: 3}
   arenaSize: 0.8
   damier: 0
-  BoidNumber: 40
+  BoidNumber: 16
   BoidSpeed: 200
   wallRay: 0.16
   avoidRay: 0.16
