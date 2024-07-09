@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class CircularMenuLeft : MonoBehaviour{
+public class CircularMenuManager : MonoBehaviour{
     //Spawner Left and Right
     private SpawnBoidScript SpawnerRight;
     private SpawnBoidScript SpawnerLeft;
@@ -85,37 +85,6 @@ public class CircularMenuLeft : MonoBehaviour{
         SpawnerRight = RightController.GetComponent<SpawnBoidScript>();
         SpawnerLeft = LeftController.GetComponent<SpawnBoidScript>();
         
-    }
-
-    void OnEnable(){
-        if(LeftRightButton){
-            LeftRightButton.onClick.AddListener(OnLeftRightButtonClick);
-        }
-        if(BackSettingsButton){
-            BackSettingsButton.onClick.AddListener(OnBackSettingsButtonClick);
-        }
-        if(WallButton){
-            WallButton.onClick.AddListener(OnWallButtonClick);
-        }
-        if(DebugButton){
-            DebugButton.onClick.AddListener(OnDebugButtonClick);
-        }
-    }
-
-    void OnDisable(){
-        if(LeftRightButton){
-            LeftRightButton.onClick.RemoveListener(OnLeftRightButtonClick);
-        }
-        if(BackSettingsButton){
-            BackSettingsButton.onClick.RemoveListener(OnBackSettingsButtonClick);
-        }
-        if(WallButton){
-            WallButton.onClick.RemoveListener(OnWallButtonClick);
-        }
-        if(DebugButton){
-            DebugButton.onClick.RemoveListener(OnDebugButtonClick);
-        }
-    
     }
 
 
