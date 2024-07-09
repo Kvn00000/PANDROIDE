@@ -6920,7 +6920,7 @@ MonoBehaviour:
   wall: {fileID: 6565700377588836216, guid: ac7c61791594e7d4398f7545deeae05e, type: 3}
   arenaSize: 0.8
   damier: 0
-  BoidNumber: 120
+  BoidNumber: 40
   BoidSpeed: 200
   wallRay: 0.16
   avoidRay: 0.16

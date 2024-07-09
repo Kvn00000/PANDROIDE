@@ -164,7 +164,6 @@ public class ScenePlaneDetectController : MonoBehaviour
                         }
 
                         spawnPosition.y +=0.01f;
-
                         // Setting layer
                         plane.gameObject.layer = LayerMask.NameToLayer("SOL");
                         plane.gameObject.AddComponent<ARAnchor>();
@@ -193,7 +192,7 @@ public class ScenePlaneDetectController : MonoBehaviour
                         _planeSize = sizeTable2;
                         _arenaSpawnPos = spawnPosition;
                         _arenaSpawnRotation = spawnRotation;
-                        scene.GetComponent<InitSceneScript>().Init(_arenaSpawnPos, _arenaSize,_arenaSpawnRotation,true,damier);
+                        scene.GetComponent<InitSceneScript>().Init(_arenaSpawnPos, _arenaSize*0.95f,_arenaSpawnRotation,true,damier);
 
                         // Si manuel appliquer la valeur d'echelle precedemment enregistre
                         if (_mode == 1)
@@ -306,7 +305,7 @@ public class ScenePlaneDetectController : MonoBehaviour
                     _planeSize = sizeTable2;
                     _arenaSpawnPos = spawnPosition;
                     _arenaSpawnRotation = spawnRotation;
-                    scene.GetComponent<InitSceneScript>().Init(_arenaSpawnPos, _arenaSize, _arenaSpawnRotation,false, damier);
+                    scene.GetComponent<InitSceneScript>().Init(_arenaSpawnPos, _arenaSize * 0.95f, _arenaSpawnRotation,false, damier);
 
                     // Si manuel appliquer la valeur d'echelle precedemment enregistre
                     if (_mode == 1)
