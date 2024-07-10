@@ -11,7 +11,6 @@ public class SpawnBoidScript : MonoBehaviour
     public int toInstantiate; // 0 pour Nothing, 1 pour Boid, 2 pour Cube
     public float spawnSpeed = 2;
 
-    public GameObject initScene;
     private InitSceneScript initScript;
 
     [Header("Prefab")]
@@ -29,8 +28,6 @@ public class SpawnBoidScript : MonoBehaviour
     public float cohesionRay = 1.0f;
     public float attractionRay = 1.1f;
     public float filter = 5;
-
-
     [Header("Cube Settings Button")]
     public float CubeSize = 0.01f;
     
@@ -42,18 +39,18 @@ public class SpawnBoidScript : MonoBehaviour
     {
         
         child = this.transform.GetChild(1);
-        initScript = initScene.GetComponent<InitSceneScript>();
     }
     void Update(){
         //To set the right position
         if(inputAction.action.WasPressedThisFrame() && toInstantiate > 0){
             if(toInstantiate == 1){ // Instanciate Boid
                 //Give the controller rotation
-                if (initScript.getBoidListCount() < 100)
+                if ((initScript !=null) &&(initScript.getBoidListCount() < 100))
                 {
                     Quaternion rotation = new Quaternion(0, this.transform.rotation.y, 0,this.transform.rotation.w) ;
                     GameObject boid = Instantiate(BoidPrefab,child.position, rotation);
                     boid.GetComponent<boidTuning>().Init(speed, wallRay, avoidRay,cohesionRay, attractionRay, filter);
+                    boid.GetComponent<FadeOut>().setScene(initScript);
                     initScript.addBoidList(boid);
                 }
             }
@@ -64,6 +61,13 @@ public class SpawnBoidScript : MonoBehaviour
             }
         }
     }
-
+    public void setScene(InitSceneScript sc) 
+    {
+        this.initScript = sc;
+    }
+    public InitSceneScript getScene()
+    {
+        return this.initScript;
+    }
 
 }

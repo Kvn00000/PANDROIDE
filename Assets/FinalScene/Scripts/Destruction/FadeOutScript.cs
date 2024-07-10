@@ -7,7 +7,6 @@ using UnityEngine.XR.Interaction.Toolkit;
 public class FadeOut : MonoBehaviour
 {
     private XRGrabInteractable grabInteractable;
-
     private new Renderer renderer;
     private MeshRenderer meshR;
     private Color color;
@@ -21,14 +20,12 @@ public class FadeOut : MonoBehaviour
     private float initialAlpha = 1f;
     private float fadeDuration = 5f; // 5 secondes pour fade out
 
-    public GameObject initScene;
     private InitSceneScript initScript;
 
     void Awake(){
         grabInteractable = GetComponent<XRGrabInteractable>();
         meshR = GetComponent<MeshRenderer>();
         renderer = gameObject.GetComponent<Renderer>();
-        initScript = initScene.GetComponent<InitSceneScript>();
 
     }
 
@@ -65,5 +62,9 @@ public class FadeOut : MonoBehaviour
             color.a = 1f;
             renderer.material.color = color;
         }
+    }
+    public void setScene(InitSceneScript scene)
+    {
+        initScript = scene;    
     }
 }

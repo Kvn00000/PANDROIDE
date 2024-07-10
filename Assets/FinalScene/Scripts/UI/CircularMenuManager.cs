@@ -13,7 +13,7 @@ public class CircularMenuManager : MonoBehaviour{
     private string cubeColorHex = "#029e73";
     private string NothingColorHex = "#FFFFFF";
 
-    public GameObject initScene;
+
     private InitSceneScript initScript;
 
     //RightPoke on the left hand and LeftPoke on the Right hand
@@ -69,7 +69,6 @@ public class CircularMenuManager : MonoBehaviour{
         InitSettingsMenu();
 
         Spawner = Controller.GetComponent<SpawnBoidScript>();        
-        initScript = initScene.GetComponent<InitSceneScript>();
 
     }
 
@@ -291,5 +290,9 @@ public class CircularMenuManager : MonoBehaviour{
 
     public void OnResetButtonClick(){
         initScript.Thanos();
+    }
+    public void setScene(InitSceneScript sc)
+    {
+        this.initScript = sc;
     }
 }

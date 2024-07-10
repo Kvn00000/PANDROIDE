@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028326, g: 0.22571333, b: 0.30692202, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028352, g: 0.22571376, b: 0.3069224, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -633,7 +633,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48cebb774ea8c4fd28414fb91cb757c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  initScene: {fileID: 1826128083}
   pokeInteractor: {fileID: 1525409027}
   DebugPanel: {fileID: 1744956371}
   onTextLeft: {fileID: 846126522}
@@ -653,7 +652,7 @@ MonoBehaviour:
   NothingButton: {fileID: 428673142}
   LeftRightButton: {fileID: 1826836416}
   BackSettingsButton: {fileID: 1971549392}
-  ResetButton: {fileID: 0}
+  ResetButton: {fileID: 1570935587}
   DebugButton: {fileID: 641786467}
 --- !u!225 &108576048
 CanvasGroup:
@@ -700,7 +699,6 @@ MonoBehaviour:
       type: 3}
   toInstantiate: 0
   spawnSpeed: 2
-  initScene: {fileID: 1826128083}
   BoidPrefab: {fileID: 4222653350513549871, guid: 9a9c9af6a27587a48bfa7b6ed18d0d48,
     type: 3}
   CubePrefab: {fileID: 6405620610664063678, guid: da8153cba6d3e49da844a4a7869de469,
@@ -2127,7 +2125,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1000011928778752, guid: bac85bcbcdc58924f840d203376147c2, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 114000013861403066, guid: bac85bcbcdc58924f840d203376147c2,
         type: 3}
@@ -2563,7 +2561,6 @@ MonoBehaviour:
       type: 3}
   toInstantiate: 0
   spawnSpeed: 2
-  initScene: {fileID: 1826128083}
   BoidPrefab: {fileID: 4222653350513549871, guid: 9a9c9af6a27587a48bfa7b6ed18d0d48,
     type: 3}
   CubePrefab: {fileID: 6405620610664063678, guid: da8153cba6d3e49da844a4a7869de469,
@@ -3673,6 +3670,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Poke Interactor Left
       objectReference: {fileID: 0}
+    - target: {fileID: 5373171398432077136, guid: 5eccbf4be2c00e94689ee8062e4e7276,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5705241185218949919, guid: 5eccbf4be2c00e94689ee8062e4e7276,
         type: 3}
       propertyPath: m_AttachTransform
@@ -3917,6 +3919,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_projectionMatrixMode
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8107088948695368048, guid: 5eccbf4be2c00e94689ee8062e4e7276,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8789546210048849451, guid: 5eccbf4be2c00e94689ee8062e4e7276,
         type: 3}
@@ -6660,53 +6667,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1687678394}
   m_CullTransparentMesh: 1
---- !u!1 &1698435825
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1698435827}
-  - component: {fileID: 1698435826}
-  m_Layer: 0
-  m_Name: Boid destructor
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1698435826
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1698435825}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cfef42dd6c9df874280f23894c3258ef, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  parent: {fileID: 0}
-  _layerBoid: 0
-  _fadeOut: 0
---- !u!4 &1698435827
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1698435825}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.0049609737, y: 0.0042252, z: 0.010739965}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1730706481
 GameObject:
   m_ObjectHideFlags: 0
@@ -6754,7 +6714,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48cebb774ea8c4fd28414fb91cb757c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  initScene: {fileID: 1826128083}
   pokeInteractor: {fileID: 1525409028}
   DebugPanel: {fileID: 1744956371}
   onTextLeft: {fileID: 846126522}
@@ -6774,7 +6733,7 @@ MonoBehaviour:
   NothingButton: {fileID: 561472992}
   LeftRightButton: {fileID: 1421530664}
   BackSettingsButton: {fileID: 987661793}
-  ResetButton: {fileID: 0}
+  ResetButton: {fileID: 416753621}
   DebugButton: {fileID: 715744390}
 --- !u!225 &1730706484
 CanvasGroup:
@@ -6982,7 +6941,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   boid: {fileID: 4222653350513549871, guid: 9a9c9af6a27587a48bfa7b6ed18d0d48, type: 3}
-  controllerSpawner: {fileID: 158410477}
+  controllerSpawnerR: {fileID: 158410477}
+  controllerSpawnerL: {fileID: 791662219}
+  MenuR: {fileID: 108576045}
+  MenuL: {fileID: 1730706481}
   side: 40
   init_transform: {fileID: 1826128085}
   box: {fileID: 1218913827498164039, guid: 9090f37e875a75c40a5986154366407f, type: 3}
@@ -8310,4 +8272,3 @@ SceneRoots:
   - {fileID: 619129563}
   - {fileID: 853094099}
   - {fileID: 574379052}
-  - {fileID: 1698435827}

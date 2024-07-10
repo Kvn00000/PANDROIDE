@@ -810,6 +810,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "ChangeFadeOutMode",
+                    "type": "Button",
+                    "id": "65489c75-814f-46b0-bcfe-a57ded05fe7a",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -986,6 +995,17 @@
                     "processors": "",
                     "groups": "Generic XR Controller",
                     "action": "TogglePlanesDetected",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "5f1167b0-9845-41a0-9b58-9e69d06303e9",
+                    "path": "<OculusTouchController>{LeftHand}/thumbrestTouched",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Generic XR Controller",
+                    "action": "ChangeFadeOutMode",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
