@@ -22,7 +22,7 @@ public class FadeOut : MonoBehaviour
     private float fadeDuration = 5f; // 5 secondes pour fade out
 
     public GameObject initScene;
-    public InitSceneScript initScript;
+    private InitSceneScript initScript;
 
     void Awake(){
         grabInteractable = GetComponent<XRGrabInteractable>();

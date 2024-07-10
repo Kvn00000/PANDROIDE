@@ -12,7 +12,7 @@ public class SpawnBoidScript : MonoBehaviour
     public float spawnSpeed = 2;
 
     public GameObject initScene;
-    public InitSceneScript initScript;
+    private InitSceneScript initScript;
 
     [Header("Prefab")]
     public GameObject BoidPrefab;

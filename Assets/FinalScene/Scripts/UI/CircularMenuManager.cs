@@ -13,9 +13,8 @@ public class CircularMenuManager : MonoBehaviour{
     private string cubeColorHex = "#029e73";
     private string NothingColorHex = "#FFFFFF";
 
-    public GameObject boidDestructor;
     public GameObject initScene;
-    public InitSceneScript initScript;
+    private InitSceneScript initScript;
 
     //RightPoke on the left hand and LeftPoke on the Right hand
     public GameObject pokeInteractor;

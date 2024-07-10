@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028352, g: 0.22571376, b: 0.3069224, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028326, g: 0.22571333, b: 0.30692202, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -642,20 +642,18 @@ MonoBehaviour:
   offTextRight: {fileID: 1139363507}
   sprayMaterial: {fileID: 2100000, guid: d482272bb62f64a4eb12d0de5c1843d5, type: 2}
   SprayBottle: {fileID: 775395094}
-  LeftController: {fileID: 791662219}
-  RightController: {fileID: 158410477}
+  Controller: {fileID: 791662219}
   MenuLeft: {fileID: 1730706481}
   MenuRight: {fileID: 108576045}
   MainMenu: {fileID: 1547346247}
   SettingsMenu: {fileID: 307239712}
-  WallMenu: {fileID: 0}
   SettingsButton: {fileID: 206095838}
   BoidButton: {fileID: 1122176884}
   CubeButton: {fileID: 2105451909}
   NothingButton: {fileID: 428673142}
   LeftRightButton: {fileID: 1826836416}
   BackSettingsButton: {fileID: 1971549392}
-  WallButton: {fileID: 1570935587}
+  ResetButton: {fileID: 0}
   DebugButton: {fileID: 641786467}
 --- !u!225 &108576048
 CanvasGroup:
@@ -702,6 +700,7 @@ MonoBehaviour:
       type: 3}
   toInstantiate: 0
   spawnSpeed: 2
+  initScene: {fileID: 1826128083}
   BoidPrefab: {fileID: 4222653350513549871, guid: 9a9c9af6a27587a48bfa7b6ed18d0d48,
     type: 3}
   CubePrefab: {fileID: 6405620610664063678, guid: da8153cba6d3e49da844a4a7869de469,
@@ -2564,6 +2563,7 @@ MonoBehaviour:
       type: 3}
   toInstantiate: 0
   spawnSpeed: 2
+  initScene: {fileID: 1826128083}
   BoidPrefab: {fileID: 4222653350513549871, guid: 9a9c9af6a27587a48bfa7b6ed18d0d48,
     type: 3}
   CubePrefab: {fileID: 6405620610664063678, guid: da8153cba6d3e49da844a4a7869de469,
@@ -6689,6 +6689,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cfef42dd6c9df874280f23894c3258ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  parent: {fileID: 0}
+  _layerBoid: 0
+  _fadeOut: 0
 --- !u!4 &1698435827
 Transform:
   m_ObjectHideFlags: 0
@@ -6760,20 +6763,18 @@ MonoBehaviour:
   offTextRight: {fileID: 1139363507}
   sprayMaterial: {fileID: 2100000, guid: d482272bb62f64a4eb12d0de5c1843d5, type: 2}
   SprayBottle: {fileID: 88046875}
-  LeftController: {fileID: 791662219}
-  RightController: {fileID: 158410477}
+  Controller: {fileID: 158410477}
   MenuLeft: {fileID: 1730706481}
   MenuRight: {fileID: 108576045}
   MainMenu: {fileID: 1440149197}
   SettingsMenu: {fileID: 1140257615}
-  WallMenu: {fileID: 0}
   SettingsButton: {fileID: 2090664022}
   BoidButton: {fileID: 1661181982}
   CubeButton: {fileID: 1424802837}
   NothingButton: {fileID: 561472992}
   LeftRightButton: {fileID: 1421530664}
   BackSettingsButton: {fileID: 987661793}
-  WallButton: {fileID: 416753621}
+  ResetButton: {fileID: 0}
   DebugButton: {fileID: 715744390}
 --- !u!225 &1730706484
 CanvasGroup:
