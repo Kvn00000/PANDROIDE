@@ -37,7 +37,9 @@ public class boidTuning : MonoBehaviour
 
 
 
-    
+    /*
+    Init and Start function --> Initialize boids parameters 
+    */
     public void Init(float _speed,float _wallRay, float _avoidRay, float _cohesionRay, float _attractionRay, float _filter){
         speed =_speed;
         wallRay = _wallRay;
@@ -62,112 +64,132 @@ public class boidTuning : MonoBehaviour
         /*
        Boid avec Raycast --> le plus avanc� meme si je comprend pas pourquoi �a marche pas 
        */
-        String modeUsed = "";
+        
         //If not on the ground apply gravity
+        
+        // Allow Boids to fall on the ground with the groundGestion on the bottom face
         Quaternion newRota= new Quaternion(0, _myTransform.rotation.y, 0, _myTransform.rotation.w);
         this.transform.rotation = newRota;
 
+        //if Boid is not on the ground add custom gravity
         if (!grounded)
         {
             rb.AddForce(Physics.gravity*0.5f, ForceMode.Acceleration);
         }
         else
         {
-            if (withDEBUG){ Debug.Log("//////////////////////////////////////////////////////////////////////////////////"); }
-
-            float rotation = 0.0f;
-            float oldrotate;
-
-            if ((withGoto))
-            {
-                rotation = GoToBoidRcastv3(rotation, cohesionRay, attractionRay);
-                if ((rotation != 0.0f))
-                {
-                    modeUsed = "GoTo Green Line";
-                    //if (withDEBUG) { Debug.Log("ATTRACTION ACTIVATED : " + rotation); }
-                }
-            }
-            if ((withCohesion))
-            {
-                oldrotate = rotation;
-                rotation = CohesionBoidRcast(rotation, avoidRay, cohesionRay);
-                //permet de savoir si le comportement a remplace l'ancienne valeur
-                if ((rotation != oldrotate))
-                {
-                    modeUsed = "Cohesion blue and pink line";
-                    //if (withDEBUG) { Debug.Log("COHESION ACTIVATED : " + rotation); }
-                }
-            }
-            if ((withAvoid))
-            {
-                oldrotate = rotation;
-                rotation = AvoidBoidRcastv3(rotation, avoidRay);
-                //permet de savoir si le comportement a remplace l'ancienne valeur
-                if ((rotation != oldrotate))
-                {
-                    modeUsed = "Avoid yellow line";
-                    //if (withDEBUG) { Debug.Log("AVOIDANCE ACTIVATED : " + rotation); }
-                }
-            }
-            //Highest Priority
-            oldrotate = rotation;
-            rotation = AvoidWallRcastv4(rotation, wallRay);
-
-            if ((rotation != oldrotate))
-            {
-                modeUsed = "Wall red";
-                //if ((withDEBUG)){ Debug.Log("WALL AVOID ACTIVATED : " + rotation); }
-            }
-            if ((withDEBUG)) { Debug.Log("FINAL ROTATION : " + rotation + " " + modeUsed); }
-            // APPLY ROTATION
-            if (rotation == 0.0)
-            {
-
-                //tentative reduire velocite rotation et inertie pour eviter drifting boid
-                rb.angularVelocity = Vector3.zero;
-                rb.velocity = Vector3.zero;
-                rb.inertiaTensor = Vector3.zero;
-                rb.inertiaTensorRotation = Quaternion.identity;
-                rb.AddForce(transform.forward * speed * Time.deltaTime, ForceMode.Force);
-            }
-            else
-            {
-                //multiplication par Time.deltaTime pour fluidifier la rotation
-                // valeur obtenue tres faible
-                float angle = rotation * Time.deltaTime;
-                if (withDEBUG)
-                {
-                    Debug.Log(" FINAL VALUE OF ANGLE AFTER TIME " + angle);
-                }
-                if (angle > filter) { angle = filter; }
-                if (angle < -filter) { angle = -filter; }
-                if (withDEBUG)
-                {
-                    Debug.Log(" FINAL VALUE OF rotation after filter " + angle);
-                }
-                _myTransform.Rotate(Vector3.up, angle);
-                //tentative reduire velocite rotation et inertie pour eviter drifting boid
-                rb.angularVelocity = Vector3.zero;
-                rb.velocity = Vector3.zero;
-                rb.inertiaTensor = Vector3.zero;
-                rb.inertiaTensorRotation = Quaternion.identity;
-                rb.AddForce(transform.forward * speed * Time.deltaTime, ForceMode.Force);
-
-            }
-            if (withDEBUG)
-            {
-                //Debug.Log("VELOCITY IS " + rb.velocity);
-                Debug.Log("//////////////////////////////////////////////////////////////////////////////////");
-            }
-
+            HandleBoidsBehaviours();
         }
     }
 
     private void LateUpdate()
     {
-        // check si en contact avec le sol
+        // Check if boid is on the ground
         IsGrounded();
 
+    }
+
+    private void HandleBoidsBehaviours()
+    {
+        String modeUsed = "";
+        if (withDEBUG) { Debug.Log("//////////////////////////////////////////////////////////////////////////////////"); }
+
+        float rotation = 0.0f;
+        float oldrotate;
+        /*
+        Go through each behaviour in the following order :
+        Attraction Behaviour --> Cohesion Behaviour --> Avoid Boids Behaviour --> Avoid wall Behaviour
+        */
+        if ((withGoto))
+        {
+            rotation = GoToBoidRcastv3(rotation, cohesionRay, attractionRay);
+            if ((rotation != 0.0f))
+            {
+                if (withDEBUG) 
+                {
+                    modeUsed = "GoTo Green Line";
+                    Debug.Log("ATTRACTION ACTIVATED : " + rotation); 
+                }
+            }
+        }
+        if ((withCohesion))
+        {
+            oldrotate = rotation;
+            rotation = CohesionBoidRcast(rotation, avoidRay, cohesionRay);
+            //Check if old value need to be overwritten 
+            if ((rotation != oldrotate))
+            {
+                if (withDEBUG) 
+                { 
+                    modeUsed = "Cohesion blue and pink line";
+                    Debug.Log("COHESION ACTIVATED : " + rotation); 
+                }
+            }
+        }
+        if ((withAvoid))
+        {
+            oldrotate = rotation;
+            rotation = AvoidBoidRcastv3(rotation, avoidRay);
+            //Check if old value need to be overwritten 
+            if ((rotation != oldrotate))
+            {
+                if (withDEBUG) 
+                {
+                    modeUsed = "Avoid yellow line";
+                    Debug.Log("AVOIDANCE ACTIVATED : " + rotation); 
+                }
+            }
+        }
+        //Highest Priority
+        oldrotate = rotation;
+        rotation = AvoidWallRcastv4(rotation, wallRay);
+
+        if ((rotation != oldrotate))
+        {
+            modeUsed = "Wall red";
+            //if ((withDEBUG)){ Debug.Log("WALL AVOID ACTIVATED : " + rotation); }
+        }
+        if ((withDEBUG)) { Debug.Log("FINAL ROTATION : " + rotation + " " + modeUsed); }
+        // APPLY ROTATION
+        if (rotation == 0.0)
+        {
+
+            //tentative reduire velocite rotation et inertie pour eviter drifting boid
+            rb.angularVelocity = Vector3.zero;
+            rb.velocity = Vector3.zero;
+            rb.inertiaTensor = Vector3.zero;
+            rb.inertiaTensorRotation = Quaternion.identity;
+            rb.AddForce(transform.forward * speed * Time.deltaTime, ForceMode.Force);
+        }
+        else
+        {
+            //multiplication par Time.deltaTime pour fluidifier la rotation
+            // valeur obtenue tres faible
+            float angle = rotation * Time.deltaTime;
+            if (withDEBUG)
+            {
+                Debug.Log(" FINAL VALUE OF ANGLE AFTER TIME " + angle);
+            }
+            if (angle > filter) { angle = filter; }
+            if (angle < -filter) { angle = -filter; }
+            if (withDEBUG)
+            {
+                Debug.Log(" FINAL VALUE OF rotation after filter " + angle);
+            }
+            _myTransform.Rotate(Vector3.up, angle);
+            //tentative reduire velocite rotation et inertie pour eviter drifting boid
+            rb.angularVelocity = Vector3.zero;
+            rb.velocity = Vector3.zero;
+            rb.inertiaTensor = Vector3.zero;
+            rb.inertiaTensorRotation = Quaternion.identity;
+            rb.AddForce(transform.forward * speed * Time.deltaTime, ForceMode.Force);
+
+        }
+        if (withDEBUG)
+        {
+            //Debug.Log("VELOCITY IS " + rb.velocity);
+            Debug.Log("//////////////////////////////////////////////////////////////////////////////////");
+        }
     }
 
     // AVOID WALL BEHAVIOUR
