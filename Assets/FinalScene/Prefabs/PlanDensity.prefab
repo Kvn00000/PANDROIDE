@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 4079779540980962895}
   - component: {fileID: 649988415438099945}
   - component: {fileID: 7553953886568336306}
-  - component: {fileID: 8219383295528344371}
   - component: {fileID: 4766139226166650936}
   m_Layer: 0
   m_Name: PlanDensity
@@ -135,21 +134,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &8219383295528344371
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4177343721706579009}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a8ca1650c68711b46b1d4cdfec3df0a1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _fadeOutModeChange: {fileID: 2122114545978731036, guid: c348712bda248c246b8c49b3db54643f,
-    type: 3}
-  withDEBUG: 0
 --- !u!65 &4766139226166650936
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -167,7 +151,7 @@ BoxCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 1
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Size: {x: 1.01, y: 1.01, z: 1.01}
   m_Center: {x: 0, y: 0, z: 0}

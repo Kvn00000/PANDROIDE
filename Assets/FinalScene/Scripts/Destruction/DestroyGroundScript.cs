@@ -16,37 +16,33 @@ public class DestroyGroundScript : MonoBehaviour
     private int _wallLayer;
     private int _boidLayer;
     private int _groundArenaLayer;
-    [SerializeField]
-    private InputActionReference _fadeOutModeChange;
+
+    public bool withDEBUG = false;
 
     void Start()
     {
         _wallLayer = LayerMask.NameToLayer("MUR");
         _boidLayer = LayerMask.NameToLayer("BOID");
         _groundArenaLayer = LayerMask.NameToLayer("SOL");
-        if (PlayerPrefs.HasKey("FadeOutMod"))
-        {
-            _FadeOut = PlayerPrefs.GetInt("FadeOutMod");
-        }
-        // Debug.Log("Destroyer Initialized");
+    
+        Debug.Log("Destroyer Initialized");
 
         //Subscribing to change mod event
-        _fadeOutModeChange.action.performed += changeFadeOutMod;
 
 
     }
 
 
-    public bool withDEBUG = false;
 
     
-    private void OntriggerEnter (Collider other)
+    private void OnTriggerEnter (Collider other)
     {
 
         if (withDEBUG)
         {
             Debug.Log("#######################################");
-            Debug.Log("Saw Something");
+            Debug.Log("Saw Something "+ _FadeOut);
+
         }
         //Debug.Log(" TAG " + other.gameObject.tag);
         //Check if collided is not a Plane and is on a good layer
@@ -80,6 +76,7 @@ public class DestroyGroundScript : MonoBehaviour
         if (withDEBUG){ Debug.Log("#######################################"); }
     }
 
+   
     private bool isToDestroy(Collider collide)
     {
         int collidedLayer = collide.gameObject.layer;
@@ -96,42 +93,10 @@ public class DestroyGroundScript : MonoBehaviour
         return (isWall || isBoid || isGround);
     }
 
-    private void changeFadeOutMod(InputAction.CallbackContext obj)
+    public void setMod(int value)
     {
-        
-        if (_FadeOut == 0)
-        {
-            Debug.Log("Fade Out Mode : ON");
-            _FadeOut = 1;
-        }
-        else
-        {
-            Debug.Log("Fade Out Mode : OFF");
-            _FadeOut = 0;
-        }
-    }
-    private void OnApplicationFocus(bool focus)
-    {
-        if (!focus)
-        {
-            PlayerPrefs.SetInt("FadeOutMod", _FadeOut);
-        }
-    }
-    private void OnApplicationPause(bool pause)
-    {
-        if (pause)
-        {
-            PlayerPrefs.SetInt("FadeOutMod", _FadeOut);
-        }
-    }
-    private void OnApplicationQuit()
-    {
-        PlayerPrefs.SetInt("FadeOutMod", _FadeOut);
+        this._FadeOut = value;
     }
 
-    private void OnDestroy()
-    {
-        _fadeOutModeChange.action.performed -= changeFadeOutMod;
-    }
 }
 

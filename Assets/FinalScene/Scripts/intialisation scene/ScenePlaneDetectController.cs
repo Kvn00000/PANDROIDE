@@ -11,6 +11,9 @@ public class ScenePlaneDetectController : MonoBehaviour
     [SerializeField]
     private InputActionReference togglePlanesDetectedAction;
     [SerializeField]
+    private InputActionReference _fadeOutModeChange;
+
+    [SerializeField]
     private GameObject toSpawn;
     [SerializeField]
     private GameObject planDense;
@@ -29,7 +32,10 @@ public class ScenePlaneDetectController : MonoBehaviour
     private Vector3 _arenaScale;
     // Mode : 0 --> Automatique ; 1 --> Manuel 
     private int _mode = 0;
+    private int _FadeOut=0;
+    List<ARPlane> destroList;
     //
+  
     
     void Start()
     {
@@ -70,13 +76,21 @@ public class ScenePlaneDetectController : MonoBehaviour
             float scZ= PlayerPrefs.GetFloat("ArenaScaleZ");
             _arenaScale = new Vector3(scX, scY,scZ);
         }
+        if (PlayerPrefs.HasKey("FadeOut"))
+        {
+            _FadeOut = PlayerPrefs.GetInt("FadeOut");
+        }
         foreach (var plane in _planeManager.trackables)
         {
             SetPlaneAlpha(plane, 0.0f, 0.0f);
         }
+        destroList = new List<ARPlane>();
+        
         // On s'abonne aux evenements --> Ne pas oublier de se desabonner dans onDestroy()
         togglePlanesDetectedAction.action.performed += OnTogglePlanesAction;
         _planeManager.planesChanged += OnPlanesChanged;
+        _fadeOutModeChange.action.performed += changeFadeOutMod;
+
 
     }
 
@@ -172,7 +186,6 @@ public class ScenePlaneDetectController : MonoBehaviour
                         Vector3 underplane = new Vector3(plane.transform.position.x, plane.transform.position.y-0.25f, plane.transform.position.z);
                         GameObject dense=Instantiate(planDense, underplane, plane.transform.rotation);
                         dense.transform.localScale = new Vector3(plane.size.x, dense.transform.localScale.y*0.40f, plane.size.y);
-                        dense.GetComponent<DestroyGroundScript>().enabled = false;
                         // Instanciation scene
                         GameObject scene=Instantiate(toSpawn, spawnPosition, Quaternion.identity);
                         // Récup infos pour l'arene
@@ -220,30 +233,27 @@ public class ScenePlaneDetectController : MonoBehaviour
                     //Ajout sous plan
                     if (plane.classification == UnityEngine.XR.ARSubsystems.PlaneClassification.Floor)
                     {
-                        Vector3 underplane = new Vector3(plane.transform.position.x, plane.transform.position.y, plane.transform.position.z);
+                        Vector3 underplane = new Vector3(plane.transform.position.x, plane.transform.position.y-0.5f, plane.transform.position.z);
                         GameObject dense = Instantiate(planDense, underplane, plane.transform.rotation);
                         dense.transform.localScale = new Vector3(plane.size.x, dense.transform.localScale.y * 0.40f, plane.size.y);
-                    }
-                    else
-                    {
-                        Vector3 underplane = new Vector3(plane.transform.position.x, plane.transform.position.y, plane.transform.position.z);
-                        GameObject dense = Instantiate(planDense, underplane, plane.transform.rotation);
-                        dense.transform.localScale = new Vector3(plane.size.x, dense.transform.localScale.y, plane.size.y);
+                        dense.GetComponent<MeshRenderer>().enabled = false;
                     }
                     //Ajout Destructeur
-                    //BoxCollider boxCollider = plane.GetComponent<BoxCollider>();
-                    //boxCollider.size = plane.gameObject.transform.localScale;
-                    //boxCollider.center = plane.center;
-                    //boxCollider.isTrigger = true;
+                    BoxCollider boxCollider = plane.GetComponent<BoxCollider>();
+                    boxCollider.size = plane.gameObject.transform.localScale;
+                    boxCollider.center = plane.center;
+                    boxCollider.isTrigger = true;
                     
-                    //plane.gameObject.AddComponent<DestroyGroundScript>();
-                    
-                    //Debug.Log("Destroyer Added");
+                    plane.gameObject.AddComponent<DestroyGroundScript>();
+                    destroList.Add(plane);
+
+                    Debug.Log("Destroyer Added");
+
                 }
             }
             //Debug.Log("Number of Planes " + _planeManager.trackables.count);
             //Debug.Log("Number of planes found " + numberOfAddedPlane);
-
+            propagateFadeOut();
         }
     }
 
@@ -281,7 +291,6 @@ public class ScenePlaneDetectController : MonoBehaviour
                     }
 
                     spawnPosition.y += 0.01f;
-
                     // Setting layer
                     plane.gameObject.layer = LayerMask.NameToLayer("SOL");
                     plane.gameObject.AddComponent<ARAnchor>();
@@ -290,7 +299,6 @@ public class ScenePlaneDetectController : MonoBehaviour
                     Vector3 underplane = new Vector3(plane.transform.position.x, plane.transform.position.y - 0.25f, plane.transform.position.z);
                     GameObject dense = Instantiate(planDense, underplane, plane.transform.rotation);
                     dense.transform.localScale = new Vector3(plane.size.x, dense.transform.localScale.y * 0.40f, plane.size.y);
-                    dense.GetComponent<DestroyGroundScript>().enabled = false;
                     // Instanciation scene
                     GameObject scene = Instantiate(toSpawn, spawnPosition, Quaternion.identity);
                     // Récup infos pour l'arene
@@ -311,7 +319,7 @@ public class ScenePlaneDetectController : MonoBehaviour
                     _planeSize = sizeTable2;
                     _arenaSpawnPos = spawnPosition;
                     _arenaSpawnRotation = spawnRotation;
-                    scene.GetComponent<InitSceneScript>().Init(_arenaSpawnPos, _arenaSize * 0.95f, _arenaSpawnRotation,false, damier);
+                    scene.GetComponent<InitSceneScript>().Init(_arenaSpawnPos, _arenaSize * 0.95f, _arenaSpawnRotation);
 
                     // Si manuel appliquer la valeur d'echelle precedemment enregistre
                     if (_mode == 1)
@@ -338,15 +346,9 @@ public class ScenePlaneDetectController : MonoBehaviour
                 //Ajout sous plan
                 if (plane.classification == UnityEngine.XR.ARSubsystems.PlaneClassification.Floor)
                 {
-                    Vector3 underplane = new Vector3(plane.transform.position.x, plane.transform.position.y, plane.transform.position.z);
+                    Vector3 underplane = new Vector3(plane.transform.position.x, plane.transform.position.y - 0.5f, plane.transform.position.z);
                     GameObject dense = Instantiate(planDense, underplane, plane.transform.rotation);
                     dense.transform.localScale = new Vector3(plane.size.x, dense.transform.localScale.y * 0.40f, plane.size.y);
-                }
-                else
-                {
-                    Vector3 underplane = new Vector3(plane.transform.position.x, plane.transform.position.y, plane.transform.position.z);
-                    GameObject dense = Instantiate(planDense, underplane, plane.transform.rotation);
-                    dense.transform.localScale = new Vector3(plane.size.x, dense.transform.localScale.y, plane.size.y);
                 }
                 //Ajout Destructeur
                 BoxCollider boxCollider = plane.GetComponent<BoxCollider>();
@@ -355,12 +357,15 @@ public class ScenePlaneDetectController : MonoBehaviour
                 boxCollider.isTrigger = true;
 
                 plane.gameObject.AddComponent<DestroyGroundScript>();
+                destroList.Add(plane);
 
                 //Debug.Log("Destroyer Added");
+
             }
         }
         //Debug.Log("Number of Planes " + _planeManager.trackables.count);
         //Debug.Log("Number of planes found " + numberOfAddedPlane);
+        propagateFadeOut();
     }
     private void PrintPanelLabel(ARPlane plane)
     {
@@ -376,15 +381,18 @@ public class ScenePlaneDetectController : MonoBehaviour
         //Debug.Log("Calling Destructor for ScenePlaneDetectController");
         togglePlanesDetectedAction.action.performed -= OnTogglePlanesAction;
         _planeManager.planesChanged -= OnPlanesChanged;
+        _fadeOutModeChange.action.performed -= changeFadeOutMod;
     }
     // Update is called once per frame
-    void Update()
-    {  }
+
     public void ArenaChanges(float newSize)
     {
         //Debug.Log("ENTERING ARENA CHANGES");
+
+        destroList.Clear();
+        destroList = new List<ARPlane>();
         GameObject oldArena = _arena;
-        if(_arena== null)
+        if (_arena== null)
         {
             Debug.Log("                  IS NULL 1");
         }
@@ -411,6 +419,7 @@ public class ScenePlaneDetectController : MonoBehaviour
             _arenaScale= _arena.GetComponent<InitSceneScript>().GetParentArena().transform.localScale;
             PlayerPrefs.SetFloat("ArenaSize", _arenaSize);
             PlayerPrefs.SetInt("ModeArene", _mode);
+            PlayerPrefs.SetInt("FadeOut", _FadeOut);
             PlayerPrefs.SetFloat("ArenaSpawnRotationX", _arenaSpawnRotation.x);
             PlayerPrefs.SetFloat("ArenaSpawnRotationY", _arenaSpawnRotation.y);
             PlayerPrefs.SetFloat("ArenaSpawnRotationZ", _arenaSpawnRotation.z);
@@ -418,6 +427,7 @@ public class ScenePlaneDetectController : MonoBehaviour
             PlayerPrefs.SetFloat("ArenaScaleX",_arenaScale.x);
             PlayerPrefs.SetFloat("ArenaScaleY", _arenaScale.y);
             PlayerPrefs.SetFloat("ArenaScaleZ", _arenaScale.z);
+           
         }
         else
         {
@@ -433,6 +443,7 @@ public class ScenePlaneDetectController : MonoBehaviour
             Debug.Log("On Pause : saving parameters ... ");
             PlayerPrefs.SetFloat("ArenaSize", _arenaSize);
             PlayerPrefs.SetInt("ModeArene", _mode);
+            PlayerPrefs.SetInt("FadeOut", _FadeOut);
             PlayerPrefs.SetFloat("ArenaSpawnRotationX", _arenaSpawnRotation.x);
             PlayerPrefs.SetFloat("ArenaSpawnRotationY", _arenaSpawnRotation.y);
             PlayerPrefs.SetFloat("ArenaSpawnRotationZ", _arenaSpawnRotation.z);
@@ -454,6 +465,7 @@ public class ScenePlaneDetectController : MonoBehaviour
         Debug.Log("On Quit : saving parameters ... ");
         PlayerPrefs.SetFloat("ArenaSize", _arenaSize);
         PlayerPrefs.SetInt("ModeArene", _mode);
+        PlayerPrefs.SetInt("FadeOut", _FadeOut);
         PlayerPrefs.SetFloat("ArenaSpawnRotationX", _arenaSpawnRotation.x);
         PlayerPrefs.SetFloat("ArenaSpawnRotationY", _arenaSpawnRotation.y);
         PlayerPrefs.SetFloat("ArenaSpawnRotationZ", _arenaSpawnRotation.z);
@@ -463,6 +475,30 @@ public class ScenePlaneDetectController : MonoBehaviour
         PlayerPrefs.SetFloat("ArenaScaleZ", _arenaScale.z);
 
     }
+    private void changeFadeOutMod(InputAction.CallbackContext obj)
+    {
+        //Debug.Log("ENTERING CHANGE FADE OUT");
+        if (_FadeOut == 0)
+        {
+            Debug.Log("Fade Out Mode : ON");
+            _FadeOut = 1;
+        }
+        else
+        {
+            Debug.Log("Fade Out Mode : OFF");
+            _FadeOut = 0;
+        }
+        propagateFadeOut();
+    }
+
+    private void propagateFadeOut()
+    {
+        foreach (ARPlane d in destroList)
+        {
+            d.GetComponent<DestroyGroundScript>().setMod(_FadeOut);
+        }
+    }
+
     /**/
     public void ChangeMod()
     {

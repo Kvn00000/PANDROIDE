@@ -97,7 +97,7 @@ public class InitSceneScript : MonoBehaviour
     public void Init(Vector3 _spawnPos,float _sizeTable,Quaternion _spawnRotation,bool boidSpawn=false,bool _damier=false)
     {
         boidSpawnPos = _spawnPos;
-        Debug.Log("_SPAWN POS  ="+_spawnPos);
+        //Debug.Log("_SPAWN POS  ="+_spawnPos);
         arenaSize = _sizeTable;
         // Scaling Boids parameters
         BoidSpeed = 100;

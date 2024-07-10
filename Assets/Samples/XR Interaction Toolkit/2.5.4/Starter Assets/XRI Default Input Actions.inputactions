@@ -1001,7 +1001,7 @@
                 {
                     "name": "",
                     "id": "5f1167b0-9845-41a0-9b58-9e69d06303e9",
-                    "path": "<OculusTouchController>{LeftHand}/thumbrestTouched",
+                    "path": "<OculusTouchController>{LeftHand}/secondaryButton",
                     "interactions": "",
                     "processors": "",
                     "groups": "Generic XR Controller",
