@@ -77,6 +77,9 @@ public class InitSceneScript : MonoBehaviour
     private float y_ref;
     private float z_ref;
 
+
+    private List<GameObject> boidList = new List<GameObject>();
+    private Vector3 boidSpawnPos = Vector3.zero;
     
     void Awake()
     {
@@ -103,8 +106,8 @@ public class InitSceneScript : MonoBehaviour
         tomodif.cohesionRay = cohesionRay;
         tomodif.attractionRay = attractionRay;
         tomodif.filter = filter;
-        tomodif.setBoidNumber(BoidNumber);
-        tomodif.setSpawnPos(_spawnPos);
+        boidSpawnPos = _spawnPos;
+
         //
         
         //Debug.Log("ARENA SIZE "+arenaSize);
@@ -149,7 +152,7 @@ public class InitSceneScript : MonoBehaviour
         // Spawn des boids
         if (boidSpawn)
         {
-            tomodif.spawnBoidsInit();
+            spawnBoidsInit();
         }
     }
     /*
@@ -371,4 +374,64 @@ public class InitSceneScript : MonoBehaviour
         //}
         //boidsList.Clear(); 
     }
+
+
+
+// For Reset Button
+
+
+    public void spawnBoidsInit()
+    {
+        for (int i = 0; i < BoidNumber; i++)
+        {
+            //Angle al�atoire
+            float randomAngleY = Random.Range(0f, 360f);
+            Quaternion spawnRotation = Quaternion.Euler(0f, randomAngleY, 0f);
+            Vector3 otherSpawn = new Vector3(boidSpawnPos.x, boidSpawnPos.y + 1, boidSpawnPos.z);
+            GameObject obj = Instantiate(boid, otherSpawn, spawnRotation);
+            boidTuning tmp = obj.GetComponent<boidTuning>();
+            tmp.Init(BoidSpeed, wallRay, avoidRay, cohesionRay, attractionRay, filter);
+            tmp.withDEBUG = false;
+            boidList.Add(obj);
+        }
+    }
+
+    public void Thanos()
+    {
+        CleanUpDestroyedObjects();
+
+        for (int i = boidList.Count - 1; i >= 0; i--)
+        {
+            GameObject boid = boidList[i];
+            boidList.RemoveAt(i);
+            Destroy(boid);
+        }
+
+        spawnBoidsInit();
+    }
+
+
+    public void DestroyAndRemove(GameObject obj)
+    {
+        if (boidList.Contains(obj))
+        {
+            boidList.Remove(obj);
+            Destroy(obj);
+        }
+    }
+
+    private void CleanUpDestroyedObjects()
+    {
+        boidList.RemoveAll(item => item == null);
+    }
+
+    public void addBoidList(GameObject boid){
+        boidList.Add(boid);
+    }
+
+    public int getBoidListCount(){
+        return boidList.Count;
+    }
+
+
 }

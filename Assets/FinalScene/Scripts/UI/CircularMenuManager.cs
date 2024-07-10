@@ -5,8 +5,7 @@ using UnityEngine.UI;
 
 public class CircularMenuManager : MonoBehaviour{
     //Spawner Left and Right
-    private SpawnBoidScript SpawnerRight;
-    private SpawnBoidScript SpawnerLeft;
+    private SpawnBoidScript Spawner;
 
 
     //ObjectColor
@@ -14,8 +13,10 @@ public class CircularMenuManager : MonoBehaviour{
     private string cubeColorHex = "#029e73";
     private string NothingColorHex = "#FFFFFF";
 
-
+    public GameObject boidDestructor;
     public GameObject initScene;
+    public InitSceneScript initScript;
+
     //RightPoke on the left hand and LeftPoke on the Right hand
     public GameObject pokeInteractor;
 
@@ -35,9 +36,8 @@ public class CircularMenuManager : MonoBehaviour{
     public GameObject SprayBottle;
 
 
-    [Header("Controllers")]
-    public GameObject LeftController;
-    public GameObject RightController;
+    [Header("Controller")] // Left Menu has Right controller -- Right Menu has Left controller 
+    public GameObject Controller;
 
 
     [Header("Left Right Menus")]
@@ -48,7 +48,6 @@ public class CircularMenuManager : MonoBehaviour{
     [Header("Menus Page")]
     public GameObject MainMenu;
     public GameObject SettingsMenu;
-    public GameObject WallMenu;
 
     
     [Header("Main Menu Button")]
@@ -61,14 +60,8 @@ public class CircularMenuManager : MonoBehaviour{
     [Header("Settings Button")]
     public Button LeftRightButton;
     public Button BackSettingsButton;
-    public Button WallButton;
+    public Button ResetButton;
     public Button DebugButton;
-
-
-
-
-
-
 
 
     void Start(){
@@ -76,9 +69,9 @@ public class CircularMenuManager : MonoBehaviour{
         InitMainMenu();
         InitSettingsMenu();
 
-        SpawnerRight = RightController.GetComponent<SpawnBoidScript>();
-        SpawnerLeft = LeftController.GetComponent<SpawnBoidScript>();
-        
+        Spawner = Controller.GetComponent<SpawnBoidScript>();        
+        initScript = initScene.GetComponent<InitSceneScript>();
+
     }
 
 
@@ -89,10 +82,9 @@ public class CircularMenuManager : MonoBehaviour{
         if(BackSettingsButton){
             BackSettingsButton.onClick.AddListener(OnBackSettingsButtonClick);
         }
-        if(WallButton){
-            WallButton.onClick.AddListener(OnWallButtonClick);
+        if(ResetButton){
+            ResetButton.onClick.AddListener(OnResetButtonClick);
         }
-
     }
 
     void OnDisable(){
@@ -102,8 +94,8 @@ public class CircularMenuManager : MonoBehaviour{
         if(BackSettingsButton){
             BackSettingsButton.onClick.RemoveListener(OnBackSettingsButtonClick);
         }
-        if(WallButton){
-            WallButton.onClick.RemoveListener(OnWallButtonClick);
+        if(ResetButton){
+            ResetButton.onClick.RemoveListener(OnResetButtonClick);
         }
         if(DebugButton){
             DebugButton.onClick.RemoveListener(OnDebugButtonClick);
@@ -136,7 +128,7 @@ public class CircularMenuManager : MonoBehaviour{
     private void InitSettingsMenu(){
         LeftRightButton.GetComponent<Image>().alphaHitTestMinimumThreshold = 0.1f;
         BackSettingsButton.GetComponent<Image>().alphaHitTestMinimumThreshold = 0.1f;
-        WallButton.GetComponent<Image>().alphaHitTestMinimumThreshold = 0.1f;
+        ResetButton.GetComponent<Image>().alphaHitTestMinimumThreshold = 0.1f;
         DebugButton.GetComponent<Image>().alphaHitTestMinimumThreshold = 0.1f;
     }
 
@@ -159,8 +151,8 @@ public class CircularMenuManager : MonoBehaviour{
             if(BackSettingsButton){
                 BackSettingsButton.onClick.AddListener(OnBackSettingsButtonClick);
             }
-            if(WallButton){
-                WallButton.onClick.AddListener(OnWallButtonClick);
+            if(ResetButton){
+                ResetButton.onClick.AddListener(OnResetButtonClick);
             }
             if(DebugButton){
                 DebugButton.onClick.AddListener(OnDebugButtonClick);
@@ -193,8 +185,7 @@ public class CircularMenuManager : MonoBehaviour{
         }
 
         //Les spray ne spawn rien + Couleur du spray = blanc
-        SpawnerRight.toInstantiate = 0;
-        SpawnerLeft.toInstantiate = 0;
+        Spawner.toInstantiate = 0;
         Color color;
         ColorUtility.TryParseHtmlString(NothingColorHex, out color);
         sprayMaterial.SetColor("_BaseColor", color);
@@ -211,8 +202,7 @@ public class CircularMenuManager : MonoBehaviour{
             pokeInteractor.SetActive(false);
         }
         // Le spray fait spawn des boids + changement de couleur du spray
-        SpawnerRight.toInstantiate = 1;
-        SpawnerLeft.toInstantiate = 1;
+        Spawner.toInstantiate = 1;
         Color color;
         ColorUtility.TryParseHtmlString(boidColorHex, out color);
         sprayMaterial.SetColor("_BaseColor", color);
@@ -228,8 +218,7 @@ public class CircularMenuManager : MonoBehaviour{
         }
 
         //Le spray fait spawn des Cube + changemenr de couleur du spray
-        SpawnerRight.toInstantiate = 2;
-        SpawnerLeft.toInstantiate = 2;
+        Spawner.toInstantiate = 2;
         Color color;
         ColorUtility.TryParseHtmlString(cubeColorHex, out color);
         sprayMaterial.SetColor("_BaseColor", color);
@@ -243,8 +232,7 @@ public class CircularMenuManager : MonoBehaviour{
         if(pokeInteractor.activeSelf == false){
             pokeInteractor.SetActive(true);
         }
-        SpawnerRight.toInstantiate = 0;
-        SpawnerLeft.toInstantiate = 0;
+        Spawner.toInstantiate = 0;
         Color color;
         ColorUtility.TryParseHtmlString(NothingColorHex, out color);
         sprayMaterial.SetColor("_BaseColor", color);
@@ -294,15 +282,15 @@ public class CircularMenuManager : MonoBehaviour{
         if(BackSettingsButton){
             BackSettingsButton.onClick.RemoveListener(OnBackSettingsButtonClick);
         }
-        if(WallButton){
-            WallButton.onClick.RemoveListener(OnWallButtonClick);
+        if(ResetButton){
+            ResetButton.onClick.RemoveListener(OnResetButtonClick);
         }
         if(DebugButton){
             DebugButton.onClick.RemoveListener(OnDebugButtonClick);
         }
-
     }
 
-    public void OnWallButtonClick(){
-        }
+    public void OnResetButtonClick(){
+        initScript.Thanos();
+    }
 }

@@ -21,10 +21,15 @@ public class FadeOut : MonoBehaviour
     private float initialAlpha = 1f;
     private float fadeDuration = 5f; // 5 secondes pour fade out
 
+    public GameObject initScene;
+    public InitSceneScript initScript;
+
     void Awake(){
         grabInteractable = GetComponent<XRGrabInteractable>();
         meshR = GetComponent<MeshRenderer>();
         renderer = gameObject.GetComponent<Renderer>();
+        initScript = initScene.GetComponent<InitSceneScript>();
+
     }
 
     void Update(){
@@ -42,7 +47,7 @@ public class FadeOut : MonoBehaviour
                 isFadingOut = false;
                 elapsedTime = 0f;
                 this.transform.position = new Vector3(0,200,0);
-                Destroy(gameObject);
+                initScript.DestroyAndRemove(this.gameObject);
             }
         }
     }
