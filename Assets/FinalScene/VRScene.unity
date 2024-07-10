@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.17338693, g: 0.21673886, b: 0.29880807, a: 1}
+  m_IndirectSpecularColor: {r: 0.17338715, g: 0.21673912, b: 0.2988084, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -194,11 +194,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 109434732395284509, guid: 65847589f926b734d9eaed6e25f0046b,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 143111146}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 65847589f926b734d9eaed6e25f0046b, type: 3}
 --- !u!4 &143111143 stripped
 Transform:
@@ -206,24 +202,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 143111142}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &143111144 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 109434732395284509, guid: 65847589f926b734d9eaed6e25f0046b,
-    type: 3}
-  m_PrefabInstance: {fileID: 143111142}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &143111146
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 143111144}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f52500813dac9804d99b14557f3116f8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &267935238
 GameObject:
   m_ObjectHideFlags: 0
@@ -405,13 +383,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 603a750dfb04fcb498db41f0be9a95b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  boid: {fileID: 1803818647}
+  controllerSpawnerR: {fileID: 0}
+  controllerSpawnerL: {fileID: 0}
+  MenuR: {fileID: 0}
+  MenuL: {fileID: 0}
+  side: 50
   init_transform: {fileID: 329529617}
   box: {fileID: 1218913827498164039, guid: 9090f37e875a75c40a5986154366407f, type: 3}
   plane: {fileID: 7135396484593494977, guid: 29ee8fd483ea7514eae29202a3aca730, type: 3}
   wall: {fileID: 6565700377588836216, guid: ac7c61791594e7d4398f7545deeae05e, type: 3}
-  boid: {fileID: 1803818647}
-  controllerSpawner: {fileID: 0}
-  side: 50
   arenaSize: 6
   damier: 0
   BoidNumber: 30
@@ -1361,11 +1342,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 5686134208185362930, guid: 1fd3a7c43c8190f4d8c167ebde694364,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1697834498}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1fd3a7c43c8190f4d8c167ebde694364, type: 3}
 --- !u!4 &1697834495 stripped
 Transform:
@@ -1373,24 +1350,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1697834494}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1697834496 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5686134208185362930, guid: 1fd3a7c43c8190f4d8c167ebde694364,
-    type: 3}
-  m_PrefabInstance: {fileID: 1697834494}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1697834498
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1697834496}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f52500813dac9804d99b14557f3116f8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1723767806
 GameObject:
   m_ObjectHideFlags: 0

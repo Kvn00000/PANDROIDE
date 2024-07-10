@@ -176,7 +176,7 @@ public class InitSceneScript : MonoBehaviour
         tomodif.setScene(this);
     }
 
-    /*
+ /*   
 private void Start()
 {
    float _sizeTable=2f;

@@ -79,6 +79,7 @@ public class ScenePlaneDetectController : MonoBehaviour
         if (PlayerPrefs.HasKey("FadeOut"))
         {
             _FadeOut = PlayerPrefs.GetInt("FadeOut");
+            Debug.Log("Started with Fade Out mode " + _FadeOut);
         }
         foreach (var plane in _planeManager.trackables)
         {
