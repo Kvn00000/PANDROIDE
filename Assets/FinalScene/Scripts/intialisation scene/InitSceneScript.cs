@@ -95,6 +95,7 @@ public class InitSceneScript : MonoBehaviour
         cohesionRay=arenaSize*0.5f;
         attractionRay=arenaSize*0.6f;
         filter=3;
+        // Init boid spawn parameters
         SpawnBoidScript tomodif = controllerSpawner.GetComponent<SpawnBoidScript>();
         tomodif.speed =BoidSpeed;
         tomodif.wallRay = wallRay;
@@ -102,8 +103,12 @@ public class InitSceneScript : MonoBehaviour
         tomodif.cohesionRay = cohesionRay;
         tomodif.attractionRay = attractionRay;
         tomodif.filter = filter;
-        Debug.Log("ARENA SIZE "+arenaSize);
-    //Coords d'une case
+        tomodif.setBoidNumber(BoidNumber);
+        tomodif.setSpawnPos(_spawnPos);
+        //
+        
+        //Debug.Log("ARENA SIZE "+arenaSize);
+        //Coords d'une case
         x_ref = -arenaSize * 0.5F;
         y_ref = 0;
         z_ref = -arenaSize * 0.5F;
@@ -144,22 +149,7 @@ public class InitSceneScript : MonoBehaviour
         // Spawn des boids
         if (boidSpawn)
         {
-            for (int i = 0; i < BoidNumber; i++){
-            //Coordonnées aléatoire
-            Vector3 spawnPosition = new Vector3(
-                Random.Range(-arenaSize/4f, arenaSize/ 4f),
-                0.5F,
-                Random.Range(-arenaSize /4f,arenaSize/4f)
-            );
-            //Angle aléatoire
-            float randomAngleY = Random.Range(0f, 360f);
-            Quaternion spawnRotation = Quaternion.Euler(0f, randomAngleY, 0f);
-            Vector3 otherSpawn = new Vector3(_spawnPos.x, _spawnPos.y+1,_spawnPos.z) ;
-            boidTuning obj=Instantiate(boid, otherSpawn,spawnRotation).GetComponent<boidTuning>();
-            obj.Init(BoidSpeed, wallRay, avoidRay, cohesionRay, attractionRay, filter);
-            obj.withDEBUG = false;
-          
-            }
+            tomodif.spawnBoidsInit();
         }
     }
     /*

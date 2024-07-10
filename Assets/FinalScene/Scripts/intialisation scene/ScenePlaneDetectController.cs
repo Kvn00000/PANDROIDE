@@ -98,9 +98,9 @@ public class ScenePlaneDetectController : MonoBehaviour
             alphaValueLine = 0.0f;
         }
        foreach(var plane in _planeManager.trackables)
-        {
+       {
             SetPlaneAlpha(plane, alphaValueFill, alphaValueLine);
-        }
+       }
 
     }
 
