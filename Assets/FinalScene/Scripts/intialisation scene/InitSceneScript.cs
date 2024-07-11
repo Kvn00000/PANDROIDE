@@ -455,6 +455,7 @@ private void Start()
             Destroy(obj);
 
             Debug.Log("J'ai fini de nettoyer");
+                
         }
     }
    
