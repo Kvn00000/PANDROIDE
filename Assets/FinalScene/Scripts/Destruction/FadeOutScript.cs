@@ -22,11 +22,14 @@ public class FadeOut : MonoBehaviour
 
     private InitSceneScript initScript;
 
+    private boidTuning isBoid;
+
     void Awake(){
         grabInteractable = GetComponent<XRGrabInteractable>();
         meshR = GetComponent<MeshRenderer>();
         renderer = gameObject.GetComponent<Renderer>();
-
+        //Si isBoid == null alors c'est un cube
+        isBoid = GetComponent<boidTuning>();
     }
 
     void Update(){
@@ -44,7 +47,11 @@ public class FadeOut : MonoBehaviour
                 isFadingOut = false;
                 elapsedTime = 0f;
                 this.transform.position = new Vector3(0,200,0);
-                initScript.DestroyAndRemove(this.gameObject);
+                if( isBoid == null ){
+                    Destroy(this.gameObject)
+                }else{
+                    initScript.DestroyAndRemove(this.gameObject);
+                }
             }
         }
     }
