@@ -28,6 +28,10 @@ public class FadeOut : MonoBehaviour
         grabInteractable = GetComponent<XRGrabInteractable>();
         meshR = GetComponent<MeshRenderer>();
         renderer = gameObject.GetComponent<Renderer>();
+        Debug.Log("le mesh renderer : " + meshR);
+        Debug.Log("le renderer : "+ renderer);
+
+
         //Si isBoid == null alors c'est un cube
         isBoid = GetComponent<boidTuning>();
     }
@@ -44,6 +48,7 @@ public class FadeOut : MonoBehaviour
 
             //On detruit l'objet au bout de fadeDuration secondes
             if (elapsedTime >= fadeDuration){
+
                 isFadingOut = false;
                 elapsedTime = 0f;
                 this.transform.position = new Vector3(0,200,0);
