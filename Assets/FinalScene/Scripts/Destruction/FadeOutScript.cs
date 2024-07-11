@@ -56,7 +56,7 @@ public class FadeOut : MonoBehaviour
 
             //On detruit l'objet au bout de fadeDuration secondes
             if (elapsedTime >= fadeDuration){
-
+                Debug.Log("je suis censé tout reset");
                 isFadingOut = false;
                 elapsedTime = 0f;
                 this.transform.position = new Vector3(0,200,0);
