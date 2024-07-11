@@ -50,7 +50,10 @@ public class FadeOut : MonoBehaviour
                 if( isBoid == null ){
                     Destroy(this.gameObject);
                 }else{
+                    Debug.Log("before destroy boid");
                     initScript.DestroyAndRemove(this.gameObject);
+                    Debug.Log("after destroy boid");
+
                 }
             }
         }

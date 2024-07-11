@@ -25,4 +25,4 @@
 
 ## Prise en main du projet
 
- - Tout 
+ - Tout les fichiers et scènes utilisés sont dans le dossier Assets/FinalScene
