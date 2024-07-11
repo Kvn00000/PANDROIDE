@@ -48,7 +48,7 @@ public class FadeOut : MonoBehaviour
                 elapsedTime = 0f;
                 this.transform.position = new Vector3(0,200,0);
                 if( isBoid == null ){
-                    Destroy(this.gameObject)
+                    Destroy(this.gameObject);
                 }else{
                     initScript.DestroyAndRemove(this.gameObject);
                 }

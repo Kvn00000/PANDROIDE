@@ -34,6 +34,7 @@ public class ScenePlaneDetectController : MonoBehaviour
     private int _mode = 0;
     private int _FadeOut=0;
     List<ARPlane> destroList;
+    GameObject underP;
     //
   
     
@@ -187,6 +188,7 @@ public class ScenePlaneDetectController : MonoBehaviour
                         Vector3 underplane = new Vector3(plane.transform.position.x, plane.transform.position.y-0.25f, plane.transform.position.z);
                         GameObject dense=Instantiate(planDense, underplane, plane.transform.rotation);
                         dense.transform.localScale = new Vector3(plane.size.x, dense.transform.localScale.y*0.40f, plane.size.y);
+                        underP = dense;
                         // Instanciation scene
                         GameObject scene=Instantiate(toSpawn, spawnPosition, Quaternion.identity);
                         // Récup infos pour l'arene
@@ -300,6 +302,7 @@ public class ScenePlaneDetectController : MonoBehaviour
                     Vector3 underplane = new Vector3(plane.transform.position.x, plane.transform.position.y - 0.25f, plane.transform.position.z);
                     GameObject dense = Instantiate(planDense, underplane, plane.transform.rotation);
                     dense.transform.localScale = new Vector3(plane.size.x, dense.transform.localScale.y * 0.40f, plane.size.y);
+                    underP = dense;
                     // Instanciation scene
                     GameObject scene = Instantiate(toSpawn, spawnPosition, Quaternion.identity);
                     // Récup infos pour l'arene
@@ -320,7 +323,7 @@ public class ScenePlaneDetectController : MonoBehaviour
                     _planeSize = sizeTable2;
                     _arenaSpawnPos = spawnPosition;
                     _arenaSpawnRotation = spawnRotation;
-                    scene.GetComponent<InitSceneScript>().Init(_arenaSpawnPos, _arenaSize * 0.95f, _arenaSpawnRotation);
+                    scene.GetComponent<InitSceneScript>().Init(_arenaSpawnPos, _arenaSize * 0.95f, _arenaSpawnRotation,true);
 
                     // Si manuel appliquer la valeur d'echelle precedemment enregistre
                     if (_mode == 1)
@@ -389,10 +392,11 @@ public class ScenePlaneDetectController : MonoBehaviour
     public void ArenaChanges(float newSize)
     {
         //Debug.Log("ENTERING ARENA CHANGES");
-
+        Destroy(underP);
         destroList.Clear();
         destroList = new List<ARPlane>();
         GameObject oldArena = _arena;
+        oldArena.GetComponent<InitSceneScript>().Thanos2();
         if (_arena== null)
         {
             Debug.Log("                  IS NULL 1");
@@ -457,8 +461,8 @@ public class ScenePlaneDetectController : MonoBehaviour
         }
         else
         {
-            //_arenaSpawned = false;
-            //ArenaChanges(_arenaSize);
+            _arenaSpawned = false;
+            ArenaChanges(_arenaSize);
         }
     }
     private void OnApplicationQuit()

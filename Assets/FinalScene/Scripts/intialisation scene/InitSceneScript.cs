@@ -432,7 +432,17 @@ private void Start()
 
         spawnBoidsInit();
     }
+    public void Thanos2()
+    {
+        //CleanUpDestroyedObjects();
 
+        for (int i = boidList.Count - 1; i >= 0; i--)
+        {
+            GameObject boid = boidList[i];
+            boidList.RemoveAt(i);
+            Destroy(boid);
+        }
+    }
 
     public void DestroyAndRemove(GameObject obj)
     {
