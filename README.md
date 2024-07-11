@@ -14,7 +14,7 @@
 ## Lancement sur un casque Oculus Quest3
  1. Assurer vous avant chaque build sur le casque VR, que le XR Device Simulator est désactivé dans la scene.
  <!-- Mettre screen du device -->
- ![DeviceSimulator](/image/DeviceSimulator.png.png)
+ ![DeviceSimulator](/image/DeviceSimulator.png)
 
  2. Aller dans la scene FinalSceneMR
 
