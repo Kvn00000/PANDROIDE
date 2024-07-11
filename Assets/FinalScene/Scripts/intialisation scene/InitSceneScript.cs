@@ -446,9 +446,12 @@ private void Start()
 
     public void DestroyAndRemove(GameObject obj)
     {
+        Debug.Log("Entering destroy");
         if (boidList.Contains(obj))
         {
+
             boidList.Remove(obj);
+            Debug.Log("Removed");
             Destroy(obj);
         }
     }
