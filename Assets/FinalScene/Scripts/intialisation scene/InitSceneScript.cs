@@ -458,8 +458,7 @@ private void Start()
             Debug.Log("entre le remove et le destroy");
             Destroy(obj);
 
-            Debug.Log("J'ai fini de nettoyer");
-                
+            Debug.Log("J'ai fini de nettoyer");   
         }
     }
    
