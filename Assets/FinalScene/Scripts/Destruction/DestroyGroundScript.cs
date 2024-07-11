@@ -12,29 +12,31 @@ public class DestroyGroundScript : MonoBehaviour
     0 --> direct destruction
     1 --> Fade out destruction
     */
-    private int _FadeOut=0;
+    private int _FadeOut;
     private int _wallLayer;
     private int _boidLayer;
     private int _groundArenaLayer;
-
+    private int oldfadeout;
     public bool withDEBUG = false;
 
-    void Start()
+    private void Awake()
     {
         _wallLayer = LayerMask.NameToLayer("MUR");
         _boidLayer = LayerMask.NameToLayer("BOID");
         _groundArenaLayer = LayerMask.NameToLayer("SOL");
-    
-        Debug.Log("Destroyer Initialized");
+        //Debug.Log("Destroyer Initialized " + _FadeOut);
 
         //Subscribing to change mod event
 
-
+        if (PlayerPrefs.HasKey("FadeOut"))
+        {
+            _FadeOut = PlayerPrefs.GetInt("FadeOut");
+        }
+        oldfadeout = _FadeOut;
     }
 
 
 
-    
     private void OnTriggerEnter (Collider other)
     {
 
@@ -52,7 +54,8 @@ public class DestroyGroundScript : MonoBehaviour
                 if (_FadeOut == 1) 
                 { 
                     other.transform.parent.gameObject.GetComponent<FadeOut>().isFadingOut = true;
-                    other.transform.parent.gameObject.GetComponent<FadeOut>().elapsedTime = 0f;
+                    //other.transform.parent.gameObject.GetComponent<FadeOut>().elapsedTime = 0f;
+                    //other.GetComponent<Rigidbody>().isKinematic = true;
 
                 }
                 else
@@ -64,7 +67,8 @@ public class DestroyGroundScript : MonoBehaviour
                 if (_FadeOut == 1)
                 {
                     other.gameObject.GetComponent<FadeOut>().isFadingOut = true;
-                    other.gameObject.GetComponent<FadeOut>().elapsedTime = 0f;
+                    //other.gameObject.GetComponent<FadeOut>().elapsedTime = 0f;
+                    //other.GetComponent<Rigidbody>().isKinematic = true;
                 }
                 else 
                 {

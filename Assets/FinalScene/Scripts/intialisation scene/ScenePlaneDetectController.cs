@@ -7,14 +7,15 @@ using UnityEngine.XR.ARFoundation;
 [RequireComponent(typeof(ARPlaneManager))]
 public class ScenePlaneDetectController : MonoBehaviour
 {
-    // Le SerializeField permet de le voir dans l'�diteur de unity
+    // Le SerializeField permet de voir un object prive dans l'editeur de unity
+      // 
     [SerializeField]
     private InputActionReference togglePlanesDetectedAction;
     [SerializeField]
     private InputActionReference _fadeOutModeChange;
-
     [SerializeField]
     private GameObject toSpawn;
+
     [SerializeField]
     private GameObject planDense;
     private ARPlaneManager _planeManager;
@@ -250,7 +251,7 @@ public class ScenePlaneDetectController : MonoBehaviour
                     plane.gameObject.AddComponent<DestroyGroundScript>();
                     destroList.Add(plane);
 
-                    Debug.Log("Destroyer Added");
+                    //Debug.Log("Destroyer Added");
 
                 }
             }
@@ -361,6 +362,7 @@ public class ScenePlaneDetectController : MonoBehaviour
                 boxCollider.isTrigger = true;
 
                 plane.gameObject.AddComponent<DestroyGroundScript>();
+
                 destroList.Add(plane);
 
                 //Debug.Log("Destroyer Added");
@@ -393,6 +395,10 @@ public class ScenePlaneDetectController : MonoBehaviour
     {
         //Debug.Log("ENTERING ARENA CHANGES");
         Destroy(underP);
+        foreach(var d in destroList)
+        {
+            Destroy(d.GetComponent<DestroyGroundScript>()) ;
+        }
         destroList.Clear();
         destroList = new List<ARPlane>();
         GameObject oldArena = _arena;
@@ -409,6 +415,7 @@ public class ScenePlaneDetectController : MonoBehaviour
         Destroy(oldArena);
         Debug.Log("Old Arena Destroyed");
         rebuild();
+        propagateFadeOut();
         /*GameObject newArena = Instantiate(toSpawn, _planeArena.center, Quaternion.identity);
         newArena.GetComponent<InitSceneScript>().Init(_arenaSpawnPos, newSize, _arenaSpawnRotation, damier);
         _arena = newArena;*/
@@ -496,8 +503,9 @@ public class ScenePlaneDetectController : MonoBehaviour
         propagateFadeOut();
     }
 
-    private void propagateFadeOut()
+    public void propagateFadeOut()
     {
+        //Debug.Log("Propagating " + _FadeOut);
         foreach (ARPlane d in destroList)
         {
             d.GetComponent<DestroyGroundScript>().setMod(_FadeOut);

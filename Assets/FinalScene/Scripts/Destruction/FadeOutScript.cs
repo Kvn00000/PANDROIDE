@@ -27,7 +27,7 @@ public class FadeOut : MonoBehaviour
     void Awake(){
         //Si isBoid == null alors c'est un cube
         isBoid = GetComponent<boidTuning>();
-
+        elapsedTime = 0f;
         if(isBoid != null){
             Transform child = transform.Find("paper plane asset").Find("Mesh1_Model");
             renderer = child.gameObject.GetComponent<Renderer>();
@@ -43,10 +43,10 @@ public class FadeOut : MonoBehaviour
     }
 
     void Update(){
-        Debug.Log(isFadingOut);
+        //Debug.Log(isFadingOut);
         if(isFadingOut == true){
             //On reduit le Alpha selon le temps fadeDuration
-            Debug.Log(elapsedTime);
+            //Debug.Log(elapsedTime);
 
             meshR.material = TranparentMat;
             elapsedTime += Time.deltaTime;
@@ -56,16 +56,16 @@ public class FadeOut : MonoBehaviour
 
             //On detruit l'objet au bout de fadeDuration secondes
             if (elapsedTime >= fadeDuration){
-                Debug.Log("je suis censé tout reset");
+                //Debug.Log("je suis censé tout reset");
                 isFadingOut = false;
                 elapsedTime = 0f;
                 this.transform.position = new Vector3(0,200,0);
                 if( isBoid == null ){
                     Destroy(this.gameObject);
                 }else{
-                    Debug.Log("before destroy boid");
+                    //Debug.Log("before destroy boid");
                     initScript.DestroyAndRemove(this.gameObject);
-                    Debug.Log("after destroy boid");
+                    //Debug.Log("after destroy boid");
 
                 }
             }

@@ -152,7 +152,7 @@ public class InitSceneScript : MonoBehaviour
             _plane = Instantiate(plane, new Vector3(0,-arenaSize*0.5F,0), init_transform.rotation);
             _plane = Instantiate(plane, _spawnPos, init_transform.rotation);
             _plane.GetComponent<Plane>().Init(side, arenaSize * 0.5f);
-            Debug.Log("THE Plane LAYER IS " + _plane.layer);
+            //Debug.Log("THE Plane LAYER IS " + _plane.layer);
             _plane.layer = 7;
         }
 
@@ -403,7 +403,7 @@ private void Start()
 
     public void spawnBoidsInit()
     {
-        Debug.Log("SPAWN POSITION "+boidSpawnPos);
+        //Debug.Log("SPAWN POSITION "+boidSpawnPos);
         for (int i = 0; i < BoidNumber; i++)
         {
             //Angle al�atoire

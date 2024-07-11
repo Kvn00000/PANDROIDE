@@ -10,6 +10,7 @@ public class boidTuning : MonoBehaviour
     private Rigidbody rb;
     private List<Collider> groundCollider = new List<Collider>();
     private bool grounded = false;
+    private Transform _myTransform;
     private XRGrabInteractable _grab;
     
     
@@ -27,15 +28,6 @@ public class boidTuning : MonoBehaviour
     public float cohesionRay;
     public float attractionRay;
     public float filter;
-    public Transform _myTransform;
-    // public float speed = 200.0f;
-    // public float wallRay=0.6f;
-    // public float avoidRay = 0.6f;
-    // public float cohesionRay = 1.0f;
-    // public float attractionRay = 1.1f;
-    // public float filter = 5;
-
-
 
     /*
     Init and Start function --> Initialize boids parameters 
@@ -153,35 +145,25 @@ public class boidTuning : MonoBehaviour
         // APPLY ROTATION
         if (rotation == 0.0)
         {
-
-            //tentative reduire velocite rotation et inertie pour eviter drifting boid
-            rb.angularVelocity = Vector3.zero;
-            rb.velocity = Vector3.zero;
-            rb.inertiaTensor = Vector3.zero;
-            rb.inertiaTensorRotation = Quaternion.identity;
+            StopBoidDrift();
             rb.AddForce(transform.forward * speed * Time.deltaTime, ForceMode.Force);
         }
         else
         {
-            //multiplication par Time.deltaTime pour fluidifier la rotation
-            // valeur obtenue tres faible
+            //multiply by Time.deltaTime to make the rotation more smooth
+            // 
             float angle = rotation * Time.deltaTime;
             if (withDEBUG)
             {
                 Debug.Log(" FINAL VALUE OF ANGLE AFTER TIME " + angle);
             }
-            if (angle > filter) { angle = filter; }
-            if (angle < -filter) { angle = -filter; }
+            angle = filterAngle(angle);
             if (withDEBUG)
             {
                 Debug.Log(" FINAL VALUE OF rotation after filter " + angle);
             }
             _myTransform.Rotate(Vector3.up, angle);
-            //tentative reduire velocite rotation et inertie pour eviter drifting boid
-            rb.angularVelocity = Vector3.zero;
-            rb.velocity = Vector3.zero;
-            rb.inertiaTensor = Vector3.zero;
-            rb.inertiaTensorRotation = Quaternion.identity;
+            StopBoidDrift();
             rb.AddForce(transform.forward * speed * Time.deltaTime, ForceMode.Force);
 
         }
@@ -191,8 +173,27 @@ public class boidTuning : MonoBehaviour
             Debug.Log("//////////////////////////////////////////////////////////////////////////////////");
         }
     }
-
-    // AVOID WALL BEHAVIOUR
+    private void StopBoidDrift()
+    {
+        rb.angularVelocity = Vector3.zero;
+        rb.velocity = Vector3.zero;
+        rb.inertiaTensor = Vector3.zero;
+        rb.inertiaTensorRotation = Quaternion.identity;
+    }
+    private float filterAngle( float angle)
+    {
+        float newAngle = angle;
+        if (newAngle > filter) { newAngle = filter; }
+        if (newAngle < -filter) { newAngle = -filter; }
+        return newAngle;
+    } 
+    
+    /*
+    ------------------- BEHAVIOURS --------------------------------
+    will usually follow these steps :
+     Intialize the rays --> collect collision detections infos --> get the angle --> check if the returned value needs to be overwritten
+    */
+      // AVOID WALL BEHAVIOUR
     private float AvoidWallRcastv4(float rotate, float wallRay)
     {
         /*
@@ -334,8 +335,77 @@ public class boidTuning : MonoBehaviour
         if (min == 300) { return rotate; }
         return toRotate[minidx];
     }
-    
-    // COHESION BEHAVIOUR
+      // REPULSION BEHAVIOUR
+    private float AvoidBoidRcastv3(float rotate, float avoidRay)
+    {
+        /*
+       Comportement pour eviter le boid le plus proche
+       Rotation ==> valeur fixe donne par la fonction
+       */
+        //Init Ray
+        Vector3 myPos = rb.transform.position;
+
+        Ray front = new Ray(myPos, transform.forward);
+        Ray right = new Ray(myPos, transform.right);
+        Ray left = new Ray(myPos, -transform.right);
+        // Build Other Ray
+        Vector3 f = transform.forward;
+        Vector3 r = transform.right;
+        Vector3 fright = new Vector3(f.x + r.x, f.y, f.z + r.z);
+        Vector3 fleft = new Vector3(f.x - r.x, f.y + r.y, f.z - r.z);
+        Ray FrontRight = new Ray(myPos, fright);
+        Ray FrontLeft = new Ray(myPos, fleft);
+        Ray downLeft = new Ray(myPos, -fright);
+        Ray downRight = new Ray(myPos, -fleft);
+        // Init Collision detection parameters
+        float maxdistance = 0.8f; // To be sure that it will collide with something
+        float disCollide = avoidRay;
+        //Setting LayerMask for collision detection
+        int layerBoid = 6;
+        LayerMask layermask = 1 << layerBoid;
+        //Getting all collisions
+        List<Vector3> allPosCollide = new List<Vector3>();
+        Vector3 closestBuddy = Vector3.zero;
+        //hit left
+        RaycastHit[] leftHit = Physics.RaycastAll(left, maxdistance, layermask);
+        closestBuddy = collidedRcastAllv3(leftHit, myPos, disCollide, closestBuddy);
+        //hit right
+        RaycastHit[] rightHit = Physics.RaycastAll(right, maxdistance, layermask);
+        closestBuddy = collidedRcastAllv3(rightHit, myPos, disCollide, closestBuddy);
+        //hit front
+        RaycastHit[] frontHit = Physics.RaycastAll(front, maxdistance, layermask);
+        closestBuddy = collidedRcastAllv3(frontHit, myPos, disCollide, closestBuddy);
+        //hit front Right
+        RaycastHit[] frontRightHit = Physics.RaycastAll(FrontRight, maxdistance, layermask);
+        closestBuddy = collidedRcastAllv3(frontRightHit, myPos, disCollide, closestBuddy);
+
+        //hit front Left
+        RaycastHit[] frontLeftHit = Physics.RaycastAll(FrontLeft, maxdistance, layermask);
+        closestBuddy = collidedRcastAllv3(frontLeftHit, myPos, disCollide, closestBuddy);
+
+        //hit down Right
+        RaycastHit[] downRightHit = Physics.RaycastAll(downRight, maxdistance, layermask);
+        closestBuddy = collidedRcastAllv3(downRightHit, myPos, disCollide, closestBuddy);
+
+        //hit down Left
+        RaycastHit[] downLeftHit = Physics.RaycastAll(downLeft, maxdistance, layermask);
+        closestBuddy = collidedRcastAllv3(downLeftHit, myPos, disCollide, closestBuddy);
+        //Getting rotation
+        float rotation;
+        if (closestBuddy.Equals(Vector3.zero))
+        {
+            rotation = 0.0f;
+        }
+        else
+        {
+            if (withDEBUG) { Debug.DrawLine(myPos, closestBuddy, Color.yellow); }
+            rotation = getAvoidRotationv2(myPos, closestBuddy);
+        }
+
+        if (rotation != 0.0) { return rotation; }
+        else { return rotate; }
+    }
+      // COHESION BEHAVIOUR
     private float CohesionBoidRcast(float rotate, float minRay, float maxRay)
     {
         /*
@@ -419,77 +489,7 @@ public class boidTuning : MonoBehaviour
         if (rotation != 0.0) { return rotation; }
         else { return rotate; }
     }
-    // REPULSION BEHAVIOUR
-    private float AvoidBoidRcastv3(float rotate, float avoidRay)
-    {
-        /*
-       Comportement pour eviter le boid le plus proche
-       Rotation ==> valeur fixe donne par la fonction
-       */
-        //Init Ray
-        Vector3 myPos = rb.transform.position;
-
-        Ray front = new Ray(myPos, transform.forward);
-        Ray right = new Ray(myPos, transform.right);
-        Ray left = new Ray(myPos, -transform.right);
-        // Build Other
-        Vector3 f = transform.forward;
-        Vector3 r = transform.right;
-        Vector3 fright = new Vector3(f.x + r.x, f.y, f.z + r.z);
-        Vector3 fleft = new Vector3(f.x - r.x, f.y + r.y, f.z - r.z);
-        Ray FrontRight = new Ray(myPos, fright);
-        Ray FrontLeft = new Ray(myPos, fleft);
-        Ray downLeft = new Ray(myPos, -fright);
-        Ray downRight = new Ray(myPos, -fleft);
-        // Init Collision detection parameters
-        float maxdistance = 0.8f;
-        float disCollide = avoidRay;
-        //Setting LayerMask for collision detection
-        int layerBoid = 6;
-        LayerMask layermask = 1 << layerBoid;
-        //Getting all collisions
-        List<Vector3> allPosCollide = new List<Vector3>();
-        Vector3 closestBuddy = Vector3.zero;
-        //hit left
-        RaycastHit[] leftHit = Physics.RaycastAll(left, maxdistance, layermask);
-        closestBuddy = collidedRcastAllv3(leftHit, myPos, disCollide, closestBuddy);
-        //hit right
-        RaycastHit[] rightHit = Physics.RaycastAll(right, maxdistance, layermask);
-        closestBuddy = collidedRcastAllv3(rightHit, myPos, disCollide, closestBuddy);
-        //hit front
-        RaycastHit[] frontHit = Physics.RaycastAll(front, maxdistance, layermask);
-        closestBuddy = collidedRcastAllv3(frontHit, myPos, disCollide, closestBuddy);
-        //hit front Right
-        RaycastHit[] frontRightHit = Physics.RaycastAll(FrontRight, maxdistance, layermask);
-        closestBuddy = collidedRcastAllv3(frontRightHit, myPos, disCollide, closestBuddy);
-
-        //hit front Left
-        RaycastHit[] frontLeftHit = Physics.RaycastAll(FrontLeft, maxdistance, layermask);
-        closestBuddy = collidedRcastAllv3(frontLeftHit, myPos, disCollide, closestBuddy);
-
-        //hit down Right
-        RaycastHit[] downRightHit = Physics.RaycastAll(downRight, maxdistance, layermask);
-        closestBuddy = collidedRcastAllv3(downRightHit, myPos, disCollide, closestBuddy);
-
-        //hit down Left
-        RaycastHit[] downLeftHit = Physics.RaycastAll(downLeft, maxdistance, layermask);
-        closestBuddy = collidedRcastAllv3(downLeftHit, myPos, disCollide, closestBuddy);
-        //Getting rotation
-        float rotation;
-        if (closestBuddy.Equals(Vector3.zero))
-        {
-            rotation = 0.0f;
-        }
-        else
-        {
-            if (withDEBUG) { Debug.DrawLine(myPos, closestBuddy, Color.yellow); }
-            rotation = getAvoidRotationv2(myPos, closestBuddy);
-        }
-
-        if (rotation != 0.0) { return rotation; }
-        else { return rotate; }
-    }
-    // ATTRACTION BEHAVIOUR
+      // ATTRACTION BEHAVIOUR
     private float GoToBoidRcastv3(float rotate, float minRay, float maxRay)
     {
         /*
@@ -565,10 +565,15 @@ public class boidTuning : MonoBehaviour
         if (rotation != 0.0) { return rotation; }
         else { return rotate; }
     }
-    // GET ANGLES
-    // M�thodes pour obtenir les angles de rotation
+
+    /*
+    ------------------- Rotations Functions --------------------------------
+    */
+
+    // functions to get rotation angles
     private float getAngleTowards(Vector3 myPos, Vector3 myDest)
     {
+        // Function to get the angle from myPos towards myDest
         Vector3 centerPos = myDest;
         Vector3 localCpos = rb.transform.InverseTransformPoint(centerPos);
         bool isFront = false;
@@ -580,39 +585,27 @@ public class boidTuning : MonoBehaviour
         float lAngle1 = Vector3.Angle(myPos, localCpos);
         float lAngle5 = Vector3.Angle(myPos + transform.forward, localCpos);
         float slAngle1 = Vector3.SignedAngle(myPos, localCpos, Vector3.up);
-        //if (withDEBUG)
-        //{
-            //Debug.DrawLine(myPos, centerPos, Color.green);
-            //Debug.DrawLine(myPos, myPos + transform.forward, Color.cyan);
-            //Debug.Log("ABPOS/CPOS " + lAngle1 + " FOR/CPOS " + lAngle5);
-            //Debug.Log("SV : ABPOS/CPOS " + slAngle1 + " FOR/CPOS " + slAngle5);
-        //}
 
         // Finding Right Angle -- lot of twiking but seems to work
         if (isFront)
         {
             if (isRight)
             {
-                //if (withDEBUG) { Debug.Log("FR :" + Math.Max(lAngle1, lAngle5)); }
                 return Math.Max(lAngle1, lAngle5);
             }
             else
             {
-                //if (withDEBUG) { Debug.Log("FL :" + Math.Max(lAngle1, lAngle5)); }
                 return -Math.Max(lAngle1, lAngle5);
             }
         }
-        /////////////////////////////////////
         else
         {
             if (isRight)
             {
-                //if (withDEBUG) { Debug.Log("DR :" + lAngle1); }
                 return 180 - lAngle1;
             }
             else
             {
-                //if (withDEBUG) { Debug.Log("DL " + slAngle1); }
                 return -(180 - slAngle1);
             }
         }
@@ -620,16 +613,10 @@ public class boidTuning : MonoBehaviour
         //AVOID ROTATION
     private float getAvoidRotationv2(Vector3 myPos, Vector3 closest)
     {
+        // Get the rotation to avoid an other boid
         Vector3 loc = rb.transform.InverseTransformPoint(closest);
         bool isRight = false;
         if (loc.x > 0) { isRight = true; }
-        if (withDEBUG) {
-            /*
-            Debug.DrawLine(myPos, closest, Color.yellow);
-            Debug.Log("LOC = "+loc) ;
-            Debug.Log("Closest ="+closest);
-            */
-        }
         if (isRight) {
             if (withDEBUG) { Debug.Log("RIGHT"); }
             if (loc.x < 0.3) { return -40; }
@@ -644,6 +631,7 @@ public class boidTuning : MonoBehaviour
         //COHESION ROTATION
     private float getCohesionRotationV2(Vector3 myPos, List<Vector3> allPosCollide, List<Transform> allTransform)
     {
+        // get the angle needed to correct the trajectory of the boid
         if (allPosCollide.Count == 0) { return 0.0f; }
         float overAllCorrection = 0;
         List<Vector3> theirForward = new List<Vector3>();
@@ -663,8 +651,6 @@ public class boidTuning : MonoBehaviour
                 Debug.Log("Proposed correction is " + correction);
             }
             overAllCorrection += correction;
-            //overAllCorrection = Math.Max(overAllCorrection, correction);
-
             if (withDEBUG)
             {
                 Debug.DrawLine(pos, forw, Color.blue);
@@ -687,8 +673,10 @@ public class boidTuning : MonoBehaviour
         //return 0.0f;
 
     }
+        // ATTRACTION ROTATION
     private float getGotoRotationv3(Vector3 myPos, Vector3 closestPoint)
     {
+        //get the angle toward the closest individual in attraction range
         if (closestPoint == Vector3.zero)
         {
             return 0.0f;
@@ -696,14 +684,16 @@ public class boidTuning : MonoBehaviour
         if (withDEBUG) { Debug.DrawLine(myPos, closestPoint, Color.green); }
         return getAngleTowards(myPos, closestPoint);
     }
-    // CHECK COLLISIONS 
-    //Methodes de detection des collisions pour chaque comportement
+    /*
+    ------------------- Collision detection Functions --------------------------------
+    */
     private Vector3 collidedRcastAllv3(RaycastHit[] tab, Vector3 myPos, float maxDistance, Vector3 closest)
     {
         for (int i = 1; i < tab.Length; i++)
         {
             RaycastHit hitInfo = tab[i];
             float dist = Vector3.Distance(myPos, hitInfo.transform.position);
+            // Check if not colliding with self and if it's in range of avoid behaviour 
             if ((hitInfo.transform.position != myPos) && (dist > tab[0].distance) && (dist < maxDistance))
             {
                 if (closest == Vector3.zero)
@@ -726,10 +716,12 @@ public class boidTuning : MonoBehaviour
     {
         for (int i = 1; i < tab.Length; i++)
         {
+            //limit the number of individuals to consider to 10 --> try to save some performances
             if (allCollide.Count < 10)
             {
                 RaycastHit hitInfo = tab[i];
                 float dist = Vector3.Distance(myPos, hitInfo.transform.position);
+                // Check if not colliding with self and if it's in range of cohesion behaviour and if the collided is not already detected
                 if ((hitInfo.transform.position != myPos) && (dist >= mindistance) && (dist < maxdistance) && (!allCollide.Contains(hitInfo.transform.position)))
                 {
                     allCollide.Add(hitInfo.transform.position);
@@ -749,7 +741,6 @@ public class boidTuning : MonoBehaviour
             RaycastHit hitInfo = tab[i];
 
             float dist = Vector3.Distance(myPos, hitInfo.transform.position);
-
             if (withDEBUG) {
                 Debug.Log("My pos is " + myPos);
                 Debug.Log("Hit at " + dist);
@@ -774,9 +765,13 @@ public class boidTuning : MonoBehaviour
         return closest;
     }
 
-    //Ground
+    /*
+    ------------------- Ground gestion Functions --------------------------------
+    */
     public void IsGrounded()
     {
+        //Check if the boid is on the ground or not
+
         //Debug.Log("GROUND SIZE= " + groundCollider.Count);
         if (groundCollider.Count != 0)
         {
@@ -790,7 +785,7 @@ public class boidTuning : MonoBehaviour
             grounded = false;
         }
     }
-    //Toolbox to handle collison layer
+    //Toolbox to handle collison layer --> used to handle gravity
     public void AddCollider(Collider toAdd)
     {
         if (!CheckPresence(toAdd))
