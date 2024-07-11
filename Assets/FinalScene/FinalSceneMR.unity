@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028352, g: 0.22571376, b: 0.3069224, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028326, g: 0.22571333, b: 0.30692202, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -4905,13 +4905,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1326198868}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.52991295, y: -0.43650582, z: -0.60553056, w: 0.402477}
-  m_LocalPosition: {x: -0.096, y: -0.017, z: -0.1483}
+  m_LocalRotation: {x: 0.44487026, y: -0.5938941, z: -0.6453104, w: 0.18153466}
+  m_LocalPosition: {x: -0.10050002, y: -0.022800114, z: -0.18079998}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 628422393}
-  m_LocalEulerAnglesHint: {x: -5.859, y: -86.697, z: -107.247}
+  m_LocalEulerAnglesHint: {x: -37.227, y: -97.305, z: -106.69}
 --- !u!114 &1326198870
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6137,7 +6137,7 @@ PrefabInstance:
     - target: {fileID: 6598815579406187037, guid: 18ddb545287c546e19cc77dc9fbb2189,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -6524,15 +6524,15 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1730706481}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.87742287, y: -0.026413336, z: 0.47505504, w: 0.061271347}
-  m_LocalPosition: {x: -0.0999, y: -0.0159, z: -0.1541}
+  m_LocalRotation: {x: 0.67255, y: -0.16625239, z: 0.6727532, w: 0.2596916}
+  m_LocalPosition: {x: -0.1005, y: -0.0228, z: -0.1808}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1440149198}
   - {fileID: 1140257616}
   m_Father: {fileID: 628422393}
-  m_LocalEulerAnglesHint: {x: 7.621, y: 123.09, z: 179.314}
+  m_LocalEulerAnglesHint: {x: 34.96, y: 87.197, z: 171.171}
 --- !u!114 &1730706483
 MonoBehaviour:
   m_ObjectHideFlags: 0
