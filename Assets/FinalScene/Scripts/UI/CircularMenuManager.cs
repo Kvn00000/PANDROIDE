@@ -196,9 +196,9 @@ public class CircularMenuManager : MonoBehaviour{
             SprayBottle.SetActive(true);
         }
 
-        if(pokeInteractor.activeSelf == true){
-            pokeInteractor.SetActive(false);
-        }
+        // if(pokeInteractor.activeSelf == true){
+        //     pokeInteractor.SetActive(false);
+        // }
         // Le spray fait spawn des boids + changement de couleur du spray
         Spawner.toInstantiate = 1;
         Color color;
@@ -211,9 +211,9 @@ public class CircularMenuManager : MonoBehaviour{
             SprayBottle.SetActive(true);
         }
 
-        if(pokeInteractor.activeSelf == true){
-            pokeInteractor.SetActive(false);
-        }
+        // if(pokeInteractor.activeSelf == true){
+        //     pokeInteractor.SetActive(false);
+        // }
 
         //Le spray fait spawn des Cube + changemenr de couleur du spray
         Spawner.toInstantiate = 2;
@@ -227,9 +227,9 @@ public class CircularMenuManager : MonoBehaviour{
             SprayBottle.SetActive(false);
         }
 
-        if(pokeInteractor.activeSelf == false){
-            pokeInteractor.SetActive(true);
-        }
+        // if(pokeInteractor.activeSelf == false){
+        //     pokeInteractor.SetActive(true);
+        // }
         Spawner.toInstantiate = 0;
         Color color;
         ColorUtility.TryParseHtmlString(NothingColorHex, out color);
