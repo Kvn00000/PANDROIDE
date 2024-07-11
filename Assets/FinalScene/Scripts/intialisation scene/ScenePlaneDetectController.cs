@@ -241,6 +241,7 @@ public class ScenePlaneDetectController : MonoBehaviour
                         GameObject dense = Instantiate(planDense, underplane, plane.transform.rotation);
                         dense.transform.localScale = new Vector3(plane.size.x, dense.transform.localScale.y * 0.40f, plane.size.y);
                         dense.GetComponent<MeshRenderer>().enabled = false;
+                        dense.AddComponent<DestroyGroundScript>();
                     }
                     //Ajout Destructeur
                     BoxCollider boxCollider = plane.GetComponent<BoxCollider>();
@@ -354,6 +355,7 @@ public class ScenePlaneDetectController : MonoBehaviour
                     Vector3 underplane = new Vector3(plane.transform.position.x, plane.transform.position.y - 0.5f, plane.transform.position.z);
                     GameObject dense = Instantiate(planDense, underplane, plane.transform.rotation);
                     dense.transform.localScale = new Vector3(plane.size.x, dense.transform.localScale.y * 0.40f, plane.size.y);
+                    dense.AddComponent<DestroyGroundScript>();
                 }
                 //Ajout Destructeur
                 BoxCollider boxCollider = plane.GetComponent<BoxCollider>();
@@ -395,6 +397,7 @@ public class ScenePlaneDetectController : MonoBehaviour
     {
         //Debug.Log("ENTERING ARENA CHANGES");
         Destroy(underP);
+        underP = null;
         foreach(var d in destroList)
         {
             Destroy(d.GetComponent<DestroyGroundScript>()) ;

@@ -424,7 +424,6 @@ MonoBehaviour:
   cohesionRay: 0.7
   attractionRay: 1
   filter: 3
-  _myTransform: {fileID: 0}
 --- !u!114 &5469303528419838762
 MonoBehaviour:
   m_ObjectHideFlags: 0
