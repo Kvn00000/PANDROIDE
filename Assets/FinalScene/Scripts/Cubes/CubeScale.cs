@@ -52,14 +52,19 @@ public class CubeScale : MonoBehaviour{
 
 
     private void OnRelease(SelectExitEventArgs args){
+        
         //Quand on relache l'objet on le supprime de la liste
         if (interactors.Contains(args.interactor)){
             interactors.Remove(args.interactor);
 
             if (interactors.Count < 2){
                 grabInteractable.trackRotation = true;// ?????
-                childGrabbed.gameObject.SetActive(false);
-
+                if(childGrabbed != null)
+                {
+                    childGrabbed.gameObject.SetActive(false);
+                    childGrabbed = null;
+                }
+               
             }
         }
     }

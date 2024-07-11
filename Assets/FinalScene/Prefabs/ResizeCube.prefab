@@ -761,8 +761,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d60b7db9dfb341daa8463653b6bced6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GrabbedMat: {fileID: 2100000, guid: ccef5804008814aea8a5598c06e39aaa, type: 2}
-  OldMat: {fileID: 2100000, guid: d1efb2eac31f68648993734e73e3f0df, type: 2}
 --- !u!1 &7075738364138596459
 GameObject:
   m_ObjectHideFlags: 0
