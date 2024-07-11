@@ -47,7 +47,8 @@ public class InitSceneScript : MonoBehaviour
     public float cohesionRay;
     public float attractionRay;
     public float filter;
-    
+    [SerializeField]
+    private GameObject rig;
 
     private List<boidTuning> boidsList = new List<boidTuning>();
 
@@ -70,6 +71,7 @@ public class InitSceneScript : MonoBehaviour
     private CircleWallScript component_topWall;
     private float wallThickness= 0.01f;
     private GameObject _plane;
+    private ScenePlaneDetectController detect;
     //
     [SerializeField]
     private Material MatWallInt;
@@ -90,6 +92,7 @@ public class InitSceneScript : MonoBehaviour
     void Awake()
     {
         Physics.gravity = new Vector3(0, -1F, 0);
+        detect = rig.GetComponent<ScenePlaneDetectController>();
     }
 
     // Start is called before the first frame update
@@ -415,6 +418,7 @@ private void Start()
             tmp.Init(BoidSpeed, wallRay, avoidRay, cohesionRay, attractionRay, filter);
             tmp.withDEBUG = false;
             boid.GetComponent<FadeOut>().setScene(this);
+            boid.GetComponent<FadeOut>().setDetect(detect);
             boidList.Add(obj);
         }
     }
@@ -473,5 +477,8 @@ private void Start()
         return boidList.Count;
     }
 
-
+    public void setDetect(ScenePlaneDetectController sc)
+    {
+        detect = sc;
+    }
 }

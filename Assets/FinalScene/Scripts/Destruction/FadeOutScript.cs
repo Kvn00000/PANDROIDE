@@ -43,8 +43,10 @@ public class FadeOut : MonoBehaviour
     }
 
     void Update(){
-        if((initScript ==null)&&(isBoid != null))
+        
+        if((initScript ==null)&&(isBoid != null) && (detect!= null))
         {
+            Debug.Log("           IN FADE OUT ");
             initScript = detect.getArena().GetComponent<InitSceneScript>();
         }
         //Debug.Log(isFadingOut);
@@ -67,9 +69,9 @@ public class FadeOut : MonoBehaviour
                 if( isBoid == null ){
                     Destroy(this.gameObject);
                 }else{
-                    //Debug.Log("before destroy boid");
+                    Debug.Log("before destroy boid");
                     initScript.DestroyAndRemove(this.gameObject);
-                    //Debug.Log("after destroy boid");
+                    Debug.Log("after destroy boid");
 
                 }
             }

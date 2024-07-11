@@ -40,6 +40,7 @@ public class SpawnBoidScript : MonoBehaviour
     {
         
         child = this.transform.GetChild(1);
+        Debug.Log("           Spawner ");
         detect = rig.GetComponent<ScenePlaneDetectController>();
 
     }
@@ -62,7 +63,7 @@ public class SpawnBoidScript : MonoBehaviour
                 Vector3 cubePos = new Vector3(child.position.x, child.position.y, child.position.z);
                 cubePos = child.InverseTransformPoint(cubePos);
                 cubePos.z += 0.05f;
-                GameObject cube = Instantiate(CubePrefab, cubePos, Quaternion.identity);
+                GameObject cube = Instantiate(CubePrefab, child.TransformPoint(cubePos), Quaternion.identity);
                 cube.layer = LayerMask.NameToLayer("MUR");
             }
         }
