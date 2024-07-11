@@ -448,8 +448,13 @@ private void Start()
     {
         if (boidList.Contains(obj))
         {
+            Debug.Log("dans le contains");
             boidList.Remove(obj);
+
+            Debug.Log("entre le remove et le destroy");
             Destroy(obj);
+
+            Debug.Log("J'ai fini de nettoyer");
         }
     }
    
