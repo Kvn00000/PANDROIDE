@@ -514,7 +514,10 @@ public class ScenePlaneDetectController : MonoBehaviour
             d.GetComponent<DestroyGroundScript>().setMod(_FadeOut);
         }
     }
-
+    public GameObject getArena()
+    {
+        return _arena;
+    } 
     /**/
     public void ChangeMod()
     {

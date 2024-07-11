@@ -19,8 +19,8 @@ public class FadeOut : MonoBehaviour
 
     private float initialAlpha = 1f;
     private float fadeDuration = 5f; // 5 secondes pour fade out
-
     private InitSceneScript initScript;
+    private ScenePlaneDetectController detect;
 
     private boidTuning isBoid;
 
@@ -43,6 +43,10 @@ public class FadeOut : MonoBehaviour
     }
 
     void Update(){
+        if((initScript ==null)&&(isBoid != null))
+        {
+            initScript = detect.getArena().GetComponent<InitSceneScript>();
+        }
         //Debug.Log(isFadingOut);
         if(isFadingOut == true){
             //On reduit le Alpha selon le temps fadeDuration
@@ -89,5 +93,9 @@ public class FadeOut : MonoBehaviour
     public void setScene(InitSceneScript scene)
     {
         initScript = scene;    
+    }
+    public void setDetect(ScenePlaneDetectController sc)
+    {
+        this.detect = sc;
     }
 }

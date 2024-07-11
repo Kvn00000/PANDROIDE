@@ -16,7 +16,8 @@ public class SpawnBoidScript : MonoBehaviour
     [Header("Prefab")]
     public GameObject BoidPrefab;
     public GameObject CubePrefab;
-
+    [SerializeField]
+    private GameObject rig;
 
     [Header("Boid Settings")]
     public float speed = 200.0f;
@@ -30,8 +31,8 @@ public class SpawnBoidScript : MonoBehaviour
     public float filter = 5;
     [Header("Cube Settings Button")]
     public float CubeSize = 0.01f;
-    
-    
+
+    private ScenePlaneDetectController detect;
     private Transform child;
 
     // Update is called once per frame
@@ -39,6 +40,8 @@ public class SpawnBoidScript : MonoBehaviour
     {
         
         child = this.transform.GetChild(1);
+        detect = rig.GetComponent<ScenePlaneDetectController>();
+
     }
     void Update(){
         //To set the right position
@@ -51,11 +54,14 @@ public class SpawnBoidScript : MonoBehaviour
                     GameObject boid = Instantiate(BoidPrefab,child.position, rotation);
                     boid.GetComponent<boidTuning>().Init(speed, wallRay, avoidRay,cohesionRay, attractionRay, filter);
                     boid.GetComponent<FadeOut>().setScene(initScript);
+                    boid.GetComponent<FadeOut>().setDetect(detect);
                     initScript.addBoidList(boid);
                 }
             }
             else if(toInstantiate == 2){//Instanciate Cube
-                Vector3 cubePos = new Vector3(child.position.x, child.position.y, child.position.z+0.02f);
+                Vector3 cubePos = new Vector3(child.position.x, child.position.y, child.position.z);
+                cubePos = child.InverseTransformPoint(cubePos);
+                cubePos.z += 0.05f;
                 GameObject cube = Instantiate(CubePrefab, cubePos, Quaternion.identity);
                 cube.layer = LayerMask.NameToLayer("MUR");
             }
