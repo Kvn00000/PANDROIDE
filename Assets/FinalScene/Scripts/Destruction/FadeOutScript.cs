@@ -29,12 +29,10 @@ public class FadeOut : MonoBehaviour
         isBoid = GetComponent<boidTuning>();
 
         if(isBoid != null){
-            Debug.Log("j'ai les bon renderer");
             Transform child = transform.Find("paper plane asset").Find("Mesh1_Model");
             renderer = child.gameObject.GetComponent<Renderer>();
             meshR = child.GetComponent<MeshRenderer>();
 
-            Debug.Log("renderer");
         }else{
             renderer = gameObject.GetComponent<Renderer>();
             meshR = GetComponent<MeshRenderer>();
@@ -42,13 +40,14 @@ public class FadeOut : MonoBehaviour
         grabInteractable = GetComponent<XRGrabInteractable>();
 
 
-
     }
 
     void Update(){
-
+        Debug.Log(isFadingOut);
         if(isFadingOut == true){
             //On reduit le Alpha selon le temps fadeDuration
+            Debug.Log(elapsedTime);
+
             meshR.material = TranparentMat;
             elapsedTime += Time.deltaTime;
             color = renderer.material.color;

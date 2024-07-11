@@ -1892,6 +1892,11 @@ PrefabInstance:
       propertyPath: OpaqueMat
       value: 
       objectReference: {fileID: 2100000, guid: 3e3cb774ca9d94092b91d75882755ecb, type: 2}
+    - target: {fileID: 4009517392969908896, guid: 9a9c9af6a27587a48bfa7b6ed18d0d48,
+        type: 3}
+      propertyPath: TranparentMat
+      value: 
+      objectReference: {fileID: 2100000, guid: 04fb4920bc5c84a9e940cecced412b4d, type: 2}
     - target: {fileID: 4222653350513549871, guid: 9a9c9af6a27587a48bfa7b6ed18d0d48,
         type: 3}
       propertyPath: m_Name
