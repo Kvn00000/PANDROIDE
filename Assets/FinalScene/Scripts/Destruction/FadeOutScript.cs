@@ -25,15 +25,24 @@ public class FadeOut : MonoBehaviour
     private boidTuning isBoid;
 
     void Awake(){
-        grabInteractable = GetComponent<XRGrabInteractable>();
-        meshR = GetComponent<MeshRenderer>();
-        renderer = gameObject.GetComponent<Renderer>();
-        Debug.Log("le mesh renderer : " + meshR);
-        Debug.Log("le renderer : "+ renderer);
-
-
         //Si isBoid == null alors c'est un cube
         isBoid = GetComponent<boidTuning>();
+
+        if(isBoid != null){
+            Debug.Log("j'ai les bon renderer");
+            Transform child = transform.Find("paper plane asset").Find("Mesh1_Model");
+            renderer = child.gameObject.GetComponent<Renderer>();
+            meshR = child.GetComponent<MeshRenderer>();
+
+            Debug.Log("renderer");
+        }else{
+            renderer = gameObject.GetComponent<Renderer>();
+            meshR = GetComponent<MeshRenderer>();
+        }
+        grabInteractable = GetComponent<XRGrabInteractable>();
+
+
+
     }
 
     void Update(){
