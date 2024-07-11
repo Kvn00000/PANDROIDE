@@ -59,7 +59,7 @@ public class FadeOut : MonoBehaviour
                 //Debug.Log("je suis censé tout reset");
                 isFadingOut = false;
                 elapsedTime = 0f;
-                this.transform.position = new Vector3(0,200,0);
+                //this.transform.position = new Vector3(0,200,0);
                 if( isBoid == null ){
                     Destroy(this.gameObject);
                 }else{
