@@ -16,9 +16,6 @@ public class SpawnBoidScript : MonoBehaviour
     [Header("Prefab")]
     public GameObject BoidPrefab;
     public GameObject CubePrefab;
-    [SerializeField]
-    private GameObject rig;
-
     [Header("Boid Settings")]
     public float speed = 200.0f;
     public bool withGoto = false;
@@ -31,8 +28,6 @@ public class SpawnBoidScript : MonoBehaviour
     public float filter = 5;
     [Header("Cube Settings Button")]
     public float CubeSize = 0.01f;
-
-    private ScenePlaneDetectController detect;
     private Transform child;
 
     // Update is called once per frame
@@ -41,7 +36,6 @@ public class SpawnBoidScript : MonoBehaviour
         
         child = this.transform.GetChild(1);
         //Debug.Log("           Spawner ");
-        detect = rig.GetComponent<ScenePlaneDetectController>();
 
         
 

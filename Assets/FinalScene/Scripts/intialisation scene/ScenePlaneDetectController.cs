@@ -7,56 +7,44 @@ using UnityEngine.XR.ARFoundation;
 [RequireComponent(typeof(ARPlaneManager))]
 public class ScenePlaneDetectController : MonoBehaviour
 {
-    // Le SerializeField permet de voir un object prive dans l'editeur de unity
-      // 
+    //SerializeField allow private object to be seen in inspector 
     [SerializeField]
     private InputActionReference togglePlanesDetectedAction;
     [SerializeField]
-    private InputActionReference _fadeOutModeChange;
-    [SerializeField]
     private GameObject toSpawn;
-
     [SerializeField]
     private GameObject planDense;
+
+    // AR Parameters
     private ARPlaneManager _planeManager;
-    private bool isOn = false;
     private int numberOfAddedPlane = 0;
-    public bool damier = false;
-    // Start is called before the first frame update
-    private ARPlane _planeArena;
+    List<ARPlane> destroList;
+    GameObject underP; //Bounding box under the table
+    //Mode boolean
+    private bool isOn = false;
+    private int _FadeOut=0;
+
+    //Arena parameter
     private GameObject _arena;
-    private float _planeSize;
-    private float _arenaSize;
     private bool _arenaSpawned=false;
+    private float _arenaSize;
     private Vector3 _arenaSpawnPos;
     private Quaternion _arenaSpawnRotation;
     private Vector3 _arenaScale;
-    // Mode : 0 --> Automatique ; 1 --> Manuel 
-    private int _mode = 0;
-    private int _FadeOut=0;
-    List<ARPlane> destroList;
-    GameObject underP;
+
     //
   
-    
+    /*
+    Initializing all parameters 
+    */
+
+    // Start is called before the first frame update
     void Start()
     {
         _planeManager = GetComponent<ARPlaneManager>();
         if(_planeManager is null)
         {
             Debug.LogError("ARPlaneManager not found");
-        }
-        if (PlayerPrefs.HasKey("Mode"))
-        {
-            _mode = PlayerPrefs.GetInt("Mode");
-            if (_mode == 0)
-            {
-                Debug.Log("Launch in auto mode");
-            }
-            else
-            {
-                Debug.Log("Launch in manual mode");
-            }
         }
         if (PlayerPrefs.HasKey("ArenaSize"))
         {
@@ -95,7 +83,9 @@ public class ScenePlaneDetectController : MonoBehaviour
 
     }
 
-
+    /*
+    Make the plane appears for debug 
+    */
     public void OnTogglePlanesAction()
     {
         // Change la valeur du bool qui indique si l'on affiche ou non
@@ -143,6 +133,9 @@ public class ScenePlaneDetectController : MonoBehaviour
         }
     }
 
+    /*
+    Called to set the planes 
+    */
     private void OnPlanesChanged(ARPlanesChangedEventArgs arguments)
     {
         if (arguments.added.Count > 0)
@@ -199,22 +192,13 @@ public class ScenePlaneDetectController : MonoBehaviour
 
 
                         //  Arene mode automatique
-                        if ((_mode == 0) || (float.IsNaN(_arenaSize)))
-                        {
-                            _arenaSize = sizeTable2;
-                            _arenaSpawnRotation=spawnRotation;
-                        }
-
-                        _planeSize = sizeTable2;
+                        _arenaSize = sizeTable2;
+                        _arenaSpawnRotation=spawnRotation;
                         _arenaSpawnPos = spawnPosition;
                         _arenaSpawnRotation = spawnRotation;
-                        scene.GetComponent<InitSceneScript>().Init(_arenaSpawnPos, _arenaSize*0.95f,_arenaSpawnRotation,true,damier);
+                        scene.GetComponent<InitSceneScript>().Init(_arenaSpawnPos, _arenaSize*0.95f,_arenaSpawnRotation,true);
 
                         // Si manuel appliquer la valeur d'echelle precedemment enregistre
-                        if (_mode == 1)
-                        {
-                            scene.GetComponent<InitSceneScript>().GetParentArena().transform.localScale = _arenaScale;
-                        }
                         _arenaSpawned = true;
 
                     }
@@ -260,6 +244,10 @@ public class ScenePlaneDetectController : MonoBehaviour
         }
     }
 
+    
+    /*
+    Called to rebuild the arena
+    */
     private void rebuild()
     {
         numberOfAddedPlane = 0;
@@ -314,13 +302,8 @@ public class ScenePlaneDetectController : MonoBehaviour
 
 
                     //  Arene mode automatique
-                    if ((_mode == 0) || (float.IsNaN(_arenaSize)))
-                    {
-                        _arenaSize = sizeTable2;
-                        _arenaSpawnRotation = spawnRotation;
-                    }
-
-                    _planeSize = sizeTable2;
+                    _arenaSize = sizeTable2;
+                    _arenaSpawnRotation = spawnRotation;
                     _arenaSpawnPos = spawnPosition;
                     _arenaSpawnRotation = spawnRotation;
                     scene.GetComponent<InitSceneScript>().Init(_arenaSpawnPos, _arenaSize * 0.95f, _arenaSpawnRotation,true);
@@ -367,22 +350,6 @@ public class ScenePlaneDetectController : MonoBehaviour
         //Debug.Log("Number of planes found " + numberOfAddedPlane);
         propagateFadeOut();
     }
-    private void PrintPanelLabel(ARPlane plane)
-    {
-        string label= plane.classification.ToString();
-        float meter = plane.size.sqrMagnitude;
-        Vector2 ex = plane.extents;
-        string log = $"Plane ID : { plane.trackableId}, Label : {label}, Size : {meter}, pos : {ex.sqrMagnitude} \n layer : {plane.gameObject.layer}";
-        Debug.Log(log);
-    }
-
-    private void OnDestroy()
-    {
-        //Debug.Log("Calling Destructor for ScenePlaneDetectController");
-        _planeManager.planesChanged -= OnPlanesChanged;
-    }
-    // Update is called once per frame
-
     public void ArenaChanges(float newSize)
     {
         //Debug.Log("ENTERING ARENA CHANGES");
@@ -409,21 +376,58 @@ public class ScenePlaneDetectController : MonoBehaviour
         Debug.Log("Old Arena Destroyed");
         rebuild();
         propagateFadeOut();
-        /*GameObject newArena = Instantiate(toSpawn, _planeArena.center, Quaternion.identity);
-        newArena.GetComponent<InitSceneScript>().Init(_arenaSpawnPos, newSize, _arenaSpawnRotation, damier);
-        _arena = newArena;*/
     }
     public void clearSavedConfig()
     {
         PlayerPrefs.DeleteAll();
     }
+    public GameObject getArena()
+    {
+        return _arena;
+    } 
+    /*
+    Changing modes  
+    */
+    public void changeFadeOutMod()
+    {
+        //Debug.Log("ENTERING CHANGE FADE OUT");
+        if (_FadeOut == 0)
+        {
+            Debug.Log("Fade Out Mode : ON");
+            _FadeOut = 1;
+        }
+        else
+        {
+            Debug.Log("Fade Out Mode : OFF");
+            _FadeOut = 0;
+        }
+        propagateFadeOut();
+    }
+    public void propagateFadeOut()
+    {
+        //Debug.Log("Propagating " + _FadeOut);
+        foreach (ARPlane d in destroList)
+        {
+            d.GetComponent<DestroyGroundScript>().setMod(_FadeOut);
+        }
+    }
+    private void PrintPanelLabel(ARPlane plane)
+    {
+        string label= plane.classification.ToString();
+        float meter = plane.size.sqrMagnitude;
+        Vector2 ex = plane.extents;
+        string log = $"Plane ID : { plane.trackableId}, Label : {label}, Size : {meter}, pos : {ex.sqrMagnitude} \n layer : {plane.gameObject.layer}";
+        Debug.Log(log);
+    }
+    /*
+    Saving functions 
+    */
     private void OnApplicationFocus(bool focus)
     {
         if (!focus) {
             Debug.Log("Focus Lost : saving parameters ... ");
             _arenaScale= _arena.GetComponent<InitSceneScript>().GetParentArena().transform.localScale;
             PlayerPrefs.SetFloat("ArenaSize", _arenaSize);
-            PlayerPrefs.SetInt("ModeArene", _mode);
             PlayerPrefs.SetInt("FadeOut", _FadeOut);
             PlayerPrefs.SetFloat("ArenaSpawnRotationX", _arenaSpawnRotation.x);
             PlayerPrefs.SetFloat("ArenaSpawnRotationY", _arenaSpawnRotation.y);
@@ -440,14 +444,12 @@ public class ScenePlaneDetectController : MonoBehaviour
             ArenaChanges(_arenaSize);
         }
     }
-    
     private void OnApplicationPause(bool pause)
     {
         if (pause)
         {
             Debug.Log("On Pause : saving parameters ... ");
             PlayerPrefs.SetFloat("ArenaSize", _arenaSize);
-            PlayerPrefs.SetInt("ModeArene", _mode);
             PlayerPrefs.SetInt("FadeOut", _FadeOut);
             PlayerPrefs.SetFloat("ArenaSpawnRotationX", _arenaSpawnRotation.x);
             PlayerPrefs.SetFloat("ArenaSpawnRotationY", _arenaSpawnRotation.y);
@@ -469,7 +471,6 @@ public class ScenePlaneDetectController : MonoBehaviour
     {
         Debug.Log("On Quit : saving parameters ... ");
         PlayerPrefs.SetFloat("ArenaSize", _arenaSize);
-        PlayerPrefs.SetInt("ModeArene", _mode);
         PlayerPrefs.SetInt("FadeOut", _FadeOut);
         PlayerPrefs.SetFloat("ArenaSpawnRotationX", _arenaSpawnRotation.x);
         PlayerPrefs.SetFloat("ArenaSpawnRotationY", _arenaSpawnRotation.y);
@@ -480,51 +481,14 @@ public class ScenePlaneDetectController : MonoBehaviour
         PlayerPrefs.SetFloat("ArenaScaleZ", _arenaScale.z);
 
     }
-    public void changeFadeOutMod()
+    /*
+    Unsub the plane changement event
+    Called before destruction
+    */
+    private void OnDestroy()
     {
-        //Debug.Log("ENTERING CHANGE FADE OUT");
-        if (_FadeOut == 0)
-        {
-            Debug.Log("Fade Out Mode : ON");
-            _FadeOut = 1;
-        }
-        else
-        {
-            Debug.Log("Fade Out Mode : OFF");
-            _FadeOut = 0;
-        }
-        propagateFadeOut();
-    }
-
-    public void propagateFadeOut()
-    {
-        //Debug.Log("Propagating " + _FadeOut);
-        foreach (ARPlane d in destroList)
-        {
-            d.GetComponent<DestroyGroundScript>().setMod(_FadeOut);
-        }
-    }
-    public GameObject getArena()
-    {
-        return _arena;
-    } 
-    /**/
-    public void ChangeMod()
-    {
-        if (_mode == 0)
-        {
-            Debug.Log("Switching from automatic to manual");
-            _mode = 1;
-            _arenaSpawned = false;
-            rebuild();
-        }
-        else
-        {
-            Debug.Log("Switching from manual to automatic");
-            _mode = 0;
-            _arenaSpawned = false;
-            rebuild();
-        }
+        //Debug.Log("Calling Destructor for ScenePlaneDetectController");
+        _planeManager.planesChanged -= OnPlanesChanged;
     }
 }
 
