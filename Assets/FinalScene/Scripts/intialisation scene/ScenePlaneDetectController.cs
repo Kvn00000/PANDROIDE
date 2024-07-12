@@ -22,7 +22,7 @@ public class ScenePlaneDetectController : MonoBehaviour
     GameObject underP; //Bounding box under the table
     //Mode boolean
     private bool isOn = false;
-    private int _FadeOut=0;
+    private int _FadeOut=1;
 
     //Arena parameter
     private GameObject _arena;
@@ -235,7 +235,7 @@ public class ScenePlaneDetectController : MonoBehaviour
                     }
                     if (plane.classification == UnityEngine.XR.ARSubsystems.PlaneClassification.Wall)
                     {
-                        plane.gameObject.layer = _layerground;
+                        plane.gameObject.layer = _layerwall;
                     }
                     //Ajout Destructeur
                     BoxCollider boxCollider = plane.GetComponent<BoxCollider>();
@@ -346,7 +346,7 @@ public class ScenePlaneDetectController : MonoBehaviour
                 }
                 if (plane.classification == UnityEngine.XR.ARSubsystems.PlaneClassification.Wall)
                 {
-                    plane.gameObject.layer = _layerground;
+                    plane.gameObject.layer = _layerwall;
                 }
                 //Ajout Destructeur
                 BoxCollider boxCollider = plane.GetComponent<BoxCollider>();

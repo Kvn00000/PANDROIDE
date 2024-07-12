@@ -139,7 +139,7 @@ public class boidTuning : MonoBehaviour
         if ((rotation != oldrotate))
         {
             modeUsed = "Wall red";
-            //if ((withDEBUG)){ Debug.Log("WALL AVOID ACTIVATED : " + rotation); }
+            if ((withDEBUG)){ Debug.Log("WALL AVOID ACTIVATED : " + rotation); }
         }
         if ((withDEBUG)) { Debug.Log("FINAL ROTATION : " + rotation + " " + modeUsed); }
         // APPLY ROTATION
@@ -234,8 +234,8 @@ public class boidTuning : MonoBehaviour
             float dis = Vector3.Distance(myPos, info.point);
             if (withDEBUG)
             {
-                Debug.Log(" F Collision at " + info.point + " with distance of " +dis);
-                Debug.DrawLine(myPos, myPos + f, Color.red);
+                //Debug.Log(" F Collision at " + info.point + " with distance of " +dis);
+                //Debug.DrawLine(myPos, myPos + f, Color.red);
             }
             //return 50;
             distanceList.Add(dis);
@@ -252,8 +252,8 @@ public class boidTuning : MonoBehaviour
             float dis = Vector3.Distance(myPos, info.point);
             if (withDEBUG)
             {
-                Debug.Log(" FL Collision at " + info.point + " with distance of " + dis);
-                Debug.DrawLine(myPos, myPos +fleft, Color.red);
+                //Debug.Log(" FL Collision at " + info.point + " with distance of " + dis);
+                //Debug.DrawLine(myPos, myPos +fleft, Color.red);
             }
             //return 45;
             distanceList.Add(dis);
@@ -269,8 +269,8 @@ public class boidTuning : MonoBehaviour
             float dis = Vector3.Distance(myPos, info.point);
             if (withDEBUG)
             {
-                Debug.Log("FR Collision at " + info.point + " with distance of " + dis);
-                Debug.DrawLine(myPos, myPos + fright, Color.red);
+                //Debug.Log("FR Collision at " + info.point + " with distance of " + dis);
+                //Debug.DrawLine(myPos, myPos + fright, Color.red);
             }
             //return -45;
             distanceList.Add(dis);
@@ -286,8 +286,8 @@ public class boidTuning : MonoBehaviour
             //float dis = Vector3.Distance(myPos-r, info.transform.position);
             float dis = Vector3.Distance(myPos, info.point);
             if (withDEBUG) {
-                Debug.Log("L Collision at " + info.point + " with distance of " + dis);
-                Debug.DrawLine(myPos, myPos - r, Color.red); 
+                //Debug.Log("L Collision at " + info.point + " with distance of " + dis);
+                //Debug.DrawLine(myPos, myPos - r, Color.red); 
             }
             //return 25;
             distanceList.Add(dis);
@@ -303,8 +303,8 @@ public class boidTuning : MonoBehaviour
             //float dis = Vector3.Distance(myPos+r, info.transform.position);
             float dis = Vector3.Distance(myPos, info.point);
             if (withDEBUG) {
-                Debug.Log(" R Collision at " + info.point + " with distance of " + dis);
-                Debug.DrawLine(myPos, myPos + r, Color.red); 
+                //Debug.Log(" R Collision at " + info.point + " with distance of " + dis);
+                //Debug.DrawLine(myPos, myPos + r, Color.red); 
             }
             //return -25;
             distanceList.Add(dis);
@@ -315,10 +315,10 @@ public class boidTuning : MonoBehaviour
         }
         if (withDEBUG)
         {
-            Debug.Log("COUNT " + distanceList.Count);
+            //Debug.Log("COUNT " + distanceList.Count);
             foreach(float distance in distanceList)
             {
-                Debug.Log(" Value found in disList " + distance);
+                //Debug.Log(" Value found in disList " + distance);
             }
         }
         // TO-DO : Traitement distance
@@ -534,32 +534,32 @@ public class boidTuning : MonoBehaviour
         //hit front
         RaycastHit[] frontHit = Physics.RaycastAll(front, maxdistance, layermask);
         closestPoint = goToRcastAllV3(frontHit, myPos, mindistance,maxdistance, closestPoint);
-        if (withDEBUG){ Debug.Log("Count Front " + frontHit.Length); }
+        //if (withDEBUG){ Debug.Log("Count Front " + frontHit.Length); }
         //hit front Right
         RaycastHit[] frontRightHit = Physics.RaycastAll(FrontRight, maxdistance, layermask);
         closestPoint = goToRcastAllV3(frontRightHit, myPos, mindistance, maxdistance, closestPoint);
-        if (withDEBUG) { Debug.Log("Count FR " + frontRightHit.Length); }
+        //if (withDEBUG) { Debug.Log("Count FR " + frontRightHit.Length); }
         //hit front Left
         RaycastHit[] frontLeftHit = Physics.RaycastAll(FrontLeft, maxdistance, layermask);
         closestPoint = goToRcastAllV3(frontLeftHit, myPos, mindistance, maxdistance, closestPoint);
-        if (withDEBUG) { Debug.Log("Count FL " + frontLeftHit.Length); }
+        //if (withDEBUG) { Debug.Log("Count FL " + frontLeftHit.Length); }
         //hit left
         RaycastHit[] leftHit = Physics.RaycastAll(left, maxdistance, layermask);
         closestPoint = goToRcastAllV3(leftHit, myPos, mindistance, maxdistance, closestPoint);
             
-        if (withDEBUG) { Debug.Log("Count left " + leftHit.Length); }
+        //if (withDEBUG) { Debug.Log("Count left " + leftHit.Length); }
         //hit right
         RaycastHit[] rightHit = Physics.RaycastAll(right, maxdistance, layermask);
         closestPoint = goToRcastAllV3(rightHit, myPos, mindistance, maxdistance, closestPoint);
-        if (withDEBUG) { Debug.Log("Count right " + rightHit.Length); }
+        //if (withDEBUG) { Debug.Log("Count right " + rightHit.Length); }
         //hit down Right
         RaycastHit[] downRightHit = Physics.RaycastAll(downRight, maxdistance, layermask);
         closestPoint = goToRcastAllV3(downRightHit, myPos, mindistance, maxdistance, closestPoint);
-        if (withDEBUG) { Debug.Log("Count Dright " + downRightHit.Length); }
+        //if (withDEBUG) { Debug.Log("Count Dright " + downRightHit.Length); }
         //hit down Left
         RaycastHit[] downLeftHit = Physics.RaycastAll(downLeft, maxdistance, layermask);
         closestPoint = goToRcastAllV3(downLeftHit, myPos, mindistance, maxdistance, closestPoint);
-        if (withDEBUG) { Debug.Log("Count Dleft " + downLeftHit.Length); }
+        //if (withDEBUG) { Debug.Log("Count Dleft " + downLeftHit.Length); }
         rotation = getGotoRotationv3(myPos, closestPoint);
         //rotation = 0;
         if (rotation != 0.0) { return rotation; }
@@ -648,15 +648,15 @@ public class boidTuning : MonoBehaviour
             float correction = getAngleTowards(myPos, newPos);
             if (withDEBUG)
             {
-                Debug.Log("Proposed correction is " + correction);
+                //Debug.Log("Proposed correction is " + correction);
             }
             overAllCorrection += correction;
             if (withDEBUG)
             {
                 Debug.DrawLine(pos, forw, Color.blue);
                
-                Debug.Log("My forward = " + this.transform.forward);
-                Debug.Log("His forward = " + hisTransform.forward);
+                //Debug.Log("My forward = " + this.transform.forward);
+                //Debug.Log("His forward = " + hisTransform.forward);
                 Debug.DrawLine(myPos, newPos, Color.magenta);
             }
             theirForward.Add(formyforward);
@@ -666,7 +666,7 @@ public class boidTuning : MonoBehaviour
         if (withDEBUG)
         {
             Debug.DrawLine(myPos, mine, Color.blue);
-            Debug.Log("OVERALL CORECTION IS " + overAllCorrection);
+            //Debug.Log("OVERALL CORECTION IS " + overAllCorrection);
         }
         return overAllCorrection;
 
@@ -742,9 +742,9 @@ public class boidTuning : MonoBehaviour
 
             float dist = Vector3.Distance(myPos, hitInfo.transform.position);
             if (withDEBUG) {
-                Debug.Log("My pos is " + myPos);
-                Debug.Log("Hit at " + dist);
-                Debug.Log("Hit position at " + hitInfo.transform.position);
+                //Debug.Log("My pos is " + myPos);
+                //Debug.Log("Hit at " + dist);
+                //Debug.Log("Hit position at " + hitInfo.transform.position);
             }
             if ((hitInfo.transform.position != myPos) && (dist >= minDistance) && (dist<maxDistance))
             {
