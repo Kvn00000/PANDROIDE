@@ -26,7 +26,11 @@ public class SpawnBoidScript : MonoBehaviour
     public float cohesionRay = 1.0f;
     public float attractionRay = 1.1f;
     public float filter = 5;
+    [SerializeField]
+    private int boidLimit = 100;
     [Header("Cube Settings Button")]
+    [SerializeField]
+    private int cubeLimit=100;
     public float CubeSize = 0.01f;
     private Transform child;
 
@@ -46,7 +50,7 @@ public class SpawnBoidScript : MonoBehaviour
         if (inputAction.action.WasPressedThisFrame() && toInstantiate > 0){
             if(toInstantiate == 1){ // Instanciate Boid
                 //Give the controller rotation
-                if ((initScript != null) && (initScript.getBoidListCount() < 100))
+                if ((initScript != null) && (initScript.getBoidListCount() < boidLimit))
                 {
                     Quaternion rotation = new Quaternion(0, this.transform.rotation.y, 0, this.transform.rotation.w);
                     GameObject boid = Instantiate(BoidPrefab, child.position, rotation);
@@ -58,12 +62,21 @@ public class SpawnBoidScript : MonoBehaviour
                     initScript.CleanUpDestroyedObjects();
                 }
             }
-            else if(toInstantiate == 2){//Instanciate Cube
-                Vector3 cubePos = new Vector3(child.position.x, child.position.y, child.position.z);
-                cubePos = child.InverseTransformPoint(cubePos);
-                cubePos.z += 0.05f;
-                GameObject cube = Instantiate(CubePrefab, child.TransformPoint(cubePos), Quaternion.identity);
-                cube.layer = LayerMask.NameToLayer("MUR");
+            else if(toInstantiate == 2){
+                //Instanciate Cube
+                if ((initScript != null) && (initScript.getCubeListCount() < cubeLimit))
+                {
+                    Vector3 cubePos = new Vector3(child.position.x, child.position.y, child.position.z);
+                    cubePos = child.InverseTransformPoint(cubePos);
+                    cubePos.z += 0.05f;
+                    GameObject cube = Instantiate(CubePrefab, child.TransformPoint(cubePos), Quaternion.identity);
+                    cube.layer = LayerMask.NameToLayer("MUR");
+                    initScript.addCubeList(cube);
+                }
+                else
+                {
+                    initScript.CleanUpDestroyedObjects();
+                }
             }
         }
     }

@@ -50,6 +50,10 @@ public class InitSceneScript : MonoBehaviour
     public float attractionRay;
     public float filter;
 
+    // Coeff to scale the size of the ray to match arena size
+    public float avoidCoeff= 0.09f;
+    public float cohesionCoeff= 0.5f;
+    public float attractionCoeff= 0.6f;
 
     //Taille d'une case
     private float boxsize = 1;
@@ -81,8 +85,9 @@ public class InitSceneScript : MonoBehaviour
     private float y_ref;
     private float z_ref;
 
-
+    // Reset store infos
     private List<GameObject> boidList = new List<GameObject>();
+    private List<GameObject> cubeList = new List<GameObject>();
     private Vector3 boidSpawnPos;
     
     void Awake()
@@ -99,10 +104,10 @@ public class InitSceneScript : MonoBehaviour
         arenaSize = _sizeTable;
         // Scaling Boids parameters
         BoidSpeed = 100;
-        wallRay = arenaSize * 0.09f;
+        wallRay = arenaSize * avoidCoeff;
         avoidRay=wallRay;
-        cohesionRay=arenaSize*0.5f;
-        attractionRay=arenaSize*0.6f;
+        cohesionRay=arenaSize* cohesionCoeff;
+        attractionRay=arenaSize* attractionCoeff;
         filter=3;
         // Init boid spawn parameters
         SpawnBoidScript tomodifR = controllerSpawnerR.GetComponent<SpawnBoidScript>();
@@ -355,8 +360,14 @@ private void Start()
             GameObject boid = boidList[i];
             boidList.RemoveAt(i);
             Destroy(boid);
-        }
 
+        }
+        for(int i = cubeList.Count-1;i>=0; i--)
+        {
+            GameObject cube = cubeList[i];
+            cubeList.RemoveAt(i);
+            Destroy(cube);
+        }
         spawnBoidsInit();
     }
     public void Thanos2()
@@ -368,12 +379,19 @@ private void Start()
             boidList.RemoveAt(i);
             Destroy(boid);
         }
+        for (int i = cubeList.Count - 1; i >= 0; i--)
+        {
+            GameObject cube = cubeList[i];
+            cubeList.RemoveAt(i);
+            Destroy(cube);
+        }
     }
 
     public void CleanUpDestroyedObjects()
     {
         // clean the list of all the null elements
         boidList.RemoveAll(item => item == null);
+        cubeList.RemoveAll(item => item == null);
     }
     /*
     Functions related the manipulation of the boid list
@@ -381,12 +399,26 @@ private void Start()
     public void addBoidList(GameObject boid){
         boidList.Add(boid);
     }
-
     public int getBoidListCount(){
         return boidList.Count;
     }
     public List<GameObject> getBoidList()
     {
         return boidList;
+    }
+    /*
+    Functions related the manipulation of the cube list
+    */
+    public void addCubeList(GameObject cube)
+    {
+        cubeList.Add(cube);
+    }
+    public int getCubeListCount()
+    {
+        return cubeList.Count;
+    }
+    public List<GameObject> getCubeList()
+    {
+        return cubeList;
     }
 }

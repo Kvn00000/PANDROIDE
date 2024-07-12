@@ -72,8 +72,43 @@ public class DestroyGroundScript : MonoBehaviour
         }
         if (withDEBUG){ Debug.Log("#######################################"); }
     }
+    private void OnTriggerStay(Collider other)
+    {
+        if (withDEBUG)
+        {
+            Debug.Log("#######################################");
+            Debug.Log("Saw Something " + _FadeOut);
 
-   
+        }
+        //Debug.Log(" TAG " + other.gameObject.tag);
+        //Check if collided is not a Plane and is on a good layer
+        if (isToDestroy(other))
+        {
+            if ((other.gameObject.layer == _boidLayer) || (other.gameObject.CompareTag("Destructible")))
+            {
+                if (_FadeOut == 1)
+                {
+                    other.transform.parent.gameObject.GetComponent<FadeOut>().isFadingOut = true;
+                    //other.transform.parent.gameObject.GetComponent<FadeOut>().elapsedTime = 0f;
+                    //other.GetComponent<Rigidbody>().isKinematic = true;
+
+                }
+
+
+            }
+            else
+            {
+                if (_FadeOut == 1)
+                {
+                    other.gameObject.GetComponent<FadeOut>().isFadingOut = true;
+                    //other.gameObject.GetComponent<FadeOut>().elapsedTime = 0f;
+                    //other.GetComponent<Rigidbody>().isKinematic = true;
+                }
+            }
+        }
+        if (withDEBUG) { Debug.Log("#######################################"); }
+    }
+
     private bool isToDestroy(Collider collide)
     {
         int collidedLayer = collide.gameObject.layer;
