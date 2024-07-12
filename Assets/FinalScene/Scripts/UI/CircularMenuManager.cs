@@ -77,12 +77,17 @@ public class CircularMenuManager : MonoBehaviour{
 
     void OnEnable(){
         if(SettingsMenu.activeSelf == true){
+            Debug.Log("enable settings menu on");
             addSettingsListener();
         }else{
+            Debug.Log("enable main menu add main");
+
             addMainPageListener();
         }
     }
     void OnDisable(){
+        Debug.Log("disable and remove settings listener");
+
         removeSettingsListener();
     }
     void Start(){
