@@ -140,16 +140,16 @@ public class CircularMenuManager : MonoBehaviour{
 
     private void removeSettingsListener(){
         if(MoreButton){
-            MoreButton.onClick.AddListener(OnMoreButtonClick);
+            MoreButton.onClick.RemoveListener(OnMoreButtonClick);
         }
         if(BackSettingsButton){
-            BackSettingsButton.onClick.AddListener(OnBackSettingsButtonClick);
+            BackSettingsButton.onClick.RemoveListener(OnBackSettingsButtonClick);
         }
         if(ResetButton){
-            ResetButton.onClick.AddListener(OnResetButtonClick);
+            ResetButton.onClick.RemoveListener(OnResetButtonClick);
         }
         if(PersistenteButton){
-            PersistenteButton.onClick.AddListener(OnPersistenteButtonClick);
+            PersistenteButton.onClick.RemoveListener(OnPersistenteButtonClick);
         }
     }
 
