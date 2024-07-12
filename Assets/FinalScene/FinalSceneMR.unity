@@ -628,8 +628,8 @@ MonoBehaviour:
   MenuLeft: {fileID: 1730706481}
   MenuRight: {fileID: 108576045}
   MainMenu: {fileID: 1547346247}
-  SettingsMenu: {fileID: 1140257615}
-  MoreSettingsMenu: {fileID: 1642024357}
+  SettingsMenu: {fileID: 1407791580}
+  MoreSettingsMenu: {fileID: 442728607}
   SettingsButton: {fileID: 206095838}
   BoidButton: {fileID: 1122176884}
   CubeButton: {fileID: 2105451909}
@@ -822,6 +822,8 @@ MonoBehaviour:
   cohesionRay: 1
   attractionRay: 1.1
   filter: 5
+  boidLimit: 100
+  cubeLimit: 100
   CubeSize: 0.01
 --- !u!4 &158410483 stripped
 Transform:
@@ -3404,6 +3406,8 @@ MonoBehaviour:
   cohesionRay: 1
   attractionRay: 1.1
   filter: 5
+  boidLimit: 100
+  cubeLimit: 100
   CubeSize: 0.01
 --- !u!4 &791662228 stripped
 Transform:
@@ -8864,6 +8868,9 @@ MonoBehaviour:
   cohesionRay: 0.6
   attractionRay: 0.8
   filter: 2
+  avoidCoeff: 0.09
+  cohesionCoeff: 0.5
+  attractionCoeff: 0.6
   MatWallInt: {fileID: 2100000, guid: 744b80bf8335ed546996b01a044ed88c, type: 2}
   MatWallMed: {fileID: 2100000, guid: eb1e10abffe079b498998181272c3c11, type: 2}
   MatWallExt: {fileID: 2100000, guid: ae0b6955983003d429c99618ad6b2385, type: 2}
