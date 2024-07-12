@@ -55,7 +55,7 @@ public class SpawnBoidScript : MonoBehaviour
                     GameObject boid = Instantiate(BoidPrefab,child.position, rotation);
                     boid.GetComponent<boidTuning>().Init(speed, wallRay, avoidRay,cohesionRay, attractionRay, filter);
                     boid.GetComponent<FadeOut>().setScene(initScript);
-                    boid.GetComponent<FadeOut>().setDetect(detect);
+                    boid.GetComponent<FadeOut>().setRig(rig);
                     initScript.addBoidList(boid);
                 }
             }

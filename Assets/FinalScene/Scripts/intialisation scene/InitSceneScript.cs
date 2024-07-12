@@ -418,7 +418,16 @@ private void Start()
             tmp.Init(BoidSpeed, wallRay, avoidRay, cohesionRay, attractionRay, filter);
             tmp.withDEBUG = false;
             boid.GetComponent<FadeOut>().setScene(this);
-            boid.GetComponent<FadeOut>().setDetect(detect);
+            if (detect == null)
+            {
+                Debug.Log(" IN INIT SCENE DETECT NULL");
+            }
+            if (rig == null)
+            {
+                Debug.Log(" RIG NO REFERENCE");
+            }
+            boid.GetComponent<FadeOut>().setRig(rig);
+            Debug.Log(" DETECT SET ");
             boidList.Add(obj);
         }
     }

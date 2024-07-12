@@ -20,9 +20,10 @@ public class FadeOut : MonoBehaviour
     private float initialAlpha = 1f;
     private float fadeDuration = 5f; // 5 secondes pour fade out
     private InitSceneScript initScript;
-    private ScenePlaneDetectController detect;
+    private GameObject rig;
 
     private boidTuning isBoid;
+    private int cpt = 0;
 
     void Awake(){
         //Si isBoid == null alors c'est un cube
@@ -42,12 +43,17 @@ public class FadeOut : MonoBehaviour
 
     }
 
+    
     void Update(){
-        
-        if((initScript ==null)&&(isBoid != null) && (detect!= null))
+        if ((rig == null) && (cpt<1))
         {
-            Debug.Log("           IN FADE OUT ");
-            initScript = detect.getArena().GetComponent<InitSceneScript>();
+            Debug.Log(" Rig IS NULL");
+            cpt = 1;
+        }
+        if((initScript ==null)&&(isBoid != null))
+        {
+           // Debug.Log("           IN FADE OUT ");
+            //initScript = detect.getArena().GetComponent<InitSceneScript>();
         }
         //Debug.Log(isFadingOut);
         if(isFadingOut == true){
@@ -96,8 +102,8 @@ public class FadeOut : MonoBehaviour
     {
         initScript = scene;    
     }
-    public void setDetect(ScenePlaneDetectController sc)
+    public void setRig(GameObject r)
     {
-        this.detect = sc;
+        this.rig = r;
     }
 }
