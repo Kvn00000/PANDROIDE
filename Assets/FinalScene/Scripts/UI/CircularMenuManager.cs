@@ -78,7 +78,7 @@ public class CircularMenuManager : MonoBehaviour{
     void OnEnable(){
         Debug.Log("enable " + Controller + " les settings  :" + SettingsMenu.activeSelf + " le main " + MainMenu.activeSelf);
 
-        if(MoreButton.activeSelf == true){
+        if(MoreSettingsMenu.activeSelf == true){
             Debug.Log("enable settings menu on");
             addMoreSettingsListener();
         }else{
