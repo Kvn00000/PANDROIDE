@@ -76,6 +76,8 @@ public class CircularMenuManager : MonoBehaviour{
     }
 
     void OnEnable(){
+        Debug.Log("enable " + Controller + " les settings  :" + SettingsMenu.activeSelf + " le main " + MainMenu.activeSelf);
+
         if(SettingsMenu.activeSelf == true){
             Debug.Log("enable settings menu on");
             addSettingsListener();
@@ -84,11 +86,18 @@ public class CircularMenuManager : MonoBehaviour{
 
             addMainPageListener();
         }
+
+        Debug.Log("end enable");
     }
     void OnDisable(){
+        Debug.Log("disable  " + Controller + " les settings  :" + SettingsMenu.activeSelf + " le main " + MainMenu.activeSelf);
+
         Debug.Log("disable and remove settings listener");
 
         removeSettingsListener();
+
+        Debug.Log("end disable");
+
     }
     void Start(){
         //Delete all the invisible part of the buttons and add listener only for the MainMenu
