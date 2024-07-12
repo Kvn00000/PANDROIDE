@@ -634,7 +634,7 @@ MonoBehaviour:
   BoidButton: {fileID: 1122176884}
   CubeButton: {fileID: 2105451909}
   NothingButton: {fileID: 428673142}
-  MoreButton: {fileID: 1421530664}
+  MoreButton: {fileID: 412850352}
   BackSettingsButton: {fileID: 153368223}
   ResetButton: {fileID: 1998247623}
   PersistenteButton: {fileID: 936363207}

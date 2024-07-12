@@ -76,26 +76,14 @@ public class CircularMenuManager : MonoBehaviour{
     }
 
     void OnEnable(){
-        Debug.Log("enable " + Controller + " les settings  :" + MoreSettingsMenu.activeSelf + " le main " + MainMenu.activeSelf);
-
         if(MoreSettingsMenu.activeSelf == true){
-            Debug.Log("enable settings menu on");
             addMoreSettingsListener();
         }else{
-            Debug.Log("enable main menu add main");
-
             addMainPageListener();
         }
-
-        Debug.Log("end enable");
     }
     void OnDisable(){
-        Debug.Log("disable  " + Controller + " les settings  :" + MoreSettingsMenu.activeSelf + " le main " + MainMenu.activeSelf  );
-
-        Debug.Log("Les deux menus gauche : " + MenuLeft.activeSelf + " droite : " + MenuRight.activeSelf);
         removeMoreSettingsListener();
-
-        Debug.Log("end disable");
     }
     void Start(){
         //Delete all the invisible part of the buttons and add listener only for the MainMenu
@@ -342,7 +330,6 @@ public class CircularMenuManager : MonoBehaviour{
     }
 
     private void OnBackMoreSettingsButtonClick(){
-        Debug.Log("j'ai appuyé sur le bouton back de more setttings");
         SettingsMenu.SetActive(true);
         MoreSettingsMenu.SetActive(false);
 
