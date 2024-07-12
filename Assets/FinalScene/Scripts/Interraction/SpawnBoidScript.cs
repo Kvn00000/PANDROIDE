@@ -57,8 +57,6 @@ public class SpawnBoidScript : MonoBehaviour
                     Quaternion rotation = new Quaternion(0, this.transform.rotation.y, 0, this.transform.rotation.w);
                     GameObject boid = Instantiate(BoidPrefab, child.position, rotation);
                     boid.GetComponent<boidTuning>().Init(speed, wallRay, avoidRay, cohesionRay, attractionRay, filter);
-                    boid.GetComponent<FadeOut>().setScene(initScript);
-                    boid.GetComponent<FadeOut>().setDetect(detect);
                     initScript.addBoidList(boid);
                 }
                 else

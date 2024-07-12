@@ -19,11 +19,8 @@ public class FadeOut : MonoBehaviour
 
     private float initialAlpha = 1f;
     private float fadeDuration = 5f; // 5 secondes pour fade out
-    private InitSceneScript initScript;
-    private ScenePlaneDetectController detect;
 
     private boidTuning isBoid;
-    private int cpt = 0;
 
     void Awake(){
         //Si isBoid == null alors c'est un cube
@@ -66,21 +63,6 @@ public class FadeOut : MonoBehaviour
             }
         }
     }
-    private void LateUpdate()
-    {
-        if ((initScript == null) && (isBoid != null))
-        {
-            // Debug.Log("           IN FADE OUT ");
-            if (detect != null)
-            {
-                initScript = detect.getArena().GetComponent<InitSceneScript>();
-            }
-            else
-            {
-                Debug.Log(" detect IS NULL");
-            }
-        }
-    }
     void OnEnable(){
         grabInteractable.selectEntered.AddListener(OnGrab);
     }
@@ -95,17 +77,5 @@ public class FadeOut : MonoBehaviour
             color.a = 1f;
             renderer.material.color = color;
         }
-    }
-    public void setScene(InitSceneScript scene)
-    {
-        initScript = scene;    
-    }
-    public void setDetect(ScenePlaneDetectController sc)
-    {
-        this.detect = sc;
-    }
-    public bool isNullDetect()
-    {
-        return detect == null;
     }
 }
