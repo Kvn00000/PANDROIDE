@@ -75,23 +75,25 @@ public class CircularMenuManager : MonoBehaviour{
         Spawner = Controller.GetComponent<SpawnBoidScript>();        
     }
 
+    void OnEnable(){
+        if(SettingsMenu.activeSelf == true){
+            addSettingsListener();
+        }else{
+            addMainPageListener();
+        }
+    }
+    void OnDisable(){
+        removeSettingsListener();
+    }
     void Start(){
         //Delete all the invisible part of the buttons and add listener only for the MainMenu
         InitMainMenu();
-        addMainPageListener();
         InitSettingsMenu();
         InitMoreSettingsMenu();
     }
 
 
-    void OnEnable(){
-        // addSettingsListener();
-    }
 
-    void OnDisable(){
-        removeSettingsListener();
-    
-    }
 
     private void addMainPageListener(){
         if(SettingsButton){
@@ -191,14 +193,12 @@ public class CircularMenuManager : MonoBehaviour{
         NothingButton.transform.GetComponent<Image>().alphaHitTestMinimumThreshold = 0.1f;
 
     }
-
     private void InitSettingsMenu(){
         BackSettingsButton.GetComponent<Image>().alphaHitTestMinimumThreshold = 0.1f;
         ResetButton.GetComponent<Image>().alphaHitTestMinimumThreshold = 0.1f;
         PersistenteButton.GetComponent<Image>().alphaHitTestMinimumThreshold = 0.1f;
         MoreButton.GetComponent<Image>().alphaHitTestMinimumThreshold = 0.1f;
     }
-
 
     private void InitMoreSettingsMenu(){
         LeftRightButton.GetComponent<Image>().alphaHitTestMinimumThreshold = 0.1f;
@@ -307,7 +307,7 @@ public class CircularMenuManager : MonoBehaviour{
     }
 
     private void OnResetButtonClick(){
-        Debug.Log("call reset");
+
         initScript.Thanos();
     }
 
