@@ -588,7 +588,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &108576046
 Transform:
   m_ObjectHideFlags: 0
@@ -597,8 +597,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 108576045}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.6390614, y: -0.26750985, z: 0.7046426, w: -0.1533551}
-  m_LocalPosition: {x: 0.1005, y: -0.0228, z: -0.1808}
+  m_LocalRotation: {x: -0.5954464, y: -0.083450355, z: 0.7495613, w: -0.27683464}
+  m_LocalPosition: {x: 0.100499995, y: -0.022800092, z: -0.18079998}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -606,7 +606,7 @@ Transform:
   - {fileID: 1407791581}
   - {fileID: 442728608}
   m_Father: {fileID: 979808673}
-  m_LocalEulerAnglesHint: {x: 145.04001, y: -267.197, z: -8.8289795}
+  m_LocalEulerAnglesHint: {x: 152.949, y: -251.882, z: 20.757004}
 --- !u!114 &108576047
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5042,7 +5042,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Right
+  m_text: 'Left
+
+'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
