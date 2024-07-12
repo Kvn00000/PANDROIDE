@@ -90,14 +90,12 @@ public class CircularMenuManager : MonoBehaviour{
         Debug.Log("end enable");
     }
     void OnDisable(){
-        Debug.Log("disable  " + Controller + " les settings  :" + MoreSettingsMenu.activeSelf + " le main " + MainMenu.activeSelf);
+        Debug.Log("disable  " + Controller + " les settings  :" + MoreSettingsMenu.activeSelf + " le main " + MainMenu.activeSelf  );
 
-        Debug.Log("disable and remove settings listener");
-
+        Debug.Log("Les deux menus gauche : " + MenuLeft.activeSelf + " droite : " + MenuRight.activeSelf);
         addMoreSettingsListener();
 
         Debug.Log("end disable");
-
     }
     void Start(){
         //Delete all the invisible part of the buttons and add listener only for the MainMenu
@@ -321,7 +319,6 @@ public class CircularMenuManager : MonoBehaviour{
     }
 
     private void OnResetButtonClick(){
-
         initScript.Thanos();
     }
 
@@ -330,13 +327,11 @@ public class CircularMenuManager : MonoBehaviour{
     }
 
     // More Settings Buttons
-
     private void OnLeftRightButtonClick(){
         //Switch the menu on the left or right hand
         MenuLeft.SetActive(!MenuLeft.activeSelf);
         MenuRight.SetActive(!MenuRight.activeSelf);
     }
-
 
     private void OnDebugPanelButtonClick(){
         DebugPanel.SetActive(!DebugPanel.activeSelf);
@@ -353,7 +348,6 @@ public class CircularMenuManager : MonoBehaviour{
         addSettingsListener();
         removeMoreSettingsListener();
     }
-
 
     //For initSceneScript
     public void setScene(InitSceneScript sc)
