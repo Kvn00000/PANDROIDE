@@ -90,15 +90,13 @@ public class ScenePlaneDetectController : MonoBehaviour
         destroList = new List<ARPlane>();
         
         // On s'abonne aux evenements --> Ne pas oublier de se desabonner dans onDestroy()
-        togglePlanesDetectedAction.action.performed += OnTogglePlanesAction;
         _planeManager.planesChanged += OnPlanesChanged;
-        _fadeOutModeChange.action.performed += changeFadeOutMod;
 
 
     }
 
 
-    private void OnTogglePlanesAction(InputAction.CallbackContext obj)
+    public void OnTogglePlanesAction()
     {
         // Change la valeur du bool qui indique si l'on affiche ou non
         isOn = !isOn;
@@ -326,12 +324,6 @@ public class ScenePlaneDetectController : MonoBehaviour
                     _arenaSpawnPos = spawnPosition;
                     _arenaSpawnRotation = spawnRotation;
                     scene.GetComponent<InitSceneScript>().Init(_arenaSpawnPos, _arenaSize * 0.95f, _arenaSpawnRotation,true);
-
-                    // Si manuel appliquer la valeur d'echelle precedemment enregistre
-                    if (_mode == 1)
-                    {
-                        scene.GetComponent<InitSceneScript>().GetParentArena().transform.localScale = _arenaScale;
-                    }
                     _arenaSpawned = true;
 
                 }
@@ -387,9 +379,7 @@ public class ScenePlaneDetectController : MonoBehaviour
     private void OnDestroy()
     {
         //Debug.Log("Calling Destructor for ScenePlaneDetectController");
-        togglePlanesDetectedAction.action.performed -= OnTogglePlanesAction;
         _planeManager.planesChanged -= OnPlanesChanged;
-        _fadeOutModeChange.action.performed -= changeFadeOutMod;
     }
     // Update is called once per frame
 
@@ -490,7 +480,7 @@ public class ScenePlaneDetectController : MonoBehaviour
         PlayerPrefs.SetFloat("ArenaScaleZ", _arenaScale.z);
 
     }
-    private void changeFadeOutMod(InputAction.CallbackContext obj)
+    public void changeFadeOutMod()
     {
         //Debug.Log("ENTERING CHANGE FADE OUT");
         if (_FadeOut == 0)

@@ -47,10 +47,7 @@ public class InitSceneScript : MonoBehaviour
     public float cohesionRay;
     public float attractionRay;
     public float filter;
-    [SerializeField]
-    private GameObject rig;
 
-    private List<boidTuning> boidsList = new List<boidTuning>();
 
     //Taille d'une case
     private float boxsize = 1;
@@ -71,7 +68,6 @@ public class InitSceneScript : MonoBehaviour
     private CircleWallScript component_topWall;
     private float wallThickness= 0.01f;
     private GameObject _plane;
-    private ScenePlaneDetectController detect;
     //
     [SerializeField]
     private Material MatWallInt;
@@ -92,7 +88,6 @@ public class InitSceneScript : MonoBehaviour
     void Awake()
     {
         Physics.gravity = new Vector3(0, -1F, 0);
-        detect = rig.GetComponent<ScenePlaneDetectController>();
     }
 
     // Start is called before the first frame update
@@ -268,43 +263,6 @@ private void Start()
 }
 /**/
 
-    private void updateSpeed(){
-
-        foreach(boidTuning b in boidsList){
-            b.speed = BoidSpeed;
-        }
-
-    }
-
-    private void updateWallRay(){
-        foreach(boidTuning b in boidsList){
-            b.wallRay = wallRay;
-        }
-    }
-
-    private void updateAvoidRay(){
-        foreach(boidTuning b in boidsList){
-            b.avoidRay = avoidRay;
-        }
-    }
-
-    private void updateCohesionRay(){
-        foreach(boidTuning b in boidsList){
-            b.cohesionRay = cohesionRay;
-        }
-    }
-
-    private void updateAttractionRay(){
-        foreach(boidTuning b in boidsList){
-            b.attractionRay = attractionRay;
-        }
-    }
-
-    private void updateFilter(){
-        foreach(boidTuning b in boidsList){
-            b.filter = filter;
-        }
-    }
 
     private void DrawCircularOrSidedArena()
     {
@@ -418,16 +376,6 @@ private void Start()
             tmp.Init(BoidSpeed, wallRay, avoidRay, cohesionRay, attractionRay, filter);
             tmp.withDEBUG = false;
             boid.GetComponent<FadeOut>().setScene(this);
-            if (detect == null)
-            {
-                Debug.Log(" IN INIT SCENE DETECT NULL");
-            }
-            if (rig == null)
-            {
-                Debug.Log(" RIG NO REFERENCE");
-            }
-            boid.GetComponent<FadeOut>().setRig(rig);
-            Debug.Log(" DETECT SET ");
             boidList.Add(obj);
         }
     }
@@ -472,7 +420,7 @@ private void Start()
     }
    
 
-    private void CleanUpDestroyedObjects()
+    public void CleanUpDestroyedObjects()
     {
         boidList.RemoveAll(item => item == null);
     }
@@ -484,9 +432,8 @@ private void Start()
     public int getBoidListCount(){
         return boidList.Count;
     }
-
-    public void setDetect(ScenePlaneDetectController sc)
+    public List<GameObject> getBoidList()
     {
-        detect = sc;
+        return boidList;
     }
 }

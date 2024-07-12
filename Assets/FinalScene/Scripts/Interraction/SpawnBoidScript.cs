@@ -40,23 +40,30 @@ public class SpawnBoidScript : MonoBehaviour
     {
         
         child = this.transform.GetChild(1);
-        Debug.Log("           Spawner ");
+        //Debug.Log("           Spawner ");
         detect = rig.GetComponent<ScenePlaneDetectController>();
+
+        
 
     }
     void Update(){
         //To set the right position
-        if(inputAction.action.WasPressedThisFrame() && toInstantiate > 0){
+        //
+        if (inputAction.action.WasPressedThisFrame() && toInstantiate > 0){
             if(toInstantiate == 1){ // Instanciate Boid
                 //Give the controller rotation
-                if ((initScript !=null) &&(initScript.getBoidListCount() < 100))
+                if ((initScript != null) && (initScript.getBoidListCount() < 100))
                 {
-                    Quaternion rotation = new Quaternion(0, this.transform.rotation.y, 0,this.transform.rotation.w) ;
-                    GameObject boid = Instantiate(BoidPrefab,child.position, rotation);
-                    boid.GetComponent<boidTuning>().Init(speed, wallRay, avoidRay,cohesionRay, attractionRay, filter);
+                    Quaternion rotation = new Quaternion(0, this.transform.rotation.y, 0, this.transform.rotation.w);
+                    GameObject boid = Instantiate(BoidPrefab, child.position, rotation);
+                    boid.GetComponent<boidTuning>().Init(speed, wallRay, avoidRay, cohesionRay, attractionRay, filter);
                     boid.GetComponent<FadeOut>().setScene(initScript);
-                    boid.GetComponent<FadeOut>().setRig(rig);
+                    boid.GetComponent<FadeOut>().setDetect(detect);
                     initScript.addBoidList(boid);
+                }
+                else
+                {
+                    initScript.CleanUpDestroyedObjects();
                 }
             }
             else if(toInstantiate == 2){//Instanciate Cube

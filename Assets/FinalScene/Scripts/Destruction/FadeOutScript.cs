@@ -20,7 +20,7 @@ public class FadeOut : MonoBehaviour
     private float initialAlpha = 1f;
     private float fadeDuration = 5f; // 5 secondes pour fade out
     private InitSceneScript initScript;
-    private GameObject rig;
+    private ScenePlaneDetectController detect;
 
     private boidTuning isBoid;
     private int cpt = 0;
@@ -42,19 +42,9 @@ public class FadeOut : MonoBehaviour
 
 
     }
-
-    
+   
     void Update(){
-        if ((rig == null) && (cpt<1))
-        {
-            Debug.Log(" Rig IS NULL");
-            cpt = 1;
-        }
-        if((initScript ==null)&&(isBoid != null))
-        {
-           // Debug.Log("           IN FADE OUT ");
-            //initScript = detect.getArena().GetComponent<InitSceneScript>();
-        }
+        
         //Debug.Log(isFadingOut);
         if(isFadingOut == true){
             //On reduit le Alpha selon le temps fadeDuration
@@ -72,14 +62,22 @@ public class FadeOut : MonoBehaviour
                 isFadingOut = false;
                 elapsedTime = 0f;
                 //this.transform.position = new Vector3(0,200,0);
-                if( isBoid == null ){
-                    Destroy(this.gameObject);
-                }else{
-                    Debug.Log("before destroy boid");
-                    initScript.DestroyAndRemove(this.gameObject);
-                    Debug.Log("after destroy boid");
-
-                }
+                Destroy(this.gameObject);
+            }
+        }
+    }
+    private void LateUpdate()
+    {
+        if ((initScript == null) && (isBoid != null))
+        {
+            // Debug.Log("           IN FADE OUT ");
+            if (detect != null)
+            {
+                initScript = detect.getArena().GetComponent<InitSceneScript>();
+            }
+            else
+            {
+                Debug.Log(" detect IS NULL");
             }
         }
     }
@@ -102,8 +100,12 @@ public class FadeOut : MonoBehaviour
     {
         initScript = scene;    
     }
-    public void setRig(GameObject r)
+    public void setDetect(ScenePlaneDetectController sc)
     {
-        this.rig = r;
+        this.detect = sc;
+    }
+    public bool isNullDetect()
+    {
+        return detect == null;
     }
 }
