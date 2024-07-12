@@ -588,7 +588,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &108576046
 Transform:
   m_ObjectHideFlags: 0
@@ -597,8 +597,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 108576045}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.8770428, y: 0.036915593, z: -0.4757563, w: 0.055581145}
-  m_LocalPosition: {x: 0.0999, y: -0.0159, z: -0.1541}
+  m_LocalRotation: {x: -0.6390614, y: -0.26750985, z: 0.7046426, w: -0.1533551}
+  m_LocalPosition: {x: 0.1005, y: -0.0228, z: -0.1808}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -606,7 +606,7 @@ Transform:
   - {fileID: 1407791581}
   - {fileID: 442728608}
   m_Father: {fileID: 979808673}
-  m_LocalEulerAnglesHint: {x: 172.379, y: 56.91, z: -0.68600464}
+  m_LocalEulerAnglesHint: {x: 145.04001, y: -267.197, z: -8.8289795}
 --- !u!114 &108576047
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -813,7 +813,6 @@ MonoBehaviour:
     type: 3}
   CubePrefab: {fileID: 6405620610664063678, guid: da8153cba6d3e49da844a4a7869de469,
     type: 3}
-  rig: {fileID: 1104147847}
   speed: 200
   withGoto: 1
   withCohesion: 1
@@ -3396,7 +3395,6 @@ MonoBehaviour:
     type: 3}
   CubePrefab: {fileID: 6405620610664063678, guid: da8153cba6d3e49da844a4a7869de469,
     type: 3}
-  rig: {fileID: 1104147847}
   speed: 200
   withGoto: 1
   withCohesion: 1
@@ -3834,7 +3832,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &979808673
 Transform:
   m_ObjectHideFlags: 0
@@ -3843,8 +3841,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 979808672}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.11790019, y: -0.081694074, z: 0.07936714, w: 0.98647183}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: 0.12828355, y: 0.06417251, z: 0.061178867, w: 0.9877664}
+  m_LocalPosition: {x: 0.0193, y: -0.0356, z: 0.0012}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -4818,12 +4816,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   togglePlanesDetectedAction: {fileID: 6834502231330789683, guid: c348712bda248c246b8c49b3db54643f,
     type: 3}
-  _fadeOutModeChange: {fileID: 2122114545978731036, guid: c348712bda248c246b8c49b3db54643f,
-    type: 3}
   toSpawn: {fileID: 1826128083}
   planDense: {fileID: 4177343721706579009, guid: 624db0f829f8d8b44a45c00a42f57ec7,
     type: 3}
-  damier: 0
 --- !u!114 &1104147869
 MonoBehaviour:
   m_ObjectHideFlags: 0
