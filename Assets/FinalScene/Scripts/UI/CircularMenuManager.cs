@@ -76,7 +76,7 @@ public class CircularMenuManager : MonoBehaviour{
     }
 
     void OnEnable(){
-        Debug.Log("enable " + Controller + " les settings  :" + SettingsMenu.activeSelf + " le main " + MainMenu.activeSelf);
+        Debug.Log("enable " + Controller + " les settings  :" + MoreSettingsMenu.activeSelf + " le main " + MainMenu.activeSelf);
 
         if(MoreSettingsMenu.activeSelf == true){
             Debug.Log("enable settings menu on");
@@ -90,7 +90,7 @@ public class CircularMenuManager : MonoBehaviour{
         Debug.Log("end enable");
     }
     void OnDisable(){
-        Debug.Log("disable  " + Controller + " les settings  :" + SettingsMenu.activeSelf + " le main " + MainMenu.activeSelf);
+        Debug.Log("disable  " + Controller + " les settings  :" + MoreSettingsMenu.activeSelf + " le main " + MainMenu.activeSelf);
 
         Debug.Log("disable and remove settings listener");
 
