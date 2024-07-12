@@ -93,7 +93,7 @@ public class CircularMenuManager : MonoBehaviour{
         Debug.Log("disable  " + Controller + " les settings  :" + MoreSettingsMenu.activeSelf + " le main " + MainMenu.activeSelf  );
 
         Debug.Log("Les deux menus gauche : " + MenuLeft.activeSelf + " droite : " + MenuRight.activeSelf);
-        addMoreSettingsListener();
+        removeMoreSettingsListener();
 
         Debug.Log("end disable");
     }
