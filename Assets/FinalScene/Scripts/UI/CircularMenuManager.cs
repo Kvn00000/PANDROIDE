@@ -178,7 +178,7 @@ public class CircularMenuManager : MonoBehaviour{
             DebugPanelButton.onClick.AddListener(OnDebugPanelButtonClick);
         }
         if(BackMoreSettingsButton){
-            BackMoreSettingsButton.onClick.AddListener(OnBackMoreSettingsButton);
+            BackMoreSettingsButton.onClick.AddListener(OnBackMoreSettingsButtonClick);
         }
     }
 
@@ -193,7 +193,7 @@ public class CircularMenuManager : MonoBehaviour{
             DebugPanelButton.onClick.RemoveListener(OnDebugPanelButtonClick);
         }
         if(BackMoreSettingsButton){
-            BackMoreSettingsButton.onClick.RemoveListener(OnBackMoreSettingsButton);
+            BackMoreSettingsButton.onClick.RemoveListener(OnBackMoreSettingsButtonClick);
         }
     }
 
@@ -341,7 +341,8 @@ public class CircularMenuManager : MonoBehaviour{
         scenePlane.OnTogglePlanesAction();
     }
 
-    private void OnBackMoreSettingsButton(){
+    private void OnBackMoreSettingsButtonClick(){
+        Debug.Log("j'ai appuyé sur le bouton back de more setttings");
         SettingsMenu.SetActive(true);
         MoreSettingsMenu.SetActive(false);
 
