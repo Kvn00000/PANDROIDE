@@ -10,7 +10,7 @@ using System.Runtime.InteropServices;
 
 public class InitSceneScript : MonoBehaviour
 {
-    //Boid Prefab
+    //Prefabs and other link
     public GameObject boid;
     [Header("Link with controllers")]
     [SerializeField]
@@ -21,6 +21,8 @@ public class InitSceneScript : MonoBehaviour
     private GameObject MenuR;
     [SerializeField]
     private GameObject MenuL;
+    [SerializeField]
+    private GameObject parentArenaPrefab; // --> parent  of the arena
     //Nombre de face pour le mur
     public int side;
 
@@ -38,7 +40,7 @@ public class InitSceneScript : MonoBehaviour
     public float arenaSize = 0;
     public bool damier = false;
 
-    [Header("Boid Parametres")]
+    [Header("Boid Parameters")]
     
     public int BoidNumber;
     public float BoidSpeed;
@@ -55,10 +57,7 @@ public class InitSceneScript : MonoBehaviour
     //Tableau de toutes les cases
     private GameObject[,] elements;
 
-    //Murs
-    [SerializeField]
-    private GameObject parentArenaPrefab;
-
+    //Walls parameters
     private GameObject parentArena;
     private GameObject walls;
     private GameObject walls2;
@@ -68,7 +67,8 @@ public class InitSceneScript : MonoBehaviour
     private CircleWallScript component_topWall;
     private float wallThickness= 0.01f;
     private GameObject _plane;
-    //
+    
+    //Materials prefabs
     [SerializeField]
     private Material MatWallInt;
     [SerializeField]
@@ -128,12 +128,10 @@ public class InitSceneScript : MonoBehaviour
         init_transform.position = _spawnPos;
         //On ajoute le mur
         DrawCircularOrSidedArena();
-
         //
         if (damier){
-            //Ajout du damier
-
-            //Compteur de nombre de case
+            //Add tiles to the planes
+            //count the number of tiles
             int cptx = 0;
             int cptz = 0;
             for ( double x  = boxsize*0.5 ; x <= arenaSize ; x = x + boxsize ) {
@@ -144,13 +142,11 @@ public class InitSceneScript : MonoBehaviour
                 }
                 cptx = cptx + 1;
             }
-
         }else{
-            //Ajout du plane
+            //Add the plane
             _plane = Instantiate(plane, new Vector3(0,-arenaSize*0.5F,0), init_transform.rotation);
             _plane = Instantiate(plane, _spawnPos, init_transform.rotation);
             _plane.GetComponent<Plane>().Init(side, arenaSize * 0.5f);
-            //Debug.Log("THE Plane LAYER IS " + _plane.layer);
             _plane.layer = 7;
         }
 
@@ -162,17 +158,6 @@ public class InitSceneScript : MonoBehaviour
         }
     }
 
-    private void initSpawnerParameters(SpawnBoidScript tomodif)
-    {
-
-        tomodif.speed = BoidSpeed;
-        tomodif.wallRay = wallRay;
-        tomodif.avoidRay = avoidRay;
-        tomodif.cohesionRay = cohesionRay;
-        tomodif.attractionRay = attractionRay;
-        tomodif.filter = filter;
-        tomodif.setScene(this);
-    }
 
  /*   
 private void Start()
@@ -263,20 +248,33 @@ private void Start()
 }
 /**/
 
+    /*
+     Draw Arena function
+    */
+    private void initSpawnerParameters(SpawnBoidScript tomodif)
+    {
 
+        tomodif.speed = BoidSpeed;
+        tomodif.wallRay = wallRay;
+        tomodif.avoidRay = avoidRay;
+        tomodif.cohesionRay = cohesionRay;
+        tomodif.attractionRay = attractionRay;
+        tomodif.filter = filter;
+        tomodif.setScene(this);
+    }
     private void DrawCircularOrSidedArena()
     {
-        //Instanciation parent
+        //Instanciate parent
         parentArena = Instantiate(parentArenaPrefab, init_transform.position, init_transform.rotation);
         BoxCollider box =parentArena.GetComponent<BoxCollider>();
         parentArena.GetComponent<ResizableWallScript>().SetCenterInit(init_transform.position);
         parentArena.GetComponent<ResizableWallScript>().SetTableRotation(init_transform.rotation);
-        //Instanciation mur interieur
+        //Instanciate inside wall
         walls = Instantiate(wall, init_transform.position, init_transform.rotation);
         component_wall = walls.GetComponent<CircleWallScript>();
         component_wall.inter = true;
         component_wall.DrawWall(side, arenaSize * 0.5f, arenaSize * 0.04f);
-        //Instanciation mur exterieur
+        //Instanciate ext wall
         walls2 = Instantiate(wall, init_transform.position, init_transform.rotation);
         walls2.layer = LayerMask.NameToLayer("MUR");
         component_wall2 = walls2.GetComponent<CircleWallScript>();
@@ -285,7 +283,7 @@ private void Start()
         box.center = component_wall2.GetComponent<MeshCollider>().bounds.center;
         box.size = component_wall2.GetComponent<MeshCollider>().bounds.size;
 
-        //Instanciation top mur
+        //Instanciate top wall
         topArenaWall = Instantiate(wall, init_transform.position, init_transform.rotation);
         topArenaWall.layer = LayerMask.NameToLayer("MUR");
         component_topWall = topArenaWall.GetComponent<CircleWallScript>();
@@ -322,46 +320,16 @@ private void Start()
     {
         return parentArena;
     }
-    /*
-    void Update(){
-
-        if(BoidSpeed != boidsList[0].speed){
-            updateSpeed();
-        }
-        if(wallRay != boidsList[0].wallRay){
-            updateWallRay();
-        }
-        if(avoidRay != boidsList[0].avoidRay){
-            updateAvoidRay();
-        }
-        if(cohesionRay != boidsList[0].cohesionRay){
-            updateCohesionRay();
-        }
-        if(attractionRay != boidsList[0].attractionRay){
-            updateAttractionRay();
-        }
-        if(filter != boidsList[0].filter){
-            updateFilter();
-        }
-    }
-    */
     public void CleanArena()
     {
-        // Destruction de l'arène
+        //Arena Destruction
         DestroySidedArena();
-        // Destruction des boids
-        //foreach(var boid in boidsList)
-        //{
-        //    Destroy(boid);
-        //}
-        //boidsList.Clear(); 
     }
 
 
-
-// For Reset Button
-
-
+    /*
+    Functions related to resetting the arena
+    */
     public void spawnBoidsInit()
     {
         //Debug.Log("SPAWN POSITION "+boidSpawnPos);
@@ -381,8 +349,7 @@ private void Start()
 
     public void Thanos()
     {
-        //CleanUpDestroyedObjects();
-
+        // Destroy all the boids and make them respawn
         for (int i = boidList.Count - 1; i >= 0; i--)
         {
             GameObject boid = boidList[i];
@@ -394,8 +361,7 @@ private void Start()
     }
     public void Thanos2()
     {
-        //CleanUpDestroyedObjects();
-
+        // Only destroy all the boids
         for (int i = boidList.Count - 1; i >= 0; i--)
         {
             GameObject boid = boidList[i];
@@ -404,26 +370,14 @@ private void Start()
         }
     }
 
-    public void DestroyAndRemove(GameObject obj)
-    {
-        if (boidList.Contains(obj))
-        {
-            Debug.Log("dans le contains");
-            boidList.Remove(obj);
-
-            Debug.Log("entre le remove et le destroy");
-            Destroy(obj);
-
-            Debug.Log("J'ai fini de nettoyer");   
-        }
-    }
-   
-
     public void CleanUpDestroyedObjects()
     {
+        // clean the list of all the null elements
         boidList.RemoveAll(item => item == null);
     }
-
+    /*
+    Functions related the manipulation of the boid list
+    */
     public void addBoidList(GameObject boid){
         boidList.Add(boid);
     }
