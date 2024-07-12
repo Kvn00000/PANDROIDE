@@ -85,7 +85,7 @@ public class CircularMenuManager : MonoBehaviour{
 
 
     void OnEnable(){
-        addSettingsListener();
+        // addSettingsListener();
     }
 
     void OnDisable(){
@@ -307,6 +307,7 @@ public class CircularMenuManager : MonoBehaviour{
     }
 
     private void OnResetButtonClick(){
+        Debug.Log("call reset");
         initScript.Thanos();
     }
 
