@@ -375,7 +375,6 @@ private void Start()
             boidTuning tmp = obj.GetComponent<boidTuning>();
             tmp.Init(BoidSpeed, wallRay, avoidRay, cohesionRay, attractionRay, filter);
             tmp.withDEBUG = false;
-            boid.GetComponent<FadeOut>().setScene(this);
             boidList.Add(obj);
         }
     }
