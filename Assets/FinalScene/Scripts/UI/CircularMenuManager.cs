@@ -61,7 +61,7 @@ public class CircularMenuManager : MonoBehaviour{
     public Button MoreButton;
     public Button BackSettingsButton;
     public Button ResetButton;
-    public Button PersistenteButton;
+    public Button PersistanceButton;
 
     [Header("More Settings Button")]
     public Button LeftRightButton;
@@ -135,8 +135,8 @@ public class CircularMenuManager : MonoBehaviour{
         if(ResetButton){
             ResetButton.onClick.AddListener(OnResetButtonClick);
         }
-        if(PersistenteButton){
-            PersistenteButton.onClick.AddListener(OnPersistenteButtonClick);
+        if(PersistanceButton){
+            PersistanceButton.onClick.AddListener(OnPersistanceButtonClick);
         }
     }
 
@@ -150,8 +150,8 @@ public class CircularMenuManager : MonoBehaviour{
         if(ResetButton){
             ResetButton.onClick.RemoveListener(OnResetButtonClick);
         }
-        if(PersistenteButton){
-            PersistenteButton.onClick.RemoveListener(OnPersistenteButtonClick);
+        if(PersistanceButton){
+            PersistanceButton.onClick.RemoveListener(OnPersistanceButtonClick);
         }
     }
 
@@ -196,7 +196,7 @@ public class CircularMenuManager : MonoBehaviour{
     private void InitSettingsMenu(){
         BackSettingsButton.GetComponent<Image>().alphaHitTestMinimumThreshold = 0.1f;
         ResetButton.GetComponent<Image>().alphaHitTestMinimumThreshold = 0.1f;
-        PersistenteButton.GetComponent<Image>().alphaHitTestMinimumThreshold = 0.1f;
+        PersistanceButton.GetComponent<Image>().alphaHitTestMinimumThreshold = 0.1f;
         MoreButton.GetComponent<Image>().alphaHitTestMinimumThreshold = 0.1f;
     }
 
@@ -310,7 +310,7 @@ public class CircularMenuManager : MonoBehaviour{
         initScript.Thanos();
     }
 
-    private void OnPersistenteButtonClick(){
+    private void OnPersistanceButtonClick(){
         scenePlane.changeFadeOutMod();
     }
 
