@@ -614,7 +614,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 108576045}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 48cebb774ea8c4fd28414fb91cb757c2, type: 3}
   m_Name: 
@@ -8848,6 +8848,8 @@ MonoBehaviour:
   controllerSpawnerL: {fileID: 791662219}
   MenuR: {fileID: 108576045}
   MenuL: {fileID: 1730706481}
+  parentArenaPrefab: {fileID: 244016204592863716, guid: 478a7243bea84ab44af7d1a896663308,
+    type: 3}
   side: 40
   init_transform: {fileID: 1826128085}
   box: {fileID: 1218913827498164039, guid: 9090f37e875a75c40a5986154366407f, type: 3}
@@ -8862,8 +8864,6 @@ MonoBehaviour:
   cohesionRay: 0.6
   attractionRay: 0.8
   filter: 2
-  parentArenaPrefab: {fileID: 244016204592863716, guid: 478a7243bea84ab44af7d1a896663308,
-    type: 3}
   MatWallInt: {fileID: 2100000, guid: 744b80bf8335ed546996b01a044ed88c, type: 2}
   MatWallMed: {fileID: 2100000, guid: eb1e10abffe079b498998181272c3c11, type: 2}
   MatWallExt: {fileID: 2100000, guid: ae0b6955983003d429c99618ad6b2385, type: 2}
