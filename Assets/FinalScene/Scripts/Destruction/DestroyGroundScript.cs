@@ -13,10 +13,10 @@ public class DestroyGroundScript : MonoBehaviour
     1 --> Fade out destruction
     */
     private int _FadeOut;
+
     private int _wallLayer;
     private int _boidLayer;
     private int _groundArenaLayer;
-    private int oldfadeout;
     public bool withDEBUG = false;
 
     private void Awake()
@@ -32,7 +32,6 @@ public class DestroyGroundScript : MonoBehaviour
         {
             _FadeOut = PlayerPrefs.GetInt("FadeOut");
         }
-        oldfadeout = _FadeOut;
     }
 
 
@@ -58,10 +57,7 @@ public class DestroyGroundScript : MonoBehaviour
                     //other.GetComponent<Rigidbody>().isKinematic = true;
 
                 }
-                else
-                {
-                    Destroy(other.transform.parent.gameObject);
-                }
+                
 
             }else{
                 if (_FadeOut == 1)
@@ -70,10 +66,7 @@ public class DestroyGroundScript : MonoBehaviour
                     //other.gameObject.GetComponent<FadeOut>().elapsedTime = 0f;
                     //other.GetComponent<Rigidbody>().isKinematic = true;
                 }
-                else 
-                {
-                    Destroy(other.gameObject);
-                }
+                
 
             }
         }
@@ -96,6 +89,8 @@ public class DestroyGroundScript : MonoBehaviour
         }
         return (isWall || isBoid || isGround);
     }
+
+
 
     public void setMod(int value)
     {
