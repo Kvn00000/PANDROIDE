@@ -32,3 +32,11 @@ Projet réalisé suite à la
  - Tous les fichiers et scènes utilisés sont dans le dossier Assets/FinalScene
  - Les Scripts utilisés sont dans le dossier Script, rangés dans chaque dossier correspondant. De même pour les prefabs qui sont dans le dossier "Prefab".
  - Nous avons importé 3 prefab qui se trouvent dans le dossier "Imported Prefab" : il comporte le debug panel, le mesh de l'avion en papier, ainsi que le spray
+
+
+
+ ## Developper part
+
+ ### Project architecture
+
+ In the **Asset** Folder  
