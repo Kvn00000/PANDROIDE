@@ -166,4 +166,6 @@ the final scene contain different game objects. The most important game object a
 
 If you want to modify the spawner and menus you will find them in the in the XR Origin in the left and right controller.
 
-![FinalSceneMR](/image/finalSceneMRImage.png)
+![FinalSceneMR](/image/finalSceneMRImage.PNG)
+
+
