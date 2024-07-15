@@ -39,4 +39,19 @@ Projet réalisé suite à la
 
  ### Project architecture
 
- In the **Asset** Folder  
+ In the **Asset** Folder  you will find all the files related to the project.
+ 
+ Inside you will find a lot of folder. The main folders are the **Atelier Test Boid** and the **FinalScene**.
+
+### Atelier Test Boid 
+
+ In the **Atelier Test Boid** you will find previous iterations of the boids code. They are not all working but shows that they are diffrent ways to implements these behaviours in Unity. There you also have the **_BoidWorkshop_** scene where you will be able to test boids prefab with differents arenas and obstacles. It is recommended to use this scene if you need to change the boids behaviour to tune before using them in the real scene.
+
+### Final Scene folder
+In this folder you will find the most recent version of the code. This code is functionnal with the following architecture :
+- **Imported prefab**
+- **Materials**
+- **Prefabs**
+- **Scripts**
+
+
