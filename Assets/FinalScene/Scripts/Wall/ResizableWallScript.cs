@@ -7,6 +7,11 @@ using UnityEngine.XR.Interaction.Toolkit;
 
 public class ResizableWallScript : MonoBehaviour
 {
+
+    // DON'T WORK AND NOT USED 
+
+
+    
     // Start is called before the first frame update
     private Vector3 _centerInit;
     private Quaternion _tablerotation;

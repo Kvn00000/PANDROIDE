@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class TopColor : MonoBehaviour
 {
-    //Coté droit du cube sur la layer Mur
+    //We add a new child for each side to change the color of the cube's side when grabbed
+
     private MeshFilter MeshTop;
     private Mesh meshsTop;
     private MeshRenderer _MeshRenderer ;
@@ -28,7 +29,7 @@ public class TopColor : MonoBehaviour
         };
 
 
-        // Droite
+        // Top
         int[] mytriangles = new int[6]{
             //Add the triangles clockwise
             5,3,1,

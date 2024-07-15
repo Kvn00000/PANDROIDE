@@ -13,13 +13,14 @@ public class Pull : XRSimpleInteractable
         topScript = GetComponent<Top>();
     }
 
-    //On change la couleur quand la main est en contact avec le sol
+
+    //We change the color when the hand hover entered with the ground (not for the plane)
     protected override void OnHoverEntered(HoverEnterEventArgs interactor)
     {
         topScript.setNewMesh(topScript.mat);
     }
 
-    //On remet la couleur initiale quand la main n'est plus en contact
+
     protected override void OnHoverExited(HoverExitEventArgs interactor){
         topScript.setNewMesh(topScript.originalMat);
     }
@@ -29,12 +30,12 @@ public class Pull : XRSimpleInteractable
         base.ProcessInteractable(updatePhase);
 
         XRBaseInteractor interactor = selectingInteractor; 
-        //IXRSelectInteractable interactor = (IXRSelectInteractable)interactorsSelecting; // Si ca marche pas remettre la ligne en haut
+        //IXRSelectInteractable interactor = (IXRSelectInteractable)interactorsSelecting;
 
 
 
         if(updatePhase == XRInteractionUpdateOrder.UpdatePhase.Fixed){
-            //Quand la gachette est appuyé on grab + update le vertice du sol
+            //when trigger is hold we update the vertices
             if(isSelected){
                 topScript.updateVertices(interactor.transform.position.y);
             }

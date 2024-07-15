@@ -58,7 +58,7 @@ public class CircleWallScript : MonoBehaviour
         List<Vector3> points = new List<Vector3>();
         float PointStep = (float)1 / sides;
         float TAU = 2 * Mathf.PI;
-        //Ecart entre deux points
+        //gap between two points
         float radianStep = PointStep * TAU;
 
         for (int i = 0; i < sides; i++)
@@ -102,15 +102,7 @@ public class CircleWallScript : MonoBehaviour
         this.height = height;
     }
 
-    private void Update()
-    {
-        if (inter)
-        {
-            //updateTop();
-            //Debug.Log(" INNER " + _meshCollider.sharedMesh.vertices[0]);
-            //
-        }
-    }
+
     public static List<Vector3> mergeTwoVerticesList(List<Vector3> pointsInt, List<Vector3> pointsExt)
     {
         List<Vector3> finalList = new List<Vector3>();

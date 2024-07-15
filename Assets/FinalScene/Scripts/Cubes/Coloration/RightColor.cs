@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class RightColor : MonoBehaviour
 {
-    //Coté droit du cube sur la layer Mur
+    //We add a new child for each side to change the color of the cube's side when grabbed
+    
     private MeshFilter MeshRight;
     private Mesh meshsright;
     private MeshRenderer _MeshRenderer ;
@@ -17,7 +18,7 @@ public class RightColor : MonoBehaviour
         MeshRight = gameObject.AddComponent<MeshFilter>();
 
 
-        // Droite
+        // Right
         int[] mytriangles = new int[6]{
             //Add the triangles clockwise
             3,6,2,

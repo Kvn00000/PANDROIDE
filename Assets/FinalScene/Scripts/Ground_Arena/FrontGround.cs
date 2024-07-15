@@ -4,8 +4,7 @@ using System.Data;
 using UnityEngine;
 public class FrontGround : MonoBehaviour
 {   
-    // Avant du cube avec une layer Mur pour la detection du boid sur un mur
-
+    //front of the cube and set to layer Mur to detect the wall
     private MeshFilter MeshFront;
     private MeshCollider FrontCollider;
 
@@ -14,7 +13,7 @@ public class FrontGround : MonoBehaviour
     {
         MeshFront = gameObject.AddComponent<MeshFilter>();
 
-        //Face Avant du cube
+        //front
         int[] mytriangles = new int[6]{
             //Add the triangles clockwise
             1,2,0,
@@ -27,7 +26,6 @@ public class FrontGround : MonoBehaviour
         meshsfront.RecalculateNormals();
         MeshFront.mesh = meshsfront;
 
-        //Detection de la face avant
         FrontCollider = gameObject.AddComponent<MeshCollider>();
         FrontCollider.sharedMesh = meshsfront;
     }

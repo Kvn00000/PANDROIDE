@@ -53,7 +53,7 @@ public class boidTuning : MonoBehaviour
     void Update()
     {
         /*
-       Boid avec Raycast --> le plus avanc� meme si je comprend pas pourquoi �a marche pas 
+       Boid with Raycast
        */
         
         //If not on the ground apply gravity
@@ -196,8 +196,8 @@ public class boidTuning : MonoBehaviour
     private float AvoidWallRcastv4(float rotate, float wallRay)
     {
         /*
-        Comportement pour eviter les murs avec une distance max de wallRay
-        Rotation ==> premier d�tect� renvoie la valeur
+        Behaviour to avoid 
+        Rotation ==> first detection return the value
         */
         //Init Ray
         Vector3 myPos = rb.transform.position;
@@ -338,8 +338,8 @@ public class boidTuning : MonoBehaviour
     private float AvoidBoidRcastv3(float rotate, float avoidRay)
     {
         /*
-       Comportement pour eviter le boid le plus proche
-       Rotation ==> valeur fixe donne par la fonction
+       Behaviour to avoir boid
+       Rotation ==> value given by the function
        */
         //Init Ray
         Vector3 myPos = rb.transform.position;
@@ -408,8 +408,8 @@ public class boidTuning : MonoBehaviour
     private float CohesionBoidRcast(float rotate, float minRay, float maxRay)
     {
         /*
-        Comportement s'alligner avec tous les d�tect�s
-        Rotation ==> angle entre la destination moyenne et le forward
+        Behaviour to allign with others
+        Rotation ==> angle between the destination aerage and the forward
         */
         //Init Ray
         Vector3 myPos = rb.transform.position;
@@ -492,8 +492,8 @@ public class boidTuning : MonoBehaviour
     private float GoToBoidRcastv3(float rotate, float minRay, float maxRay)
     {
         /*
-       Comportement pour approcher le plus proche
-       Rotation ==> valeur fixe donne par la fonction
+       Behaviour to go the nearest boid 
+       Rotation ==> value given by the function
        */
         //Init Ray
         Vector3 myPos = rb.transform.position;

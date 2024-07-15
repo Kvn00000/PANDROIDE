@@ -76,6 +76,7 @@ public class CircularMenuManager : MonoBehaviour{
     }
 
     void OnEnable(){
+        //To add listener only when the button is activated
         if(MoreSettingsMenu.activeSelf == true){
             addMoreSettingsListener();
         }else{
@@ -210,7 +211,7 @@ public class CircularMenuManager : MonoBehaviour{
 
 
 
-    //Main Menu Event
+    //Main Menu Event -------------------------------------
     private void OnSettingsButtonClick(){
 
         //Switch to the Settings Menu
@@ -231,7 +232,7 @@ public class CircularMenuManager : MonoBehaviour{
             pokeInteractor.SetActive(true);
         }
 
-        //Les spray ne spawn rien + Couleur du spray = blanc
+        //No spawn mode
         Spawner.toInstantiate = 0;
         Color color;
         ColorUtility.TryParseHtmlString(NothingColorHex, out color);
@@ -245,10 +246,7 @@ public class CircularMenuManager : MonoBehaviour{
             SprayBottle.SetActive(true);
         }
 
-        // if(pokeInteractor.activeSelf == true){
-        //     pokeInteractor.SetActive(false);
-        // }
-        // Le spray fait spawn des boids + changement de couleur du spray
+        //spawn boid + change color
         Spawner.toInstantiate = 1;
         Color color;
         ColorUtility.TryParseHtmlString(boidColorHex, out color);
@@ -260,11 +258,7 @@ public class CircularMenuManager : MonoBehaviour{
             SprayBottle.SetActive(true);
         }
 
-        // if(pokeInteractor.activeSelf == true){
-        //     pokeInteractor.SetActive(false);
-        // }
-
-        //Le spray fait spawn des Cube + changemenr de couleur du spray
+        //Spawn cube + change color
         Spawner.toInstantiate = 2;
         Color color;
         ColorUtility.TryParseHtmlString(cubeColorHex, out color);
@@ -276,9 +270,6 @@ public class CircularMenuManager : MonoBehaviour{
             SprayBottle.SetActive(false);
         }
 
-        // if(pokeInteractor.activeSelf == false){
-        //     pokeInteractor.SetActive(true);
-        // }
         Spawner.toInstantiate = 0;
         Color color;
         ColorUtility.TryParseHtmlString(NothingColorHex, out color);
@@ -288,8 +279,7 @@ public class CircularMenuManager : MonoBehaviour{
 
 
 
-    //Settings Menu Event
-
+    //Settings Menu Event -------------------------------------
     private void OnMoreButtonClick(){
         MoreSettingsMenu.SetActive(true);
         SettingsMenu.SetActive(false);
@@ -307,14 +297,18 @@ public class CircularMenuManager : MonoBehaviour{
     }
 
     private void OnResetButtonClick(){
+        //Destroy all boids and cubes and spawn 16 boids 
         initScript.Thanos();
     }
 
     private void OnPersistanceButtonClick(){
+        //Fade out or not
         scenePlane.changeFadeOutMod();
     }
 
-    // More Settings Buttons
+
+
+    // More Settings Buttons -------------------------------------
     private void OnLeftRightButtonClick(){
         //Switch the menu on the left or right hand
         MenuLeft.SetActive(!MenuLeft.activeSelf);
@@ -322,10 +316,12 @@ public class CircularMenuManager : MonoBehaviour{
     }
 
     private void OnDebugPanelButtonClick(){
+        //Make the debug panel appears
         DebugPanel.SetActive(!DebugPanel.activeSelf);
     }
 
     private void OnDebugWallButtonClick(){
+        //Make the plan appears
         scenePlane.OnTogglePlanesAction();
     }
 

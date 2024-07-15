@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class LeftGround : MonoBehaviour
 {
-    // Coté gauche du cube avec layer Mur
+    //left of the cube and set to layer Mur to detect the wall
+
+
     private MeshFilter MeshLeft;
     private MeshCollider LeftCollider;
     private Mesh meshsleft;
@@ -13,7 +15,7 @@ public class LeftGround : MonoBehaviour
     {
         MeshLeft = gameObject.AddComponent<MeshFilter>();
 
-        //Coté gauche
+        //left
         int[] mytriangles = new int[6]{
             //Add the triangles clockwise
             5,0,4,

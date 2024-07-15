@@ -9,7 +9,7 @@ public class DestroyGroundScript : MonoBehaviour
 {
     // Start is called before the first frame update
     /*
-    0 --> direct destruction
+    0 --> no destruction
     1 --> Fade out destruction
     */
     private int _FadeOut;
@@ -53,7 +53,6 @@ public class DestroyGroundScript : MonoBehaviour
                 if (_FadeOut == 1) 
                 { 
                     other.transform.parent.gameObject.GetComponent<FadeOut>().isFadingOut = true;
-                    //other.transform.parent.gameObject.GetComponent<FadeOut>().elapsedTime = 0f;
                     //other.GetComponent<Rigidbody>().isKinematic = true;
 
                 }
@@ -63,7 +62,6 @@ public class DestroyGroundScript : MonoBehaviour
                 if (_FadeOut == 1)
                 {
                     other.gameObject.GetComponent<FadeOut>().isFadingOut = true;
-                    //other.gameObject.GetComponent<FadeOut>().elapsedTime = 0f;
                     //other.GetComponent<Rigidbody>().isKinematic = true;
                 }
                 
@@ -89,7 +87,6 @@ public class DestroyGroundScript : MonoBehaviour
                 if (_FadeOut == 1)
                 {
                     other.transform.parent.gameObject.GetComponent<FadeOut>().isFadingOut = true;
-                    //other.transform.parent.gameObject.GetComponent<FadeOut>().elapsedTime = 0f;
                     //other.GetComponent<Rigidbody>().isKinematic = true;
 
                 }
@@ -101,7 +98,6 @@ public class DestroyGroundScript : MonoBehaviour
                 if (_FadeOut == 1)
                 {
                     other.gameObject.GetComponent<FadeOut>().isFadingOut = true;
-                    //other.gameObject.GetComponent<FadeOut>().elapsedTime = 0f;
                     //other.GetComponent<Rigidbody>().isKinematic = true;
                 }
             }

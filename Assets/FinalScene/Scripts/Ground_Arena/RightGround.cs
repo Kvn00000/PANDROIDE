@@ -5,7 +5,8 @@ using UnityEngine;
 public class RightGround : MonoBehaviour
 {
 
-    //Coté droit du cube sur la layer Mur
+    //right of the cube and set to layer Mur to detect the wall
+
     private MeshFilter MeshRight;
     private MeshCollider rightCollider;
     private Mesh meshsright;
@@ -16,7 +17,7 @@ public class RightGround : MonoBehaviour
         MeshRight = gameObject.AddComponent<MeshFilter>();
 
 
-        // Droite
+        // right
         int[] mytriangles = new int[6]{
             //Add the triangles clockwise
             3,6,2,

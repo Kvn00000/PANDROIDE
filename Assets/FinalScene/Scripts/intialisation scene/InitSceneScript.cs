@@ -23,7 +23,7 @@ public class InitSceneScript : MonoBehaviour
     private GameObject MenuL;
     [SerializeField]
     private GameObject parentArenaPrefab; // --> parent  of the arena
-    //Nombre de face pour le mur
+    //Number of the side for the arena
     public int side;
 
 
@@ -55,10 +55,10 @@ public class InitSceneScript : MonoBehaviour
     public float cohesionCoeff= 0.5f;
     public float attractionCoeff= 0.6f;
 
-    //Taille d'une case
+    //Size of a cube (for the damier)
     private float boxsize = 1;
     
-    //Tableau de toutes les cases
+    //for all the cubes
     private GameObject[,] elements;
 
     //Walls parameters
@@ -122,7 +122,6 @@ public class InitSceneScript : MonoBehaviour
         //
         
         //Debug.Log("ARENA SIZE "+arenaSize);
-        //Coords d'une case
         x_ref = -arenaSize * 0.5F;
         y_ref = 0;
         z_ref = -arenaSize * 0.5F;
@@ -340,7 +339,7 @@ private void Start()
         //Debug.Log("SPAWN POSITION "+boidSpawnPos);
         for (int i = 0; i < BoidNumber; i++)
         {
-            //Angle al�atoire
+            //random angle
             float randomAngleY = Random.Range(0f, 360f);
             Quaternion spawnRotation = Quaternion.Euler(0f, randomAngleY, 0f);
             Vector3 otherSpawn = new Vector3(boidSpawnPos.x, boidSpawnPos.y + 1, boidSpawnPos.z);

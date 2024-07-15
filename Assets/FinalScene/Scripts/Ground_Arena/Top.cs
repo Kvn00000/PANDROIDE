@@ -11,7 +11,7 @@ using UnityEngine.XR.Interaction.Toolkit;
 
 public class Top : MonoBehaviour{
 
-    //Pour le hover on et interaction
+    //for hover on and interaction
     public Material mat;
     public Material originalMat;
 
@@ -40,7 +40,7 @@ public class Top : MonoBehaviour{
         _MeshRenderer = gameObject.GetComponent<MeshRenderer>();
 
 
-        //Vertices du cube
+        //vertices
         vertices = new Vector3[8]{
             new Vector3(-size, -size, -size),
             new Vector3(-size, size, -size),
@@ -52,7 +52,7 @@ public class Top : MonoBehaviour{
             new Vector3(size, size, size)
         };
 
-        //Tout les triangles
+        //all triangles
         int[] triangles = new int[36]{
             //Add the triangles clockwise
             //Front
@@ -80,17 +80,15 @@ public class Top : MonoBehaviour{
         meshs.triangles = triangles;
         _meshFilter.mesh = meshs;
 
-        //Pour la reflection de la lumiere
         // meshs.RecalculateNormals();
         
-        //On ajoute l'interaction et on ajoute les autres faces de layer Mur
+        //Add interaction with all the other child
         simpleInteract = gameObject.AddComponent<Pull>();
         StartChild();
     }
 
 
     public void updateVertices(float height){
-        // On met a jour les vertices
         vertices = new Vector3[8]{
             new Vector3(-size, -size, -size),
             new Vector3(-size, size+height, -size),
@@ -106,7 +104,7 @@ public class Top : MonoBehaviour{
         _collider.size = new Vector3(size*2F,2*size+height,size*2F);
         _collider.center = new Vector3(0,height*0.5F,0);
 
-        //On met a jour les autres faces Mur
+        //update vertices of the childs
         left.changeLeftHeight(vertices);
         right.changeRightHeight(vertices);
         back.changeBackHeight(vertices);

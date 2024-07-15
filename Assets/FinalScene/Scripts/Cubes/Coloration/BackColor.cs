@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class BackColor : MonoBehaviour
 {
+    //We add a new child for each side to change the color of the cube's side when grabbed
     private MeshFilter MeshBack;
     private MeshRenderer _MeshRenderer ;
 
@@ -15,7 +16,7 @@ public class BackColor : MonoBehaviour
     {
         MeshBack = gameObject.AddComponent<MeshFilter>();
 
-        //Une seule face du cube (Back)
+        // (Back)
         int[] mytriangles = new int[6]{
             1,2,0,
             1,3,2,

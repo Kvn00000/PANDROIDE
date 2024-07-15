@@ -23,7 +23,7 @@ public class FadeOut : MonoBehaviour
     private boidTuning isBoid;
 
     void Awake(){
-        //Si isBoid == null alors c'est un cube
+        //if isBoid == null then it is a cube
         isBoid = GetComponent<boidTuning>();
         elapsedTime = 0f;
         if(isBoid != null){
@@ -42,10 +42,8 @@ public class FadeOut : MonoBehaviour
    
     void Update(){
         
-        //Debug.Log(isFadingOut);
         if(isFadingOut == true){
-            //On reduit le Alpha selon le temps fadeDuration
-            //Debug.Log(elapsedTime);
+            //We reduce the alpha based on the fadeDuration
 
             meshR.material = TranparentMat;
             elapsedTime += Time.deltaTime;
@@ -53,12 +51,10 @@ public class FadeOut : MonoBehaviour
             color.a = Mathf.Lerp(initialAlpha, 0f, elapsedTime / fadeDuration);
             renderer.material.color = color;
 
-            //On detruit l'objet au bout de fadeDuration secondes
+            //Destroy the object 
             if (elapsedTime >= fadeDuration){
-                //Debug.Log("je suis censé tout reset");
                 isFadingOut = false;
                 elapsedTime = 0f;
-                //this.transform.position = new Vector3(0,200,0);
                 Destroy(this.gameObject);
             }
         }
@@ -67,10 +63,9 @@ public class FadeOut : MonoBehaviour
         grabInteractable.selectEntered.AddListener(OnGrab);
     }
 
-    // Start is called before the first frame update
     private void OnGrab(SelectEnterEventArgs args){
         if(isFadingOut == true){
-            //On remet le Material Opaque et on remet le Alpha a 1
+            //Put the opaque material and set the alpha to 1
             meshR.material = OpaqueMat;
             isFadingOut = false;
             elapsedTime = 0f;

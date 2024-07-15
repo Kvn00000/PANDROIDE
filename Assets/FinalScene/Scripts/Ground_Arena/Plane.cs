@@ -5,7 +5,6 @@ using System.Collections.Generic;
 public class Plane : MonoBehaviour
 {
 
-    //Components
     private MeshFilter _meshFilter;
     private MeshCollider _collider;
 
@@ -26,7 +25,7 @@ public class Plane : MonoBehaviour
         meshs.triangles = triangles;
         _meshFilter.mesh = meshs;
 
-        //Collider prend la forme du mesh
+        //Collider has the same shape of the mesh
         _collider.sharedMesh = meshs; 
     }
 
@@ -37,7 +36,7 @@ public class Plane : MonoBehaviour
         List<Vector3> points = new List<Vector3>();
         float PointStep = (float)1 / sides;
         float TAU = 2 * Mathf.PI;
-        //Ecart entre deux points
+        //gap between two points
         float radianStep = PointStep * TAU;
 
         for (int i = 0; i < sides; i++){

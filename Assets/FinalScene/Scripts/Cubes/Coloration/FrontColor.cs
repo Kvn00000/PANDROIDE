@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class FrontColor : MonoBehaviour
 {
+    //We add a new child for each side to change the color of the cube's side when grabbed
+    
     private MeshFilter MeshFront;
     private MeshRenderer _MeshRenderer ;
 
@@ -14,7 +16,7 @@ public class FrontColor : MonoBehaviour
     {
         MeshFront = gameObject.AddComponent<MeshFilter>();
 
-        //Face Avant du cube
+        //Front
         int[] mytriangles = new int[6]{
             //Add the triangles clockwise
             7,4,6,

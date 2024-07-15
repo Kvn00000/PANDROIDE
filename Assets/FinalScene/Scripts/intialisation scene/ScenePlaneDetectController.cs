@@ -59,7 +59,6 @@ public class ScenePlaneDetectController : MonoBehaviour
         // Subscribing to events -->don't forget to unsubscribe in onDestroy()
         _planeManager.planesChanged += OnPlanesChanged;
 
-
     }
     private void initSavedParameters()
     {
@@ -94,7 +93,7 @@ public class ScenePlaneDetectController : MonoBehaviour
     */
     public void OnTogglePlanesAction()
     {
-        // Change la valeur du bool qui indique si l'on affiche ou non
+
         isOn = !isOn;
         float alphaValueFill;
         float alphaValueLine;
@@ -128,13 +127,13 @@ public class ScenePlaneDetectController : MonoBehaviour
         }
         if (lineRenderer !=null)
         {
-            // Init couleur depart
+            // Init first color
             Color startColor = lineRenderer.startColor;
             Color endColor = lineRenderer.endColor;
-            // Affectation des valeurs de alpha
+
             startColor.a = alphaValueLine;
             endColor.a = alphaValueLine;
-            //Application changements
+
             lineRenderer.startColor = startColor;
             lineRenderer.endColor = endColor;
         }
@@ -160,7 +159,7 @@ public class ScenePlaneDetectController : MonoBehaviour
                     //Debug.Log("Table Found");
                     if (!_arenaSpawned)
                     {
-                        // Recup infos plan
+
                         spawnPosition = plane.center;
                         float sizeTable = plane.extents.sqrMagnitude;
 
@@ -190,7 +189,7 @@ public class ScenePlaneDetectController : MonoBehaviour
                         underP = dense;
                         // Instanciation scene
                         GameObject scene=Instantiate(toSpawn, spawnPosition, Quaternion.identity);
-                        // Récup infos pour l'arene
+                        // for arena
                         Quaternion spawnRotation = plane.transform.rotation;
                         _arena = scene;
                         _arena.AddComponent<ARAnchor>();
@@ -205,7 +204,7 @@ public class ScenePlaneDetectController : MonoBehaviour
                         _arenaSpawnRotation = spawnRotation;
                         scene.GetComponent<InitSceneScript>().Init(_arenaSpawnPos, _arenaSize*0.95f,_arenaSpawnRotation,true);
 
-                        // Si manuel appliquer la valeur d'echelle precedemment enregistre
+                        //if manuel apply previous scale
                         _arenaSpawned = true;
 
                     }
@@ -223,7 +222,7 @@ public class ScenePlaneDetectController : MonoBehaviour
                     
                     plane.gameObject.AddComponent<BoxCollider>();
                     
-                    //Ajout sous plan
+                    //add under plane
                     if (plane.classification == UnityEngine.XR.ARSubsystems.PlaneClassification.Floor)
                     {
                         Vector3 underplane = new Vector3(plane.transform.position.x, plane.transform.position.y-0.5f, plane.transform.position.z);
@@ -237,7 +236,7 @@ public class ScenePlaneDetectController : MonoBehaviour
                     {
                         plane.gameObject.layer = _layerwall;
                     }
-                    //Ajout Destructeur
+                    //Add destructor
                     BoxCollider boxCollider = plane.GetComponent<BoxCollider>();
                     boxCollider.size = plane.gameObject.transform.localScale;
                     boxCollider.center = plane.center;
@@ -274,7 +273,6 @@ public class ScenePlaneDetectController : MonoBehaviour
                 //Debug.Log("Table Found");
                 if (!_arenaSpawned)
                 {
-                    // Recup infos plan
                     spawnPosition = plane.center;
                     float sizeTable = plane.extents.sqrMagnitude;
 
@@ -297,14 +295,14 @@ public class ScenePlaneDetectController : MonoBehaviour
                     plane.gameObject.layer = LayerMask.NameToLayer("SOL");
                     plane.gameObject.AddComponent<ARAnchor>();
 
-                    //Ajout sous plan
+                    //add under plane
                     Vector3 underplane = new Vector3(plane.transform.position.x, plane.transform.position.y - 0.25f, plane.transform.position.z);
                     GameObject dense = Instantiate(planDense, underplane, plane.transform.rotation);
                     dense.transform.localScale = new Vector3(plane.size.x, dense.transform.localScale.y * 0.40f, plane.size.y);
                     underP = dense;
-                    // Instanciation scene
+                    // instanciate scene
                     GameObject scene = Instantiate(toSpawn, spawnPosition, Quaternion.identity);
-                    // Récup infos pour l'arene
+                    // for arena
                     Quaternion spawnRotation = plane.transform.rotation;
                     _arena = scene;
                     _arena.AddComponent<ARAnchor>();
@@ -312,7 +310,7 @@ public class ScenePlaneDetectController : MonoBehaviour
                     //else { Debug.Log("_ARena Null"); }
 
 
-                    //  Arene mode automatique
+                    //  arena mode auto
                     _arenaSize = sizeTable2;
                     _arenaSpawnRotation = spawnRotation;
                     _arenaSpawnPos = spawnPosition;
@@ -335,7 +333,7 @@ public class ScenePlaneDetectController : MonoBehaviour
 
                 plane.gameObject.AddComponent<BoxCollider>();
 
-                //Ajout sous plan
+                //add under plane
                 if (plane.classification == UnityEngine.XR.ARSubsystems.PlaneClassification.Floor)
                 {
                     Vector3 underplane = new Vector3(plane.transform.position.x, plane.transform.position.y - 0.5f, plane.transform.position.z);
@@ -348,7 +346,7 @@ public class ScenePlaneDetectController : MonoBehaviour
                 {
                     plane.gameObject.layer = _layerwall;
                 }
-                //Ajout Destructeur
+                //add destructor
                 BoxCollider boxCollider = plane.GetComponent<BoxCollider>();
                 boxCollider.size = plane.gameObject.transform.localScale;
                 boxCollider.center = plane.center;
