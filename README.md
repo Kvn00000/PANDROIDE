@@ -32,8 +32,10 @@ This project demonstrates a simulation of collective movements in virtual realit
  3. Click on the "File" menu in the top left corner, and select Build Settings.
 
  4. Connect your headset to your computer, select the Android plateform. Choose your headset from the "Run device" dropdown. If it does not appear, click the "Refresh" button (blue arrow) and then click on the "Switch Platform" button (red arrow).
- ![BuildSettings](/image/Build%20Settings.png){width = 80; height = 80}
+ <!-- ![BuildSettings](/image/Build%20Settings.png){width = 80; height = 80} -->
 
+<img src="./image/Build%20Settings.png" width="60%">
+<!-- \includegraphics[width=6cm]{/image/Build%20Settings.png} -->
  
  5. Finally, click on the "Build and Run" button, and the project will launch in your Oculus Quest3 headset.
 
