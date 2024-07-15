@@ -1,43 +1,56 @@
-# Simulation de mouvements collectifs en réalité virtuelle
+# Particube
 
-## Description du projet
 
-Projet réalisé suite à la 
+## Table of content
+ - [Project Description](#project-description)
+ - [Installation ](#installation)
+ - [Launch on an Oculus Quest3 headset](#launch-on-an-oculus-quest3-headset)
+ - [Users Guide](#users-guide)
+ - [Developper Part](#developper-part)
+    - [Project Architecture](#project-architecture)
+    - [Atelier Test Boid](#atelier-test-boid)
+    - [Final Scene Folder](#final-scene-folder)
+    
+## Project Description
+This project demonstrates a simulation of collective movements in virtual reality, where users can interact with cubes and boids represented as paper planes. An arena will spawn on a table and users can interact by grabbing objects or resizing cubes.
 
-## Installation et utilisation
+## Installation
 
- 1. Installer Unity Hub ainsi que la version 2022.3.17f1.
- 2. Cloner le projet github sur votre machine.
- 3. Ajouter le projet dans le Unity Hub en cliquant sur la flèche à droite de add (fleche bleue) puis cliquer sur "Add project from disk" (flèche  rouge), puis sélectionnez l'emplacement du projet.
+ 1. Install Unity Hub with version 2022.3.17f1.
+ 2. Clone the repository to your laptop.
+ 3. Add the project to Unity Hub by clicking the arrow (blue arrow) and selecting "Add project from disk" (red arrow), then choose the project.
  ![UnityHub](/image/UnityHub.png)
- 4. Le projet nommé PANDROIDE apparait dans la liste, cliquer dessus pour l'ouvrir.
- 5. Nous utilisons la scène FinalSceneMR qui se trouve dans le dossier Assets/FinalScene.
+ 4. The project Particube appears in the list, click to open.
+ 5. The main scene we are using is "FinalSceneMR", located in the Assets/FinalScene folder.
 
-## Lancement sur un casque Oculus Quest3
- 1. Assurer vous avant chaque build sur le casque VR, que le XR Device Simulator est désactivé dans la scene.
- <!-- Mettre screen du device -->
+## Launch on an Oculus Quest3 headset
+ 1. Before each build on the headset, ensure that the "XR Device Simulator is disabled in the scene.
  ![DeviceSimulator](/image/DeviceSimulator.png)
 
- 2. Aller dans la scene FinalSceneMR
+ 2. Navigate to the "FinalSceneMR".
 
- 3. Cliquer en haut a gauche sur l'onglet fichier, puis Build Settings.
+ 3. Click on the "File" menu in the top left corner, and select Build Settings.
 
- 4. Brancher votre casque à votre machine puis sélectionner la plateforme Android, sélectionner votre casque dans le "Run device", s'il n'y apparait pas appuyer sur le bouton "Refresh" et cliquer sur le bouton "Switch Plateform".
+ 4. Connect your headset to your computer, select the Android plateform. Choose your headset from the "Run device" dropdown. If it does not appear, click the "Refresh" button (blue arrow) and then click on the "Switch Platform" button (red arrow).
+ ![BuildSettings](/image/Build%20Settings.png)
 
- 5. Enfin, cliquer sur le bouton "Build and Run", et le projet pourra se lancer sur votre casque Oculus Quest3.
+ 
+ 5. Finally, click on the "Build and Run" button, and the project will launch in your Oculus Quest3 headset.
 
+## Users Guide
+ When the project is launched on the headset, press the Unity icon to start. You will see an arena on the table with PaperPlanes spawning inside.
 
-## Prise en main du projet
+ - Grab Interaction: When the small sphere is near a paper plane or a cube, you will feel a slight vibration. Press the trigger with your middle finger to grab an object.
 
- - Tous les fichiers et scènes utilisés sont dans le dossier Assets/FinalScene
- - Les Scripts utilisés sont dans le dossier Script, rangés dans chaque dossier correspondant. De même pour les prefabs qui sont dans le dossier "Prefab".
- - Nous avons importé 3 prefab qui se trouvent dans le dossier "Imported Prefab" : il comporte le debug panel, le mesh de l'avion en papier, ainsi que le spray
+ - Poke Interaction: A watch is available on the left hand. By tapping buttons, you can switch between different modes. If you are left-handed, you can switch the watch to the right side by tapping the "..." button twice and then the "Right" button once.
 
+ - Spawning object: On the first page of the watch, you can choose to spawn either a paper plane or a cube. When a spawn mode is selected, a spray will appear. Pull the trigger with your index finger to spawn an object.
 
+ - Resizing a Cube: To resize a cube, grab it with one hand, then use your other hand to grab a different side of the cube. The color of the side will change, indicating that you can resize it.
 
- ## Developper part
+## Developper part
 
- ### Project architecture
+### Project architecture
 
  In the **Asset** Folder  you will find all the files related to the project.
  
