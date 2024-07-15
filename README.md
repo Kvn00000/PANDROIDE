@@ -68,9 +68,19 @@ This project demonstrates a simulation of collective movements in virtual realit
 
 ### Final Scene folder
 In this folder you will find the most recent version of the code. This code is functionnal with the following architecture :
-- **Imported prefab**
-- **Materials**
-- **Prefabs**
-- **Scripts**
+
+- **Imported prefab** contains as the name implies the imported prefabs like the spray  and the paper plane asset. 
+- **Materials** contains the materials of all prefabs. There are transparent variants needed for the fadeOut.
+- **Prefabs** contains all the prefabs not imported. 
+- **Scripts** contains all the scripts used in the scene
+- **TestScene** contains the scenes used for testing.
+
+In this folder you will also find _FinalSceneMR_ scene where the final version of the project is implemented.
+
+###  Prefabs
+
+The Prefabs folder have the following object :
+* Boid --> The prefab of the boid
+* Ground --> The folder containing the prefabs for the plane and the ground of the arena
 
 
