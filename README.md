@@ -77,10 +77,47 @@ In this folder you will find the most recent version of the code. This code is f
 
 In this folder you will also find _FinalSceneMR_ scene where the final version of the project is implemented.
 
-###  Prefabs
+###  Prefabs Folder
 
 The Prefabs folder have the following object :
 * Boid --> The prefab of the boid
 * Ground --> The folder containing the prefabs for the plane and the ground of the arena
+* ARPlaneColored --> a prefab used in the visualization of the plan in the debug.
+* ParentArena --> The parent arena that was used in resize of the arena feature. This is disabled in this version of the project
+* PlanDensity --> a prefab that act as a bounding box for the table to avoid the problem where boid dive through the plan.
+* ResizeCube --> the prefab of the cube used in the project.
+* Wall --> The prefab of wall of the arena
 
+###  Scripts Folder
+Each script is sorted according to the feature of the script.
+The folder follows this architecture :
+* AR Colorization --> contain the script used to color the planes
+* Boids --> scripts related to the boids 
+* Cubes --> scripts related to the cubes
+* Destruction --> scripts related to the destruction of the objects
+* Ground_Arena --> scripts related the plane of the arena
+* Interraction --> scripts related to the MR interractions
+* initialisation scene --> scripts related to the creation of the arena and the plane detection
+* UI --> scripts related to the User Interface
+* Wall --> scripts related to the creation of the walls of the arena
 
+#### Boids Script folder 
+The folder contains :
+* **_boidTuning.cs_** --> The main code of the boids
+* **_CounterG2.cs_** --> The code that handle the ground collisions of the boids
+
+#### Cubes scripts folder
+The folder contains :
+
+#### Destruction scripts folder
+The folder contains :
+#### Ground_Arena scripts folder
+The folder contains :
+#### Interraction scripts folder
+The folder contains :
+#### Initialisation scene scripts folder
+The folder contains :
+#### UI scripts folder
+The folder contains :
+#### Wall scripts 
+The folder contains :
