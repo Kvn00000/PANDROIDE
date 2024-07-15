@@ -10,7 +10,19 @@
     - [Project Architecture](#project-architecture)
     - [Atelier Test Boid](#atelier-test-boid)
     - [Final Scene Folder](#final-scene-folder)
-    
+    - [Prefabs Folder](#prefabs-folder)
+    - [Scripts Folder](#scripts-folder)
+        - [Boids Script folder ](#boids-script-folder)
+        - [Cubes scripts folder ](#cubes-scripts-folder)
+        - [Destruction scripts folder ](#destruction-scripts-folder)
+        - [Ground_Arena scripts folder ](#ground_arena-scripts-folder)
+        - [Interraction scripts folder ](#interraction-scripts-folder)
+        - [Initialisation scene scripts folder ](#initialisation-scene-scripts-folder)
+        - [UI scripts folder ](#ui-scripts-folder)
+        - [Wall scripts](#wall-scripts-folder)
+    - [TestScene Folder](#testscene-folder)
+    - [Final Scene MR Intro](#final-scene-mr-intro)
+
 ## Project Description
 This project demonstrates a simulation of collective movements in virtual reality, where users can interact with cubes and boids represented as paper planes. An arena will spawn on a table and users can interact by grabbing objects or resizing cubes.
 
@@ -77,7 +89,7 @@ In this folder you will find the most recent version of the code. This code is f
 
 In this folder you will also find _FinalSceneMR_ scene where the final version of the project is implemented.
 
-###  Prefabs Folder
+### Prefabs folder
 
 The Prefabs folder have the following object :
 * Boid --> The prefab of the boid
@@ -108,16 +120,50 @@ The folder contains :
 
 #### Cubes scripts folder
 The folder contains :
+* Coloration --> A folder with the scripts to color each face of the cube if the face is selected
+* **_CubeScale.cs_** --> Script used to resize the cube in each dimension
+* **_ResizeCubeGravity.cs_** -->  change the mass of the cube if the cube is on the ground. Prevent boids to push the cube
 
 #### Destruction scripts folder
 The folder contains :
+* **_DestroyGroundScript.cs_** --> Script used to destroy the cubes on the ground and boids if persistance is disabled
+* **_FadeOutScript.cs_** -->  Script containing the fadeOut executed by the cubes and boids before destruction. If the object is grabbed cancel the fadeOut.
+
 #### Ground_Arena scripts folder
 The folder contains :
+* Scripts called **_BackGround.cs_** and others that create the tile of the tiled version of the project. Not used because of poor performances.
+* **_plane.cs_** --> Create the plane of the arena.
 #### Interraction scripts folder
 The folder contains :
+* **_pull.cs_** --> Handle the resize for a tile of the tiled version of the project. Not used.
+* **_SpawnBoidScript.cs_** --> Allow the user to spawn boids or cube in the limits decided by the dev. Limits are now 100 Boids and 100 cubes. Higher values results in lower FPS.
+
 #### Initialisation scene scripts folder
 The folder contains :
+* **_InitSceneScript.cs_** --> One of the most important script. Initialize the arena and modify the parameters of spawned boids. Also impact the number of sides of the arena.
+* **_ScenePlaneDetectController.cs_** --> On of the most important script. Detect the AR planes and spawn the arena using **_InitSceneScript.cs_**. Handle the save of parameters like the persistance Arena dimensions and spawn to rebuild the scene by pressing meta button twice if the user go out of bounds.
+
 #### UI scripts folder
 The folder contains :
-#### Wall scripts 
+* Image --> a folder that contains the images of the circular menu
+* **_CircularMenu.cs_** --> Handle the interraction and navigation of the circular menu. 
+* **_HandleMenuAffordance.asset_** --> is used to make the circular menu appear.
+#### Wall scripts folder
 The folder contains :
+* **_CircleWallScript.cs_** --> Create a sided wall. if the number of side is high, create a circular wall. Also contains functions to draw the top of a wall to allow wall with a thickness.
+* **_ResizableWallScript.cs_**  --> Allow the user to resize the arena. Feature disabled in the lastest build because not that usefull a source of problem with the On/Off of this mod.
+
+### TestScene folder
+This folder contains differents scene used for testing feature in isolation. Very usefull if you want to keep unity debug information and if you know how to use the XR device simulator.
+
+### Final Scene MR Intro
+
+the final scene contain different game objects. The most important game object are :
+* the XR Hands Information Setup  --> Contains most of the MR device with the XR Origin
+* the Init Scene --> This is where you can change the infos easily to propagate toward boids and spawner
+* the XR device simulator -->  enable this if you want to test a scene without a headset on. 
+* The debug panel --> not active because debug is disabled at start.
+
+If you want to modify the spawner and menus you will find them in the in the XR Origin in the left and right controller.
+
+![FinalSceneMR](/image/finalSceneMRImage.png)
