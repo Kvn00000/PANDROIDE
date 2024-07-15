@@ -54,7 +54,7 @@ The public variables are :
 
 The main behavior follow this pattern :
 
-![BoidMainBehaviour](/image/MainBehaviourBoid.png)
+![BoidMainBehaviour](/image/MainBehaviourBoid.PNG)
 
 This induces the following priority on the behaviors :
 
@@ -68,7 +68,7 @@ This induces the following priority on the behaviors :
 ----
 Each behavior follows this structure : 
 
-![BoidMainBehaviour](/image/BehaviourScheme.png)
+![BoidMainBehaviour](/image/BehaviourScheme.PNG)
 
 Each behavior needs the value of the previous behavior rotation and the value of ray minimal distance and maximal distance if needed.
 
