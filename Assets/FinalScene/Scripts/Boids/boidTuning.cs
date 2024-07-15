@@ -11,12 +11,11 @@ public class boidTuning : MonoBehaviour
     private List<Collider> groundCollider = new List<Collider>();
     private bool grounded = false;
     private Transform _myTransform;
-    private XRGrabInteractable _grab;
     
     
     //Attributs public
 
-    //Booleens regissants l'utilisation des comportements
+    //Booleans that indicates which behaviour is used --> set in the prefab of the boid
     public bool withGoto = false;
     public bool withCohesion = false;
     public bool withAvoid = false;
