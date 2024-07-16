@@ -24,7 +24,7 @@
     - [Final Scene MR Intro](#final-scene-mr-intro)
 
 ## Project Description
-This project demonstrates a simulation of collective movements in virtual reality, where users can interact with cubes and boids represented as paper planes. An arena will spawn on a table and users can interact by grabbing objects or resizing cubes.
+This project demonstrates a simulation of collective movements in virtual reality. Users can interact with cubes and boids represented as paper planes. An arena will spawn on a table and users can interact by grabbing objects or resizing cubes.
 
 ## Installation
 
@@ -70,13 +70,11 @@ This project demonstrates a simulation of collective movements in virtual realit
 
 ### Project architecture
 
- In the **Asset** Folder  you will find all the files related to the project.
- 
- Inside you will find a lot of folder. The main folders are the **Atelier Test Boid** and the **FinalScene**.
+ In the **Asset** Folder  you will find all the files related to the project. The main folders are the **Atelier Test Boid** and the **FinalScene**.
 
 ### Atelier Test Boid 
 
- In the **Atelier Test Boid** you will find previous iterations of the boids code. They are not all working but shows that they are diffrent ways to implements these behaviours in Unity. There you also have the **_BoidWorkshop_** scene where you will be able to test boids prefab with differents arenas and obstacles. It is recommended to use this scene if you need to change the boids behaviour to tune before using them in the real scene.
+ In the **Atelier Test Boid** you will find previous iterations of the boids code. They are not all working but shows that there are different ways to implements these behaviours in Unity. There you also have the **_BoidWorkshop_** scene where you will be able to test boids prefab with differents arenas and obstacles. It is recommended to use this scene if you need to change the boids behaviour to tune before using them in the real scene.
 
 ### Final Scene folder
 In this folder you will find the most recent version of the code. This code is functionnal with the following architecture :
@@ -84,7 +82,7 @@ In this folder you will find the most recent version of the code. This code is f
 - **Imported prefab** contains as the name implies the imported prefabs like the spray  and the paper plane asset. 
 - **Materials** contains the materials of all prefabs. There are transparent variants needed for the fadeOut.
 - **Prefabs** contains all the prefabs not imported. 
-- **Scripts** contains all the scripts used in the scene
+- **Scripts** contains all the scripts used in the FinalSceneMR.
 - **TestScene** contains the scenes used for testing.
 
 In this folder you will also find _FinalSceneMR_ scene where the final version of the project is implemented.
