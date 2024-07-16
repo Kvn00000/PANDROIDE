@@ -183,7 +183,7 @@ public class ScenePlaneDetectController : MonoBehaviour
                         plane.gameObject.AddComponent<ARAnchor>();
                         
                         //add under plan to limit boid dicgin into the table
-                        Vector3 underplane = new Vector3(plane.transform.position.x, plane.transform.position.y-0.00000001f, plane.transform.position.z);
+                        Vector3 underplane = new Vector3(plane.transform.position.x, plane.transform.position.y-0.25f, plane.transform.position.z);
                         GameObject dense=Instantiate(planDense, underplane, plane.transform.rotation);
                         dense.transform.localScale = new Vector3(plane.size.x, dense.transform.localScale.y*0.40f, plane.size.y);
                         underP = dense;
